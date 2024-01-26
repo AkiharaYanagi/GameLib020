@@ -10,6 +10,7 @@
 #include "KeyConfig.h"
 #include "DeviceInput.h"
 #include <fstream>
+#include "SivInputDefine.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -65,13 +66,13 @@ namespace GAME
 			LEVER_DIR lvr = LEVER_DIR::LVR_UP;
 
 			JoystickInput ji;
+			DWORD bufdw;
 
 			switch ( type )
 			{
 			case KEYBOARD:
-				int i;
-				fs.read ( (char*)&i, BUF_SIZE );
-				key = i;
+				fs.read ( (char*)&bufdw, BUF_SIZE );
+				key = bufdw;
 				di.SetKey ( KEYBOARD, key );
 			break;
 
@@ -140,31 +141,31 @@ namespace GAME
 	{
 		const INPUT_DEVICE_TYPE IDT = INPUT_DEVICE_TYPE::KEYBOARD;
 
-		m_deviceInput [ P1_UP   ].SetKey ( IDT, DIK_UP );
-		m_deviceInput [ P1_DOWN ].SetKey ( IDT, DIK_DOWN );
-		m_deviceInput [ P1_LEFT ].SetKey ( IDT, DIK_LEFT );
-		m_deviceInput [ P1_RIGHT].SetKey ( IDT, DIK_RIGHT );
-		m_deviceInput [ P1_BTN0 ].SetKey ( IDT, DIK_Z );
-		m_deviceInput [ P1_BTN1 ].SetKey ( IDT, DIK_X );
-		m_deviceInput [ P1_BTN2 ].SetKey ( IDT, DIK_C );
-		m_deviceInput [ P1_BTN3 ].SetKey ( IDT, DIK_V );
-		m_deviceInput [ P1_BTN4 ].SetKey ( IDT, DIK_COMMA );
-		m_deviceInput [ P1_BTN5 ].SetKey ( IDT, DIK_PERIOD );
-		m_deviceInput [ P1_BTN6 ].SetKey ( IDT, DIK_SLASH );
-		m_deviceInput [ P1_BTN7 ].SetKey ( IDT, DIK_BACKSLASH );
+		m_deviceInput [ P1_UP   ].SetKey ( IDT, SIK_UP );
+		m_deviceInput [ P1_DOWN ].SetKey ( IDT, SIK_DOWN );
+		m_deviceInput [ P1_LEFT ].SetKey ( IDT, SIK_LEFT );
+		m_deviceInput [ P1_RIGHT].SetKey ( IDT, SIK_RIGHT );
+		m_deviceInput [ P1_BTN0 ].SetKey ( IDT, SIK_Z );
+		m_deviceInput [ P1_BTN1 ].SetKey ( IDT, SIK_X );
+		m_deviceInput [ P1_BTN2 ].SetKey ( IDT, SIK_C );
+		m_deviceInput [ P1_BTN3 ].SetKey ( IDT, SIK_V );
+		m_deviceInput [ P1_BTN4 ].SetKey ( IDT, SIK_COMMA );
+		m_deviceInput [ P1_BTN5 ].SetKey ( IDT, SIK_PERIOD );
+		m_deviceInput [ P1_BTN6 ].SetKey ( IDT, SIK_SLASH );
+		m_deviceInput [ P1_BTN7 ].SetKey ( IDT, SIK_BACKSLASH );
 
-		m_deviceInput [ P2_UP   ].SetKey ( IDT, DIK_HOME );
-		m_deviceInput [ P2_DOWN ].SetKey ( IDT, DIK_END );
-		m_deviceInput [ P2_LEFT ].SetKey ( IDT, DIK_DELETE );
-		m_deviceInput [ P2_RIGHT].SetKey ( IDT, DIK_PGUP );
-		m_deviceInput [ P2_BTN0 ].SetKey ( IDT, DIK_A );
-		m_deviceInput [ P2_BTN1 ].SetKey ( IDT, DIK_S );
-		m_deviceInput [ P2_BTN2 ].SetKey ( IDT, DIK_D );
-		m_deviceInput [ P2_BTN3 ].SetKey ( IDT, DIK_F );
-		m_deviceInput [ P2_BTN4 ].SetKey ( IDT, DIK_L );
-		m_deviceInput [ P2_BTN5 ].SetKey ( IDT, DIK_SEMICOLON );
-		m_deviceInput [ P2_BTN6 ].SetKey ( IDT, DIK_COLON );
-		m_deviceInput [ P2_BTN7 ].SetKey ( IDT, DIK_RBRACKET );
+		m_deviceInput [ P2_UP   ].SetKey ( IDT, SIK_HOME );
+		m_deviceInput [ P2_DOWN ].SetKey ( IDT, SIK_END );
+		m_deviceInput [ P2_LEFT ].SetKey ( IDT, SIK_DELETE );
+		m_deviceInput [ P2_RIGHT].SetKey ( IDT, SIK_PAGEUP );
+		m_deviceInput [ P2_BTN0 ].SetKey ( IDT, SIK_A );
+		m_deviceInput [ P2_BTN1 ].SetKey ( IDT, SIK_S );
+		m_deviceInput [ P2_BTN2 ].SetKey ( IDT, SIK_D );
+		m_deviceInput [ P2_BTN3 ].SetKey ( IDT, SIK_F );
+		m_deviceInput [ P2_BTN4 ].SetKey ( IDT, SIK_L );
+		m_deviceInput [ P2_BTN5 ].SetKey ( IDT, SIK_SEMICOLON_JIS );
+		m_deviceInput [ P2_BTN6 ].SetKey ( IDT, SIK_COLON_JIS );
+		m_deviceInput [ P2_BTN7 ].SetKey ( IDT, SIK_RBRACKET );
 	}
 
 	void KeyConfig::Save ()
@@ -242,7 +243,8 @@ namespace GAME
 
 	bool KeyConfig::Is_Keyboard ( DWORD key ) const
 	{
-		return DxInput::instance ()->IsOneKeyboard ( key );
+//		return DxInput::instance ()->IsOneKeyboard ( key );
+		return SivInput::instance ()->IsKey ( key );
 	}
 
 	//----------------------------------------------------------------------------------

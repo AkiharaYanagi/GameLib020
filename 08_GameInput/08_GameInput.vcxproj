@@ -121,6 +121,7 @@
   <ItemGroup>
     <ClCompile Include="DeviceInput.cpp" />
     <ClCompile Include="KeyConfig.cpp" />
+    <ClCompile Include="SivInput.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -324,6 +325,7 @@
     <ClInclude Include="..\Include\KeyConfig.h" />
     <ClInclude Include="..\Include\KeyDefine.h" />
     <ClInclude Include="SivInput.h" />
+    <ClInclude Include="SivInputDefine.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
