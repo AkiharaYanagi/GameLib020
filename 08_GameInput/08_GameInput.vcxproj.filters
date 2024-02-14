@@ -146,6 +146,12 @@
     <ClCompile Include="SivInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SivKeyboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SivGamePad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -791,6 +797,12 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="SivInputDefine.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SivKeyboard.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SivGamePad.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

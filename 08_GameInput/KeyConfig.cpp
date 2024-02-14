@@ -131,6 +131,13 @@ namespace GAME
 	bool KeyConfig::ReleKey ( GAME_USE_KEY key ) const
 	{
 		bool ret = false;
+		DeviceInput di = m_deviceInput [ key ];
+		INPUT_DEVICE_TYPE type = di.GetType ();
+		switch ( type )
+		{
+		case JOYSTICK: ret = ReleJoy ( di.GetJoy () ); break;
+		case KEYBOARD: ret = Rele_Keyboard ( di.GetKey () ); break;
+		}
 		return ret;
 	}
 

@@ -1,146 +1,138 @@
 ﻿#pragma once
 
 
-
-#define SIK_BACK		0x08	/* backspace */
-#define SIK_TAB			0x09
-#define SIK_CLEAR		0x0C	//Clear(NumLock を外した状態のテンキー5) キー	
-#define SIK_ENTER		0x0D	/* Enter on main keyboard */
-#define SIK_SHIFT		0x10
-#define SIK_CTRL		0x11
-#define SIK_ALT			0x12
-#define SIK_PAUSE		0x13	/* Pause */
-#define SIK_ESCAPE		0x1B
-#define SIK_SPACE		0x20
-#define SIK_PAGEUP		0x21	/* PgUp on arrow keypad */
-#define SIK_PAGEDN		0x22	/* PgDn on arrow keypad */
-#define SIK_HOME		0x23	/* Home on arrow keypad */
-#define SIK_END			0x24	/* End on arrow keypad */
-#define SIK_LEFT		0x25    /* LeftArrow on arrow keypad */
-#define SIK_UP			0x26    /* UpArrow on arrow keypad */
-#define SIK_RIGHT		0x27    /* RightArrow on arrow keypad */
-#define SIK_DOWN		0x28    /* DownArrow on arrow keypad */
-#define SIK_PRNTSCRN	0x2C
-#define SIK_INSERT		0x2D    /* Insert on arrow keypad */
-#define SIK_DELETE		0x2E    /* Delete on arrow keypad */
-
-#define SIK_0			0x30
-#define SIK_1			0x31
-#define SIK_2			0x32
-#define SIK_3			0x33
-#define SIK_4			0x34
-#define SIK_5			0x35
-#define SIK_6			0x36
-#define SIK_7			0x37
-#define SIK_8			0x38
-#define SIK_9			0x39
-#define SIK_A			0x41
-#define SIK_B			0x42
-#define SIK_C			0x43
-#define SIK_D			0x44
-#define SIK_E			0x45
-#define SIK_F			0x46
-#define SIK_G			0x47
-#define SIK_H			0x48
-#define SIK_I			0x49
-#define SIK_J			0x4A
-#define SIK_K			0x4B
-#define SIK_L			0x4C
-#define SIK_M			0x4D
-#define SIK_N			0x4E
-#define SIK_O			0x4F
-#define SIK_P			0x50
-#define SIK_Q			0x51
-#define SIK_R			0x52
-#define SIK_S			0x53
-#define SIK_T			0x54
-#define SIK_U			0x55
-#define SIK_V			0x56
-#define SIK_W			0x57
-#define SIK_X			0x58
-#define SIK_Y			0x59
-#define SIK_Z			0x5A
-
-#define SIK_NUMPAD0		0x60
-#define SIK_NUMPAD1		0x61
-#define SIK_NUMPAD2		0x62
-#define SIK_NUMPAD3		0x63
-#define SIK_NUMPAD4		0x64
-#define SIK_NUMPAD5		0x65
-#define SIK_NUMPAD6		0x66
-#define SIK_NUMPAD7		0x67
-#define SIK_NUMPAD8		0x68
-#define SIK_NUMPAD9		0x69
-
-#define SIK_MULTIPLY	0x6A		/*	*	 on numeric keypad */
-#define SIK_ADD			0x6B		/*	+	 on numeric keypad */
-#define SIK_NUMPADENTER	0x6C		/* Enter on numeric keypad */
-#define SIK_SUBTRACT	0x6D		/*	-	 on numeric keypad */
-#define SIK_DECIMAL		0x6E		/*	.	 on numeric keypad */
-#define SIK_DIVIDE		0x6F		/*	/	 on numeric keypad */
-
-#define SIK_F1			0x70
-#define SIK_F2			0x71
-#define SIK_F3			0x72
-#define SIK_F4			0x73
-#define SIK_F5			0x74
-#define SIK_F6			0x75
-#define SIK_F7			0x76
-#define SIK_F8			0x77
-#define SIK_F9			0x78
-#define SIK_F10			0x79
-#define SIK_F11			0x7A
-#define SIK_F12			0x7B
-#define SIK_F13			0x7C
-#define SIK_F14			0x7D
-#define SIK_F15			0x7E
-#define SIK_F16			0x7F
-#define SIK_F17			0x80
-#define SIK_F18			0x81
-#define SIK_F19			0x82
-#define SIK_F20			0x83
-#define SIK_F21			0x84
-#define SIK_F22			0x85
-#define SIK_F23			0x86
-#define SIK_F24			0x87
-
-#define SIK_NUMLOCK		0x90
-#define SIK_LSHIFT		0xA0
-#define SIK_RSHIFT		0xA1
-#define SIK_LCONTROL	0xA2
-#define SIK_RCONTROL	0xA3
-#define SIK_LALT		0xA4
-#define SIK_RALT		0xA5
-
-#define SIK_PREVTRACK	0xB0    /* Previous Track (SIK_CIRCUMFLEX on Japanese keyboard) */
-#define SIK_NEXTTRACK	0xB1    /* Next Track */
-#define SIK_PLAYPAUSE	0xB2    /* Play / Pause */
-#define SIK_MEDIASTOP	0xB3    /* Media Stop */
-
-#define SIK_COLON_JIS		0xBA    /*JIS*/
-#define SIK_SEMICOLON_US	0xBA	/*US*/
-#define SIK_SEMICOLON_JIS	0xBB	/*JIS*/
-#define SIK_EQUAL_US		0xBB	/*US*/
-
-#define SIK_COMMA		0xBC
-#define SIK_MINUS		0xBD	/* - on main keyboard */
-#define SIK_PERIOD		0xBE	/* . on main keyboard */
-#define SIK_SLASH		0xBF	/* / on main keyboard */
-#define SIK_GRAVE		0xC0	/* accent grave */
+//個数上限
+constexpr int SIV_KEYBOARD_NUM = 256;	// 0x00 -> 0xFF
 
 
-#define SIK_Command		0xD8
-#define SIK_LCommand	0xD9
-#define SIK_RCommand	0xDA
-
-#define SIK_LBRACKET	0xDB
-#define SIK_YEN			0xDC   /*JIS*/
-#define SIK_BACKSLASH	0xDC	/*US*/
-#define SIK_RBRACKET	0xDD
-
-#define SIK_CARET		0xDE   /*JIS*/
-#define SIK_APOSTROPHE	0xDE	/*US*/
-#define SIK_AUNDERSCORE	0xE2
+//各キーの定義
+constexpr uint8	 SIK_BACK		= 0x08;		/* backspace */
+constexpr uint8	 SIK_TAB		= 0x09;	
+constexpr uint8	 SIK_CLEAR		= 0x0C;		//Clear(NumLock を外した状態のテンキー5) キー	
+constexpr uint8	 SIK_ENTER		= 0x0D;		/* Enter on main keyboard */
+constexpr uint8	 SIK_SHIFT		= 0x10;	
+constexpr uint8	 SIK_CTRL		= 0x11;	
+constexpr uint8	 SIK_ALT		= 0x12;	
+constexpr uint8	 SIK_PAUSE		= 0x13;		/* Pause */
+constexpr uint8	 SIK_ESCAPE		= 0x1B;	
+constexpr uint8	 SIK_SPACE		= 0x20;	
+constexpr uint8	 SIK_PAGEUP		= 0x21;		/* PgUp on arrow keypad */
+constexpr uint8	 SIK_PAGEDN		= 0x22;		/* PgDn on arrow keypad */
+constexpr uint8	 SIK_HOME		= 0x23;		/* Home on arrow keypad */
+constexpr uint8	 SIK_END		= 0x24;		/* End on arrow keypad */
+constexpr uint8	 SIK_LEFT		= 0x25;	    /* LeftArrow on arrow keypad */
+constexpr uint8	 SIK_UP			= 0x26;	    /* UpArrow on arrow keypad */
+constexpr uint8	 SIK_RIGHT		= 0x27;	    /* RightArrow on arrow keypad */
+constexpr uint8	 SIK_DOWN		= 0x28;	    /* DownArrow on arrow keypad */
+constexpr uint8	 SIK_PRNTSCRN	= 0x2C;	
+constexpr uint8	 SIK_INSERT		= 0x2D;	    /* Insert on arrow keypad */
+constexpr uint8	 SIK_DELETE		= 0x2E;	    /* Delete on arrow keypad */
+constexpr uint8	 SIK_0			= 0x30;
+constexpr uint8	 SIK_1			= 0x31;
+constexpr uint8	 SIK_2			= 0x32;
+constexpr uint8	 SIK_3			= 0x33;
+constexpr uint8	 SIK_4			= 0x34;
+constexpr uint8	 SIK_5			= 0x35;
+constexpr uint8	 SIK_6			= 0x36;
+constexpr uint8	 SIK_7			= 0x37;
+constexpr uint8	 SIK_8			= 0x38;
+constexpr uint8	 SIK_9			= 0x39;
+constexpr uint8	 SIK_A			= 0x41;
+constexpr uint8	 SIK_B			= 0x42;
+constexpr uint8	 SIK_C			= 0x43;
+constexpr uint8	 SIK_D			= 0x44;
+constexpr uint8	 SIK_E			= 0x45;
+constexpr uint8	 SIK_F			= 0x46;
+constexpr uint8	 SIK_G			= 0x47;
+constexpr uint8	 SIK_H			= 0x48;
+constexpr uint8	 SIK_I			= 0x49;
+constexpr uint8	 SIK_J			= 0x4A;
+constexpr uint8	 SIK_K			= 0x4B;
+constexpr uint8	 SIK_L			= 0x4C;
+constexpr uint8	 SIK_M			= 0x4D;
+constexpr uint8	 SIK_N			= 0x4E;
+constexpr uint8	 SIK_O			= 0x4F;
+constexpr uint8	 SIK_P			= 0x50;
+constexpr uint8	 SIK_Q			= 0x51;
+constexpr uint8	 SIK_R			= 0x52;
+constexpr uint8	 SIK_S			= 0x53;
+constexpr uint8	 SIK_T			= 0x54;
+constexpr uint8	 SIK_U			= 0x55;
+constexpr uint8	 SIK_V			= 0x56;
+constexpr uint8	 SIK_W			= 0x57;
+constexpr uint8	 SIK_X			= 0x58;
+constexpr uint8	 SIK_Y			= 0x59;
+constexpr uint8	 SIK_Z			= 0x5A;
+constexpr uint8	 SIK_NUMPAD0	= 0x60;
+constexpr uint8	 SIK_NUMPAD1	= 0x61;
+constexpr uint8	 SIK_NUMPAD2	= 0x62;
+constexpr uint8	 SIK_NUMPAD3	= 0x63;
+constexpr uint8	 SIK_NUMPAD4	= 0x64;
+constexpr uint8	 SIK_NUMPAD5	= 0x65;
+constexpr uint8	 SIK_NUMPAD6	= 0x66;
+constexpr uint8	 SIK_NUMPAD7	= 0x67;
+constexpr uint8	 SIK_NUMPAD8	= 0x68;
+constexpr uint8	 SIK_NUMPAD9	= 0x69;
+constexpr uint8	 SIK_MULTIPLY	= 0x6A;		/*	*	 on numeric keypad */
+constexpr uint8	 SIK_ADD		= 0x6B;		/*	+	 on numeric keypad */
+constexpr uint8	 SIK_NUMPADENTER= 0x6C;		/* Enter on numeric keypad */
+constexpr uint8	 SIK_SUBTRACT	= 0x6D;		/*	-	 on numeric keypad */
+constexpr uint8	 SIK_DECIMAL	= 0x6E;		/*	.	 on numeric keypad */
+constexpr uint8	 SIK_DIVIDE		= 0x6F;		/*	/	 on numeric keypad */
+constexpr uint8	 SIK_F1			= 0x70;
+constexpr uint8	 SIK_F2			= 0x71;
+constexpr uint8	 SIK_F3			= 0x72;
+constexpr uint8	 SIK_F4			= 0x73;
+constexpr uint8	 SIK_F5			= 0x74;
+constexpr uint8	 SIK_F6			= 0x75;
+constexpr uint8	 SIK_F7			= 0x76;
+constexpr uint8	 SIK_F8			= 0x77;
+constexpr uint8	 SIK_F9			= 0x78;
+constexpr uint8	 SIK_F10		= 0x79;
+constexpr uint8	 SIK_F11		= 0x7A;
+constexpr uint8	 SIK_F12		= 0x7B;
+constexpr uint8	 SIK_F13		= 0x7C;
+constexpr uint8	 SIK_F14		= 0x7D;
+constexpr uint8	 SIK_F15		= 0x7E;
+constexpr uint8	 SIK_F16		= 0x7F;
+constexpr uint8	 SIK_F17		= 0x80;
+constexpr uint8	 SIK_F18		= 0x81;
+constexpr uint8	 SIK_F19		= 0x82;
+constexpr uint8	 SIK_F20		= 0x83;
+constexpr uint8	 SIK_F21		= 0x84;
+constexpr uint8	 SIK_F22		= 0x85;
+constexpr uint8	 SIK_F23		= 0x86;
+constexpr uint8	 SIK_F24		= 0x87;
+constexpr uint8	 SIK_NUMLOCK	= 0x90;
+constexpr uint8	 SIK_LSHIFT		= 0xA0;
+constexpr uint8	 SIK_RSHIFT		= 0xA1;
+constexpr uint8	 SIK_LCONTROL	= 0xA2;
+constexpr uint8	 SIK_RCONTROL	= 0xA3;
+constexpr uint8	 SIK_LALT		= 0xA4;
+constexpr uint8	 SIK_RALT		= 0xA5;
+constexpr uint8	 SIK_PREVTRACK	= 0xB0;    /* Previous Track (SIK_CIRCUMFLEX on Japanese keyboard) */
+constexpr uint8	 SIK_NEXTTRACK	= 0xB1;    /* Next Track */
+constexpr uint8	 SIK_PLAYPAUSE	= 0xB2;    /* Play / Pause */
+constexpr uint8	 SIK_MEDIASTOP	= 0xB3;    /* Media Stop */
+constexpr uint8	 SIK_COLON_JIS	= 0xBA;    /*JIS*/
+constexpr uint8	 SIK_SEMICOLON_US	= 	0xBA;	/*US*/
+constexpr uint8	 SIK_SEMICOLON_JIS	= 	0xBB;	/*JIS*/
+constexpr uint8	 SIK_EQUAL_US		= 	0xBB;	/*US*/
+constexpr uint8	 SIK_COMMA		= 0xBC;
+constexpr uint8	 SIK_MINUS		= 0xBD;	/* - on main keyboard */
+constexpr uint8	 SIK_PERIOD		= 0xBE;	/* . on main keyboard */
+constexpr uint8	 SIK_SLASH		= 0xBF;	/* / on main keyboard */
+constexpr uint8	 SIK_GRAVE		= 0xC0;	/* accent grave */
+constexpr uint8	 SIK_Command	= 0xD8;
+constexpr uint8	 SIK_LCommand	= 0xD9;
+constexpr uint8	 SIK_RCommand	= 0xDA;
+constexpr uint8	 SIK_LBRACKET	= 0xDB;
+constexpr uint8	 SIK_YEN		= 0xDC;   /*JIS*/
+constexpr uint8	 SIK_BACKSLASH	= 0xDC;	/*US*/
+constexpr uint8	 SIK_RBRACKET	= 0xDD;
+constexpr uint8	 SIK_CARET		= 0xDE;   /*JIS*/
+constexpr uint8	 SIK_APOSTROPHE	= 0xDE;	/*US*/
+constexpr uint8	 SIK_AUNDERSCORE	= 0xE2;
 
 
 
