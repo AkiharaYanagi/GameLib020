@@ -328,7 +328,7 @@
     <ClInclude Include="..\Include\KeyDefine.h" />
     <ClInclude Include="SivGamePad.h" />
     <ClInclude Include="SivInput.h" />
-    <ClInclude Include="SivInputDefine.h" />
+    <ClInclude Include="SivKeyboardDefine.h" />
     <ClInclude Include="SivKeyboard.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

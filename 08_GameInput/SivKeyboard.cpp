@@ -17,7 +17,7 @@ namespace GAME
 
 	SivKeyboard::SivKeyboard()
 	{
-		Array < bool > ary { F, F };
+		Array < bool > ary { F };
 	}
 
 	SivKeyboard::~SivKeyboard()
@@ -26,7 +26,7 @@ namespace GAME
 
 
 	//指定したキーが押されているか
-	bool SivKeyboard::IsKey( int nKey )
+	bool SivKeyboard::IsKey( KEY_NAME nKey )
 	{
 #if 0
 		//デバイスの直接データを取得する
@@ -54,7 +54,7 @@ namespace GAME
 
 
 	//指定したキーが押された瞬間か
-	bool SivKeyboard::PushKey( int nKey )
+	bool SivKeyboard::PushKey( KEY_NAME nKey )
 	{
 #if 0
 		if ( m_lpDIKeyboard == nullptr ) return false;	//キーボードのない状態はfalseを返す
@@ -84,7 +84,7 @@ namespace GAME
 
 
 	//指定したキーが離された瞬間か
-	bool SivKeyboard::ReleaseKey( int nKey )
+	bool SivKeyboard::ReleaseKey( KEY_NAME nKey )
 	{
 #if 0
 		if ( m_lpDIKeyboard == nullptr ) return false;	//キーボードのない状態はfalseを返す

@@ -796,7 +796,7 @@
     <ClInclude Include="SivInput.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="SivInputDefine.h">
+    <ClInclude Include="SivKeyboardDefine.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="SivKeyboard.h">

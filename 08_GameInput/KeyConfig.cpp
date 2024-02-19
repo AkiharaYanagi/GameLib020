@@ -8,9 +8,9 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "KeyConfig.h"
-#include "DeviceInput.h"
+#include "SivInput.h"
 #include <fstream>
-#include "SivInputDefine.h"
+#include "SivKeyboardDefine.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -35,66 +35,8 @@ namespace GAME
 	//------------------------------------------
 
 
-	void KeyConfig::Load ()
-	{
-		//設定ファイル読込
-		std::fstream fs ( _T("keyConfig.dat"), std::ios::in, std::ios::binary );
-
-		//エラーのとき
-		if ( fs.fail () )
-		{
-			//新規ファイルの作成
-			SetInitial ();
-			Save ();
-			return;
-		}
-
-		//各キーに対して対応デバイス入力を読込
-		for ( int i = 0; i < GAME_USE_KEY_NUM; ++ i )
-		{
-			DeviceInput di;
-
-			const size_t BUF_SIZE = 4;
-			char buf [ BUF_SIZE ];
-			fs.read ( buf, BUF_SIZE );
-			INPUT_DEVICE_TYPE type = (INPUT_DEVICE_TYPE)*buf;
-
-			DWORD key = 0;
-			DWORD joystickID = 0;
-			JOY_INPUT_TYPE joytype = JOY_INPUT_TYPE::JIT_AXIS;
-			DWORD buttonID = 0;
-			LEVER_DIR lvr = LEVER_DIR::LVR_UP;
-
-			JoystickInput ji;
-			DWORD bufdw;
-
-			switch ( type )
-			{
-			case KEYBOARD:
-				fs.read ( (char*)&bufdw, BUF_SIZE );
-				key = bufdw;
-				di.SetKey ( KEYBOARD, key );
-			break;
-
-			case JOYSTICK:
-				fs.read ( buf, BUF_SIZE );
-				joystickID = (DWORD)*buf;
-				fs.read ( buf, BUF_SIZE );
-				joytype = (JOY_INPUT_TYPE)(int)*buf;
-				fs.read ( buf, BUF_SIZE );
-				buttonID = (DWORD)*buf;
-				fs.read ( buf, BUF_SIZE );
-				lvr = (LEVER_DIR)(int)*buf;
-
-				ji.Set ( joystickID, joytype, buttonID, lvr );
-				di.SetJoy ( ji );
-			break;
-			}
-
-			m_deviceInput [ i ] = di;	//代入OK
-		}
-	}
-
+	//--------------------------------------------------
+	//ゲーム利用
 	bool KeyConfig::IsKey ( GAME_USE_KEY key ) const
 	{
 		bool ret = false;
@@ -103,7 +45,7 @@ namespace GAME
 		INPUT_DEVICE_TYPE type = di.GetType ();
 		switch ( type )
 		{
-		case JOYSTICK: ret = IsJoy ( di.GetJoy () ); break;
+		case GAMEPAD: ret = Is_Joy ( di.GetPad () ); break;
 		case KEYBOARD: ret = Is_Keyboard ( di.GetKey () ); break;
 		}
 		return ret;
@@ -122,7 +64,7 @@ namespace GAME
 		INPUT_DEVICE_TYPE type = di.GetType ();
 		switch ( type )
 		{
-		case JOYSTICK: ret = PushJoy ( di.GetJoy () ); break;
+		case GAMEPAD: ret = Push_Joy ( di.GetPad () ); break;
 		case KEYBOARD: ret = Push_Keyboard ( di.GetKey () ); break;
 		}
 		return ret;
@@ -135,7 +77,7 @@ namespace GAME
 		INPUT_DEVICE_TYPE type = di.GetType ();
 		switch ( type )
 		{
-		case JOYSTICK: ret = ReleJoy ( di.GetJoy () ); break;
+		case GAMEPAD: ret = Rele_Joy ( di.GetPad () ); break;
 		case KEYBOARD: ret = Rele_Keyboard ( di.GetKey () ); break;
 		}
 		return ret;
@@ -175,6 +117,9 @@ namespace GAME
 		m_deviceInput [ P2_BTN7 ].SetKey ( IDT, SIK_RBRACKET );
 	}
 
+
+	//--------------------------------------------------
+	//保存
 	void KeyConfig::Save ()
 	{
 		std::fstream fs ( _T ( "keyConfig.dat" ), std::ios::out, std::ios::binary );
@@ -191,12 +136,12 @@ namespace GAME
 				fs.write ( (char*)di.GetKey (), sizeof ( DWORD ) );
 			break;
 	
-			case JOYSTICK:
-				JoystickInput ji = di.GetJoy ();
+			case GAMEPAD:
+				GamePadInput ji = di.GetPad ();
 				DWORD id = ji.GetID ();
 				fs.write ( (char*)id, sizeof ( DWORD ) );
-				JOY_INPUT_TYPE joytype = ji.GetInputType ();
-				fs.write ( (char*)joytype, sizeof ( JOY_INPUT_TYPE ) );
+				PAD_INPUT_TYPE joytype = ji.GetInputType ();
+				fs.write ( (char*)joytype, sizeof ( PAD_INPUT_TYPE ) );
 				DWORD btn = ji.GetButtonID ();
 				fs.write ( (char*)btn, sizeof ( DWORD ) );
 				LEVER_DIR lvr = ji.GetLever ();
@@ -206,49 +151,112 @@ namespace GAME
 		}
 	}
 
+	//--------------------------------------------------
+	//読込
+	void KeyConfig::Load ()
+	{
+		//設定ファイル読込
+		std::fstream fs ( _T("keyConfig.dat"), std::ios::in, std::ios::binary );
+
+		//エラーのとき
+		if ( fs.fail () )
+		{
+			//新規ファイルの作成
+			SetInitial ();
+			Save ();
+			return;
+		}
+
+		//各キーに対して対応デバイス入力を読込
+		for ( int i = 0; i < GAME_USE_KEY_NUM; ++ i )
+		{
+			DeviceInput di;
+
+			const size_t BUF_SIZE = 4;
+			char buf [ BUF_SIZE ];
+			fs.read ( buf, BUF_SIZE );
+			INPUT_DEVICE_TYPE type = (INPUT_DEVICE_TYPE)*buf;
+
+			DWORD key = 0;
+			DWORD joystickID = 0;
+			PAD_INPUT_TYPE joytype = PAD_INPUT_TYPE::PIT_AXIS;
+			DWORD buttonID = 0;
+			LEVER_DIR lvr = LEVER_DIR::LVR_UP;
+
+			GamePadInput ji;
+			DWORD bufdw;
+
+			switch ( type )
+			{
+			case KEYBOARD:
+				fs.read ( (char*)&bufdw, BUF_SIZE );
+				key = bufdw;
+				di.SetKey ( KEYBOARD, key );
+				break;
+
+			case GAMEPAD:
+				fs.read ( buf, BUF_SIZE );
+				joystickID = (DWORD)*buf;
+				fs.read ( buf, BUF_SIZE );
+				joytype = (PAD_INPUT_TYPE)(int)*buf;
+				fs.read ( buf, BUF_SIZE );
+				buttonID = (DWORD)*buf;
+				fs.read ( buf, BUF_SIZE );
+				lvr = (LEVER_DIR)(int)*buf;
+
+				ji.Set ( joystickID, joytype, buttonID, lvr );
+				di.SetPad ( ji );
+				break;
+			}
+
+			m_deviceInput [ i ] = di;	//代入OK
+		}
+	}
+
+
 
 	//----------------------------------------------------------------------------------
 	//押された状態かどうか
-	bool KeyConfig::IsJoy ( JoystickInput ji ) const
+	bool KeyConfig::Is_Joy ( GamePadInput ji ) const
 	{
 		DWORD id = ji.GetID ();
-		JOY_INPUT_TYPE type = ji.GetInputType ();
+		PAD_INPUT_TYPE type = ji.GetInputType ();
 		switch ( type )
 		{
-		case JIT_AXIS: return Is_Axis_Lvr ( id, ji.GetLever () ); break;
-		case JIT_POINT_OF_VIEW: return Is_POV_Lvr ( id, ji.GetLever () ); break;
-		case JIT_BUTTON: return DXINP->IsJoyButton ( id, ji.GetButtonID () ); break;
+		case PIT_AXIS: return Is_Axis_Lvr ( id, ji.GetLever () ); break;
+		case PIT_POINT_OF_VIEW: return Is_POV_Lvr ( id, ji.GetLever () ); break;
+		case PIT_BUTTON: return SVINP->IsJoyButton ( id, ji.GetButtonID () ); break;
 		}
 		return false;
 	}
 
-	bool KeyConfig::Is_Axis_Lvr ( DWORD ID, LEVER_DIR lvr ) const
+	bool KeyConfig::Is_Axis_Lvr ( uint32 ID, LEVER_DIR lvr ) const
 	{
 		bool ret = false;
 		switch ( lvr )
 		{
-		case LEVER_DIR::LVR_UP:		ret = DXINP->IsAxisUp ( ID );		break;
-		case LEVER_DIR::LVR_DOWN:	ret = DXINP->IsAxisDown ( ID );		break;
-		case LEVER_DIR::LVR_LEFT:	ret = DXINP->IsAxisLeft ( ID );		break;
-		case LEVER_DIR::LVR_RIGHT:	ret = DXINP->IsAxisRight ( ID );	break;
+		case LEVER_DIR::LVR_UP:		ret = SVINP->IsAxisUp ( ID );		break;
+		case LEVER_DIR::LVR_DOWN:	ret = SVINP->IsAxisDown ( ID );		break;
+		case LEVER_DIR::LVR_LEFT:	ret = SVINP->IsAxisLeft ( ID );		break;
+		case LEVER_DIR::LVR_RIGHT:	ret = SVINP->IsAxisRight ( ID );	break;
 		}
 		return ret;
 	}
 	
-	bool KeyConfig::Is_POV_Lvr ( DWORD ID, LEVER_DIR lvr ) const
+	bool KeyConfig::Is_POV_Lvr ( uint32 ID, LEVER_DIR lvr ) const
 	{
 		bool ret = false;
 		switch ( lvr )
 		{
-		case LEVER_DIR::LVR_UP:		ret = DXINP->IsPovUp ( ID );	break;
-		case LEVER_DIR::LVR_DOWN:	ret = DXINP->IsPovDown ( ID );	break;
-		case LEVER_DIR::LVR_LEFT:	ret = DXINP->IsPovLeft ( ID );	break;
-		case LEVER_DIR::LVR_RIGHT:	ret = DXINP->IsPovRight ( ID );	break;
+		case LEVER_DIR::LVR_UP:		ret = SVINP->IsPovUp ( ID );	break;
+		case LEVER_DIR::LVR_DOWN:	ret = SVINP->IsPovDown ( ID );	break;
+		case LEVER_DIR::LVR_LEFT:	ret = SVINP->IsPovLeft ( ID );	break;
+		case LEVER_DIR::LVR_RIGHT:	ret = SVINP->IsPovRight ( ID );	break;
 		}
 		return ret;
 	}
 
-	bool KeyConfig::Is_Keyboard ( DWORD key ) const
+	bool KeyConfig::Is_Keyboard ( uint32 key ) const
 	{
 //		return DxInput::instance ()->IsOneKeyboard ( key );
 		return SivInput::instance ()->IsKey ( key );
@@ -256,20 +264,20 @@ namespace GAME
 
 	//----------------------------------------------------------------------------------
 	//押された瞬間かどうか
-	bool KeyConfig::PushJoy ( JoystickInput ji ) const
+	bool KeyConfig::Push_Joy ( GamePadInput ji ) const
 	{
 		DWORD id = ji.GetID ();
-		JOY_INPUT_TYPE type = ji.GetInputType ();
+		PAD_INPUT_TYPE type = ji.GetInputType ();
 		switch ( type )
 		{
-		case JIT_AXIS: return Push_Axis_Lvr ( id, ji.GetLever () ); break;
-		case JIT_POINT_OF_VIEW: return Push_POV_Lvr ( id, ji.GetLever () ); break;
-		case JIT_BUTTON: return DXINP->PushJoyButton ( id, ji.GetButtonID () ); break;
+		case PIT_AXIS: return Push_Axis_Lvr ( id, ji.GetLever () ); break;
+		case PIT_POINT_OF_VIEW: return Push_POV_Lvr ( id, ji.GetLever () ); break;
+		case PIT_BUTTON: return DXINP->PushJoyButton ( id, ji.GetButtonID () ); break;
 		}
 		return false;
 	}
 
-	bool KeyConfig::Push_Axis_Lvr ( DWORD ID, LEVER_DIR lvr ) const
+	bool KeyConfig::Push_Axis_Lvr ( uint32 ID, LEVER_DIR lvr ) const
 	{
 		bool ret = false;
 		switch ( lvr )
@@ -282,7 +290,7 @@ namespace GAME
 		return ret;
 	}
 
-	bool KeyConfig::Push_POV_Lvr ( DWORD ID, LEVER_DIR lvr ) const
+	bool KeyConfig::Push_POV_Lvr ( uint32 ID, LEVER_DIR lvr ) const
 	{
 		bool ret = false;
 		switch ( lvr )
@@ -295,9 +303,9 @@ namespace GAME
 		return ret;
 	}
 
-	bool KeyConfig::Push_Keyboard ( DWORD key ) const
+	bool KeyConfig::Push_Keyboard ( uint32 key ) const
 	{
-		return DxInput::instance ()->PushOneKeyboard ( key );
+		return SVINP->PushOneKeyboard ( key );
 	}
 
 	//----------------------------------------------------------------------------------

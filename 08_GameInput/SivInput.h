@@ -10,6 +10,8 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Define.h"
+#include "SivKeyboard.h"
+#include "SivGamePad.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -19,9 +21,36 @@ namespace GAME
 {
 	class SivInput
 	{
-		//Keyboard
+	//---------------------------------------------------------------------
+	//シングルトン　パターン
+	private:
+		using P_SivInput = std::unique_ptr < SivInput >;	//ポインタ型定義
+		static P_SivInput	m_inst;		//シングルトンインスタンス(実体は.cppで定義)
+		SivInput ();		//private コンストラクタで通常の実体化は禁止
+	public:
+		~SivInput (){}		//デストラクタはstd::unique_ptrのためpublic
+		static void Create () { if ( ! m_inst ) { m_inst = P_SivInput ( new SivInput () ); } }
+		static P_SivInput & Inst () { return m_inst; }
+	//---------------------------------------------------------------------
+
+
+		//キーボード
+		SivKeyboard		m_keyboard;
+
+		//ゲームパッド
+		SivGamePad		m_gamepad;
+
+
 	public:
 
-		bool IsKey ( DWORD KEY_NAME );
+		//Keyboard
+		bool Is_Keyboard ( KEY_NAME k );
+		bool Push_Keyboard ( KEY_NAME k );
+		bool Rele_Keyboard ( KEY_NAME k );
+
+
 	};
+
+#define	SVINP	SivInput::Inst();
+
 }

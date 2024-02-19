@@ -1,6 +1,9 @@
 ﻿#pragma once
 
 
+//エイリアス
+using KEY_NAME = uint32;
+
 //個数上限
 constexpr int SIV_KEYBOARD_NUM = 256;	// 0x00 -> 0xFF
 

@@ -11,7 +11,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Define.h"
-#include "SivInputDefine.h"
+#include "SivKeyboardDefine.h"
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
@@ -30,11 +30,11 @@ namespace GAME
 		~SivKeyboard ();
 
 		//指定したキーが押されているか
-		bool IsKey( int nKey );
+		bool IsKey( KEY_NAME nKey );
 		//指定したキーが押された瞬間か
-		bool PushKey( int nKey );
+		bool PushKey( KEY_NAME nKey );
 		//指定したキーが離された瞬間か
-		bool ReleaseKey( int nKey );
+		bool ReleaseKey( KEY_NAME nKey );
 
 		//ゲーム利用
 		//状態の更新
