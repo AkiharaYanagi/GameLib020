@@ -133,20 +133,25 @@ namespace GAME
 			switch ( type )
 			{
 			case KEYBOARD:
-				fs.write ( (char*)di.GetKey (), sizeof ( DWORD ) );
+//				fs.write ( (char*)di.GetKey (), sizeof ( DWORD ) );
+				fs << di.GetKey();
 			break;
 	
 			case GAMEPAD:
 				GamePadInput ji = di.GetPad ();
 				DWORD id = ji.GetID ();
-				fs.write ( (char*)id, sizeof ( DWORD ) );
+//				fs.write ( (char*)id, sizeof ( DWORD ) );
+				fs << id;
 				PAD_INPUT_TYPE joytype = ji.GetInputType ();
-				fs.write ( (char*)joytype, sizeof ( PAD_INPUT_TYPE ) );
+//				fs.write ( (char*)joytype, sizeof ( PAD_INPUT_TYPE ) );
+				fs << joytype;
 				DWORD btn = ji.GetButtonID ();
-				fs.write ( (char*)btn, sizeof ( DWORD ) );
+//				fs.write ( (char*)btn, sizeof ( DWORD ) );
+				fs << btn;
 				LEVER_DIR lvr = ji.GetLever ();
-				fs.write ( (char*)lvr, sizeof ( LEVER_DIR ) );
-				break;
+//				fs.write ( (char*)lvr, sizeof ( LEVER_DIR ) );
+				fs << lvr;
+			break;
 			}
 		}
 	}
