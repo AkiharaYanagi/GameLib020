@@ -4,8 +4,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "08_GameInput", "08_GameInput\08_GameInput.vcxproj", "{1F6F943E-D8E0-45AF-ACF9-E2DC108FB8FD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DDF85FB0-748A-470B-A2E6-89C012AEE398} = {DDF85FB0-748A-470B-A2E6-89C012AEE398}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "00_Common", "00_Common\00_Common.vcxproj", "{DDF85FB0-748A-470B-A2E6-89C012AEE398}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLib", "TestLib\TestLib.vcxproj", "{F93E78B1-6367-4042-92B0-4F52FFC6FD22}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1F6F943E-D8E0-45AF-ACF9-E2DC108FB8FD} = {1F6F943E-D8E0-45AF-ACF9-E2DC108FB8FD}
+		{DDF85FB0-748A-470B-A2E6-89C012AEE398} = {DDF85FB0-748A-470B-A2E6-89C012AEE398}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +40,14 @@ Global
 		{DDF85FB0-748A-470B-A2E6-89C012AEE398}.Release|x64.Build.0 = Release|x64
 		{DDF85FB0-748A-470B-A2E6-89C012AEE398}.Release|x86.ActiveCfg = Release|x64
 		{DDF85FB0-748A-470B-A2E6-89C012AEE398}.Release|x86.Build.0 = Release|x64
+		{F93E78B1-6367-4042-92B0-4F52FFC6FD22}.Debug|x64.ActiveCfg = Debug|x64
+		{F93E78B1-6367-4042-92B0-4F52FFC6FD22}.Debug|x64.Build.0 = Debug|x64
+		{F93E78B1-6367-4042-92B0-4F52FFC6FD22}.Debug|x86.ActiveCfg = Debug|x64
+		{F93E78B1-6367-4042-92B0-4F52FFC6FD22}.Debug|x86.Build.0 = Debug|x64
+		{F93E78B1-6367-4042-92B0-4F52FFC6FD22}.Release|x64.ActiveCfg = Release|x64
+		{F93E78B1-6367-4042-92B0-4F52FFC6FD22}.Release|x64.Build.0 = Release|x64
+		{F93E78B1-6367-4042-92B0-4F52FFC6FD22}.Release|x86.ActiveCfg = Release|x64
+		{F93E78B1-6367-4042-92B0-4F52FFC6FD22}.Release|x86.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -44,16 +44,16 @@ namespace GAME
 		//---------------------------------------------------------------------------
 		//キーボード
 		//---------------------------------------------------------------------------
-		bool Is_Keyboard ( KEY_NAME k ) { m_keyboard.IsKey(k); }
-		bool Push_Keyboard ( KEY_NAME k ) { m_keyboard.PushKey(k); }
-		bool Rele_Keyboard(KEY_NAME k) { m_keyboard.ReleaseKey(k); }
+		bool Is_Keyboard ( KEY_NAME k ) { return m_keyboard.IsKey(k); }
+		bool Push_Keyboard ( KEY_NAME k ) { return m_keyboard.PushKey(k); }
+		bool Rele_Keyboard(KEY_NAME k) { return m_keyboard.ReleaseKey(k); }
 
 		//---------------------------------------------------------------------------
 		//ゲームパッド
 		//---------------------------------------------------------------------------
 		//	ジョイスティックで押されている状態かどうかを取得する
 		//	引数：num デバイス番号, btn キー番号
-		bool IsJoyButton(int num, int btn) const;
+		bool IsJoyButton ( int id, int btn ) const;
 
 		bool IsAxisUp(int nDevice) const;
 		bool IsAxisDown(int nDevice) const;
@@ -136,7 +136,7 @@ namespace GAME
 	};
 
 
-#define	SVINP	SivInput::Inst();
+#define	SVINP	SivInput::Inst()
 
 
 }

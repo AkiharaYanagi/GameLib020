@@ -8,9 +8,9 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "KeyConfig.h"
-#include "SivInput.h"
 #include <fstream>
 #include "SivKeyboardDefine.h"
+#include "SivInput.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -264,7 +264,7 @@ namespace GAME
 	bool KeyConfig::Is_Keyboard ( uint32 key ) const
 	{
 //		return DxInput::instance ()->IsOneKeyboard ( key );
-		return SivInput::instance ()->IsKey ( key );
+		return SVINP->Is_Keyboard ( key );
 	}
 
 	//----------------------------------------------------------------------------------
@@ -277,7 +277,8 @@ namespace GAME
 		{
 		case PIT_AXIS: return Push_Axis_Lvr ( id, ji.GetLever () ); break;
 		case PIT_POINT_OF_VIEW: return Push_POV_Lvr ( id, ji.GetLever () ); break;
-		case PIT_BUTTON: return DXINP->PushJoyButton ( id, ji.GetButtonID () ); break;
+//		case PIT_BUTTON: return DXINP->PushJoyButton ( id, ji.GetButtonID () ); break;
+		case PIT_BUTTON: return SVINP->PushJoyButton ( id, ji.GetButtonID () ); break;
 		}
 		return false;
 	}
@@ -287,10 +288,10 @@ namespace GAME
 		bool ret = false;
 		switch ( lvr )
 		{
-		case LEVER_DIR::LVR_UP:		ret = DXINP->PushAxisUp ( ID );		break;
-		case LEVER_DIR::LVR_DOWN:	ret = DXINP->PushAxisDown ( ID );		break;
-		case LEVER_DIR::LVR_LEFT:	ret = DXINP->PushAxisLeft ( ID );		break;
-		case LEVER_DIR::LVR_RIGHT:	ret = DXINP->PushAxisRight ( ID );	break;
+		case LEVER_DIR::LVR_UP:		ret = SVINP->PushAxisUp ( ID );		break;
+		case LEVER_DIR::LVR_DOWN:	ret = SVINP->PushAxisDown ( ID );		break;
+		case LEVER_DIR::LVR_LEFT:	ret = SVINP->PushAxisLeft ( ID );		break;
+		case LEVER_DIR::LVR_RIGHT:	ret = SVINP->PushAxisRight ( ID );	break;
 		}
 		return ret;
 	}
@@ -300,17 +301,17 @@ namespace GAME
 		bool ret = false;
 		switch ( lvr )
 		{
-		case LEVER_DIR::LVR_UP:		ret = DXINP->PushPovUp ( ID );	break;
-		case LEVER_DIR::LVR_DOWN:	ret = DXINP->PushPovDown ( ID );	break;
-		case LEVER_DIR::LVR_LEFT:	ret = DXINP->PushPovLeft ( ID );	break;
-		case LEVER_DIR::LVR_RIGHT:	ret = DXINP->PushPovRight ( ID );	break;
+		case LEVER_DIR::LVR_UP:		ret = SVINP->PushPovUp ( ID );	break;
+		case LEVER_DIR::LVR_DOWN:	ret = SVINP->PushPovDown ( ID );	break;
+		case LEVER_DIR::LVR_LEFT:	ret = SVINP->PushPovLeft ( ID );	break;
+		case LEVER_DIR::LVR_RIGHT:	ret = SVINP->PushPovRight ( ID );	break;
 		}
 		return ret;
 	}
 
 	bool KeyConfig::Push_Keyboard ( uint32 key ) const
 	{
-		return SVINP->PushOneKeyboard ( key );
+		return SVINP->Push_Keyboard ( key );
 	}
 
 	//----------------------------------------------------------------------------------
