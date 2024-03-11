@@ -793,16 +793,16 @@
     <ClInclude Include="stdafx.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="SivInput.h">
+    <ClInclude Include="..\Include\SivInput.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="SivKeyboardDefine.h">
+    <ClInclude Include="..\Include\SivGamePad.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="SivKeyboard.h">
+    <ClInclude Include="..\Include\SivKeyboard.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="SivGamePad.h">
+    <ClInclude Include="..\Include\SivKeyboardDefine.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

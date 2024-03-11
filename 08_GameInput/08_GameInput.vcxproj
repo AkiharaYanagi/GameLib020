@@ -326,10 +326,10 @@
     <ClInclude Include="..\Include\DeviceInput.h" />
     <ClInclude Include="..\Include\KeyConfig.h" />
     <ClInclude Include="..\Include\KeyDefine.h" />
-    <ClInclude Include="SivGamePad.h" />
-    <ClInclude Include="SivInput.h" />
-    <ClInclude Include="SivKeyboardDefine.h" />
-    <ClInclude Include="SivKeyboard.h" />
+    <ClInclude Include="..\Include\SivGamePad.h" />
+    <ClInclude Include="..\Include\SivInput.h" />
+    <ClInclude Include="..\Include\SivKeyboard.h" />
+    <ClInclude Include="..\Include\SivKeyboardDefine.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>

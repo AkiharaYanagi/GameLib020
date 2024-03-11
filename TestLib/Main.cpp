@@ -1,5 +1,10 @@
 ﻿# include <Siv3D.hpp> // Siv3D v0.6.13
 
+#include "SivInput.h"
+#pragma comment ( lib, "08_GameInput(debug).lib" )
+using namespace GAME;
+
+
 void Main()
 {
 #if 0
@@ -34,6 +39,8 @@ void Main()
 	// プレイヤーが右を向いているか | Whether player is facing right
 	bool isPlayerFacingRight = true;
 #endif // 0
+
+	SivInput::Create();
 
 	while (System::Update())
 	{
@@ -95,6 +102,7 @@ void Main()
 		// プレイヤーを描く | Draw the player
 		emoji.scaled(0.75).mirrored(isPlayerFacingRight).drawAt(playerPosX, 540);
 #endif // 0
+		SivInput::Inst()->Is_Keyboard ( SIK_Z );
 	}
 }
 
