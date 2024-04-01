@@ -41,15 +41,110 @@ namespace GAME
 	//-------------------------------------------------------------------------------------------------
 	//	ˆÊ’u
 	//-------------------------------------------------------------------------------------------------
-	using VEC2 = D3DXVECTOR2;
-	using P_VEC2 = std::shared_ptr < VEC2 >;
-	using V_VEC2 = std:: vector < VEC2 >;
-	using L_VEC2 = std:: list < VEC2 >;
+#if 0
+	typedef struct D3DXVECTOR2
+	{
+#ifdef __cplusplus
+	public:
+		D3DXVECTOR2() {};
+		D3DXVECTOR2( CONST FLOAT * );
+		D3DXVECTOR2( CONST D3DXFLOAT16 * );
+		D3DXVECTOR2( FLOAT x, FLOAT y );
 
-	using VEC3 = D3DXVECTOR3;
+		// casting
+		operator FLOAT* ();
+		operator CONST FLOAT* () const;
+
+		// assignment operators
+		D3DXVECTOR2& operator += ( CONST D3DXVECTOR2& );
+		D3DXVECTOR2& operator -= ( CONST D3DXVECTOR2& );
+		D3DXVECTOR2& operator *= ( FLOAT );
+		D3DXVECTOR2& operator /= ( FLOAT );
+
+		// unary operators
+		D3DXVECTOR2 operator + () const;
+		D3DXVECTOR2 operator - () const;
+
+		// binary operators
+		D3DXVECTOR2 operator + ( CONST D3DXVECTOR2& ) const;
+		D3DXVECTOR2 operator - ( CONST D3DXVECTOR2& ) const;
+		D3DXVECTOR2 operator * ( FLOAT ) const;
+		D3DXVECTOR2 operator / ( FLOAT ) const;
+
+		friend D3DXVECTOR2 operator * ( FLOAT, CONST D3DXVECTOR2& );
+
+		BOOL operator == ( CONST D3DXVECTOR2& ) const;
+		BOOL operator != ( CONST D3DXVECTOR2& ) const;
+
+
+	public:
+#endif //__cplusplus
+		FLOAT x, y;
+	} D3DXVECTOR2, *LPD3DXVECTOR2;
+
+#endif // 0
+
+	struct VEC2
+	{
+		float x { 0 };	float y { 0 };
+	public:
+		VEC2 () {};
+		VEC2 ( const VEC2& rhs ) { x = rhs.x; y = rhs.y; }
+		VEC2 ( float x, float y ) { this->x = x; this->y = y; }
+		~VEC2 () {};
+
+		VEC2 operator += ( const VEC2 & rhs ) { this->x + rhs.x; this->y + rhs.y; return *this; }
+		VEC2 operator -= ( const VEC2 & rhs ) { this->x - rhs.x; this->y - rhs.y; return *this; }
+		VEC2 operator *= ( float f ) const { return VEC2 ( this->x * f, this->y * f ); }
+		VEC2 operator /= ( float f ) const { return VEC2 ( this->x / f, this->y / f ); }
+
+		VEC2 operator + () const { return *this; }
+		VEC2 operator - () const { return VEC2 ( -this->x, -this->y ); }
+
+		VEC2 operator + ( const VEC2 & rhs ) const { return VEC2 ( this->x + rhs.x, this->y + rhs.y ); }
+		VEC2 operator - ( const VEC2 & rhs ) const { return VEC2 ( this->x - rhs.x, this->y - rhs.y ); }
+		VEC2 operator * ( float f ) const { return VEC2 ( this->x * f, this->y * f ); }
+		VEC2 operator / ( float f ) const { return VEC2 ( this->x / f, this->y / f ); }
+
+		bool operator == ( const VEC2& rhs ) const { return this->x == rhs.x && this->y == rhs.y; }
+		bool operator != ( const VEC2& rhs ) const { return this->x != rhs.x || this->y != rhs.y; }
+
+	};
+	using P_VEC2 = std::shared_ptr < VEC2 >;
+	using V_VEC2 = std::vector < VEC2 >;
+	using L_VEC2 = std::list < VEC2 >;
+
+	//------------------------------------
+	struct VEC3
+	{
+		float x { 0 };	float y { 0 }; float z { 0 };
+	public:
+		VEC3 () {};
+		VEC3 ( const VEC3& rhs ) { this->x = rhs.x; this->y = rhs.y; this->z = rhs.z; }
+		VEC3 ( float x, float y, float z ) { this->x = x; this->y = y; this->z = z; }
+		~VEC3 () {};
+
+		VEC3 operator += ( const VEC3& rhs ) { this->x + rhs.x; this->y + rhs.y; this->z + rhs.z; return *this; }
+		VEC3 operator -= ( const VEC3& rhs ) { this->x - rhs.x; this->y - rhs.y; this->z + rhs.z; return *this; }
+		VEC3 operator *= ( float f ) const { return VEC3 ( this->x * f, this->y * f, this->z * f ); }
+		VEC3 operator /= ( float f ) const { return VEC3 ( this->x / f, this->y / f, this->z / z ); }
+
+		VEC3 operator + () const { return *this; }
+		VEC3 operator - () const { return VEC3 ( -this->x, -this->y, -this->z ); }
+
+		VEC3 operator + ( const VEC3 & rhs ) const { return VEC3 ( this->x + rhs.x, this->y + rhs.y, this->z + rhs.z ); }
+		VEC3 operator - ( const VEC3 & rhs ) const { return VEC3 ( this->x - rhs.x, this->y - rhs.y, this->z - rhs.z ); }
+		VEC3 operator * ( float f ) const { return VEC3 ( this->x * f, this->y * f, this->z * f ); }
+		VEC3 operator / ( float f ) const { return VEC3 ( this->x / f, this->y / f, this->z / f ); }
+
+		bool operator == ( const VEC3& rhs ) const { return this->x == rhs.x && this->y == rhs.y && this->z == rhs.z; }
+		bool operator != ( const VEC3& rhs ) const { return this->x != rhs.x || this->y != rhs.y || this->z != rhs.z; }
+
+	};
 	using P_VEC3 = std::shared_ptr < VEC3 >;
 	using V_VEC3 = std::vector < VEC3 >;
 	using L_VEC3 = std::list < VEC3 >;
+
 
 	//-------------------------------------------------------------------------------------------------
 	// unsigned int
