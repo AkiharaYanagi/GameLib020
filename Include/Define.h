@@ -88,26 +88,26 @@ namespace GAME
 	{
 		float x { 0 };	float y { 0 };
 	public:
-		VEC2 () {};
-		VEC2 ( const VEC2& rhs ) { x = rhs.x; y = rhs.y; }
-		VEC2 ( float x, float y ) { this->x = x; this->y = y; }
-		~VEC2 () {};
+		VEC2 ();
+		VEC2 ( const VEC2& rhs );
+		VEC2 ( float x, float y );
+		~VEC2 ();
 
-		VEC2 operator += ( const VEC2 & rhs ) { this->x + rhs.x; this->y + rhs.y; return *this; }
-		VEC2 operator -= ( const VEC2 & rhs ) { this->x - rhs.x; this->y - rhs.y; return *this; }
-		VEC2 operator *= ( float f ) const { return VEC2 ( this->x * f, this->y * f ); }
-		VEC2 operator /= ( float f ) const { return VEC2 ( this->x / f, this->y / f ); }
+		VEC2 operator += ( const VEC2 & rhs );
+		VEC2 operator -= ( const VEC2 & rhs );
+		VEC2 operator *= ( float f ) const;
+		VEC2 operator /= ( float f ) const;
 
-		VEC2 operator + () const { return *this; }
-		VEC2 operator - () const { return VEC2 ( -this->x, -this->y ); }
+		VEC2 operator + () const;
+		VEC2 operator - () const;
 
-		VEC2 operator + ( const VEC2 & rhs ) const { return VEC2 ( this->x + rhs.x, this->y + rhs.y ); }
-		VEC2 operator - ( const VEC2 & rhs ) const { return VEC2 ( this->x - rhs.x, this->y - rhs.y ); }
-		VEC2 operator * ( float f ) const { return VEC2 ( this->x * f, this->y * f ); }
-		VEC2 operator / ( float f ) const { return VEC2 ( this->x / f, this->y / f ); }
+		VEC2 operator + ( const VEC2& rhs ) const;
+		VEC2 operator - ( const VEC2& rhs ) const;
+		VEC2 operator * ( float f ) const;
+		VEC2 operator / ( float f ) const;
 
-		bool operator == ( const VEC2& rhs ) const { return this->x == rhs.x && this->y == rhs.y; }
-		bool operator != ( const VEC2& rhs ) const { return this->x != rhs.x || this->y != rhs.y; }
+		bool operator == ( const VEC2& rhs ) const;
+		bool operator != ( const VEC2& rhs ) const;
 
 	};
 	using P_VEC2 = std::shared_ptr < VEC2 >;
@@ -119,31 +119,100 @@ namespace GAME
 	{
 		float x { 0 };	float y { 0 }; float z { 0 };
 	public:
-		VEC3 () {};
-		VEC3 ( const VEC3& rhs ) { this->x = rhs.x; this->y = rhs.y; this->z = rhs.z; }
-		VEC3 ( float x, float y, float z ) { this->x = x; this->y = y; this->z = z; }
-		~VEC3 () {};
+		VEC3 ();
+		VEC3 ( const VEC3& rhs );
+		VEC3 ( float x, float y, float z );
+		~VEC3 ();
 
-		VEC3 operator += ( const VEC3& rhs ) { this->x + rhs.x; this->y + rhs.y; this->z + rhs.z; return *this; }
-		VEC3 operator -= ( const VEC3& rhs ) { this->x - rhs.x; this->y - rhs.y; this->z + rhs.z; return *this; }
-		VEC3 operator *= ( float f ) const { return VEC3 ( this->x * f, this->y * f, this->z * f ); }
-		VEC3 operator /= ( float f ) const { return VEC3 ( this->x / f, this->y / f, this->z / z ); }
+		VEC3 operator += ( const VEC3& rhs );
+		VEC3 operator -= ( const VEC3& rhs );
+		VEC3 operator *= ( float f ) const;
+		VEC3 operator /= ( float f ) const;
 
-		VEC3 operator + () const { return *this; }
-		VEC3 operator - () const { return VEC3 ( -this->x, -this->y, -this->z ); }
+		VEC3 operator + () const;
+		VEC3 operator - () const;
 
-		VEC3 operator + ( const VEC3 & rhs ) const { return VEC3 ( this->x + rhs.x, this->y + rhs.y, this->z + rhs.z ); }
-		VEC3 operator - ( const VEC3 & rhs ) const { return VEC3 ( this->x - rhs.x, this->y - rhs.y, this->z - rhs.z ); }
-		VEC3 operator * ( float f ) const { return VEC3 ( this->x * f, this->y * f, this->z * f ); }
-		VEC3 operator / ( float f ) const { return VEC3 ( this->x / f, this->y / f, this->z / f ); }
+		VEC3 operator + ( const VEC3& rhs ) const;
+		VEC3 operator - ( const VEC3& rhs ) const;
+		VEC3 operator * ( float f ) const;
+		VEC3 operator / ( float f ) const;
 
-		bool operator == ( const VEC3& rhs ) const { return this->x == rhs.x && this->y == rhs.y && this->z == rhs.z; }
-		bool operator != ( const VEC3& rhs ) const { return this->x != rhs.x || this->y != rhs.y || this->z != rhs.z; }
+		bool operator == ( const VEC3& rhs ) const;
+		bool operator != ( const VEC3& rhs ) const;
 
 	};
 	using P_VEC3 = std::shared_ptr < VEC3 >;
 	using V_VEC3 = std::vector < VEC3 >;
 	using L_VEC3 = std::list < VEC3 >;
+
+	//-------------------------------------------------------------------------------------------------
+	//	F
+	//-------------------------------------------------------------------------------------------------
+#if 0
+	typedef struct D3DXCOLOR
+	{
+#ifdef __cplusplus
+	public:
+		D3DXCOLOR() {}
+		D3DXCOLOR( DWORD argb );
+		D3DXCOLOR( CONST FLOAT * );
+		D3DXCOLOR( CONST D3DXFLOAT16 * );
+		D3DXCOLOR( CONST D3DCOLORVALUE& );
+		D3DXCOLOR( FLOAT r, FLOAT g, FLOAT b, FLOAT a );
+
+		// casting
+		operator DWORD () const;
+
+		operator FLOAT* ();
+		operator CONST FLOAT* () const;
+
+		operator D3DCOLORVALUE* ();
+		operator CONST D3DCOLORVALUE* () const;
+
+		operator D3DCOLORVALUE& ();
+		operator CONST D3DCOLORVALUE& () const;
+
+		// assignment operators
+		D3DXCOLOR& operator += ( CONST D3DXCOLOR& );
+		D3DXCOLOR& operator -= ( CONST D3DXCOLOR& );
+		D3DXCOLOR& operator *= ( FLOAT );
+		D3DXCOLOR& operator /= ( FLOAT );
+
+		// unary operators
+		D3DXCOLOR operator + () const;
+		D3DXCOLOR operator - () const;
+
+		// binary operators
+		D3DXCOLOR operator + ( CONST D3DXCOLOR& ) const;
+		D3DXCOLOR operator - ( CONST D3DXCOLOR& ) const;
+		D3DXCOLOR operator * ( FLOAT ) const;
+		D3DXCOLOR operator / ( FLOAT ) const;
+
+		friend D3DXCOLOR operator * ( FLOAT, CONST D3DXCOLOR& );
+
+		BOOL operator == ( CONST D3DXCOLOR& ) const;
+		BOOL operator != ( CONST D3DXCOLOR& ) const;
+
+#endif //__cplusplus
+		FLOAT r, g, b, a;
+	} D3DXCOLOR, *LPD3DXCOLOR;
+#endif // 0
+
+	struct _CLR
+	{
+	public:
+		_CLR () {}
+		_CLR ( const _CLR& rhs ) { this->r = rhs.r; this->r = rhs.r; this->r = rhs.r; this->r = rhs.r; }
+		_CLR ( float r, float g, float b, float a ) {}
+		~_CLR () {}
+
+		_CLR& operator += ( const _CLR& rhs );
+		_CLR& operator -= ( const _CLR& rhs );
+		_CLR& operator *= ( float f );
+		_CLR& operator /= ( float f );
+
+		float r, b, g, a;
+	};
 
 
 	//-------------------------------------------------------------------------------------------------

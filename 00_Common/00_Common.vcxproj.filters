@@ -766,5 +766,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Define.cpp" />
   </ItemGroup>
 </Project>
