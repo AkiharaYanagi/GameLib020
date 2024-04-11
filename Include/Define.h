@@ -201,10 +201,11 @@ namespace GAME
 	struct _CLR
 	{
 	public:
-		_CLR () {}
-		_CLR ( const _CLR& rhs ) { this->r = rhs.r; this->r = rhs.r; this->r = rhs.r; this->r = rhs.r; }
-		_CLR ( float r, float g, float b, float a ) {}
-		~_CLR () {}
+		_CLR ();
+		_CLR ( const _CLR& rhs );
+		_CLR ( float r, float g, float b, float a );
+		_CLR ( UINT32 argb ); 
+		~_CLR ();
 
 		_CLR& operator += ( const _CLR& rhs );
 		_CLR& operator -= ( const _CLR& rhs );
@@ -218,19 +219,16 @@ namespace GAME
 	//-------------------------------------------------------------------------------------------------
 	// unsigned int
 	//-------------------------------------------------------------------------------------------------
-	using UINT = unsigned __int32;
-	using UINT64 = unsigned __int64;
-
 	typedef struct USIZE
 	{
 	public:
 		USIZE () { w = 0; h = 0; }
 		USIZE ( UINT w0, UINT h0 ) { w = w0; h = h0; }
-		UINT w;
-		UINT h;
+		UINT32 w;
+		UINT32 h;
 	} USIZE;
 
-	using V_UINT = std::vector < UINT >;
+	using V_UINT = std::vector < UINT32 >;
 
 	//-------------------------------------------------------------------------------------------------
 	// TCAHR‘Î‰ž

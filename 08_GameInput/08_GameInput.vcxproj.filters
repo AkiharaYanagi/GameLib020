@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -134,24 +130,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyConfig.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DeviceInput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SivInput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SivKeyboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SivGamePad.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="DeviceInput.cpp" />
+    <ClCompile Include="KeyConfig.cpp" />
+    <ClCompile Include="SivGamePad.cpp" />
+    <ClCompile Include="SivInput.cpp" />
+    <ClCompile Include="SivKeyboard.cpp" />
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -781,29 +765,14 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Include\KeyConfig.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\KeyDefine.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\DeviceInput.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\SivInput.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\SivGamePad.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\SivKeyboard.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\SivKeyboardDefine.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
+    <ClInclude Include="..\Include\DeviceInput.h" />
+    <ClInclude Include="..\Include\KeyConfig.h" />
+    <ClInclude Include="..\Include\KeyDefine.h" />
+    <ClInclude Include="..\Include\SivGamePad.h" />
+    <ClInclude Include="..\Include\SivInput.h" />
+    <ClInclude Include="..\Include\SivKeyboard.h" />
+    <ClInclude Include="..\Include\SivKeyboardDefine.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="..\Include\08_GameInput.h" />
   </ItemGroup>
 </Project>

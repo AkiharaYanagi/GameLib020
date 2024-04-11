@@ -757,15 +757,14 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameGraphic.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="GameMatrix.cpp" />
     <ClCompile Include="Fade.cpp" />
+    <ClCompile Include="_GameGraphic.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Include\GameGraphic.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="..\Include\GameObject.h" />
-    <ClInclude Include="..\Include\GameMatrix.h" />
+    <ClInclude Include="..\Include\Fade.h" />
+    <ClInclude Include="..\Include\_GameGraphic.h" />
+    <ClInclude Include="..\Include\02_GameGraphic.h" />
   </ItemGroup>
 </Project>

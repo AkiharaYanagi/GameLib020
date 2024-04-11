@@ -47,9 +47,6 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug\</OutDir>
-    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug\Intermediate\</IntDir>
-    <TargetName>$(ProjectName)(debug)</TargetName>
     <LocalDebuggerWorkingDirectory>$(ProjectDir)App</LocalDebuggerWorkingDirectory>
     <IncludePath>$(SIV3D_0_6_13)\include;$(SIV3D_0_6_13)\include\ThirdParty;$(IncludePath)</IncludePath>
     <LibraryPath>$(SIV3D_0_6_13)\lib\Windows;$(LibraryPath)</LibraryPath>
@@ -393,16 +390,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Fade.cpp" />
-    <ClCompile Include="GameGraphic.cpp" />
-    <ClCompile Include="GameMatrix.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="_GameGraphic.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Include\GameGraphic.h" />
-    <ClInclude Include="..\Include\GameMatrix.h" />
-    <ClInclude Include="..\Include\GameObject.h" />
+    <ClInclude Include="..\Include\02_GameGraphic.h" />
+    <ClInclude Include="..\Include\Fade.h" />
+    <ClInclude Include="..\Include\_GameGraphic.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

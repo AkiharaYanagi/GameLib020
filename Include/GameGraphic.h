@@ -11,6 +11,8 @@
 //-------------------------------------------------------------------------------------------------
 //#include "DebugLibrary.h"
 //#include "DxDefine.h"
+#include "Siv3D.hpp"
+
 
 //#include "GameTexture.h"
 #include "GameObject.h"
@@ -44,7 +46,8 @@ namespace GAME
 		UINT		m_indexObject;
 
 		//テクスチャ配列(インデックスはオブジェクトが持つ)
-		PVP_TxBs	m_pvpTexture;
+//		PVP_TxBs	m_pvpTexture;
+		s3d::Texture		m_tx;
 
 	public:
 		GameGraphicBase ();
@@ -83,7 +86,7 @@ namespace GAME
 
 		void SetAllValid ( bool b );		//すべて可動切替
 		void SetAllPos ( VEC2 vec );		//すべて位置指定
-		void SetAllColor ( D3DXCOLOR color );		//すべての色を指定
+		void SetAllColor ( _CLR color );		//すべての色を指定
 
 		//---------------------------------------------------------------------
 		//オブジェクト先頭の直接制御

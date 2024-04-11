@@ -2,8 +2,13 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="GameTask.cpp" />
+    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="GameParam.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\GameTask.h" />
+    <ClInclude Include="..\Include\GameScene.h" />
+    <ClInclude Include="..\Include\01_GameStructure.h" />
+    <ClInclude Include="..\Include\GameParam.h" />
   </ItemGroup>
 </Project>

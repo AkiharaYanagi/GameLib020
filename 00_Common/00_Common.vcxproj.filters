@@ -763,6 +763,8 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\Include\STR_UTL.h" />
     <ClInclude Include="..\Include\WND_UTL.h" />
+    <ClInclude Include="..\Include\00_Common.h" />
+    <ClInclude Include="..\Include\GameLibConst.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />

@@ -120,6 +120,13 @@ namespace GAME
 		this->b = b;
 		this->a = a;
 	}
+	_CLR::_CLR ( UINT32 argb )
+	{
+		this->a = (float)((argb & 0xff000000) >> 24) / 255.f;
+		this->r = (float)((argb & 0x00ff0000) >> 16) / 255.f;
+		this->g = (float)((argb & 0x0000ff00) >> 8)	 / 255.f;
+		this->b = (float)((argb & 0x000000ff) )		 / 255.f;
+	}
 	_CLR::~_CLR () {}
 
 	_CLR& _CLR::operator += ( const _CLR& rhs )
@@ -140,13 +147,20 @@ namespace GAME
 	}
 	_CLR& _CLR::operator *= ( float f )
 	{
-		return _CLR{
-			this->r * f,
-			this->g * f,
-			this->b * f,
-			this->a * f };
+		this->r *= f; 
+		this->g *= f; 
+		this->b *= f; 
+		this->a *= f; 
+		return *this;
 	}
-	_CLR& _CLR::operator /= ( float f ) {}
+	_CLR& _CLR::operator /= ( float f )
+	{
+		this->r /= f; 
+		this->g /= f; 
+		this->b /= f; 
+		this->a /= f; 
+		return *this;
+	}
 
 
 }	//namespace GAME

@@ -39,7 +39,7 @@ namespace GAME
 		void SetMatrix ( GameMatrix m ) { m_matrix = m; }	//GameMatrixは複製可能
 		GameMatrix GetMatrix () const { return m_matrix; }
 		GameMatrix * GetpMatrix () { return & m_matrix; }
-		const D3DXMATRIX * GetcpMatrix () const { return m_matrix.GetcpMatrix (); }
+//		const D3DXMATRIX * GetcpMatrix () const { return m_matrix.GetcpMatrix (); }
 		
 		//マトリックスパラメータ
 		VEC2 GetPos () const { return m_matrix.GetPos (); }

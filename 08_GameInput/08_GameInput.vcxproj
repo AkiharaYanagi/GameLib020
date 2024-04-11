@@ -323,6 +323,7 @@
     <Xml Include="App\example\xml\test.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Include\08_GameInput.h" />
     <ClInclude Include="..\Include\DeviceInput.h" />
     <ClInclude Include="..\Include\KeyConfig.h" />
     <ClInclude Include="..\Include\KeyDefine.h" />

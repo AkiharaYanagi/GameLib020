@@ -1,12 +1,45 @@
-﻿# include <Siv3D.hpp> // Siv3D v0.6.13
+﻿//=================================================================================================
+//
+// メイン ソースコード
+//
+//=================================================================================================
 
-#if 0
-#include "SivInput.h"
-#pragma comment ( lib, "08_GameInput(debug).lib" )
+//-------------------------------------------------------------------------------------------------
+//	ヘッダファイル　インクルード
+//-------------------------------------------------------------------------------------------------
+# include <Siv3D.hpp> // Siv3D v0.6.13
+#include "Game.h"
+#include "GameMain.h"
+
+
+//-------------------------------------------------------------------------------------------------
+//	実装
+//-------------------------------------------------------------------------------------------------
 using namespace GAME;
+
+
+//メインループ中の最初の１回
+void Init ()
+{
+#if 0
+	//マウス位置にウィンドウを移動
+	s3d::Point pt = s3d::Cursor::Pos () ;
+	s3d::Window::SetPos ( pt );
 #endif // 0
 
+	//カーソル位置の取得
+	POINT cursorPos;
+	::GetCursorPos ( & cursorPos );
+	cursorPos.x -= 700;
+	cursorPos.y -= 15;
+	s3d::Point pt { cursorPos.x, cursorPos.y };
 
+	s3d::Window::SetPos ( pt );
+
+}
+
+
+//メインループ
 void Main()
 {
 #if 0
@@ -42,9 +75,37 @@ void Main()
 	bool isPlayerFacingRight = true;
 #endif // 0
 
+	//ウィンドウ設定
+	s3d::Size size = s3d::Scene::Size ();
+	s3d::Scene::SetResizeMode ( s3d::ResizeMode::Virtual );
+	s3d::Scene::Resize ( 1280, 960 );
+
+	s3d::Scene::SetResizeMode ( s3d::ResizeMode::Keep );
+	s3d::Window::Resize ( 1600, 900 );
+	s3d::Window::SetStyle ( s3d::WindowStyle::Sizable );
+	s3d::Window::Centering ();
+
+	//マウス位置にウィンドウを移動
+	s3d::Point pt = s3d::Cursor::Pos () ;
+	s3d::Window::SetPos ( pt );
+
+
 //	SivInput::Create();
 
-	while (System::Update())
+	GameMain gameMain;
+
+	P_Grp grp = std::make_shared < GrpBs > ();
+	grp->SetTextureName ( U"test.png" );
+	gameMain.AddpTask ( grp );
+
+	gameMain.Load ();
+
+//	s3d::Texture tx ( ( U"test.png") );
+
+
+	//メインループ
+	bool init = F;
+	while ( System::Update() )
 	{
 #if 0
 		// テクスチャを描く | Draw the texture
@@ -105,17 +166,20 @@ void Main()
 		emoji.scaled(0.75).mirrored(isPlayerFacingRight).drawAt(playerPosX, 540);
 #endif // 0
 
+		//初期化
+		if ( ! init )
+		{
+			Init ();
+			init = T;
+		}
+
+
+		gameMain.Move ();
+		gameMain.Draw ();
+
+//		tx.draw ( 200, 200 );
 
 //		SivInput::Inst()->Is_Keyboard ( SIK_Z );
 	}
 }
 
-//
-// - Debug ビルド: プログラムの最適化を減らす代わりに、エラーやクラッシュ時に詳細な情報を得られます。
-//
-// - Release ビルド: 最大限の最適化でビルドします。
-//
-// - [デバッグ] メニュー → [デバッグの開始] でプログラムを実行すると、[出力] ウィンドウに詳細なログが表示され、エラーの原因を探せます。
-//
-// - Visual Studio を更新した直後は、プログラムのリビルド（[ビルド]メニュー → [ソリューションのリビルド]）が必要な場合があります。
-//

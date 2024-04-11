@@ -41,9 +41,14 @@ namespace GAME
 		virtual void Init () {}		//初期化(繰り返してもよい)
 		virtual void Move () {}		//フレーム毎動作
 
+#if 0
 		//->描画はGraphicListに移項
 		//	ただし、テクスチャはグラフィックタスク以外でも読み込むため
 		//	Load(),Rele(),Reset()は定義しておく
+#endif // 0
+
+		virtual void Draw () {}	//Siv3Dにより統一
+
 	};
 
 	//型定義
@@ -73,6 +78,9 @@ namespace GAME
 
 		virtual void Init();		//初期化(繰り返してもよい)※再設定時(フォーカスの変更など)に毎回行う
 		virtual void Move();		//フレーム毎動作
+
+		virtual void Draw ();
+
 
 		//初期化
 		void Clear();
@@ -133,6 +141,8 @@ namespace GAME
 
 		virtual void Init ();		//初期化(繰り返してもよい)※再設定時(フォーカスの変更など)に毎回行う
 		virtual void Move ();		//フレーム毎動作
+
+		virtual void Draw ();
 
 		//初期化
 		void Clear ();
