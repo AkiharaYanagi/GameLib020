@@ -760,11 +760,13 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="_GameGraphic.cpp" />
+    <ClCompile Include="GameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\Include\Fade.h" />
     <ClInclude Include="..\Include\_GameGraphic.h" />
     <ClInclude Include="..\Include\02_GameGraphic.h" />
+    <ClInclude Include="..\Include\GameObject.h" />
   </ItemGroup>
 </Project>

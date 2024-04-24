@@ -11,6 +11,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "Siv3D.hpp"
 #include "GameTask.h"
+#include "GameObject.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -30,12 +31,15 @@ namespace GAME
 	//		　のいずれかを用いる
 	//		・オブジェクトは自動で１つ生成する。複数追加する場合はクリアしてから追加する
 	//■=======================================================================
-	class GameGraphicBase : public GameTask 
+	class GameGraphicBase : public GameTask
 	{
 		//テクスチャ配列(インデックスはオブジェクトが持つ)
 		
 		s3d::String	m_filename { U"" };
 		std::shared_ptr < s3d::Texture >	m_tx { nullptr };
+
+		//オブジェクト配列
+		PAP_Ob		map_Object;
 
 	public:
 		GameGraphicBase ();
@@ -45,7 +49,18 @@ namespace GAME
 		void SetTextureName ( s3d::String filename ) { m_filename = filename; }
 
 		void Load ();
+		void Move ();
 		void Draw ();
+
+		//オブジェクト先頭の直接制御
+		//単体で用いるときは、オブジェクトを指定しなくてよい
+		void SetPos ( VEC2 v ) { map_Object->at ( 0 )->SetPos ( v ); }
+		void SetPos ( float x, float y ) { map_Object->at ( 0 )->SetPos ( x, y ); }
+		VEC2 GetPos () const { return map_Object->at ( 0 )->GetPos (); }
+		void AddPos ( VEC2 v ) { map_Object->at ( 0 )->AddPos ( v ); }
+
+		//---------------------------------------------------------------------
+
  	};
 
 	using GrpBs = GameGraphicBase;

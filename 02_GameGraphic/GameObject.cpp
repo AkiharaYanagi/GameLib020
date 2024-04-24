@@ -1,31 +1,35 @@
-//=================================================================================================
+ï»¿//=================================================================================================
 //
-// GameObject ƒ\[ƒXƒtƒ@ƒCƒ‹
+// GameObject ã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«
 //
 //=================================================================================================
 
 //-------------------------------------------------------------------------------------------------
-// ƒwƒbƒ_ƒtƒ@ƒCƒ‹‚ÌƒCƒ“ƒNƒ‹[ƒh
+// ãƒ˜ãƒƒãƒ€ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //-------------------------------------------------------------------------------------------------
 #include "GameObject.h"
 
 //-------------------------------------------------------------------------------------------------
-// ’è‹`
+// å®šç¾©
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
 
 	GameObject::GameObject ()
-		: m_valid ( true ), m_indexTexture ( 0 )
 	{
 	}
 
 	GameObject::GameObject ( const GameObject& rhs )
 	{
-		m_matrix = rhs.m_matrix;
 		m_valid = rhs.m_valid;
 		m_indexTexture = rhs.m_indexTexture;
 		m_fade = rhs.m_fade;
+
+		m_vecPos = rhs.m_vecPos;
+		m_scalingCenter = rhs.m_scalingCenter;
+		m_scaling = rhs.m_scaling;
+		m_rotationCenter = rhs.m_rotationCenter;
+		m_radian = rhs.m_radian;
 	}
 
 	GameObject::~GameObject ()
@@ -39,7 +43,7 @@ namespace GAME
 
 	void GameObject::Move ()
 	{
-		m_matrix.Move ();
+//		m_matrix.Move ();
 	}
 
 }	//namespace GAME

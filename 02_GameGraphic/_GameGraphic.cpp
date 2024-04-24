@@ -20,10 +20,13 @@ namespace GAME
 	//■=======================================================================
 	GameGraphicBase::GameGraphicBase ()
 	{
+		map_Object = std::make_shared < AP_Ob > ();
+		map_Object->push_back ( std::make_shared < GameObject > () );
 	}
 
 	GameGraphicBase::~GameGraphicBase ()
 	{
+		map_Object->clear ();
 	}
 
 	void GameGraphicBase::Load ()
@@ -31,9 +34,21 @@ namespace GAME
 		m_tx = std::make_shared < s3d::Texture > ( m_filename );
 	}
 
+	void GameGraphicBase::Move ()
+	{
+		for ( P_Ob pob : *map_Object ) { pob->PreMove (); }
+		for ( P_Ob pob : *map_Object ) { pob->Move (); }
+	}
+
 	void GameGraphicBase::Draw ()
 	{
-		m_tx->draw ( 0, 0 );
+
+		for ( P_Ob pob : *map_Object )
+		{
+			if ( ! pob->GetValid () ) { continue; }
+
+			m_tx->draw ( pob->GetPos().x, pob->GetPos().y );
+		}
 	}
 
 
