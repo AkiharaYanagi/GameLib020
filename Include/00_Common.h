@@ -10,10 +10,12 @@
 //	ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Define.h"
+#include "Define_Siv3D.h"
 #include "Format.h"
 #include "STR_UTL.h"
 #include "WND_UTL.h"
 #include "HWnd.h"
+#include "DebugOutTrace.h"
 #include "GameLibConst.h"
 
 

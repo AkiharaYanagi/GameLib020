@@ -19,7 +19,9 @@
 #include <sstream>
 #include <vector>
 #include <list>
+#include <map>
 #include <memory>
+#include <fstream>
 
 #define WIN32_LEAN_AND_MEAN		// Windows ヘッダーからほとんど使用されていない部分を除外する
 

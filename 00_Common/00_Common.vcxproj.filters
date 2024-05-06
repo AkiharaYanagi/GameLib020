@@ -765,9 +765,15 @@
     <ClInclude Include="..\Include\WND_UTL.h" />
     <ClInclude Include="..\Include\00_Common.h" />
     <ClInclude Include="..\Include\GameLibConst.h" />
+    <ClInclude Include="..\Include\Define_Siv3D.h" />
+    <ClInclude Include="..\Include\Rect.h" />
+    <ClInclude Include="..\Include\DebugOutTrace.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Define.cpp" />
+    <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="DebugOutTrace.cpp" />
+    <ClCompile Include="Format.cpp" />
   </ItemGroup>
 </Project>
