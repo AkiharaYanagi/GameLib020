@@ -87,5 +87,17 @@ namespace GAME
 	}
 
 
+	//Siv3D対応デバッグ出力表示
+	void DebugOutTrace::DebugOutf_s3d ( s3d::String str )
+	{
+		s3d::Print << str;
+	}
+
+	void DebugOutTrace::DebugOutf_s3d ( s3d::Error err )
+	{
+		s3d::Print << err;
+	}
+
+
 }	//namespace GAME
 

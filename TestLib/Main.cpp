@@ -103,6 +103,14 @@ void Main()
 //	s3d::Texture tx ( ( U"test.png") );
 
 
+	//-----------------------------------
+	//バイナリリーダ テスト
+//	std::unique_ptr < s3d::BinaryReader > pbr = std::make_unique < s3d::BinaryReader > ();
+//	pbr->open ( U"test.png" );
+	s3d::BinaryReader br ( U"test.png" );
+	s3d::Texture tx_from_bin ( std::move ( br ) );
+
+
 	//メインループ
 	bool init = F;
 	while ( System::Update() )
@@ -178,6 +186,7 @@ void Main()
 		gameMain.Draw ();
 
 //		tx.draw ( 200, 200 );
+		tx_from_bin.draw ( 500, 500 );
 
 //		SivInput::Inst()->Is_Keyboard ( SIK_Z );
 	}

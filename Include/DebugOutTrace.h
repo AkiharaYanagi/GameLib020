@@ -33,11 +33,19 @@ namespace GAME
 		//GetLastError()からのWIN32APIのエラーメッセージ表示
 		//引数：呼出側で__FILE__, __LINE__を指定
 		static void OutputLastError ( LPCSTR file, DWORD line );
+
+
+		//Siv3D対応デバッグ出力表示
+		static void DebugOutf_s3d ( s3d::String str );
+		static void DebugOutf_s3d ( s3d::Error err );
+
 	};
 
 //シングルトンアクセス用
 #define TRACE_F		DebugOutTrace::DebugOutf
 #define TRACE_CHF	DebugOutTrace::DebugOutchf
+
+#define TRACE_F_S	DebugOutTrace::DebugOutf_s3d
 
 
 }	//namespace GAME
