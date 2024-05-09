@@ -1,6 +1,11 @@
 *.exe
 *.lib
 *.png
+!8.png
+!16.png
+!32.png
+!64.png
+!128.png
 
 
 ## Ignore Visual Studio temporary files, build results, and
