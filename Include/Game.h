@@ -12,5 +12,5 @@
 #include "00_Common.h"
 #include "01_GameStructure.h"
 #include "02_GameGraphic.h"
-//#include "03_GameInput.h"
+#include "03_GameInput.h"
 

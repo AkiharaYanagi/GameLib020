@@ -1,5 +1,6 @@
 *.exe
 *.lib
+*.idb
 *.png
 !8.png
 !16.png

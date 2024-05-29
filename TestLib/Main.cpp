@@ -111,6 +111,11 @@ void Main()
 	s3d::Texture tx_from_bin ( std::move ( br ) );
 
 
+	//test
+	GameKeyCommand gkc;
+
+
+	//==============================================================
 	//メインループ
 	bool init = F;
 	while ( System::Update() )
