@@ -763,5 +763,6 @@
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\Include\Document.h" />
+    <ClInclude Include="..\Include\04_GameFile.h" />
   </ItemGroup>
 </Project>

@@ -51,6 +51,23 @@ namespace GAME
 		}
 	}
 
+	float GameGraphicBase::GetZ () const
+	{
+		if ( map_Object->size() > 0 )
+		{
+			return map_Object->at ( 0 )->GetZ ();
+		}
+		return 0;
+	}
+
+	void GameGraphicBase::SetZ ( float z )
+	{
+		if ( map_Object->size() > 0 )
+		{
+			map_Object->at ( 0 )->SetZ ( z );
+		}
+	}
+
 
 }	//namespace GAME
 

@@ -34,6 +34,8 @@ namespace GAME
 		VEC2		m_rotationCenter { 0, 0 };	//回転時の中心座標
 		float		m_radian { 0 };				//角度[rad]
 
+		float		m_z { 0.5f };				//疑似z位置(順番で描画位置を表現する)
+
 	public:
 		GameObject ();
 		GameObject ( const GameObject& rhs );	//コピー可能
@@ -101,6 +103,9 @@ namespace GAME
 
 		float GetRadian () const { return m_radian; }
 		void SetRadian ( float rad ) { m_radian = rad; }
+
+		float GetZ () const { return m_z; }
+		void SetZ ( float z ) { m_z = z; }
 	};
 
 	//型定義

@@ -398,6 +398,7 @@
   <ItemGroup>
     <ClInclude Include="..\Include\02_GameGraphic.h" />
     <ClInclude Include="..\Include\Fade.h" />
+    <ClInclude Include="..\Include\GameGraphicConst.h" />
     <ClInclude Include="..\Include\GameObject.h" />
     <ClInclude Include="..\Include\_GameGraphic.h" />
     <ClInclude Include="stdafx.h" />
