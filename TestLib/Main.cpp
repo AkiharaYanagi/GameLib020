@@ -115,6 +115,24 @@ void Main()
 //	GameKeyCommand gkc;
 
 
+//	const PixelShader ps = HLSL { U"example/shader/hlsl/rgb_to_bgr.hlsl", U"PS" };
+	const PixelShader ps = HLSL { U"ScreenBlend.hlsl", U"PS" };
+	s3d::Texture tx_ef{ U"ef_001.png" };
+//	s3d::Texture tx_ef{ U"ef_004.png" };
+
+	//レンダーテクスチャ
+	RenderTexture rd_tx{800, 500, Palette::Lightgreen };
+
+	Texture tx_bg{ U"example/windmill.png" };
+
+
+
+	//test
+	Triangle tri{400, 10, 1200, 20, 1100, 800 };
+	Circle crc(480, 240, 100);
+	RenderTexture rd_tx_tri{1280, 960, Palette::Lightblue };
+
+
 	//==============================================================
 	//メインループ
 	bool init = F;
@@ -190,8 +208,58 @@ void Main()
 		gameMain.Move ();
 		gameMain.Draw ();
 
+
+#if 0
+
 //		tx.draw ( 200, 200 );
-		tx_from_bin.draw ( 500, 500 );
+//		tx_from_bin.draw ( 500, 500 );
+
+//		Graphics2D::SetPSTexture(1, tx_from_bin);
+		Graphics2D::SetPSTexture(1, tx_ef);
+		{
+			const ScopedCustomShader2D shader{ ps };
+//			tx_ef.draw(100, 150);
+			tx_from_bin.draw(140, 180);
+			
+		}
+#endif // 0
+
+#if 0
+		//レンダーターゲット
+		{
+			const ScopedRenderTarget2D target{ rd_tx };
+
+			tx_bg.draw(100, 100);
+			tx_from_bin.draw(140, 180);
+
+		}
+		//ピクセルシェーダ指定
+		Graphics2D::SetPSTexture(1, rd_tx);
+		{
+			const ScopedCustomShader2D shader{ ps };
+			tx_ef.draw(100, 150);
+		}
+//		rd_tx.draw(300, 300);
+#endif // 0
+
+
+#if 0
+		tri.draw();
+//		tri(tx_bg(0, 0, 100, 100 )).draw();
+
+
+		crc.draw();
+		crc(tx_bg(0, 0, 100, 100)).draw();
+#endif // 0
+
+		{
+			const ScopedRenderTarget2D target( rd_tx_tri );
+
+			tri.draw();
+		}
+		rd_tx_tri.draw();
+
+
 
 //		SivInput::Inst()->Is_Keyboard ( SIK_Z );
 	}
