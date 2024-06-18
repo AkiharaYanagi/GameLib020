@@ -112,7 +112,7 @@ void Main()
 
 
 	//test
-	GameKeyCommand gkc;
+//	GameKeyCommand gkc;
 
 
 	//==============================================================

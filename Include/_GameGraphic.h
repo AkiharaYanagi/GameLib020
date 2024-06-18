@@ -60,8 +60,10 @@ namespace GAME
 		void AddPos ( VEC2 v ) { map_Object->at ( 0 )->AddPos ( v ); }
 
 		//---------------------------------------------------------------------
-
- 	};
+		//先頭のみ
+		float GetZ () const;
+		void SetZ ( float z );
+	};
 
 	using GrpBs = GameGraphicBase;
 	using P_Grp = std::shared_ptr < GrpBs >;

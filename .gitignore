@@ -1,12 +1,7 @@
 *.exe
 *.lib
 *.idb
-*.png
-!8.png
-!16.png
-!32.png
-!64.png
-!128.png
+old/*
 
 
 ## Ignore Visual Studio temporary files, build results, and

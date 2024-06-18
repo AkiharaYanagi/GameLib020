@@ -768,5 +768,6 @@
     <ClInclude Include="..\Include\_GameGraphic.h" />
     <ClInclude Include="..\Include\02_GameGraphic.h" />
     <ClInclude Include="..\Include\GameObject.h" />
+    <ClInclude Include="..\Include\GameGraphicConst.h" />
   </ItemGroup>
 </Project>

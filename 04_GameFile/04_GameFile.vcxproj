@@ -315,6 +315,7 @@
     <Xml Include="App\example\xml\test.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Include\04_GameFile.h" />
     <ClInclude Include="..\Include\Document.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

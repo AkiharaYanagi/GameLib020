@@ -13,4 +13,6 @@
 #include "01_GameStructure.h"
 #include "02_GameGraphic.h"
 #include "03_GameInput.h"
+#include "04_GameFile.h"
+#include "10_GameUtility.h"
 

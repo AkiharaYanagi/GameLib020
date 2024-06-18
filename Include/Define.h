@@ -264,10 +264,19 @@ namespace GAME
 	constexpr bool T = true;
 	constexpr bool F = false;
 
+
 	//-------------------------------------------------------------------------------------------------
 	//	引数にした変数から、変数名を示す文字列リテラルとして返す((#)が文字列化演算子)
 	//-------------------------------------------------------------------------------------------------
 	#define	STR(var) #var
+
+
+	//-------------------------------------------------------------------------------------------------
+	//	type型に対する get;set;マクロ
+	//-------------------------------------------------------------------------------------------------
+	#define GET(type,Getter,prm)			type Getter () const { return prm; }
+	#define SET(type,Setter,prm)			void Setter ( type t ){ prm = t; }
+	#define GET_SET(type,Getter,Setter,b)	GET(type,Getter,b) SET(type,Setter,b)
 
 
 }	//namespace GAME
