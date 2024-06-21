@@ -94,9 +94,9 @@ void Main()
 
 	GameMain gameMain;
 
-	P_Grp grp = std::make_shared < GrpBs > ();
-	grp->SetTextureName ( U"test.png" );
-	gameMain.AddpTask ( grp );
+//	P_Grp grp = std::make_shared < GrpBs > ();
+//	grp->SetTextureName ( U"test.png" );
+//	gameMain.AddpTask ( grp );
 
 	gameMain.Load ();
 
@@ -107,7 +107,7 @@ void Main()
 	//バイナリリーダ テスト
 //	std::unique_ptr < s3d::BinaryReader > pbr = std::make_unique < s3d::BinaryReader > ();
 //	pbr->open ( U"test.png" );
-	s3d::BinaryReader br ( U"test.png" );
+	s3d::BinaryReader br ( U"000_立ち_00.png" );
 	s3d::Texture tx_from_bin ( std::move ( br ) );
 
 
@@ -121,9 +121,9 @@ void Main()
 //	s3d::Texture tx_ef{ U"ef_004.png" };
 
 	//レンダーテクスチャ
-	RenderTexture rd_tx{800, 500, Palette::Lightgreen };
+	RenderTexture rd_tx{1280, 960, Palette::Lightgreen };
 
-	Texture tx_bg{ U"example/windmill.png" };
+	Texture tx_bg{ U"BG0.png" };
 
 
 
@@ -225,22 +225,24 @@ void Main()
 #endif // 0
 
 #if 0
+#endif // 0
 		//レンダーターゲット
 		{
 			const ScopedRenderTarget2D target{ rd_tx };
 
-			tx_bg.draw(100, 100);
-			tx_from_bin.draw(140, 180);
+			tx_bg.draw(0, 0);
+			tx_from_bin.draw(140, 320);
 
 		}
 		//ピクセルシェーダ指定
-		Graphics2D::SetPSTexture(1, rd_tx);
+//		Graphics2D::SetPSTexture(1, rd_tx);
+		Graphics2D::SetPSTexture(1, tx_ef);
 		{
 			const ScopedCustomShader2D shader{ ps };
-			tx_ef.draw(100, 150);
+	//		tx_ef.draw(100, 100);
+			rd_tx.draw(20, 20);
 		}
-//		rd_tx.draw(300, 300);
-#endif // 0
+//		rd_tx.draw(20, 20);
 
 
 #if 0
@@ -252,12 +254,15 @@ void Main()
 		crc(tx_bg(0, 0, 100, 100)).draw();
 #endif // 0
 
+
+#if 0
 		{
 			const ScopedRenderTarget2D target( rd_tx_tri );
 
 			tri.draw();
 		}
 		rd_tx_tri.draw();
+#endif // 0
 
 
 
