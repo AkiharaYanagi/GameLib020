@@ -14,6 +14,7 @@
 #include "Format.h"
 #include "STR_UTL.h"
 #include "WND_UTL.h"
+#include "Rect.h"
 #include "HWnd.h"
 #include "DebugOutTrace.h"
 #include "GameLibConst.h"

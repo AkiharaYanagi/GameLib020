@@ -133,6 +133,7 @@ void Main()
 	RenderTexture rd_tx_tri{1280, 960, Palette::Lightblue };
 
 
+
 	//==============================================================
 	//メインループ
 	bool init = F;
@@ -207,7 +208,6 @@ void Main()
 
 		gameMain.Move ();
 		gameMain.Draw ();
-
 
 #if 0
 
