@@ -23,7 +23,7 @@ namespace GAME
 	{
 //		GameMatrix	m_matrix;			//座標
 		bool		m_valid { T };		//表示 ON/OFF
-		UINT		m_indexTexture { 0 };	//テクスチャ指定添字
+		uint32		m_indexTexture { 0 };	//テクスチャ指定添字
 		Fade		m_fade;				//フェード (単色指定もフェードに統合)
 
 		//表示パラメータ
@@ -50,25 +50,25 @@ namespace GAME
 
 
 		//テクスチャインデックス
-		void SetIndexTexture ( UINT i ) { m_indexTexture = i; }
-		UINT GetIndexTexture () const { return m_indexTexture; }
+		void SetIndexTexture ( uint32 i ) { m_indexTexture = i; }
+		uint32 GetIndexTexture () const { return m_indexTexture; }
 
 		//色
 		void SetColor ( _CLR c ) { m_fade.SetColor ( c ); }
 		_CLR GetColor () const { return m_fade.GetColor (); }
 
 		//フェード
-		void SetFade ( UINT time, _CLR clr_start, _CLR clr_end )
+		void SetFade ( uint32 time, _CLR clr_start, _CLR clr_end )
 		{
 			m_valid = true;
 			m_fade.SetFade ( time, clr_start, clr_end ); 
 		}
-		void SetFadeIn  ( UINT time )
+		void SetFadeIn  ( uint32 time )
 		{
 			m_valid = true;
 			m_fade.SetFade ( time, 0x00ffffff, 0xffffffff );
 		}
-		void SetFadeOut ( UINT time )
+		void SetFadeOut ( uint32 time )
 		{
 			m_valid = true;
 			m_fade.SetFade ( time, 0xffffffff, 0x00ffffff );

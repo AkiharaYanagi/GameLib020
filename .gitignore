@@ -370,3 +370,6 @@ FodyWeavers.xsd
 *.lib
 *.idb
 *.exe
+*.idb
+*.lib
+*.exe

@@ -90,7 +90,8 @@ void Main()
 	s3d::Window::SetPos ( pt );
 
 
-//	SivInput::Create();
+	//-----------------------------------
+	//	SivInput::Create();
 
 	GameMain gameMain;
 
@@ -111,9 +112,55 @@ void Main()
 	s3d::Texture tx_from_bin ( std::move ( br ) );
 
 
-	//test
+//	s3d::TextureAsset::Register ();
+
+
+//-----------------------------------
+	//メモリリーダ テスト
+	s3d::BinaryReader br1 ( U"000_立ち_00.png" );
+	size_t filesize = br1.size ();
+	Byte bb_0[4];
+	br1.read ( &bb_0, 4 );
+	br1.setPos ( 0 );
+
+	s3d::Array < Byte > array_byte { filesize };
+	s3d::BinaryWriter bw1;
+	bw1.write ( br1.read ( array_byte.data(), filesize ) );
+
+	Byte b0 = array_byte[0];
+	Byte b1 = array_byte[1];
+	Byte b2 = array_byte[2];
+	Byte b3 = array_byte[3];
+
+	s3d::Image img ( U"000_立ち_00.png" );
+	img.encodePNG ();
+
+
+	byte bt = 255;
+
+//	s3d::MemoryViewReader mr;
+//	s3d::MemoryReader mr ( &bt, 1 );
+	s3d::MemoryReader mr ( (void*)array_byte.data(), filesize );
+
+
+//	mr.read ( (void*)array_byte.data(), filesize );
+	int64 nRead = mr.read ( (void*)&bt, 1 );
+	ZIPReader zr;
+	zr.extract (U"");
+
+	bool bOpen = mr.isOpen ();
+
+	size_t mr_size = mr.size();
+	int64 pos = mr.getPos ();
+	mr.setPos ( 0 );
+	
+	s3d::Texture tx_from_mem ( std::move ( mr ) );
+
+//-----------------------------------
+//test
 //	GameKeyCommand gkc;
 
+//-----------------------------------
 
 //	const PixelShader ps = HLSL { U"example/shader/hlsl/rgb_to_bgr.hlsl", U"PS" };
 	const PixelShader ps = HLSL { U"ScreenBlend.hlsl", U"PS" };
@@ -126,6 +173,7 @@ void Main()
 	Texture tx_bg{ U"BG0.png" };
 
 
+	//-----------------------------------
 
 	//test
 	Triangle tri{400, 10, 1200, 20, 1100, 800 };
@@ -263,6 +311,11 @@ void Main()
 		}
 		rd_tx_tri.draw();
 #endif // 0
+
+
+		//----------------------------
+		tx_from_mem.draw ( 700, 500 );
+		tx_from_bin.draw ( 500, 500 );
 
 
 
