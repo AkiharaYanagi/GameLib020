@@ -114,7 +114,7 @@ namespace GAME
 	}
 
 	//指定したボタンが離された瞬間か
-	bool SivGamePad::ReleaseButton( int id, int nButton ) const
+	bool SivGamePad::ReleButton( int id, int nButton ) const
 	{
 		bool bIs = IsButton ( id, nButton );
 		bool bWs = WasButton ( id, nButton );

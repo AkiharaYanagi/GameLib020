@@ -46,7 +46,7 @@ namespace GAME
 		//指定したボタンが押された瞬間か
 		bool PushButton( int id, int nButton ) const;
 		//指定したボタンが離された瞬間か
-		bool ReleaseButton( int id, int nButton ) const;
+		bool ReleButton( int id, int nButton ) const;
 
 
 		//--------------------------------------------------------------

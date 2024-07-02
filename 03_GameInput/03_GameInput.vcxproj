@@ -115,6 +115,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DeviceInput.cpp" />
     <ClCompile Include="GameKey.cpp" />
     <ClCompile Include="GameKeyCommand.cpp" />
     <ClCompile Include="KeyConfig.cpp" />
@@ -321,8 +322,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\03_GameInput.h" />
+    <ClInclude Include="..\Include\DeviceInput.h" />
     <ClInclude Include="..\Include\GameKey.h" />
     <ClInclude Include="..\Include\GameKeyCommand.h" />
+    <ClInclude Include="..\Include\KeyConfig.h" />
+    <ClInclude Include="..\Include\KeyDefine.h" />
     <ClInclude Include="..\Include\SivGamePad.h" />
     <ClInclude Include="..\Include\SivInput.h" />
     <ClInclude Include="..\Include\SivKeyboard.h" />

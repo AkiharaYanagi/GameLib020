@@ -277,7 +277,7 @@ namespace GAME
 		{
 		case PIT_AXIS: return Push_Axis_Lvr ( id, ji.GetLever () ); break;
 		case PIT_POINT_OF_VIEW: return Push_POV_Lvr ( id, ji.GetLever () ); break;
-//		case PIT_BUTTON: return DXINP->PushJoyButton ( id, ji.GetButtonID () ); break;
+			//		case PIT_BUTTON: return DXINP->PushJoyButton ( id, ji.GetButtonID () ); break;
 		case PIT_BUTTON: return SVINP->PushJoyButton ( id, ji.GetButtonID () ); break;
 		}
 		return false;
@@ -312,6 +312,53 @@ namespace GAME
 	bool KeyConfig::Push_Keyboard ( uint32 key ) const
 	{
 		return SVINP->Push_Keyboard ( key );
+	}
+
+	//----------------------------------------------------------------------------------
+	//離された瞬間かどうか
+	bool KeyConfig::Rele_Joy ( GamePadInput ji ) const
+	{
+		DWORD id = ji.GetID ();
+		PAD_INPUT_TYPE type = ji.GetInputType ();
+		switch ( type )
+		{
+		case PIT_AXIS: return Push_Axis_Lvr ( id, ji.GetLever () ); break;
+		case PIT_POINT_OF_VIEW: return Push_POV_Lvr ( id, ji.GetLever () ); break;
+//		case PIT_BUTTON: return DXINP->PushJoyButton ( id, ji.GetButtonID () ); break;
+		case PIT_BUTTON: return SVINP->PushJoyButton ( id, ji.GetButtonID () ); break;
+		}
+		return false;
+	}
+
+	bool KeyConfig::Rele_Axis_Lvr ( uint32 ID, LEVER_DIR lvr ) const
+	{
+		bool ret = false;
+		switch ( lvr )
+		{
+		case LEVER_DIR::LVR_UP:		ret = SVINP->ReleAxisUp ( ID );		break;
+		case LEVER_DIR::LVR_DOWN:	ret = SVINP->ReleAxisDown ( ID );		break;
+		case LEVER_DIR::LVR_LEFT:	ret = SVINP->ReleAxisLeft ( ID );		break;
+		case LEVER_DIR::LVR_RIGHT:	ret = SVINP->ReleAxisRight ( ID );	break;
+		}
+		return ret;
+	}
+
+	bool KeyConfig::Rele_POV_Lvr ( uint32 ID, LEVER_DIR lvr ) const
+	{
+		bool ret = false;
+		switch ( lvr )
+		{
+		case LEVER_DIR::LVR_UP:		ret = SVINP->RelePovUp ( ID );	break;
+		case LEVER_DIR::LVR_DOWN:	ret = SVINP->RelePovDown ( ID );	break;
+		case LEVER_DIR::LVR_LEFT:	ret = SVINP->RelePovLeft ( ID );	break;
+		case LEVER_DIR::LVR_RIGHT:	ret = SVINP->RelePovRight ( ID );	break;
+		}
+		return ret;
+	}
+
+	bool KeyConfig::Rele_Keyboard ( uint32 key ) const
+	{
+		return SVINP->Rele_Keyboard ( key );
 	}
 
 	//----------------------------------------------------------------------------------

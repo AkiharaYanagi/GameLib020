@@ -114,6 +114,7 @@ void Main()
 
 //	s3d::TextureAsset::Register ();
 
+#if 0
 
 //-----------------------------------
 	//メモリリーダ テスト
@@ -133,7 +134,7 @@ void Main()
 	Byte b3 = array_byte[3];
 
 	s3d::Image img ( U"000_立ち_00.png" );
-	img.encodePNG ();
+//	img.encodePNG ();
 
 
 	byte bt = 255;
@@ -146,7 +147,7 @@ void Main()
 //	mr.read ( (void*)array_byte.data(), filesize );
 	int64 nRead = mr.read ( (void*)&bt, 1 );
 	ZIPReader zr;
-	zr.extract (U"");
+//	zr.extract (U"");
 
 	bool bOpen = mr.isOpen ();
 
@@ -156,6 +157,8 @@ void Main()
 	
 	s3d::Texture tx_from_mem ( std::move ( mr ) );
 
+
+#endif // 0
 //-----------------------------------
 //test
 //	GameKeyCommand gkc;
@@ -314,7 +317,7 @@ void Main()
 
 
 		//----------------------------
-		tx_from_mem.draw ( 700, 500 );
+//		tx_from_mem.draw ( 700, 500 );
 		tx_from_bin.draw ( 500, 500 );
 
 
