@@ -11,13 +11,14 @@
 //-------------------------------------------------------------------------------------------------
 #include "Define.h"
 #include "Define_Siv3D.h"
+#include "GameLibConst.h"
 #include "Format.h"
+#include "DebugOutTrace.h"
 #include "STR_UTL.h"
 #include "WND_UTL.h"
 #include "Rect.h"
 #include "HWnd.h"
-#include "DebugOutTrace.h"
-#include "GameLibConst.h"
+#include "Archiver.h"
 
 
 //-------------------------------------------------------------------------------------------------

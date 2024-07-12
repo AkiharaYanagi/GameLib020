@@ -9,7 +9,7 @@
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイル　インクルード
 //-------------------------------------------------------------------------------------------------
-#include "Define_Siv3D.h"
+#include "00_Common.h"
 #include "GameTask.h"
 #include "GameObject.h"
 
@@ -50,6 +50,7 @@ namespace GAME
 		void ClearTexture () { mpap_Texture->clear (); }
 		void AddTexture ();
 		void AddTexture ( s3d::String filename );
+		void AddTexture_FromArchive ( s3d::String filename );
 		void AddpTexture ( P_Tx ptx );
 		void SetpTexture ( P_Tx ptx );
 

@@ -78,6 +78,24 @@ namespace GAME
 		mpap_Texture->push_back ( ptx );
 	}
 
+	void GameGraphicBase::AddTexture_FromArchive ( s3d::String filename )
+	{
+		//アーカイブからファイルを取得
+		ARCHIVE_FILE_USE file = ACVR()->GetFilePointer ( (LPCTSTR)filename.c_str() );
+
+		if ( file.filePointer == nullptr )
+		{
+			//TRACE_F ( TEXT("アーカイブにファイルが見つかりませんでした\n") );
+			return;
+		}
+
+		//テクスチャの作成
+		P_Tx ptx = std::make_shared < s3d::Texture > ( filename );
+
+		//テクスチャの設定
+		mpap_Texture->push_back ( ptx );
+	}
+
 	void GameGraphicBase::SetpTexture ( P_Tx ptx )
 	{
 		//0の位置にテクスチャを設定します

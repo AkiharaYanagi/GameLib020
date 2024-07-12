@@ -768,6 +768,7 @@
     <ClInclude Include="..\Include\Define_Siv3D.h" />
     <ClInclude Include="..\Include\Rect.h" />
     <ClInclude Include="..\Include\DebugOutTrace.h" />
+    <ClInclude Include="..\Include\Archiver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -775,5 +776,6 @@
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="DebugOutTrace.cpp" />
     <ClCompile Include="Format.cpp" />
+    <ClCompile Include="Archiver.cpp" />
   </ItemGroup>
 </Project>

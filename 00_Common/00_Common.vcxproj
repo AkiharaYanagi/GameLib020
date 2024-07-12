@@ -116,6 +116,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Archiver.cpp" />
     <ClCompile Include="DebugOutTrace.cpp" />
     <ClCompile Include="Define.cpp" />
     <ClCompile Include="Format.cpp" />
@@ -320,6 +321,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\00_Common.h" />
+    <ClInclude Include="..\Include\Archiver.h" />
     <ClInclude Include="..\Include\DebugOutTrace.h" />
     <ClInclude Include="..\Include\Define.h" />
     <ClInclude Include="..\Include\Define_Siv3D.h" />
