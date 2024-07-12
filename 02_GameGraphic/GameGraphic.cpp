@@ -20,15 +20,15 @@ namespace GAME
 	//■=======================================================================
 	GameGraphicBase::GameGraphicBase ()
 	{
-		map_Texture = std::make_shared < AP_Tx > ();
+		mpap_Texture = std::make_shared < AP_Tx > ();
 
-		map_Object = std::make_shared < AP_Ob > ();
-		map_Object->push_back ( std::make_shared < GameObject > () );
+		mpap_Object = std::make_shared < AP_Ob > ();
+		mpap_Object->push_back ( std::make_shared < GameObject > () );
 	}
 
 	GameGraphicBase::~GameGraphicBase ()
 	{
-		map_Object->clear ();
+		mpap_Object->clear ();
 	}
 
 
@@ -39,63 +39,69 @@ namespace GAME
 
 	void GameGraphicBase::Move ()
 	{
-		for ( P_Ob pob : *map_Object ) { pob->PreMove (); }
-		for ( P_Ob pob : *map_Object ) { pob->Move (); }
+		for ( P_Ob pob : *mpap_Object ) { pob->PreMove (); }
 	}
 
 	void GameGraphicBase::Draw ()
 	{
 		//オブジェクトの数だけ描画
-		for ( P_Ob pob : *map_Object )
+		for ( P_Ob pob : *mpap_Object )
 		{
 			if ( ! pob->GetValid () ) { continue; }
 
-			//テクスチャの指定
+			//拡大縮小
+			VEC2 v = pob->GetScaling();
+			s3d::Vec2 vScaling { v.x, v.y };
+
+			//描画テクスチャの指定
 			uint32 indexTexture = pob->GetIndexTexture ();
-			map_Texture->at ( indexTexture )->draw ( pob->GetPos().x, pob->GetPos().y );
-			//m_tx->draw ( pob->GetPos().x, pob->GetPos().y );
+			P_Tx ptx = mpap_Texture->at ( indexTexture );
+			ptx->scaled ( vScaling ).draw ( pob->GetPos().x, pob->GetPos().y );
 		}
 	}
 
 	//---------------------------------------------------------------------
 	void GameGraphicBase::AddpTexture ( P_Tx ptx )
 	{
-		map_Texture->push_back ( ptx );
+		mpap_Texture->push_back ( ptx );
 	}
 
 	void GameGraphicBase::AddTexture ()
 	{
 		P_Tx ptx = std::make_shared < s3d::Texture > ();
-		map_Texture->push_back ( ptx );
+		mpap_Texture->push_back ( ptx );
 	}
 
 	void GameGraphicBase::AddTexture ( s3d::String filename )
 	{
 		P_Tx ptx = std::make_shared < s3d::Texture > ( filename );
-		map_Texture->push_back ( ptx );
+		mpap_Texture->push_back ( ptx );
 	}
 
 	void GameGraphicBase::SetpTexture ( P_Tx ptx )
 	{
-		map_Texture->at ( 0 ) = ptx;
+		//0の位置にテクスチャを設定します
+		//map_Texture->at ( 0 ) = ptx;
+		mpap_Texture->remove_at ( 0 );
+		mpap_Texture->push_back ( ptx );
 	}
 
 
 	//---------------------------------------------------------------------
 	float GameGraphicBase::GetZ () const
 	{
-		if ( map_Object->size() > 0 )
+		if ( mpap_Object->size() > 0 )
 		{
-			return map_Object->at ( 0 )->GetZ ();
+			return mpap_Object->at ( 0 )->GetZ ();
 		}
 		return 0;
 	}
 
 	void GameGraphicBase::SetZ ( float z )
 	{
-		if ( map_Object->size() > 0 )
+		if ( mpap_Object->size() > 0 )
 		{
-			map_Object->at ( 0 )->SetZ ( z );
+			mpap_Object->at ( 0 )->SetZ ( z );
 		}
 	}
 

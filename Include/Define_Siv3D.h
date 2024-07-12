@@ -24,5 +24,23 @@ namespace GAME
 	using PAP_Tx = std::shared_ptr < AP_Tx >;
 
 
+	class S3d_Utl
+	{
+	public:
+		static s3d::Color DWORD_to_Color ( DWORD clr )
+		{
+			uint8 a = 0x000000ff & (clr >> 24);
+			uint8 r = 0x000000ff & (clr >> 16);
+			uint8 g = 0x000000ff & (clr >> 8);
+			uint8 b = 0x000000ff & (clr >> 0);
+			return Color { r, g, b, a };
+		}
+		static s3d::ColorF DWORD_to_ColorF ( DWORD clr )
+		{
+			return ColorF { DWORD_to_Color ( clr ) };
+		}
+	};
+
+
 }	//namespace GAME
 

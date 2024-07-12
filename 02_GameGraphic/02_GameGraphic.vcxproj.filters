@@ -761,6 +761,7 @@
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameGraphic.cpp" />
+    <ClCompile Include="GamePrimitive.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -769,5 +770,6 @@
     <ClInclude Include="..\Include\GameObject.h" />
     <ClInclude Include="..\Include\GameGraphicConst.h" />
     <ClInclude Include="..\Include\GameGraphic.h" />
+    <ClInclude Include="..\Include\GamePrimitive.h" />
   </ItemGroup>
 </Project>

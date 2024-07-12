@@ -21,8 +21,8 @@ namespace GAME
 	class SivKeyboard
 	{
 		//キーボードの状態保存
-		Array < bool >	ma_keyState { F };
-		Array < bool >	ma_preKeyState { F };
+		s3d::Array < bool >	ma_keyState {};
+		s3d::Array < bool >	ma_preKeyState {};
 
 	public:
 		SivKeyboard ();
@@ -39,6 +39,6 @@ namespace GAME
 		//ゲーム利用
 		//状態の更新
 		//メインオブジェクトから取得
-		void Update ( Array < Input > & keys );
+		void Update ( const Array < s3d::Input > & keys );
 	};
 }

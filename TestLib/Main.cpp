@@ -184,6 +184,10 @@ void Main()
 	RenderTexture rd_tx_tri{1280, 960, Palette::Lightblue };
 
 
+	//-----------------------------------
+	P_PrmRect pPrmRect = std::make_shared < PrmRect > ();
+	gameMain.AddpTask ( pPrmRect );
+
 
 	//==============================================================
 	//メインループ
@@ -258,7 +262,6 @@ void Main()
 
 
 		gameMain.Move ();
-		gameMain.Draw ();
 
 #if 0
 
@@ -323,6 +326,10 @@ void Main()
 
 
 //		SivInput::Inst()->Is_Keyboard ( SIK_Z );
+
+		gameMain.Draw ();
+
+//		Rect { 200, 200, 200, 200 }.draw ();
 	}
 }
 

@@ -28,13 +28,10 @@ namespace GAME
 	class GameGraphicBase : public GameTask
 	{
 		//テクスチャ配列(インデックスはオブジェクトが持つ)
-		PAP_Tx		map_Texture;
-		
-//		s3d::String	m_filename { U"" };
-//		std::shared_ptr < s3d::Texture >	m_tx { nullptr };
+		PAP_Tx		mpap_Texture;
 
 		//オブジェクト配列
-		PAP_Ob		map_Object;
+		PAP_Ob		mpap_Object;
 
 	public:
 		GameGraphicBase ();
@@ -48,26 +45,35 @@ namespace GAME
 
 		//---------------------------------------------------------------------
 		//テクスチャ
-//		void SetTextureName ( s3d::String filename ) { m_filename = filename; }
+		PAP_Tx Getpap_tx () const { return mpap_Texture; }
+
+		void ClearTexture () { mpap_Texture->clear (); }
 		void AddTexture ();
 		void AddTexture ( s3d::String filename );
-
 		void AddpTexture ( P_Tx ptx );
-
 		void SetpTexture ( P_Tx ptx );
 
 		//---------------------------------------------------------------------
+		// オブジェクト
+		PAP_Ob Getpap_ob () const { return mpap_Object; }
+
 		//オブジェクト先頭の直接制御
 		//単体で用いるときは、オブジェクトを指定しなくてよい
-		void SetPos ( VEC2 v ) { map_Object->at ( 0 )->SetPos ( v ); }
-		void SetPos ( float x, float y ) { map_Object->at ( 0 )->SetPos ( x, y ); }
-		VEC2 GetPos () const { return map_Object->at ( 0 )->GetPos (); }
-		void AddPos ( VEC2 v ) { map_Object->at ( 0 )->AddPos ( v ); }
+		void SetPos ( VEC2 v ) { mpap_Object->at ( 0 )->SetPos ( v ); }
+		void SetPos ( float x, float y ) { mpap_Object->at ( 0 )->SetPos ( x, y ); }
+		VEC2 GetPos () const { return mpap_Object->at ( 0 )->GetPos (); }
+		void AddPos ( VEC2 v ) { mpap_Object->at ( 0 )->AddPos ( v ); }
 
-		//---------------------------------------------------------------------
-		//先頭のみ
+		void SetScaling ( float x, float y ) { mpap_Object->at(0)->SetScaling ( x, y ); }
+		void SetScaling ( VEC2 v ) { mpap_Object->at(0)->SetScaling ( v ); }
+
 		float GetZ () const;
 		void SetZ ( float z );
+
+		void SetIndexTexture ( uint32 index ) { mpap_Object->at(0)->SetIndexTexture ( index ); }
+		void SetColor ( uint32 clr ) { mpap_Object->at(0)->SetColor ( clr ); }
+
+		//---------------------------------------------------------------------
 	};
 
 	using GrpBs = GameGraphicBase;

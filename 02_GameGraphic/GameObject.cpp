@@ -41,10 +41,6 @@ namespace GAME
 		m_fade.PreMove ();
 	}
 
-	void GameObject::Move ()
-	{
-//		m_matrix.Move ();
-	}
 
 }	//namespace GAME
 

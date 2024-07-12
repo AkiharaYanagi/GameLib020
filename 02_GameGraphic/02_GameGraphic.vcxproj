@@ -391,6 +391,7 @@
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="GameGraphic.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GamePrimitive.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -401,6 +402,7 @@
     <ClInclude Include="..\Include\GameGraphic.h" />
     <ClInclude Include="..\Include\GameGraphicConst.h" />
     <ClInclude Include="..\Include\GameObject.h" />
+    <ClInclude Include="..\Include\GamePrimitive.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

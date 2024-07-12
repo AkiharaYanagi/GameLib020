@@ -29,7 +29,7 @@ namespace GAME
 		//表示パラメータ
 		VEC2		m_vecPos { 0, 0 };			//自オブジェクト位置
 		VEC2		m_scalingCenter { 0, 0 };	//スケーリングの中心座標
-		VEC2		m_scaling { 0, 0 };			//スケーリング(拡大率)
+		VEC2		m_scaling { 1.f, 1.f };		//スケーリング(拡大率)
 //		float		m_scalingRotation { 0 };	//拡大回転の要素
 		VEC2		m_rotationCenter { 0, 0 };	//回転時の中心座標
 		float		m_radian { 0 };				//角度[rad]
@@ -42,7 +42,6 @@ namespace GAME
 		~GameObject ();
 
 		void PreMove ();
-		void Move ();
 		
 		//有効・無効
 		void SetValid ( bool b ) { m_valid = b; }

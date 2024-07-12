@@ -26,7 +26,7 @@ namespace GAME
 	private:
 		using P_SivInput = std::unique_ptr < SivInput >;	//ポインタ型定義
 		static P_SivInput	m_inst;		//シングルトンインスタンス(実体は.cppで定義)
-		SivInput ();		//private コンストラクタで通常の実体化は禁止
+		SivInput () {}		//private コンストラクタで通常の実体化は禁止
 	public:
 		~SivInput (){}		//デストラクタはstd::unique_ptrのためpublic
 		static void Create () { if ( ! m_inst ) { m_inst = P_SivInput ( new SivInput () ); } }
@@ -40,6 +40,8 @@ namespace GAME
 		SivGamePad		m_gamepad;
 
 	public:
+
+		void Update ( const Array < s3d::Input > & keys );
 
 		//---------------------------------------------------------------------------
 		//キーボード

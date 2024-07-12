@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="DebugOutGameWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -764,5 +765,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\Include\Timer.h" />
     <ClInclude Include="..\Include\10_GameUtility.h" />
+    <ClInclude Include="..\Include\DebugOutGameWindow.h" />
   </ItemGroup>
 </Project>

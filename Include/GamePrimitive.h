@@ -1,0 +1,57 @@
+﻿//=================================================================================================
+//
+// ゲームプリミティブ グラフィック
+//
+//=================================================================================================
+#pragma once
+
+//-------------------------------------------------------------------------------------------------
+// ヘッダファイル　インクルード
+//-------------------------------------------------------------------------------------------------
+#include "Define_Siv3D.h"
+#include "GameTask.h"
+#include "GameObject.h"
+
+
+//-------------------------------------------------------------------------------------------------
+// 宣言
+//-------------------------------------------------------------------------------------------------
+namespace GAME
+{
+	//=======================================================================
+	//	Rect 
+	//=======================================================================
+	class GamePrimitiveRect : public GameTask
+	{
+		s3d::Rect		m_rect { 100, 200, 300, 400 };
+		s3d::ColorF		m_color { 1.f, 1.f, 1.f, 1.f };
+
+		bool			m_valid { T };
+		
+	public:
+		GamePrimitiveRect ();
+		GamePrimitiveRect ( const GamePrimitiveRect & rhs ) = delete;
+		~GamePrimitiveRect ();
+
+		//---------------------------------------------------------------------
+		void Draw ();
+
+		void SetRect ( const s3d::Rect rect ) { m_rect.set( rect ); }
+		void SetRect ( int32 x, int32 y, int32 w, int32 h ) { m_rect.set( x, y, w, h ); }
+		void SetPos ( const s3d::Rect::position_type pos ) { m_rect.setPos ( pos ); }
+		void SetSize ( const s3d::Rect::size_type size ) { m_rect.setSize ( size ); }
+		void SetColor ( const s3d::ColorF color ) { m_color = color; }
+
+		void SetZero () { m_rect.set( 0, 0, 0, 0 ); }
+
+		void SetValid ( bool b ) { m_valid = b; }
+		bool GetValid () const { return m_valid; }
+	};
+
+	using PrmRect = GamePrimitiveRect;
+	using P_PrmRect = std::shared_ptr < PrmRect >;
+
+
+
+}	//namespace GAME
+
