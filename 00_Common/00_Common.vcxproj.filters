@@ -777,5 +777,7 @@
     <ClCompile Include="DebugOutTrace.cpp" />
     <ClCompile Include="Format.cpp" />
     <ClCompile Include="Archiver.cpp" />
+    <ClCompile Include="WND_UTL.cpp" />
+    <ClCompile Include="STR_UTL.cpp" />
   </ItemGroup>
 </Project>

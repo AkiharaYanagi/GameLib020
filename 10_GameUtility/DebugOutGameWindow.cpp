@@ -8,6 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "DebugOutGameWindow.h"
+#include "Ascii_Font.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -20,10 +21,11 @@ namespace GAME
 	P_DBG_WND	DBGO_WND::m_inst = nullptr;
 	//--------------------------------------------------
 
-
 	DebugOutGameWindow::DebugOutGameWindow ()
 	{
 		m_font = s3d::Font { 30 };
+
+		m_frame.SetPos ( VEC2 ( 0, 0 ) );
 	}
 
 	DebugOutGameWindow::~DebugOutGameWindow ()
@@ -33,6 +35,8 @@ namespace GAME
 	void DebugOutGameWindow::Draw ()
 	{
 		m_font( m_str ).draw ( 10, 400 );
+
+		m_frame.Draw ();
 	}
 
 	void DebugOutGameWindow::DebugOutf ( s3d::String str )
@@ -42,13 +46,18 @@ namespace GAME
 
 	void DebugOutGameWindow::AddDbgOutWndf ( s3d::String str )
 	{
-		//		ma_font.push_back ( );
+//		ma_font.push_back ( );
 	}
 
 
+	//固定表示 : 稼働時間[F]
+	void DebugOutGameWindow::DebugOutWnd_Frame ( UINT frame )
+	{
+		m_frame.SetStr ( U"frame = {}"_fmt( frame ) );
+	}
+
 
 #if 0
-
 	//コンストラクタ
 	DebugOutGameWindow::DebugOutGameWindow ()
 	{
@@ -205,13 +214,6 @@ namespace GAME
 		SetStr ( index, p.get () );
 	}
 
-	//固定表示 : DrawTime[ms]
-	void DebugOutGameWindow::DebugOutWnd_Frame ( UINT frame )
-	{
-		UP_TSTR p = Format::GetFormatStr ( _T ( "Frame:%d" ), frame );
-		m_frame.SetStr ( std::move ( p ) );
-	}
-
 	//固定表示 : FPS
 	void DebugOutGameWindow::DebugOutWnd_FPS ( UINT FPS )
 	{
@@ -321,119 +323,10 @@ namespace GAME
 	}
 
 
-	//=====================================================
-	//固定表示 ASCII文字別テクスチャ
-
-	const UINT ConstDebugOut_ASCII::SIZE = 64;
-
-	ConstDebugOut_ASCII::ConstDebugOut_ASCII ()
-		: m_valid ( T )
-	{
-		mvp_vx.resize ( SIZE );	
-		for ( UINT i = 0; i < SIZE; ++ i )
-		{
-			mvp_vx [ i ] = std::make_shared < Vx_Rect > ();
-			P_VxRct p = mvp_vx [ i ];
-			p->SetAllZ ( 0 );
-			p->SetPos ( 20 + 20.f * i, 400 );
-			p->SetSize ( 20, 16 );
-			p->SetAllColor ( 0xff00ffffL );
-			p->SetUpdate ( F );	//毎回のMove()内で頂点位置を更新しない
-		}
-	}
-
-	ConstDebugOut_ASCII::~ConstDebugOut_ASCII ()
-	{
-		Rele ();
-	}
-
-	void ConstDebugOut_ASCII::Load ()
-	{
-		for ( P_VxRct p : mvp_vx ) { p->Load (); }
-	}
-
-	void ConstDebugOut_ASCII::Rele ()
-	{
-		for ( P_VxRct p : mvp_vx ) { p->Rele (); }
-	}
-
-	void ConstDebugOut_ASCII::Reset ()
-	{
-		for ( P_VxRct p : mvp_vx ) { p->Reset (); }
-	}
-
-	void ConstDebugOut_ASCII::Move ()
-	{
-		for ( P_VxRct p : mvp_vx ) { p->Move (); }
-	}
-
-	void ConstDebugOut_ASCII::Draw ()
-	{
-		if ( ! m_valid ) { return; }
-
-		//テクスチャを指定して描画
-		UINT i_c = 0;
-		for ( char c : m_str )
-		{
-			P_VxRct p = mvp_vx [ i_c ];
-			TX tx = GameText::Inst ()->GetAsciiTx ( c );
-			p->DrawVertex ( tx );
-			++ i_c;
-		}
-	}
-
-	void ConstDebugOut_ASCII::SetStr ( UP_TSTR upctstr )
-	{
-		SetStr ( upctstr.get () );
-	}
-
-	void ConstDebugOut_ASCII::SetStr ( LPCTSTR lpctstr )
-	{
-		m_tstr.assign ( lpctstr );
-
-		//文字列変換
-		size_t str_size = m_tstr.size ();
-		std::unique_ptr < char[] > ary_ch = std::make_unique < char[] > ( str_size );
-
-		vector < char > v_ch;
-		v_ch.resize ( str_size );
-
-		int converted = 0;
-		UINT i = 0;
-		for ( TCHAR tch : m_tstr )
-		{
-			wctomb_s ( & converted, & v_ch [ i ], 1, m_tstr [ i ] );
-			wctomb_s ( & converted, & ary_ch [ i ], 1, m_tstr [ i ] );
-			++ i;
-		}
-		m_str.assign ( ary_ch.get (), str_size );
-
-
-		//テクスチャを指定して	サイズ取得
-		float dx = 0;	//補正位置
-		for ( UINT i_c = 0; i_c < str_size; ++ i_c )
-		{
-			P_VxRct p = mvp_vx [ i_c ];
-			TX tx = GameText::Inst ()->GetAsciiTx ( ary_ch [ i_c ] );
-			USIZE us = Dx_UTL::TxSize ( tx );
-			LONG w = GameText::Inst ()->GetAsciiW ( ary_ch [ i_c ] );
-
-			p->SetSize ( 1.f * us.w, 1.f * us.h );
-			p->SetPos ( m_pos.x + dx, m_pos.y );
-			p->ApplyPos ();
-			p->WriteVertexBuffer ();
-
-			dx += w;	//次の頂点位置はテクスチャではなく文字から取得する
-		}
-	}
-
-	void ConstDebugOut_ASCII::SetPos ( VEC2 v )
-	{
-		m_pos = v;
-	}
-
-
 #endif // 0
+
+
+
 
 }	//namespace GAME
 

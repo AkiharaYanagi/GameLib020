@@ -9,8 +9,7 @@
 // ヘッダファイル　インクルード
 //-------------------------------------------------------------------------------------------------
 #include "Define_Siv3D.h"
-#include "GameTask.h"
-#include "GameObject.h"
+#include "GameGraphicCore.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -21,12 +20,10 @@ namespace GAME
 	//=======================================================================
 	//	Rect 
 	//=======================================================================
-	class GamePrimitiveRect : public GameTask
+	class GamePrimitiveRect : public GameGraphicCore
 	{
 		s3d::Rect		m_rect { 100, 200, 300, 400 };
 		s3d::ColorF		m_color { 1.f, 1.f, 1.f, 1.f };
-
-		bool			m_valid { T };
 		
 	public:
 		GamePrimitiveRect ();
@@ -43,9 +40,6 @@ namespace GAME
 		void SetColor ( const s3d::ColorF color ) { m_color = color; }
 
 		void SetZero () { m_rect.set( 0, 0, 0, 0 ); }
-
-		void SetValid ( bool b ) { m_valid = b; }
-		bool GetValid () const { return m_valid; }
 	};
 
 	using PrmRect = GamePrimitiveRect;

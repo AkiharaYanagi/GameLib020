@@ -12,7 +12,7 @@
 #include "Game.h"
 
 //ゲーム内容ヘッダファイルのインクルード
-//#include "Test.h"
+#include "Test.h"
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
@@ -21,9 +21,10 @@ namespace GAME
 {
 
 	//ゲームメインクラス
-	class GameMain	: public TASK_VEC
+//	class GameMain	: public TASK_VEC
+	class GameMain	: public GameMainBase
 	{
-#define GAME_MAIN_ONLY_TEST		1
+#define GAME_MAIN_ONLY_TEST		0
 #if GAME_MAIN_ONLY_TEST
 		//ゲームメインのみのテスト
 		std::shared_ptr < GameTask > m_pTask;
@@ -51,6 +52,9 @@ namespace GAME
 #endif	//GAME_MAIN_TEST
 		}
 	};
+
+	using UP_GameMain = std::unique_ptr < GameMain >;
+
 
 
 }	//namespace GAME

@@ -11,12 +11,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Define.h"
-#if 0
-#include "DebugLibrary.h"
-#include "Dx3D.h"
-#include "DxVertex.h"
-#include "GameTexture.h"
-#endif // 0
+#include "Base_DebugOut.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -24,41 +19,6 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME 
 {
-#if 0
-	//=====================================================
-	//固定表示 ASCII文字別テクスチャ
-	class ConstDebugOut_ASCII
-	{
-		bool		m_valid;
-
-		VEC2		m_pos;		//基準位置
-		VP_VxRct	mvp_vx;		//頂点集合(矩形)
-		static const UINT	SIZE;
-		tstring		m_tstr;		//表示文字列
-		std::string		m_str;		//char形式で保存
-
-	public:
-		ConstDebugOut_ASCII ();
-		ConstDebugOut_ASCII ( const ConstDebugOut_ASCII & rhs ) = delete;
-		~ConstDebugOut_ASCII ();
-
-		void Load ();
-		void Rele ();
-		void Reset ();
-		void Move ();
-		void Draw ();
-
-		void SetPos ( VEC2 v );
-		void SetStr ( UP_TSTR upctstr );
-		void SetStr ( LPCTSTR lpctstr );
-		void SetValid ( bool b ) { m_valid = b; }
-
-		void ToggleValid () { m_valid = ! m_valid; }
-		void Off () { m_valid = F; }
-		void On () { m_valid = T; }
-	};
-	//=====================================================
-#endif // 0
 
 	class DebugOutGameWindow;
 	using DBGO_WND = DebugOutGameWindow;
@@ -81,26 +41,26 @@ namespace GAME
 	//--------------------------------------------------
 
 	private:
-
 		//Siv3D 文字列描画　フォント
 		s3d::Font		m_font;
-
 		s3d::String		m_str { U"Test" };
-
-
 		s3d::Array < Font >		ma_font;
 
-
 	public:
-
 		void Draw ();
-
-
 		void DebugOutf ( s3d::String str );
-
 		void AddDbgOutWndf ( s3d::String str );
 
 
+
+		//====================================================
+		//基本情報
+	private:
+		Base_DebugOut		m_frame;
+
+	public:
+		//固定表示 : 稼働時間[F]
+		void DebugOutWnd_Frame ( UINT frame );
 #if 0
 
 	private:
@@ -129,7 +89,6 @@ namespace GAME
 		void Load ();
 		void Rele ();
 		void Reset ( D3DDEV d3dDevice );	//再設定
-		void Move ();
 		void DrawVertex ();		//頂点による描画
 
 

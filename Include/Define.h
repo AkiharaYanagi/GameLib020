@@ -203,18 +203,20 @@ namespace GAME
 	struct _CLR
 	{
 	public:
-		_CLR ();
+		_CLR () {}
 		_CLR ( const _CLR& rhs );
 		_CLR ( float r, float g, float b, float a );
 		_CLR ( UINT32 argb ); 
-		~_CLR ();
+		~_CLR () {}
 
 		_CLR& operator += ( const _CLR& rhs );
 		_CLR& operator -= ( const _CLR& rhs );
 		_CLR& operator *= ( float f );
 		_CLR& operator /= ( float f );
 
-		float r, b, g, a;
+		float r { 1.0 }, b { 1.0 }, g { 1.0 }, a { 1.0 };
+
+		UINT32 uint() const;
 	};
 
 

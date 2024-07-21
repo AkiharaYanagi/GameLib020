@@ -10,7 +10,7 @@
 // ヘッダファイル　インクルード
 //-------------------------------------------------------------------------------------------------
 #include "00_Common.h"
-#include "GameTask.h"
+#include "GameGraphicCore.h"
 #include "GameObject.h"
 
 
@@ -25,7 +25,7 @@ namespace GAME
 	//		・テクスチャが指定されていないときは何もしない
 	//		・オブジェクトは自動で１つ生成する。指定個数使用する場合は０にクリアしてから追加する
 	//■=======================================================================
-	class GameGraphicBase : public GameTask
+	class GameGraphicBase : public GameGraphicCore
 	{
 		//テクスチャ配列(インデックスはオブジェクトが持つ)
 		PAP_Tx		mpap_Texture;
@@ -39,7 +39,6 @@ namespace GAME
 		~GameGraphicBase ();
 
 		//---------------------------------------------------------------------
-		void Load ();
 		void Move ();
 		void Draw ();
 
@@ -56,10 +55,19 @@ namespace GAME
 
 		//---------------------------------------------------------------------
 		// オブジェクト
+
+		//オブジェクト配列
 		PAP_Ob Getpap_ob () const { return mpap_Object; }
+		P_Ob GetpObject ( size_t index ) { return mpap_Object->at ( index ); }
+
+		void AddpObject ( P_Ob pOb );
+		void ClearObject () { mpap_Object->clear (); }
 
 		//オブジェクト先頭の直接制御
 		//単体で用いるときは、オブジェクトを指定しなくてよい
+		void SetValid ( bool b ) { mpap_Object->at ( 0 )->SetValid ( b ); }
+		bool GetValid () const { return mpap_Object->at(0)->GetValid (); }
+
 		void SetPos ( VEC2 v ) { mpap_Object->at ( 0 )->SetPos ( v ); }
 		void SetPos ( float x, float y ) { mpap_Object->at ( 0 )->SetPos ( x, y ); }
 		VEC2 GetPos () const { return mpap_Object->at ( 0 )->GetPos (); }
@@ -67,18 +75,35 @@ namespace GAME
 
 		void SetScaling ( float x, float y ) { mpap_Object->at(0)->SetScaling ( x, y ); }
 		void SetScaling ( VEC2 v ) { mpap_Object->at(0)->SetScaling ( v ); }
+		void SetScalingCenter ( float x, float y ) { mpap_Object->at(0)->SetScalingCenter ( x, y ); }
+		void SetScalingCenter ( VEC2 v ) { mpap_Object->at(0)->SetScalingCenter ( v ); }
+
+		void SetRectF ( s3d::RectF rectf ) { mpap_Object->at(0)->SetRectF ( rectf ); }
+		void SetAllRectF ( s3d::RectF rectf );
+		void SetAllRectF_Size ( s3d::Size size );
+		void ApplyTxSize_ToOb ( P_Tx ptx, P_Ob pob );
 
 		float GetZ () const;
 		void SetZ ( float z );
 
 		void SetIndexTexture ( uint32 index ) { mpap_Object->at(0)->SetIndexTexture ( index ); }
 		void SetColor ( uint32 clr ) { mpap_Object->at(0)->SetColor ( clr ); }
+		void SetColor ( _CLR clr ) { mpap_Object->at(0)->SetColor ( clr ); }
 
 		//---------------------------------------------------------------------
 	};
 
 	using GrpBs = GameGraphicBase;
-	using P_Grp = std::shared_ptr < GrpBs >;
+	using P_GrpBs = std::shared_ptr < GrpBs >;
+
+
+
+	//---------------------------------------------------------------------
+	class GameGraphic : public GameGraphicBase
+	{
+	};
+
+	using P_Grp = std::shared_ptr < GameGraphic >;
 
 
 

@@ -133,6 +133,9 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="DebugOutGameWindow.cpp" />
+    <ClCompile Include="GameSystem.cpp" />
+    <ClCompile Include="Ascii_Font.cpp" />
+    <ClCompile Include="Base_DebugOut.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -766,5 +769,9 @@
     <ClInclude Include="..\Include\Timer.h" />
     <ClInclude Include="..\Include\10_GameUtility.h" />
     <ClInclude Include="..\Include\DebugOutGameWindow.h" />
+    <ClInclude Include="..\Include\GameSystem.h" />
+    <ClInclude Include="..\Include\GameMainBase.h" />
+    <ClInclude Include="Ascii_Font.h" />
+    <ClInclude Include="Base_DebugOut.h" />
   </ItemGroup>
 </Project>

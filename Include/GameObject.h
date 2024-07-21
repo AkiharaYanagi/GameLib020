@@ -34,6 +34,8 @@ namespace GAME
 		VEC2		m_rotationCenter { 0, 0 };	//回転時の中心座標
 		float		m_radian { 0 };				//角度[rad]
 
+		s3d::RectF	m_rectf { 0, 0, 0, 0 };		//表示領域
+
 		float		m_z { 0.5f };				//疑似z位置(順番で描画位置を表現する)
 
 	public:
@@ -86,6 +88,7 @@ namespace GAME
 		void AddPosX ( float x ) { m_vecPos.x += x; }
 		void AddPosY ( float y ) { m_vecPos.y += y; }
 
+		void SetScalingCenter ( float x, float y ) { m_scalingCenter.x = x, m_scalingCenter.y = y; }
 		void SetScalingCenter ( VEC2 v ) { m_scalingCenter = v; }
 		VEC2 GetScalingCenter () const { return m_scalingCenter; }
 
@@ -102,6 +105,9 @@ namespace GAME
 
 		float GetRadian () const { return m_radian; }
 		void SetRadian ( float rad ) { m_radian = rad; }
+
+		s3d::RectF GetRectF () const { return m_rectf; }
+		void SetRectF ( s3d::RectF rectf ) { m_rectf = rectf; }
 
 		float GetZ () const { return m_z; }
 		void SetZ ( float z ) { m_z = z; }

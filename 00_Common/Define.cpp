@@ -105,7 +105,6 @@ namespace GAME
 	//-------------------------------------------------------------------------------------------------
 	//	色
 	//-------------------------------------------------------------------------------------------------
-	_CLR::_CLR () {}
 	_CLR::_CLR ( const _CLR& rhs )
 	{
 		this->r = rhs.r;
@@ -127,7 +126,6 @@ namespace GAME
 		this->g = (float)((argb & 0x0000ff00) >> 8)	 / 255.f;
 		this->b = (float)((argb & 0x000000ff) )		 / 255.f;
 	}
-	_CLR::~_CLR () {}
 
 	_CLR& _CLR::operator += ( const _CLR& rhs )
 	{
@@ -160,6 +158,15 @@ namespace GAME
 		this->b /= f; 
 		this->a /= f; 
 		return *this;
+	}
+
+	UINT32 _CLR::uint () const
+	{
+		uint32 ua = (uint32)(a * 255.f);
+		uint32 ur = (uint32)(r * 255.f);
+		uint32 ug = (uint32)(g * 255.f);
+		uint32 ub = (uint32)(b * 255.f);
+		return ua << 24 & ur << 16 & ug << 8 & ub;
 	}
 
 

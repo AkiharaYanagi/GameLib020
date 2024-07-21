@@ -92,7 +92,8 @@ namespace GAME
 	void GameTaskVector::Load () { for ( auto p : (*m_pvpTask) ) { p->Load (); } }
 	void GameTaskVector::Reset () { for ( auto p : (*m_pvpTask) ) { p->Reset (); } }
 	void GameTaskVector::Move () { for ( auto p : (*m_pvpTask) ) { p->Move (); } }
-	void GameTaskVector::Draw () { for ( auto p : (*m_pvpTask) ) { p->Draw (); } }
+
+//	void GameTaskVector::Draw () { for ( auto p : (*m_pvpTask) ) { p->Draw (); } }
 
 
 	//指定オブジェクトを最前列描画(末尾)にする
@@ -187,7 +188,8 @@ namespace GAME
 	void GameTaskList::Load ()	{ for ( auto p : (*m_plpTask) ) { p->Load (); } }
 	void GameTaskList::Reset ()	{ for ( auto p : (*m_plpTask) ) { p->Reset (); } }
 	void GameTaskList::Move ()	{ for ( auto p : (*m_plpTask) ) { p->Move (); } }
-	void GameTaskList::Draw ()	{ for ( auto p : (*m_plpTask) ) { p->Draw (); } }
+
+//	void GameTaskList::Draw ()	{ for ( auto p : (*m_plpTask) ) { p->Draw (); } }
 
 
 	//指定オブジェクトを最前列描画(末尾)にする

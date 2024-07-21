@@ -103,8 +103,10 @@ namespace GAME
 		m_deviceInput [ P1_BTN6 ].SetKey ( IDT, SIK_SLASH );
 		m_deviceInput [ P1_BTN7 ].SetKey ( IDT, SIK_BACKSLASH );
 
-		m_deviceInput [ P2_UP   ].SetKey ( IDT, SIK_HOME );
-		m_deviceInput [ P2_DOWN ].SetKey ( IDT, SIK_END );
+		m_deviceInput [ P2_UP   ].SetKey ( IDT, SIK_END );
+		m_deviceInput [ P2_DOWN ].SetKey ( IDT, SIK_HOME );
+//		m_deviceInput [ P2_UP   ].SetKey ( IDT, SIK_HOME );
+//		m_deviceInput [ P2_DOWN ].SetKey ( IDT, SIK_END );
 		m_deviceInput [ P2_LEFT ].SetKey ( IDT, SIK_DELETE );
 		m_deviceInput [ P2_RIGHT].SetKey ( IDT, SIK_PAGEDN );
 		m_deviceInput [ P2_BTN0 ].SetKey ( IDT, SIK_A );
@@ -168,7 +170,7 @@ namespace GAME
 		{
 			//新規ファイルの作成
 			SetInitial ();
-			Save ();
+//			Save ();
 			return;
 		}
 

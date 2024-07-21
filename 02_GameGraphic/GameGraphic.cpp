@@ -33,10 +33,6 @@ namespace GAME
 
 
 	//---------------------------------------------------------------------
-	void GameGraphicBase::Load ()
-	{
-	}
-
 	void GameGraphicBase::Move ()
 	{
 		for ( P_Ob pob : *mpap_Object ) { pob->PreMove (); }
@@ -55,8 +51,21 @@ namespace GAME
 
 			//描画テクスチャの指定
 			uint32 indexTexture = pob->GetIndexTexture ();
+			s3d::RectF rectf = pob->GetRectF ();
+			double x = pob->GetPos().x;
+			double y = pob->GetPos().y;
+
 			P_Tx ptx = mpap_Texture->at ( indexTexture );
-			ptx->scaled ( vScaling ).draw ( pob->GetPos().x, pob->GetPos().y );
+
+			//初期値０(エリアなし)ならテクスチャ全体を描画
+			if ( ! rectf.hasArea () )
+			{
+				s3d::Size sz = ptx->size ();
+				s3d::Point pt = sz.xy ();
+				rectf.set ( 0, 0, sz );
+			}
+
+			(*ptx)( rectf ).scaled ( vScaling ).draw ( x, y );
 		}
 	}
 
@@ -76,6 +85,9 @@ namespace GAME
 	{
 		P_Tx ptx = std::make_shared < s3d::Texture > ( filename );
 		mpap_Texture->push_back ( ptx );
+
+		s3d::Size sz = ptx->size ();
+		s3d::Point pt = sz.xy ();
 	}
 
 	void GameGraphicBase::AddTexture_FromArchive ( s3d::String filename )
@@ -104,8 +116,40 @@ namespace GAME
 		mpap_Texture->push_back ( ptx );
 	}
 
-
 	//---------------------------------------------------------------------
+	void GameGraphicBase::AddpObject ( P_Ob pOb )
+	{
+		if ( mpap_Texture->size () > 0 )
+		{
+			ApplyTxSize_ToOb ( mpap_Texture->at(0), pOb );
+		}
+		mpap_Object->push_back ( pOb );
+	}
+
+	void GameGraphicBase::SetAllRectF ( s3d::RectF rectf )
+	{
+		for ( P_Ob pob : * mpap_Object )
+		{
+			pob->SetRectF ( rectf );
+		}
+	}
+
+	void GameGraphicBase::SetAllRectF_Size ( s3d::Size size )
+	{
+		s3d::Point pt = size.xy ();
+
+		for ( P_Ob pob : * mpap_Object )
+		{
+			pob->SetRectF ( s3d::RectF { 0, 0, pt.x, pt.y } );
+		}
+	}
+
+	void GameGraphicBase::ApplyTxSize_ToOb ( P_Tx ptx, P_Ob pob )
+	{
+		s3d::Point pt = ptx->size().xy ();
+		pob->SetRectF ( s3d::RectF { 0, 0, pt.x, pt.y } );
+	}
+
 	float GameGraphicBase::GetZ () const
 	{
 		if ( mpap_Object->size() > 0 )
