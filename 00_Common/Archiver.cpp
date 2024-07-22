@@ -149,8 +149,11 @@ namespace GAME
 		DWORD dwFileNum = 0;
 		DWORD numberOfBytesRead = 0;
 		bool bRet = ::ReadFile ( hFile, & dwFileNum, sizeof ( DWORD ), & numberOfBytesRead, nullptr );
-
 		if ( ! bRet ) { return; }
+
+		DWORD temp;
+		bool b0 = ::ReadFile ( hFile, & temp, sizeof ( DWORD ), & numberOfBytesRead, nullptr  );
+
 
 		//ヘッダを個数分得る
 		std::unique_ptr < ACV_H_SRC [] > hAcv ( new ACV_H_SRC [ dwFileNum ] );

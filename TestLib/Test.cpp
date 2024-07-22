@@ -17,7 +17,7 @@ namespace GAME
 	Test::Test ()
 	{
 		m_bg = std::make_shared < GameGraphic > ();
-		m_bg->AddTexture ( U"BG0.png" );
+		m_bg->AddTexture_FromArchive ( U"BG0.png" );
 		m_bg->SetPos ( 300, 200 );
 		m_bg->SetRectF ( s3d::RectF { 20, 30, 400, 500 } );
 		AddpTask ( m_bg );

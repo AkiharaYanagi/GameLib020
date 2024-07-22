@@ -93,7 +93,8 @@ namespace GAME
 	void GameGraphicBase::AddTexture_FromArchive ( s3d::String filename )
 	{
 		//アーカイブからファイルを取得
-		ARCHIVE_FILE_USE file = ACVR()->GetFilePointer ( (LPCTSTR)filename.c_str() );
+//		ARCHIVE_FILE_USE file = ACVR()->GetFilePointer ( (LPCTSTR)filename.c_str() );
+		ARCHIVE_FILE_USE file = ACVR()->GetFilePointer ( filename.toWstr().c_str() );
 
 		if ( file.filePointer == nullptr )
 		{
@@ -102,10 +103,16 @@ namespace GAME
 		}
 
 		//テクスチャの作成
-		P_Tx ptx = std::make_shared < s3d::Texture > ( filename );
+//		P_Tx ptx = std::make_shared < s3d::Texture > ( filename );
+
+		//メモリ上からテクスチャに変換
+		s3d::MemoryReader mr ( (void*)(file.filePointer), file.fileSize );
+		mr.setPos ( 0 );
+
+		P_Tx pTx = std::make_shared < s3d::Texture > ( std::move ( mr ) );
 
 		//テクスチャの設定
-		mpap_Texture->push_back ( ptx );
+		mpap_Texture->push_back ( pTx );
 	}
 
 	void GameGraphicBase::SetpTexture ( P_Tx ptx )
