@@ -153,6 +153,7 @@ namespace GAME
 
 		DWORD temp;
 		bool b0 = ::ReadFile ( hFile, & temp, sizeof ( DWORD ), & numberOfBytesRead, nullptr  );
+		if ( ! b0 ) { return; }
 
 
 		//ヘッダを個数分得る

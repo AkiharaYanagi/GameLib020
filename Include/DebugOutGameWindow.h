@@ -45,6 +45,7 @@ namespace GAME
 		s3d::Font		m_font;
 		s3d::String		m_str { U"Test" };
 		s3d::Array < Font >		ma_font;
+		s3d::ColorF		m_colorF { 1.f, 1.f, 1.f, 1.f };
 
 	public:
 		void Draw ();

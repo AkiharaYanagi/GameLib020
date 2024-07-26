@@ -136,6 +136,8 @@
     <ClCompile Include="GameSystem.cpp" />
     <ClCompile Include="Ascii_Font.cpp" />
     <ClCompile Include="Base_DebugOut.cpp" />
+    <ClCompile Include="GrpDemo.cpp" />
+    <ClCompile Include="FadeRect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -772,6 +774,8 @@
     <ClInclude Include="..\Include\GameSystem.h" />
     <ClInclude Include="..\Include\GameMainBase.h" />
     <ClInclude Include="Ascii_Font.h" />
-    <ClInclude Include="Base_DebugOut.h" />
+    <ClInclude Include="..\Include\Base_DebugOut.h" />
+    <ClInclude Include="..\Include\GrpDemo.h" />
+    <ClInclude Include="..\Include\FadeRect.h" />
   </ItemGroup>
 </Project>

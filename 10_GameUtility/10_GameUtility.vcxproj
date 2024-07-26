@@ -118,7 +118,9 @@
     <ClCompile Include="Ascii_Font.cpp" />
     <ClCompile Include="Base_DebugOut.cpp" />
     <ClCompile Include="DebugOutGameWindow.cpp" />
+    <ClCompile Include="FadeRect.cpp" />
     <ClCompile Include="GameSystem.cpp" />
+    <ClCompile Include="GrpDemo.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -320,12 +322,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\10_GameUtility.h" />
+    <ClInclude Include="..\Include\Base_DebugOut.h" />
     <ClInclude Include="..\Include\DebugOutGameWindow.h" />
+    <ClInclude Include="..\Include\FadeRect.h" />
     <ClInclude Include="..\Include\GameMainBase.h" />
     <ClInclude Include="..\Include\GameSystem.h" />
+    <ClInclude Include="..\Include\GrpDemo.h" />
     <ClInclude Include="..\Include\Timer.h" />
     <ClInclude Include="Ascii_Font.h" />
-    <ClInclude Include="Base_DebugOut.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>

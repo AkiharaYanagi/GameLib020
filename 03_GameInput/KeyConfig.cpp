@@ -105,8 +105,6 @@ namespace GAME
 
 		m_deviceInput [ P2_UP   ].SetKey ( IDT, SIK_END );
 		m_deviceInput [ P2_DOWN ].SetKey ( IDT, SIK_HOME );
-//		m_deviceInput [ P2_UP   ].SetKey ( IDT, SIK_HOME );
-//		m_deviceInput [ P2_DOWN ].SetKey ( IDT, SIK_END );
 		m_deviceInput [ P2_LEFT ].SetKey ( IDT, SIK_DELETE );
 		m_deviceInput [ P2_RIGHT].SetKey ( IDT, SIK_PAGEDN );
 		m_deviceInput [ P2_BTN0 ].SetKey ( IDT, SIK_A );

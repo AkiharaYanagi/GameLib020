@@ -26,6 +26,7 @@ namespace GAME
 		m_font = s3d::Font { 30 };
 
 		m_frame.SetPos ( VEC2 ( 0, 0 ) );
+		m_colorF.set ( 0.5f, 0.5f, 1.f, 1.f );
 	}
 
 	DebugOutGameWindow::~DebugOutGameWindow ()
@@ -34,7 +35,7 @@ namespace GAME
 
 	void DebugOutGameWindow::Draw ()
 	{
-		m_font( m_str ).draw ( 10, 400 );
+		m_font( m_str ).draw ( 10, 400, m_colorF );
 
 		m_frame.Draw ();
 	}

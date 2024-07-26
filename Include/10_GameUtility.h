@@ -13,6 +13,8 @@
 #include "GameSystem.h"
 #include "Timer.h"
 #include "GameMainBase.h"
+#include "GrpDemo.h"
+#include "FadeRect.h"
 
 
 //-------------------------------------------------------------------------------------------------

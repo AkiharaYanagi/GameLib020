@@ -40,6 +40,8 @@ namespace GAME
 
 	void GameGraphicBase::Draw ()
 	{
+		if ( mpap_Texture->size () <= 0 ) { return; }
+
 		//オブジェクトの数だけ描画
 		for ( P_Ob pob : *mpap_Object )
 		{

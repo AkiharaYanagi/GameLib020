@@ -22,20 +22,24 @@ namespace GAME
 	//=======================================================================
 	class GameGraphicString : public GameGraphicCore
 	{
-		s3d::Font	m_font { 20 };
-		bool		m_valid { T };
-		VEC2		m_pos { 0, 0 };		//基準位置
+		s3d::Font	m_font;
 		s3d::String m_str { U"GrpStr" };		
+		int32		m_size { 20 };
+		VEC2		m_pos { 0, 0 };		//基準位置
+		s3d::ColorF	m_colorF { 1.f, 1.f, 1.f, 1.f };
 
 	public:
 		GameGraphicString ();
 		GameGraphicString ( const GameGraphicString & rhs ) = delete;
 		~GameGraphicString ();
 
+		void Load ();
 		void Draw ();
 
+		void SetSize ( int32 size ) { m_size = size; }
 		void SetPos ( VEC2 v );
 		void SetStr ( s3d::String str );
+		void SetColorF ( s3d::ColorF clrf );
 	};
 
 	using GrpStr = GameGraphicString;
