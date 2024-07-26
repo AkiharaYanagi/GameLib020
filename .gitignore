@@ -1,6 +1,6 @@
-*.exe
 *.lib
 *.idb
+*.exe
 old/*
 
 
@@ -367,10 +367,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-*.lib
-*.idb
-*.exe
-*.idb
-*.lib
-*.exe
-*.lib
