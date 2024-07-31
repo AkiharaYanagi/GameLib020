@@ -27,10 +27,27 @@ namespace GAME
 
 		m_frame.SetPos ( VEC2 ( 0, 0 ) );
 		m_colorF.set ( 0.5f, 0.5f, 1.f, 1.f );
+
+
+		for ( int i = 0; i < 10; ++ i )
+		{
+			ma_str [ i ] = std::make_shared < GrpStr > ();
+			ma_str [ i ]->SetPos ( VEC2 ( 0, 400.f + 20 * i ) );
+		}
 	}
 
 	DebugOutGameWindow::~DebugOutGameWindow ()
 	{
+	}
+
+
+	void DebugOutGameWindow::Load ()
+	{
+		for ( P_GrpStr str : ma_str )
+		{
+			str->Load ();
+			GRPLST_INSERT ( str );
+		}
 	}
 
 	void DebugOutGameWindow::Draw ()
@@ -43,6 +60,12 @@ namespace GAME
 	void DebugOutGameWindow::DebugOutf ( s3d::String str )
 	{
 		m_str = str;
+	}
+
+	void DebugOutGameWindow::DebugOutf ( uint32 index, s3d::String str )
+	{
+		if ( index < 0 || ma_str.size () <= index ) { return; }
+		ma_str [ index ]->SetStr ( str );
 	}
 
 	void DebugOutGameWindow::AddDbgOutWndf ( s3d::String str )

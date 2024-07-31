@@ -12,6 +12,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "Define.h"
 #include "Base_DebugOut.h"
+#include "02_GameGraphic.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -47,11 +48,18 @@ namespace GAME
 		s3d::Array < Font >		ma_font;
 		s3d::ColorF		m_colorF { 1.f, 1.f, 1.f, 1.f };
 
+
+		s3d::Array < P_GrpStr >		ma_str { 10 };
+
+
 	public:
+		void Load ();
 		void Draw ();
 		void DebugOutf ( s3d::String str );
 		void AddDbgOutWndf ( s3d::String str );
 
+
+		void DebugOutf ( uint32 index, s3d::String str );
 
 
 		//====================================================

@@ -133,6 +133,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Test.cpp" />
+    <ClCompile Include="Mov.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -766,5 +767,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\Include\Game.h" />
     <ClInclude Include="Test.h" />
+    <ClInclude Include="Mov.h" />
   </ItemGroup>
 </Project>

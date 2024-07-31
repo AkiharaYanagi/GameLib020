@@ -10,6 +10,7 @@
 //#include <Siv3D.hpp> // Siv3D v0.6.13
 #include "Game.h"
 #include "GameMain.h"
+#include "Mov.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -224,6 +225,9 @@ void Main()
 #endif // 0
 
 
+//動画テスト
+std::unique_ptr < s3d::VideoTexture > p_vtx;
+
 
 //メイン
 void Main()
@@ -244,6 +248,10 @@ void Main()
 
 	//ブレンド用 レンダーテクスチャ
 	p_rd_tx = std::make_unique < RenderTexture > ( 1280, 960, Palette::Lightgreen );
+
+	p_vtx = std::make_unique < s3d::VideoTexture > ( U"raiden.mp4", s3d::Loop::No );
+//	p_vtx = std::make_unique < s3d::VideoTexture > ( U"BG.mp4", s3d::Loop::No );
+//	p_vtx = std::make_unique < s3d::VideoTexture > ( U"example/video/river.mp4", s3d::Loop::No );
 
 
 	//========================================
@@ -337,6 +345,8 @@ void Move ()
 
 void Draw ()
 {
+	s3d::ClearPrint();
+
 	//---------------------------------------------------
 	// 描画
 	//---------------------------------------------------
@@ -395,5 +405,8 @@ void Draw ()
 	}
 #endif // 0
 
+
+//	p_vtx->advance ();
+//	p_vtx->draw();
 
 }

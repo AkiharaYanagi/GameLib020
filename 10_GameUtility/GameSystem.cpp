@@ -57,6 +57,8 @@ namespace GAME
 		//Graphic配列の初期化
 		GRPLST_CREATE ();
 
+		DebugOutGameWindow::Inst()->Load ();
+
 
 		//グラフィックファイルアーカイバの初期化
 		Archiver::Create ();

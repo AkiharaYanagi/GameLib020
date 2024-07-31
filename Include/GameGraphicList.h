@@ -63,6 +63,18 @@ namespace GAME
 		//ŒÂ”
 		size_t GetNumList () const { return mplp_GrpMain->size (); }
 
+
+
+	private:
+		bool m_startMv { F };
+		std::unique_ptr < s3d::VideoTexture > mp_vtx;
+
+	public:
+		void SetupVtx ( std::unique_ptr < s3d::VideoTexture > p_vtx )
+		{
+			mp_vtx = std::move ( p_vtx );
+		}
+		void StartVtx () { m_startMv = T; }
 	};
 
 	using GrpLst = GameGraphicList;

@@ -38,6 +38,10 @@ namespace GAME
 	void GameGraphicList::Draw ()
 	{
 		for ( P_GrpCr p : *mplp_GrpMain ) { p->Draw (); }
+
+
+		if ( m_startMv ) { mp_vtx->advance (); mp_vtx->draw ( 0, 200 ); }
+
 	}
 
 	//Z値で降順ソートされた位置に挿入
