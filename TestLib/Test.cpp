@@ -31,7 +31,7 @@ namespace GAME
 
 	void Test::Move ()
 	{
-		DBGOUT_WND()->DebugOutf ( U"Test::Move" );
+		DBGOUT_WND()->DebugOutf ( 0, U"Test::Move" );
 		TASK_VEC::Move ();
 	}
 

@@ -23,16 +23,14 @@ namespace GAME
 
 	DebugOutGameWindow::DebugOutGameWindow ()
 	{
-		m_font = s3d::Font { 30 };
-
 		m_frame.SetPos ( VEC2 ( 0, 0 ) );
-		m_colorF.set ( 0.5f, 0.5f, 1.f, 1.f );
 
-
-		for ( int i = 0; i < 10; ++ i )
+		for ( int i = 0; i < DBGOUT_WND_N; ++ i )
 		{
 			ma_str [ i ] = std::make_shared < GrpStr > ();
-			ma_str [ i ]->SetPos ( VEC2 ( 0, 400.f + 20 * i ) );
+			ma_str [ i ]->SetPos ( VEC2 ( 0, 300.f + 30 * i ) );
+			ma_str [ i ]->SetZ ( Z_MENU );
+			ma_str [ i ]->SetSize ( 30 );
 		}
 	}
 
@@ -52,26 +50,15 @@ namespace GAME
 
 	void DebugOutGameWindow::Draw ()
 	{
-		m_font( m_str ).draw ( 10, 400, m_colorF );
-
 		m_frame.Draw ();
-	}
-
-	void DebugOutGameWindow::DebugOutf ( s3d::String str )
-	{
-		m_str = str;
 	}
 
 	void DebugOutGameWindow::DebugOutf ( uint32 index, s3d::String str )
 	{
-		if ( index < 0 || ma_str.size () <= index ) { return; }
+		if ( index < 0 || DBGOUT_WND_N <= index ) { return; }
 		ma_str [ index ]->SetStr ( str );
 	}
 
-	void DebugOutGameWindow::AddDbgOutWndf ( s3d::String str )
-	{
-//		ma_font.push_back ( );
-	}
 
 
 	//固定表示 : 稼働時間[F]

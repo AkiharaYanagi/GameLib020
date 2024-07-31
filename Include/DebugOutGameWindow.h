@@ -21,6 +21,9 @@
 namespace GAME 
 {
 
+	constexpr size_t DBGOUT_WND_N = 10;		//表示行数
+
+
 	class DebugOutGameWindow;
 	using DBGO_WND = DebugOutGameWindow;
 	using P_DBG_WND = std::unique_ptr < DBGO_WND >;
@@ -42,22 +45,11 @@ namespace GAME
 	//--------------------------------------------------
 
 	private:
-		//Siv3D 文字列描画　フォント
-		s3d::Font		m_font;
-		s3d::String		m_str { U"Test" };
-		s3d::Array < Font >		ma_font;
-		s3d::ColorF		m_colorF { 1.f, 1.f, 1.f, 1.f };
-
-
-		s3d::Array < P_GrpStr >		ma_str { 10 };
-
+		s3d::Array < P_GrpStr >		ma_str { DBGOUT_WND_N };
 
 	public:
 		void Load ();
 		void Draw ();
-		void DebugOutf ( s3d::String str );
-		void AddDbgOutWndf ( s3d::String str );
-
 
 		void DebugOutf ( uint32 index, s3d::String str );
 
