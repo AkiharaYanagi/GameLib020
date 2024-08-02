@@ -54,6 +54,9 @@ namespace GAME
 		void DebugOutf ( uint32 index, s3d::String str );
 
 
+		void On ();
+		void Off ();
+
 		//====================================================
 		//Šî–{î•ñ
 	private:

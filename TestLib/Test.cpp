@@ -21,8 +21,21 @@ namespace GAME
 		m_bg->SetPos ( 300, 200 );
 		m_bg->SetRectF ( s3d::RectF { 20, 30, 400, 500 } );
 		AddpTask ( m_bg );
-
 		GRPLST_INSERT ( m_bg );
+
+
+		m_rect = std::make_shared < GamePrimitiveRect > ();
+		m_rect->SetPos ( s3d::Point ( 100, 100 ) );
+		m_rect->SetSize ( s3d::Point ( 512, 512 ) );
+		AddpTask ( m_rect );
+		GRPLST_INSERT ( m_rect );
+
+		m_testGrp = std::make_shared < GameGraphic > ();
+		m_testGrp->AddTexture ( U"000_立ち_00.png" );
+		m_testGrp->SetPos ( 100, 100 );
+		m_testGrp->SetScaling ( 2, 2 );
+		AddpTask ( m_testGrp );
+		GRPLST_INSERT ( m_testGrp );
 	}
 
 	Test::~Test ()

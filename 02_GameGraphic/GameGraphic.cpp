@@ -67,6 +67,12 @@ namespace GAME
 				rectf.set ( 0, 0, sz );
 			}
 
+			//拡縮中心位置
+			//原点に戻してから指定位置にする
+			VEC2 cnt = pob->GetScalingCenter ();
+			x += cnt.x - (cnt.x * v.x);
+			y += cnt.y - (cnt.y * v.y);
+
 			(*ptx)( rectf ).scaled ( vScaling ).draw ( x, y );
 		}
 	}

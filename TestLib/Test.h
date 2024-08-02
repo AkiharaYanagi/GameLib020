@@ -20,6 +20,9 @@ namespace GAME
 	{
 		P_Grp		m_bg;
 
+		P_PrmRect	m_rect;
+		P_Grp		m_testGrp;
+
 	public:
 		Test ();
 		Test ( const Test & rhs ) = delete;

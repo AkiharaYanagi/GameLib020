@@ -19,7 +19,8 @@ namespace GAME
 
 	class GrpDemo : public GameGraphic
 	{
-		UINT		m_timer;	//内部タイマ
+		UINT		m_timer { 0 };	//内部タイマ
+		UINT		m_endTime { 10 };
 		VEC2		m_startScaling;		//開始
 		VEC2		m_targetScaling;	//目標
 		VEC2		m_mag;		//倍率
@@ -28,8 +29,7 @@ namespace GAME
 
 		VEC2		m_secondVel;	//第2速度
 
-		bool		m_end;	//終了フラグ
-		UINT		m_endTime;
+		bool		m_end { F };	//終了フラグ
 
 	public:
 		GrpDemo ();

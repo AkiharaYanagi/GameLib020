@@ -60,6 +60,22 @@ namespace GAME
 	}
 
 
+	void DebugOutGameWindow::On ()
+	{
+		for ( P_GrpStr str : ma_str )
+		{
+			str->SetValid ( T );
+		}
+	}
+
+	void DebugOutGameWindow::Off ()
+	{
+		for ( P_GrpStr str : ma_str )
+		{
+			str->SetValid ( F );
+		}
+	}
+
 
 	//固定表示 : 稼働時間[F]
 	void DebugOutGameWindow::DebugOutWnd_Frame ( UINT frame )
