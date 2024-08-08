@@ -10,6 +10,8 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Define.h"
+#include "DeviceInput.h"
+
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
@@ -35,6 +37,11 @@ namespace GAME
 		//ゲーム利用
 		//状態の更新
 		void Update();
+
+		//---------------------------------------------------------------------------
+		//キーコンフィグ用
+		//いずれかが押されていたら優先順で返す
+		GamePadInput PushInput ();
 
 		//--------------------------------------------------------------
 		//ボタン
@@ -111,5 +118,11 @@ namespace GAME
 		bool RelePovRight	( int id ) const { return ( WasPovRight ( id )	&& ! IsPovRight ( id ) ); }
 		bool RelePovDown	( int id ) const { return ( WasPovDown ( id )	&& ! IsPovDown ( id ) ); }
 		bool RelePovLeft	( int id ) const { return ( WasPovLeft ( id )	&& ! IsPovLeft ( id ) ); }
+
+
+	private:
+		//内部関数
+		void SetGPI_POV ( GamePadInput& ret, uint32 pad_id, LEVER_DIR dir );
+		void SetGPI_Axis ( GamePadInput& ret, uint32 pad_id, LEVER_DIR dir );
 	};
 }

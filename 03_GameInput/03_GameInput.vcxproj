@@ -331,6 +331,7 @@
     <ClInclude Include="..\Include\SivInput.h" />
     <ClInclude Include="..\Include\SivKeyboard.h" />
     <ClInclude Include="..\Include\SivKeyboardDefine.h" />
+    <ClInclude Include="..\Include\SivKeyboard_Name.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>

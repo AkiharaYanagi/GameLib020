@@ -138,6 +138,7 @@
     <ClCompile Include="Base_DebugOut.cpp" />
     <ClCompile Include="GrpDemo.cpp" />
     <ClCompile Include="FadeRect.cpp" />
+    <ClCompile Include="GrpEf.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -777,5 +778,6 @@
     <ClInclude Include="..\Include\Base_DebugOut.h" />
     <ClInclude Include="..\Include\GrpDemo.h" />
     <ClInclude Include="..\Include\FadeRect.h" />
+    <ClInclude Include="..\Include\GrpEf.h" />
   </ItemGroup>
 </Project>

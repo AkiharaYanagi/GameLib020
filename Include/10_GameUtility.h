@@ -14,6 +14,7 @@
 #include "Timer.h"
 #include "GameMainBase.h"
 #include "GrpDemo.h"
+#include "GrpEf.h"
 #include "FadeRect.h"
 
 

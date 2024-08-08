@@ -18,6 +18,10 @@ namespace GAME
 
 	SivGamePad::SivGamePad()
 	{
+		m_impl.clear ();
+		m_pre_impl.clear ();
+
+
 		uint32 MAX = detail::Gamepad_helper::MaxPlayerCount;
 		for ( uint32 i = 0; i < MAX; ++ i )
 		{
@@ -49,6 +53,9 @@ namespace GAME
 		uint32 MAX = detail::Gamepad_helper::MaxPlayerCount;
 		for ( uint32 i = 0; i < MAX; ++ i )
 		{
+			//接続されていなかったら何もしない
+			if ( ! Gamepad ( i ) ) { continue; }
+
 			m_pre_impl [ i ] = m_impl [ i ];
 			m_impl [ i ] = Gamepad ( i );
 		}
@@ -77,6 +84,62 @@ namespace GAME
 			}
 		}
 #endif // 0
+	}
+
+
+	//---------------------------------------------------------------------------
+	//キーコンフィグ用
+	//いずれかが押されていたら優先順で返す
+	GamePadInput SivGamePad::PushInput ()
+	{
+		GamePadInput ret;	//戻値用
+
+		//すべてのデバイスをチェック
+		//１つでも該当すればその時点でreturn
+		uint32 MAX = detail::Gamepad_helper::MaxPlayerCount;
+		for ( uint32 i = 0; i < MAX; ++ i )
+		{
+			//接続されていなかったら何もしない
+			if ( ! Gamepad ( i ) ) { continue; }
+
+			GMPD gmpd = m_impl [ i ];
+
+			//ボタン
+			uint32 nBtn = 0;
+			for ( s3d::Input ipt : gmpd.buttons )
+			{
+				if ( ipt.down () )
+				{
+					ret.Set ( i, PIT_BUTTON, nBtn, LVR_UP );
+					return ret;
+				}
+				++ nBtn;
+			}
+
+			//POV ( Point Of View )
+			if ( gmpd.povUp.down () )	 { SetGPI_POV ( ret, i, LVR_UP ); return ret;}
+			if ( gmpd.povDown.down () )	 { SetGPI_POV ( ret, i, LVR_DOWN ); return ret;}
+			if ( gmpd.povLeft.down () )	 { SetGPI_POV ( ret, i, LVR_LEFT ); return ret;}
+			if ( gmpd.povRight.down () ) { SetGPI_POV ( ret, i, LVR_RIGHT ); return ret;}
+
+			//XY Axis
+			if ( PushAxisUp ( i ) )		{ SetGPI_Axis ( ret, i, LVR_UP ); return ret; }
+			if ( PushAxisDown ( i ) )	{ SetGPI_Axis ( ret, i, LVR_DOWN ); return ret; }
+			if ( PushAxisLeft ( i ) )	{ SetGPI_Axis ( ret, i, LVR_LEFT ); return ret; }
+			if ( PushAxisRight ( i ) )	{ SetGPI_Axis ( ret, i, LVR_RIGHT ); return ret; }
+		}
+
+		return ret;
+	}
+
+	void SivGamePad::SetGPI_POV ( GamePadInput & ret, uint32 pad_id, LEVER_DIR dir )
+	{
+		ret.Set ( pad_id, PIT_POINT_OF_VIEW, 0, dir );
+	}
+
+	void SivGamePad::SetGPI_Axis ( GamePadInput & ret, uint32 pad_id, LEVER_DIR dir )
+	{
+		ret.Set ( pad_id, PIT_AXIS, 0, dir );
 	}
 
 	//--------------------------------------------------------------
@@ -126,30 +189,48 @@ namespace GAME
 	//軸の状態を返す
 	double SivGamePad::GetJoyAxisX( int id ) const
 	{
-		return  m_impl[id].axes[0];
+		return  m_impl[id].axes[AXIS_X];
 	}
 
 	double SivGamePad::GetJoyAxisY( int id ) const
 	{
-		return  m_impl[id].axes[1];
+		return  m_impl[id].axes[AXIS_Y];
 	}
 
 	double SivGamePad::GetJoyAxisZ( int id ) const
 	{
-		return  m_impl[id].axes[2];
+		return  m_impl[id].axes[AXIS_Z];
 	}
 
 	//Axis:押した状態の判定
-	bool SivGamePad::IsAxisUp	( int id ) const { return ( m_impl[id].axes[1] <= -500 );}
-	bool SivGamePad::IsAxisDown	( int id ) const { return ( m_impl[id].axes[1] >=  500 ); }
-	bool SivGamePad::IsAxisLeft	( int id ) const { return ( m_impl[id].axes[0] <= -500 ); }
-	bool SivGamePad::IsAxisRight( int id ) const { return ( m_impl[id].axes[0] >=  500 ); }
+	bool SivGamePad::IsAxisUp	( int id ) const { return ( m_impl[id].axes[AXIS_Y] <= -500 );}
+	bool SivGamePad::IsAxisDown	( int id ) const { return ( m_impl[id].axes[AXIS_Y] >=  500 ); }
+	bool SivGamePad::IsAxisLeft	( int id ) const { return ( m_impl[id].axes[AXIS_X] <= -500 ); }
+	bool SivGamePad::IsAxisRight( int id ) const { return ( m_impl[id].axes[AXIS_X] >=  500 ); }
 
 	//前フレームの状態
-	bool SivGamePad::WasAxisUp		( int id ) const { return ( m_pre_impl[id].axes[1] <= -500 ); }
-	bool SivGamePad::WasAxisDown	( int id ) const { return ( m_pre_impl[id].axes[1] >=  500 ); }
-	bool SivGamePad::WasAxisLeft	( int id ) const { return ( m_pre_impl[id].axes[0] <= -500 ); }
-	bool SivGamePad::WasAxisRight	( int id ) const { return ( m_pre_impl[id].axes[0] >=  500 ); }
+	bool SivGamePad::WasAxisUp		( int id ) const
+	{
+		if ( id < 0 || m_pre_impl.size() <= id ) { return F; }
+
+		GMPD gmpd = m_pre_impl[id];
+		return ( m_pre_impl[id].axes[AXIS_Y] <= -500 );
+	}
+	bool SivGamePad::WasAxisDown	( int id ) const
+	{
+		if ( id < 0 || m_pre_impl.size() <= id ) { return F; }
+		return ( m_pre_impl[id].axes[AXIS_Y] >=  500 );
+	}
+	bool SivGamePad::WasAxisLeft	( int id ) const
+	{
+		if ( id < 0 || m_pre_impl.size() <= id ) { return F; }
+		return ( m_pre_impl[id].axes[AXIS_X] <= -500 );
+	}
+	bool SivGamePad::WasAxisRight	( int id ) const
+	{
+		if ( id < 0 || m_pre_impl.size() <= id ) { return F; }
+		return ( m_pre_impl[id].axes[AXIS_X] >=  500 );
+	}
 
 
 	//--------------------------------------------------------------

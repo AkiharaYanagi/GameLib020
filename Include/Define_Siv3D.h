@@ -42,5 +42,9 @@ namespace GAME
 	};
 
 
+	//•¶Žš—ñƒŠƒeƒ‰ƒ‹ U""
+	using LPCUSTR = const char32_t *;
+
+
 }	//namespace GAME
 

@@ -2,11 +2,13 @@
 
 
 //エイリアス
-using KEY_NAME = uint32;
+using KEY_NAME = uint8;
 
-//個数上限
-constexpr int SIV_KEYBOARD_NUM = 256;	// 0x00 -> 0xFF
+//個数
+constexpr uint8 SIV_KEYBOARD_NUM = 0xff;	// 0x00 -> 0xFE
 
+//該当無し
+constexpr uint8 SIK_NODATA = 0xff;
 
 //各キーの定義
 constexpr uint8	 SIK_BACK		= 0x08;		/* backspace */

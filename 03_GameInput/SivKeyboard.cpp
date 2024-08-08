@@ -101,7 +101,7 @@ namespace GAME
 
 
 	//指定したキーが押された瞬間か
-	bool SivKeyboard::PushKey( KEY_NAME nKey )
+	bool SivKeyboard::PushKey ( KEY_NAME nKey )
 	{
 #if 0
 		if ( m_lpDIKeyboard == nullptr ) return false;	//キーボードのない状態はfalseを返す
@@ -131,7 +131,7 @@ namespace GAME
 
 
 	//指定したキーが離された瞬間か
-	bool SivKeyboard::ReleaseKey( KEY_NAME nKey )
+	bool SivKeyboard::ReleaseKey ( KEY_NAME nKey )
 	{
 #if 0
 		if ( m_lpDIKeyboard == nullptr ) return false;	//キーボードのない状態はfalseを返す
@@ -157,6 +157,20 @@ namespace GAME
 #endif // 0
 
 		return ! ma_keyState [ nKey ] && ma_preKeyState [ nKey ];
+	}
+
+
+	KEY_NAME SivKeyboard::WhichInput ()
+	{
+		for ( uint8 nKey = 0; nKey < SIV_KEYBOARD_NUM; ++ nKey )
+		{
+			if ( ma_keyState [ nKey ] && ! ma_preKeyState [ nKey ] )
+			{
+				return (KEY_NAME)nKey;
+			}
+		}
+
+		return SIK_NODATA;
 	}
 
 

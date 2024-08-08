@@ -29,11 +29,36 @@ namespace GAME
 	void SivInput::Update ( const Array < s3d::Input > & keys )
 	{
 		m_keyboard.Update ( keys );		//キーボードデバイス
-		m_gamepad.Update ();		//ジョイスティック
+		m_gamepad.Update ();			//ゲームパッド
 	}
 
+	//---------------------------------------------------------------------------
+	//キーコンフィグ用
+	//いずれかが押されていたら優先順で返す
+	DeviceInput SivInput::PushInput ()
+	{
+		DeviceInput di;
+
+		//ゲームパッド
+		GamePadInput gpi = m_gamepad.PushInput ();
+		if ( gpi.GetInputType () != PIT_NO_DATA )
+		{
+			di.SetPad ( gpi );
+		}
+
+		//キーボード
+		KEY_NAME key = m_keyboard.WhichInput ();
+		if ( key != SIK_NODATA )
+		{
+			di.SetKeyboard ( key );
+		}
+
+		return di;
+	}
+
+
 	//-------------------------------------------------------------------------------------------------
-	//	ジョイスティックで押されている状態かどうかを取得する
+	//	ゲームパッドで押されている状態かどうかを取得する
 	bool SivInput::IsJoyButton ( int id, int btn ) const { return m_gamepad.IsButton ( id, btn ); }
 
 	bool SivInput::IsAxisUp(int id) const { return m_gamepad.IsAxisUp ( id ); }

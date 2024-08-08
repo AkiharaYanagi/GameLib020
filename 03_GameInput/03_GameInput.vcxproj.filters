@@ -780,5 +780,6 @@
     <ClInclude Include="..\Include\KeyDefine.h" />
     <ClInclude Include="..\Include\KeyConfig.h" />
     <ClInclude Include="..\Include\DeviceInput.h" />
+    <ClInclude Include="..\Include\SivKeyboard_Name.h" />
   </ItemGroup>
 </Project>

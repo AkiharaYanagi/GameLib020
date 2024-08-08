@@ -52,6 +52,12 @@ namespace GAME
 		m_keyboardInput = key;
 	}
 
+	void DeviceInput::SetKeyboard ( KEY_NAME key )
+	{
+		m_dvc_type = KEYBOARD;
+		m_keyboardInput = key;
+	}
+
 	void DeviceInput::SetPad ( GamePadInput gamePadInput )
 	{
 		m_dvc_type = INPUT_DEVICE_TYPE::GAMEPAD;

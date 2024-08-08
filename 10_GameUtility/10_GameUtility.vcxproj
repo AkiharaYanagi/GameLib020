@@ -25,7 +25,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -54,7 +54,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)Intermediate\$(ProjectName)\Release\</OutDir>
+    <OutDir>$(SolutionDir)Library\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Release\Intermediate\</IntDir>
     <LocalDebuggerWorkingDirectory>$(ProjectDir)App</LocalDebuggerWorkingDirectory>
     <IncludePath>$(SIV3D_0_6_13)\include;$(SIV3D_0_6_13)\include\ThirdParty;$(IncludePath)</IncludePath>
@@ -121,6 +121,7 @@
     <ClCompile Include="FadeRect.cpp" />
     <ClCompile Include="GameSystem.cpp" />
     <ClCompile Include="GrpDemo.cpp" />
+    <ClCompile Include="GrpEf.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -328,6 +329,7 @@
     <ClInclude Include="..\Include\GameMainBase.h" />
     <ClInclude Include="..\Include\GameSystem.h" />
     <ClInclude Include="..\Include\GrpDemo.h" />
+    <ClInclude Include="..\Include\GrpEf.h" />
     <ClInclude Include="..\Include\Timer.h" />
     <ClInclude Include="Ascii_Font.h" />
     <ClInclude Include="stdafx.h" />

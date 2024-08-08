@@ -254,6 +254,18 @@ void Main()
 //	p_vtx = std::make_unique < s3d::VideoTexture > ( U"example/video/river.mp4", s3d::Loop::No );
 
 
+
+
+//test
+
+	int i = 0;
+	for ( String str : KEYBOARD_STR )
+	{
+		Console << U"{} "_fmt(i) << str;
+		++ i;
+	}
+
+
 	//========================================
 	//メインループ
 	bool init = F;

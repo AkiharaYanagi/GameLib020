@@ -88,33 +88,31 @@ namespace GAME
 	//初期化
 	void KeyConfig::SetInitial ()
 	{
-		const INPUT_DEVICE_TYPE IDT = INPUT_DEVICE_TYPE::KEYBOARD;
+		m_deviceInput [ P1_UP   ].SetKeyboard ( SIK_UP );
+		m_deviceInput [ P1_DOWN ].SetKeyboard ( SIK_DOWN );
+		m_deviceInput [ P1_LEFT ].SetKeyboard ( SIK_LEFT );
+		m_deviceInput [ P1_RIGHT].SetKeyboard ( SIK_RIGHT );
+		m_deviceInput [ P1_BTN0 ].SetKeyboard ( SIK_Z );
+		m_deviceInput [ P1_BTN1 ].SetKeyboard ( SIK_X );
+		m_deviceInput [ P1_BTN2 ].SetKeyboard ( SIK_C );
+		m_deviceInput [ P1_BTN3 ].SetKeyboard ( SIK_V );
+		m_deviceInput [ P1_BTN4 ].SetKeyboard ( SIK_COMMA );
+		m_deviceInput [ P1_BTN5 ].SetKeyboard ( SIK_PERIOD );
+		m_deviceInput [ P1_BTN6 ].SetKeyboard ( SIK_SLASH );
+		m_deviceInput [ P1_BTN7 ].SetKeyboard ( SIK_BACKSLASH );
 
-		m_deviceInput [ P1_UP   ].SetKey ( IDT, SIK_UP );
-		m_deviceInput [ P1_DOWN ].SetKey ( IDT, SIK_DOWN );
-		m_deviceInput [ P1_LEFT ].SetKey ( IDT, SIK_LEFT );
-		m_deviceInput [ P1_RIGHT].SetKey ( IDT, SIK_RIGHT );
-		m_deviceInput [ P1_BTN0 ].SetKey ( IDT, SIK_Z );
-		m_deviceInput [ P1_BTN1 ].SetKey ( IDT, SIK_X );
-		m_deviceInput [ P1_BTN2 ].SetKey ( IDT, SIK_C );
-		m_deviceInput [ P1_BTN3 ].SetKey ( IDT, SIK_V );
-		m_deviceInput [ P1_BTN4 ].SetKey ( IDT, SIK_COMMA );
-		m_deviceInput [ P1_BTN5 ].SetKey ( IDT, SIK_PERIOD );
-		m_deviceInput [ P1_BTN6 ].SetKey ( IDT, SIK_SLASH );
-		m_deviceInput [ P1_BTN7 ].SetKey ( IDT, SIK_BACKSLASH );
-
-		m_deviceInput [ P2_UP   ].SetKey ( IDT, SIK_END );
-		m_deviceInput [ P2_DOWN ].SetKey ( IDT, SIK_HOME );
-		m_deviceInput [ P2_LEFT ].SetKey ( IDT, SIK_DELETE );
-		m_deviceInput [ P2_RIGHT].SetKey ( IDT, SIK_PAGEDN );
-		m_deviceInput [ P2_BTN0 ].SetKey ( IDT, SIK_A );
-		m_deviceInput [ P2_BTN1 ].SetKey ( IDT, SIK_S );
-		m_deviceInput [ P2_BTN2 ].SetKey ( IDT, SIK_D );
-		m_deviceInput [ P2_BTN3 ].SetKey ( IDT, SIK_F );
-		m_deviceInput [ P2_BTN4 ].SetKey ( IDT, SIK_L );
-		m_deviceInput [ P2_BTN5 ].SetKey ( IDT, SIK_SEMICOLON_JIS );
-		m_deviceInput [ P2_BTN6 ].SetKey ( IDT, SIK_COLON_JIS );
-		m_deviceInput [ P2_BTN7 ].SetKey ( IDT, SIK_RBRACKET );
+		m_deviceInput [ P2_UP   ].SetKeyboard ( SIK_END );
+		m_deviceInput [ P2_DOWN ].SetKeyboard ( SIK_HOME );
+		m_deviceInput [ P2_LEFT ].SetKeyboard ( SIK_DELETE );
+		m_deviceInput [ P2_RIGHT].SetKeyboard ( SIK_PAGEDN );
+		m_deviceInput [ P2_BTN0 ].SetKeyboard ( SIK_A );
+		m_deviceInput [ P2_BTN1 ].SetKeyboard ( SIK_S );
+		m_deviceInput [ P2_BTN2 ].SetKeyboard ( SIK_D );
+		m_deviceInput [ P2_BTN3 ].SetKeyboard ( SIK_F );
+		m_deviceInput [ P2_BTN4 ].SetKeyboard ( SIK_L );
+		m_deviceInput [ P2_BTN5 ].SetKeyboard ( SIK_SEMICOLON_JIS );
+		m_deviceInput [ P2_BTN6 ].SetKeyboard ( SIK_COLON_JIS );
+		m_deviceInput [ P2_BTN7 ].SetKeyboard ( SIK_RBRACKET );
 	}
 
 
@@ -196,7 +194,7 @@ namespace GAME
 			case KEYBOARD:
 				fs.read ( (char*)&bufdw, BUF_SIZE );
 				key = bufdw;
-				di.SetKey ( KEYBOARD, key );
+				di.SetKeyboard ( (KEY_NAME)key );
 				break;
 
 			case GAMEPAD:
@@ -261,7 +259,7 @@ namespace GAME
 		return ret;
 	}
 
-	bool KeyConfig::Is_Keyboard ( uint32 key ) const
+	bool KeyConfig::Is_Keyboard ( KEY_NAME key ) const
 	{
 //		return DxInput::instance ()->IsOneKeyboard ( key );
 		return SVINP->Is_Keyboard ( key );
@@ -309,7 +307,7 @@ namespace GAME
 		return ret;
 	}
 
-	bool KeyConfig::Push_Keyboard ( uint32 key ) const
+	bool KeyConfig::Push_Keyboard ( KEY_NAME key ) const
 	{
 		return SVINP->Push_Keyboard ( key );
 	}
@@ -356,7 +354,7 @@ namespace GAME
 		return ret;
 	}
 
-	bool KeyConfig::Rele_Keyboard ( uint32 key ) const
+	bool KeyConfig::Rele_Keyboard ( KEY_NAME key ) const
 	{
 		return SVINP->Rele_Keyboard ( key );
 	}
