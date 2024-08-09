@@ -24,6 +24,9 @@ namespace GAME
 
 		//キーボードの押した状態かどうか
 		static bool AscKey ( int vKey );
+
+		//カーソル位置にウィンドウを移動
+		static void MoveWindow_toCursor ();
 	};
 
 

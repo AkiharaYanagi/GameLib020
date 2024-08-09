@@ -257,13 +257,14 @@ void Main()
 
 
 //test
-
+#if 0
 	int i = 0;
 	for ( String str : KEYBOARD_STR )
 	{
 		Console << U"{} "_fmt(i) << str;
 		++ i;
 	}
+#endif // 0
 
 
 	//========================================
@@ -320,20 +321,8 @@ void Load ()
 //メインループ中の最初の１回のみの初期化
 void Init ()
 {
-#if 0
-	//マウス位置にウィンドウを移動
-	s3d::Point pt = s3d::Cursor::Pos () ;
-	s3d::Window::SetPos ( pt );
-#endif // 0
-
-	//カーソル位置の取得
-	POINT cursorPos;
-	::GetCursorPos ( & cursorPos );
-	cursorPos.x -= 700;
-	cursorPos.y -= 15;
-	s3d::Point pt { cursorPos.x, cursorPos.y };
-
-	s3d::Window::SetPos ( pt );
+	//カーソル位置にウィンドウを移動
+	WND_UTL::MoveWindow_toCursor ();
 }
 
 
