@@ -22,7 +22,7 @@ namespace GAME
 	class GameObject
 	{
 //		GameMatrix	m_matrix;			//座標
-		bool		m_valid { T };		//表示 ON/OFF
+		bool		m_valid { T };		//表示 ;個別ON/OFF
 		uint32		m_indexTexture { 0 };	//テクスチャ指定添字
 		Fade		m_fade;				//フェード (単色指定もフェードに統合)
 
@@ -109,8 +109,10 @@ namespace GAME
 		s3d::RectF GetRectF () const { return m_rectf; }
 		void SetRectF ( s3d::RectF rectf ) { m_rectf = rectf; }
 
+#if 0
 		float GetZ () const { return m_z; }
 		void SetZ ( float z ) { m_z = z; }
+#endif // 0
 	};
 
 	//型定義

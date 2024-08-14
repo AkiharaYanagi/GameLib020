@@ -65,7 +65,7 @@ namespace GAME
 
 		//オブジェクト先頭の直接制御
 		//単体で用いるときは、オブジェクトを指定しなくてよい
-		void SetValid ( bool b ) { mpap_Object->at ( 0 )->SetValid ( b ); }
+		void SetValid ( bool b ) { m_valid = b; mpap_Object->at ( 0 )->SetValid ( b ); }
 		bool GetValid () const { return mpap_Object->at(0)->GetValid (); }
 
 		void SetPos ( VEC2 v ) { mpap_Object->at ( 0 )->SetPos ( v ); }
@@ -83,8 +83,10 @@ namespace GAME
 		void SetAllRectF_Size ( s3d::Size size );
 		void ApplyTxSize_ToOb ( P_Tx ptx, P_Ob pob );
 
+#if 0
 		float GetZ () const;
 		void SetZ ( float z );
+#endif // 0
 
 		void SetIndexTexture ( uint32 index ) { mpap_Object->at(0)->SetIndexTexture ( index ); }
 		void SetColor ( uint32 clr ) { mpap_Object->at(0)->SetColor ( clr ); }

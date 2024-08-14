@@ -40,6 +40,10 @@ namespace GAME
 
 	void GameGraphicBase::Draw ()
 	{
+		//稼働フラグ
+		if ( ! m_valid ) { return; }
+
+		//テクスチャが０のときは描画しない
 		if ( mpap_Texture->size () <= 0 ) { return; }
 
 		//オブジェクトの数だけ描画
@@ -165,6 +169,8 @@ namespace GAME
 		pob->SetRectF ( s3d::RectF { 0, 0, pt.x, pt.y } );
 	}
 
+
+#if 0
 	float GameGraphicBase::GetZ () const
 	{
 		if ( mpap_Object->size() > 0 )
@@ -181,6 +187,7 @@ namespace GAME
 			mpap_Object->at ( 0 )->SetZ ( z );
 		}
 	}
+#endif // 0
 
 
 }	//namespace GAME

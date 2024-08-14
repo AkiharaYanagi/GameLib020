@@ -23,6 +23,7 @@ namespace GAME
 		~WND_UTL () = delete;
 
 		//キーボードの押した状態かどうか
+		//仮想キー "VK_**" ( < WinUser.h > )
 		static bool AscKey ( int vKey );
 
 		//カーソル位置にウィンドウを移動

@@ -16,6 +16,14 @@ namespace GAME
 {
 	bool WND_UTL::AscKey ( int vKey )
 	{
+		//仮想キー "VK_**"
+
+		//@info
+		//関数の呼び出し時にキーが押されているかどうか、
+		//および GetAsyncKeyState の前回の呼び出し後にキーが押されたかどうかを判別します。
+		//
+		//-> 同一フレームで２回以上判定すると２回め移行 False
+
 		return ( ::GetAsyncKeyState ( vKey ) & 0x0001 );
 	}
 

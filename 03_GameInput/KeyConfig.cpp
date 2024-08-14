@@ -158,6 +158,7 @@ namespace GAME
 	//読込
 	void KeyConfig::Load ()
 	{
+#if 0
 		//設定ファイル読込
 		std::fstream fs ( _T("keyConfig.dat"), std::ios::in, std::ios::binary );
 
@@ -213,6 +214,50 @@ namespace GAME
 			}
 
 			m_deviceInput [ i ] = di;	//代入OK
+		}
+#endif // 0
+
+		s3d::FilePath path = U"keyconfig.dat";
+		s3d::BinaryReader br ( path );
+
+		const uint32 NUM_STG = 24;
+
+		for ( size_t i = 0; i < NUM_STG; ++ i )
+		{
+			uint8 device_type = 0;
+			br.read ( device_type );
+
+			uint8 pad_id = 0;
+			br.read ( pad_id );
+
+			uint8 input_type = 0;
+			br.read ( input_type );
+
+			uint8 btn = 0;
+			br.read ( btn );
+
+			uint8 lever = 0;
+			br.read ( lever );
+
+			uint8 key = 0;
+			br.read ( key );
+
+
+			INPUT_DEVICE_TYPE idt = (INPUT_DEVICE_TYPE)device_type;
+			GamePadInput gpi;
+			switch ( idt )
+			{
+			case KEYBOARD:
+				m_deviceInput [ i ].SetKeyboard ( (KEY_NAME)key );
+				break;
+
+			case GAMEPAD:
+				gpi.Set ( pad_id, (PAD_INPUT_TYPE)input_type, btn, (LEVER_DIR)lever );
+				m_deviceInput [ i ].SetPad ( gpi );
+				break;
+
+			default:break;
+			}
 		}
 	}
 

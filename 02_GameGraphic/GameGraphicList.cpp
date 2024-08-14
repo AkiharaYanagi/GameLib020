@@ -8,6 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "GameGraphicList.h"
+#include "GameLibConst.h"
 
 //-------------------------------------------------------------------------------------------------
 // 定義
@@ -39,8 +40,25 @@ namespace GAME
 	{
 		for ( P_GrpCr p : *mplp_GrpMain ) { p->Draw (); }
 
+		//動画
+		if ( m_startMv )
+		{
+			int32 w = mp_vtx->width ();
+			int32 h = mp_vtx->height ();
+			double dx = ( (double)GAME_WINDOW_WIDTH - w ) * 0.5;
+			double dy = ( (double)GAME_WINDOW_HEIGHT - h ) * 0.5;
+			mp_vtx->advance ();
+			mp_vtx->draw ( dx, dy );
 
-		if ( m_startMv ) { mp_vtx->advance (); mp_vtx->draw ( 0, 200 ); }
+			//終了
+			double length = mp_vtx->lengthSec ();
+			double sec = mp_vtx->posSec ();
+			if ( sec >= length )
+			{
+				m_startMv = false;
+				mp_vtx->reset ();
+			}
+		}
 
 	}
 
