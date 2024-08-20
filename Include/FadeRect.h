@@ -26,6 +26,8 @@ namespace GAME
 		s3d::ColorF		m_color0;	//初期色
 		s3d::ColorF		m_color1;	//目標色
 
+		bool	m_after_clear { T };	//終了時に非表示にするかどうか
+
 	public:
 		FadeRect ();
 		FadeRect ( UINT time ) { SetTime ( time ); };
@@ -58,10 +60,15 @@ namespace GAME
 		bool IsActive () const { return m_timer->IsActive (); }
 		bool IsLast () const { return m_timer->IsLast (); }
 
+		void SetAfterClear ( bool b ) { m_after_clear = b; }
+
 		//-----------------------------------
 		//具体設定
 		//@info 0x00000000 を指定するときD3DXCOLORの初期化のため整数リテラル UL を付ける
 		
+		//ホワイトイン( 0xffffffff → 0x00ffffff )
+		void SetWhiteIn ( UINT time );
+
 		//ホワイトアウト( 0x00ffffff → 0xffffffff )
 		void SetWhiteOut ( UINT time );
 

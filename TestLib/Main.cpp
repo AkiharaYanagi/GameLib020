@@ -321,8 +321,18 @@ void Load ()
 //メインループ中の最初の１回のみの初期化
 void Init ()
 {
+#define CURSOR_POS_START 0
+#if CURSOR_POS_START
 	//カーソル位置にウィンドウを移動
 	WND_UTL::MoveWindow_toCursor ();
+#else
+	//中央
+	s3d::Window::Centering ();
+#endif // 0
+
+
+	//test サウンド
+	SOUND->Play_BGM ( 1 );
 }
 
 

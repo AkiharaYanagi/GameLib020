@@ -76,12 +76,15 @@ namespace GAME
 		//サウンドの生成
 		DxSound::Create ();
 		DxSound::instance()->Load();
+#endif // 0
 
 		//サウンドアーカイバの初期化
 		SoundArchiver::Create ();
 
 		//設定ファイルから音量設定
-		LONG vlm = AppSettingFile::Inst()->GetSoundVolume();	//0-100
+		//LONG vlm = AppSettingFile::Inst()->GetSoundVolume();	//0-100
+		LONG vlm = 50;	//0-100
+
 //		LONG revised_vlm = 4 * ( vlm * 10 - 1000 );
 		LONG revised_vlm = -( 100 - vlm ) * ( 100 - vlm );
 		SOUND->SetVolume ( revised_vlm );
@@ -90,12 +93,11 @@ namespace GAME
 		//デバッグ時 かつ フラグON のみアーカイブファイルを生成する
 		if ( m_bMakeArchive )
 		{
-			SoundArchiver::instance ()->Make ();
+			SoundArchiver::Inst ()->Make ();
 		}
 #endif	//_DEBUG
-		SoundArchiver::instance()->Open ();		//アーカイブファイルの読込
+		SoundArchiver::Inst()->Open ();		//アーカイブファイルの読込
 
-#endif // 0
 
 	}
 

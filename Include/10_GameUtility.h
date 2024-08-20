@@ -16,6 +16,7 @@
 #include "GrpDemo.h"
 #include "GrpEf.h"
 #include "FadeRect.h"
+#include "GrpBlink.h"
 
 
 //-------------------------------------------------------------------------------------------------

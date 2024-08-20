@@ -103,8 +103,8 @@ namespace GAME
 		void SetRotationCenter ( VEC2 v ) { m_scalingCenter = v; }
 		VEC2 GetRotationCenter () const { return m_scalingCenter; }
 
-		float GetRadian () const { return m_radian; }
 		void SetRadian ( float rad ) { m_radian = rad; }
+		float GetRadian () const { return m_radian; }
 
 		s3d::RectF GetRectF () const { return m_rectf; }
 		void SetRectF ( s3d::RectF rectf ) { m_rectf = rectf; }

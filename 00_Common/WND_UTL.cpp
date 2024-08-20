@@ -40,5 +40,27 @@ namespace GAME
 		s3d::Window::SetPos ( pt );
 	}
 
+	void WND_UTL::MoveWindow_toCenter_onCursor ()
+	{
+		//ウィンドウサイズ
+		//	s3d::Window::Resize ( 1600, 900 );
+		int32 wnd_w = 1728;
+		int32 wnd_h = 972;
+		//16:9 で(1280,960)が入るサイズ
+
+		//マウス位置にウィンドウを移動
+		s3d::Point pt = s3d::Cursor::Pos () ;
+		s3d::Window::SetPos ( pt );
+
+		//ウィンドウ位置のモニタIDを取得
+		size_t monitorIndex = s3d::System::GetCurrentMonitorIndex ();
+		s3d::Array < s3d::MonitorInfo > a_mInfo = s3d::System::EnumerateMonitors ();
+		s3d::MonitorInfo mInfo = a_mInfo [ monitorIndex ];
+		s3d::Vec2 mCenter = mInfo.displayRect.center();
+		const int32 dev_y = - 32;
+		s3d::Window::SetPos ( (int32)mCenter.x - wnd_w / 2, dev_y + (int32)mCenter.y - wnd_h / 2 );
+
+	}
+
 }	//namespace GAME
 

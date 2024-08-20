@@ -41,7 +41,7 @@ namespace GAME
 			{
 				m_timer->Clear ();
 				PrmRect::SetColor ( m_color1 );
-				PrmRect::SetValid ( false );
+				PrmRect::SetValid ( ! m_after_clear );
 			}
 			else
 			{
@@ -120,29 +120,37 @@ namespace GAME
 		PrmRect::Move ();
 	}
 
-		//ホワイトアウト( 0x00ffffff → 0xffffffff )
-		void FadeRect::SetWhiteOut ( UINT time )
-		{
-			s3d::ColorF clr0 = s3d::ColorF ( 1.0, 1.0, 1.0, 0.0 );
-			s3d::ColorF clr1 = s3d::ColorF ( 1.0, 1.0, 1.0, 1.0 );
-			SetColor ( clr0, clr1 ); Start ( time );
-		}
+	//ホワイトイン( 0xffffffff → 0x00ffffff )
+	void FadeRect::SetWhiteIn ( UINT time )
+	{
+		s3d::ColorF clr0 = s3d::ColorF ( 1.0, 1.0, 1.0, 1.0 );
+		s3d::ColorF clr1 = s3d::ColorF ( 1.0, 1.0, 1.0, 0.0 );
+		SetColor ( clr0, clr1 ); Start ( time );
+	}
 
-		//ブラックイン ( 0xff000000 → 0x00000000 )
-		void FadeRect::SetBlackIn ( UINT time )
-		{
-			s3d::ColorF clr0 = s3d::ColorF ( 0.0, 0.0, 0.0, 1.0 );
-			s3d::ColorF clr1 = s3d::ColorF ( 0.0, 0.0, 0.0, 0.0 );
-			SetColor ( clr0, clr1 ); Start ( time );
-		}
+	//ホワイトアウト( 0x00ffffff → 0xffffffff )
+	void FadeRect::SetWhiteOut ( UINT time )
+	{
+		s3d::ColorF clr0 = s3d::ColorF ( 1.0, 1.0, 1.0, 0.0 );
+		s3d::ColorF clr1 = s3d::ColorF ( 1.0, 1.0, 1.0, 1.0 );
+		SetColor ( clr0, clr1 ); Start ( time );
+	}
 
-		//ブラックアウト( 0x00000000 → 0xff000000 )
-		void FadeRect::SetBlackOut ( UINT time )
-		{
-			s3d::ColorF clr0 = s3d::ColorF ( 0.0, 0.0, 0.0, 0.0 );
-			s3d::ColorF clr1 = s3d::ColorF ( 0.0, 0.0, 0.0, 1.0 );
-			SetColor ( clr0, clr1 ); Start ( time );
-		}
+	//ブラックイン ( 0xff000000 → 0x00000000 )
+	void FadeRect::SetBlackIn ( UINT time )
+	{
+		s3d::ColorF clr0 = s3d::ColorF ( 0.0, 0.0, 0.0, 1.0 );
+		s3d::ColorF clr1 = s3d::ColorF ( 0.0, 0.0, 0.0, 0.0 );
+		SetColor ( clr0, clr1 ); Start ( time );
+	}
+
+	//ブラックアウト( 0x00000000 → 0xff000000 )
+	void FadeRect::SetBlackOut ( UINT time )
+	{
+		s3d::ColorF clr0 = s3d::ColorF ( 0.0, 0.0, 0.0, 0.0 );
+		s3d::ColorF clr1 = s3d::ColorF ( 0.0, 0.0, 0.0, 1.0 );
+		SetColor ( clr0, clr1 ); Start ( time );
+	}
 
 }	//namespace GAME
 

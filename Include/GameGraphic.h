@@ -78,6 +78,12 @@ namespace GAME
 		void SetScalingCenter ( float x, float y ) { mpap_Object->at(0)->SetScalingCenter ( x, y ); }
 		void SetScalingCenter ( VEC2 v ) { mpap_Object->at(0)->SetScalingCenter ( v ); }
 
+		void SetRotationCenter ( VEC2 v ) { mpap_Object->at(0)->SetRotationCenter ( v ); }
+		VEC2 GetRotationCenter () const { return mpap_Object->at(0)->GetRotationCenter (); }
+
+		void SetRadian ( float rad ) { mpap_Object->at(0)->SetRadian ( rad ); }
+		float GetRadian () const { return mpap_Object->at(0)->GetRadian (); }
+
 		void SetRectF ( s3d::RectF rectf ) { mpap_Object->at(0)->SetRectF ( rectf ); }
 		void SetAllRectF ( s3d::RectF rectf );
 		void SetAllRectF_Size ( s3d::Size size );
