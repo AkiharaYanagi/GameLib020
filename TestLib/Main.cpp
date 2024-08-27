@@ -235,6 +235,7 @@ void Main()
 	//読込
 	Load ();
 
+#if 0
 	//-------------------------------------
 	//test
 	ColorF color { 1.0, 1.0, 1.0, 1.0 };
@@ -245,15 +246,14 @@ void Main()
 	const PixelShader ps = HLSL { U"example/shader/hlsl/rgb_shift.hlsl", U"PS" };
 	const PixelShader ps_screen = HLSL { U"ScreenBlend.hlsl", U"PS" };
 	//-------------------------------------
+#endif // 0
 
+#if 0
 	//ブレンド用 レンダーテクスチャ
 	p_rd_tx = std::make_unique < RenderTexture > ( 1280, 960, Palette::Lightgreen );
 
 	p_vtx = std::make_unique < s3d::VideoTexture > ( U"raiden.mp4", s3d::Loop::No );
-//	p_vtx = std::make_unique < s3d::VideoTexture > ( U"BG.mp4", s3d::Loop::No );
-//	p_vtx = std::make_unique < s3d::VideoTexture > ( U"example/video/river.mp4", s3d::Loop::No );
-
-
+#endif // 0
 
 
 //test
@@ -288,6 +288,8 @@ void Main()
 //起動後１回のみの初期化
 void Load ()
 {
+#if 0
+
 	//ウィンドウ設定
 
 	//ゲーム表示サイズ
@@ -305,6 +307,8 @@ void Load ()
 	s3d::Point pt = s3d::Cursor::Pos () ;
 	s3d::Window::SetPos ( pt );
 
+#endif // 0
+
 	//-------------------------------------
 	//システム初期化
 	gameSystem.SystemLoad ();
@@ -321,10 +325,12 @@ void Load ()
 //メインループ中の最初の１回のみの初期化
 void Init ()
 {
-#define CURSOR_POS_START 0
+#if 0
+#define CURSOR_POS_START 1
 #if CURSOR_POS_START
 	//カーソル位置にウィンドウを移動
-	WND_UTL::MoveWindow_toCursor ();
+//	WND_UTL::MoveWindow_toCursor ();
+	WND_UTL::MoveWindow_toCenter_onCursor ();
 #else
 	//中央
 	s3d::Window::Centering ();
@@ -332,7 +338,35 @@ void Init ()
 
 
 	//test サウンド
-	SOUND->Play_BGM ( 1 );
+	//	SOUND->Play_BGM ( 1 );
+#endif // 0
+
+
+	//ウィンドウ設定
+
+	//ゲーム表示サイズ
+	s3d::Size size = s3d::Scene::Size ();
+	s3d::Scene::SetResizeMode ( s3d::ResizeMode::Virtual );
+	s3d::Scene::Resize ( 1280, 960 );
+	//	s3d::Scene::Resize ( 1200, 900 );
+
+	//ウィンドウサイズ
+	s3d::Scene::SetResizeMode ( s3d::ResizeMode::Keep );
+	//	s3d::Window::Resize ( 1600, 900 );
+	int32 wnd_w = 1728;
+	int32 wnd_h = 972;
+	s3d::Window::Resize ( wnd_w, wnd_h );	//16:9 で(1280,960)が入るサイズ
+	s3d::Window::SetStyle ( s3d::WindowStyle::Sizable );
+
+	//位置
+#define CURSOR_POS_START 0
+#if CURSOR_POS_START
+	s3d::Window::Centering ();	//モニタ中央
+#else
+	//カーソル位置のモニタの中心
+	WND_UTL::MoveWindow_toCenter_onCursor ();
+#endif // 0
+
 }
 
 
@@ -342,10 +376,11 @@ void Move ()
 	//---------------------------------------------------
 	// 動作
 	//---------------------------------------------------
-
+#if 0
 	//毎回の更新
 	const Array<Input> & keys = s3d::Keyboard::GetAllInputs();
 	SivInput::Inst()->Update ( keys );
+#endif // 0
 
 	//ゲームメイン
 	//gameMain->Move ();

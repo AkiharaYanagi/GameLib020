@@ -69,6 +69,11 @@ namespace GAME
 		return VEC2 ( this->x / f, this->y / f );
 	}
 
+	VEC2 GAME::operator*( float f, const VEC2 & rhs )
+	{
+		return VEC2 ( f * rhs.x, f * rhs.y );
+	}
+
 	bool VEC2::operator == ( const VEC2& rhs ) const
 	{
 		return this->x == rhs.x && this->y == rhs.y;

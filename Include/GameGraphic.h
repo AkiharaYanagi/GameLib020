@@ -52,6 +52,7 @@ namespace GAME
 		void AddTexture_FromArchive ( s3d::String filename );
 		void AddpTexture ( P_Tx ptx );
 		void SetpTexture ( P_Tx ptx );
+		VEC2 GetCenterOfTexture ( uint32 index );
 
 		//---------------------------------------------------------------------
 		// オブジェクト
@@ -112,6 +113,9 @@ namespace GAME
 	};
 
 	using P_Grp = std::shared_ptr < GameGraphic >;
+	
+	using	AP_Grp = s3d::Array < P_Grp >;
+	using	UPAP_Grp = std::unique_ptr < AP_Grp >;
 
 
 

@@ -23,6 +23,7 @@ namespace GAME
 {
 	using LP_GrpCr = std::list < P_GrpCr >;
 	using UPLP_GrpCr = std::unique_ptr < LP_GrpCr >;
+	using UP_RndrTx = std::unique_ptr < s3d::RenderTexture >;
 
 
 	class GameGraphicList
@@ -42,6 +43,9 @@ namespace GAME
 	
 	private:
 		UPLP_GrpCr		mplp_GrpMain;		//グラフィック メイン リスト
+
+		//test
+		UP_RndrTx		m_renderTx;			//レンダーテクスチャ
 
 	public:
 
@@ -63,6 +67,11 @@ namespace GAME
 		//個数
 		size_t GetNumList () const { return mplp_GrpMain->size (); }
 
+
+		//レンダーテクスチャ移譲
+		UP_RndrTx Handover_RndrTx () { return std::move ( m_renderTx ); }
+		//レンダーテクスチャ返還
+		void Refund_RndrTx ( UP_RndrTx&& up ) { m_renderTx = std::move ( up ); }
 
 
 	private:

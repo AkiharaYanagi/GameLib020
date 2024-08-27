@@ -135,6 +135,17 @@ namespace GAME
 		mpap_Texture->push_back ( ptx );
 	}
 
+	VEC2 GameGraphicBase::GetCenterOfTexture ( uint32 index )
+	{
+		VEC2 ret { 0, 0 };
+		if ( mpap_Texture->size () < index ) { return ret; }
+
+		s3d::Size size = mpap_Texture->at ( index )->size ();
+		ret.x = 0.5f * (float)size.x;
+		ret.y = 0.5f * (float)size.y;
+		return ret;
+	}
+
 	//---------------------------------------------------------------------
 	void GameGraphicBase::AddpObject ( P_Ob pOb )
 	{

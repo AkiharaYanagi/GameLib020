@@ -26,19 +26,26 @@ namespace GAME
 		m_acc ( VEC2 ( 0.01f, 0.01f ) )
 	{
 		SetValid ( false );
-		m_vPosMatrix.push_back ( VEC2 ( 0, 0 ) );
 	}
 
 	GrpEf::~GrpEf ()
 	{
 	}
 
-	void GrpEf::TxLoad ()
+	void GrpEf::Load ()
 	{
-//		GameGraphic::TxLoad ();
+		GameGraphic::Load ();
 
 		//読み込んだテクスチャのサイズによるので Load() 後
-		SetCenterOfTexture ( 0 );
+		m_vPosMatrix.clear ();
+		SetCenterOfTexture ();
+	}
+
+	void GrpEf::Init ()
+	{
+		m_vec = m_startScaling;
+		m_vel = VEC2 ( 0.f, 0.f );
+		SetIndexTexture ( 0 );
 	}
 
 	void GrpEf::Move ()
@@ -85,29 +92,32 @@ namespace GAME
 
 	void GrpEf::On ()
 	{
-		m_vec = m_startScaling;
-		m_vel = VEC2 ( 0.f, 0.f );
-//		SetIndexTexture ( 0 );
+		Init();
+		SetValid ( T );
+	}
+
+	void GrpEf::Off ()
+	{
+		SetValid ( F );
 	}
 
 
 
-	void GrpEf::SetCenterOfTexture ( UINT index )
+	void GrpEf::SetCenterOfTexture ()
 	{
-		++ index;
-#if 0
 		//デフォルトでScalingCenterとRotationCenterをテクスチャの中心にする
-		VEC2 vec = GetCenterOfTexture ( index );
 		PAP_Ob pvpObj = GameGraphic::Getpap_ob ();
 		UINT size = pvpObj->size ();
 		for ( UINT i = 0; i < size; ++i )
 		{
+			VEC2 vec = GetCenterOfTexture ( i );
 			(*pvpObj)[i]->SetScalingCenter ( vec );
 			(*pvpObj)[i]->SetRotationCenter ( vec );
-		}
-		m_base = -1.f * vec;		//表示位置をテクスチャの中心にする
 
-#endif // 0
+			//各オブジェクトの位置に記録
+			m_vPosMatrix.push_back ( -1.f * vec );
+		}
+//		m_base = -1.f * vec;		//表示位置をテクスチャの中心にする
 	}
 
 

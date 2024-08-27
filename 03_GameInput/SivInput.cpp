@@ -26,9 +26,17 @@ namespace GAME
 	//-------------------------------------------------------------------------------------------------
 	//	フレーム毎の更新
 	//-------------------------------------------------------------------------------------------------
+#if 0
 	void SivInput::Update ( const Array < s3d::Input > & keys )
 	{
 		m_keyboard.Update ( keys );		//キーボードデバイス
+		m_gamepad.Update ();			//ゲームパッド
+	}
+#endif // 0
+
+	void SivInput::Update ()
+	{
+		m_keyboard.Update ();		//キーボードデバイス
 		m_gamepad.Update ();			//ゲームパッド
 	}
 

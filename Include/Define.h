@@ -109,6 +109,8 @@ namespace GAME
 		VEC2 operator * ( float f ) const;
 		VEC2 operator / ( float f ) const;
 
+		friend VEC2 operator * ( float f, const VEC2& rhs );
+
 		bool operator == ( const VEC2& rhs ) const;
 		bool operator != ( const VEC2& rhs ) const;
 

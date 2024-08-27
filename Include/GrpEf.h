@@ -37,10 +37,13 @@ namespace GAME
 		GrpEf ( const GrpEf & rhs ) = delete;
 		~GrpEf ();
 
-		void TxLoad ();
+		void Load ();
+		void Init ();
 		void Move ();
 
 		void On ();
+		void Off ();
+
 
 		//キャラ位置による画面補正
 		void SetDispBase ( VEC2 v ) { m_dispBase = v; }
@@ -90,7 +93,7 @@ namespace GAME
 		}
 
 		//インデックスで指定したテクスチャで中心を設定する
-		void SetCenterOfTexture ( UINT index );
+		void SetCenterOfTexture ();
 	};
 
 	using P_GrpEf = std::shared_ptr < GrpEf >;

@@ -115,6 +115,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Include\Define.cpp" />
     <ClCompile Include="Ascii_Font.cpp" />
     <ClCompile Include="Base_DebugOut.cpp" />
     <ClCompile Include="DebugOutGameWindow.cpp" />

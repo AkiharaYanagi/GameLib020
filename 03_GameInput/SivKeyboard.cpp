@@ -28,8 +28,13 @@ namespace GAME
 	//--------------------------------------------------------------------------
 	//ゲーム利用
 	//--------------------------------------------------------------------------
-	void SivKeyboard::Update( const Array < Input > & keys )
+//	void SivKeyboard::Update( const Array < Input > & keys )
+	void SivKeyboard::Update()
 	{
+		//キーボード状態を取得
+		const Array<Input> & keys = s3d::Keyboard::GetAllInputs();
+
+
 #if 0
 		if ( m_lpDIKeyboard )
 		{

@@ -25,6 +25,8 @@ namespace GAME
 	GameGraphicList::GameGraphicList ()
 	{
 		mplp_GrpMain = std::make_unique < LP_GrpCr > ();
+
+		m_renderTx = std::make_unique < s3d::RenderTexture > ( 1280, 960 );
 	}
 
 	GameGraphicList::~GameGraphicList ()
@@ -38,7 +40,21 @@ namespace GAME
 
 	void GameGraphicList::Draw ()
 	{
+		//リストのグラフィックを描画
+		{
+			const s3d::ScopedRenderTarget2D target ( * m_renderTx );
+
+			for ( P_GrpCr p : *mplp_GrpMain ) { p->Draw (); }
+		}
+
+//		m_renderTx->draw ( 200, 100 );
+
+
+#if 0
 		for ( P_GrpCr p : *mplp_GrpMain ) { p->Draw (); }
+#endif // 0
+
+
 
 		//動画
 		if ( m_startMv )

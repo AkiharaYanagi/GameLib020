@@ -765,6 +765,7 @@
     <ClCompile Include="GameGraphicList.cpp" />
     <ClCompile Include="GameGraphicCore.cpp" />
     <ClCompile Include="GameGrpStr.cpp" />
+    <ClCompile Include="ShaderList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -777,5 +778,6 @@
     <ClInclude Include="..\Include\GameGraphicList.h" />
     <ClInclude Include="..\Include\GameGraphicCore.h" />
     <ClInclude Include="..\Include\GameGrpStr.h" />
+    <ClInclude Include="..\Include\ShaderList.h" />
   </ItemGroup>
 </Project>

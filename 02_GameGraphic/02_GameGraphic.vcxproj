@@ -395,6 +395,7 @@
     <ClCompile Include="GameGrpStr.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GamePrimitive.cpp" />
+    <ClCompile Include="ShaderList.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -409,6 +410,7 @@
     <ClInclude Include="..\Include\GameGrpStr.h" />
     <ClInclude Include="..\Include\GameObject.h" />
     <ClInclude Include="..\Include\GamePrimitive.h" />
+    <ClInclude Include="..\Include\ShaderList.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

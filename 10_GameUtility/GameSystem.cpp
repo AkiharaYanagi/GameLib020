@@ -57,6 +57,12 @@ namespace GAME
 		//Graphic配列の初期化
 		GRPLST_CREATE ();
 
+		//シェーダリスト
+		SDRLST_CREATE ();
+		SDRLST_LOAD ();
+
+
+		//ゲーム画面デバッグ表示
 		DebugOutGameWindow::Inst()->Load ();
 
 
@@ -120,6 +126,9 @@ namespace GAME
 		// ストップ時、'Q'キーで 1 フレームずつ進ませる
 		if( ! bStop || WND_UTL::AscKey ( 'Q' ) )
 		{
+			//入力の更新
+			SivInput::Inst()->Update ();
+
 			//フレーム毎の動作	
 			m_pGameMain->Move ();
 
@@ -142,6 +151,7 @@ namespace GAME
 	void GameSystem::Draw()
 	{
 		GRPLST_DRAW ();
+		SDRLST_DRAW ();
 
 		DBGOUT_WND()->Draw ();
 	}
