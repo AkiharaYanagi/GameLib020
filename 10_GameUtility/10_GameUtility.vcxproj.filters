@@ -140,7 +140,6 @@
     <ClCompile Include="FadeRect.cpp" />
     <ClCompile Include="GrpEf.cpp" />
     <ClCompile Include="GrpBlink.cpp" />
-    <ClCompile Include="..\Include\Define.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">

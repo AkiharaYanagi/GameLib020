@@ -44,6 +44,8 @@ namespace GAME
 		void On ();
 		void Off ();
 
+		void Advance ();	//Ÿ‚Éi‚ß‚é
+
 
 		//ƒLƒƒƒ‰ˆÊ’u‚É‚æ‚é‰æ–Ê•â³
 		void SetDispBase ( VEC2 v ) { m_dispBase = v; }

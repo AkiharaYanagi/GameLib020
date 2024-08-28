@@ -101,16 +101,42 @@ namespace GAME
 		SetValid ( F );
 	}
 
+	void GrpEf::Advance ()
+	{
+		//オブジェクトの個数チェック
+		PAP_Ob papOb = GameGraphic::Getpap_ob ();
+		size_t size_ob = papOb->size ();
+		if ( size_ob == 0 ) { return; }
+
+		//テクスチャの個数チェック
+		PAP_Tx papTx = GameGraphic::Getpap_tx ();
+		size_t size_tx = papTx->size ();
+		if ( size_tx <= 1 ) { return; }
+
+		//次に進める
+		P_Ob pOb = papOb->at ( 0 );
+		uint32 indexTx = pOb->GetIndexTexture ();
+
+		//最後のとき稼働終了
+		if ( ++ indexTx >= size_tx )
+		{
+			indexTx = 0;
+			Off ();
+		}
+
+		pOb->SetIndexTexture ( indexTx );
+	}
+
 
 
 	void GrpEf::SetCenterOfTexture ()
 	{
 		//デフォルトでScalingCenterとRotationCenterをテクスチャの中心にする
 		PAP_Ob pvpObj = GameGraphic::Getpap_ob ();
-		UINT size = pvpObj->size ();
-		for ( UINT i = 0; i < size; ++i )
+		size_t size = pvpObj->size ();
+		for ( size_t i = 0; i < size; ++i )
 		{
-			VEC2 vec = GetCenterOfTexture ( i );
+			VEC2 vec = GetCenterOfTexture ( (uint32) i );
 			(*pvpObj)[i]->SetScalingCenter ( vec );
 			(*pvpObj)[i]->SetRotationCenter ( vec );
 
