@@ -100,8 +100,8 @@ namespace GAME
 		//		void SetRotationCenter ( VEC2 v ) { m_matrix.SetRotationCenter ( v ); }
 		//		void SetRadian ( float f ) { m_matrix.SetRadian ( f ); }
 
-		void SetRotationCenter ( VEC2 v ) { m_scalingCenter = v; }
-		VEC2 GetRotationCenter () const { return m_scalingCenter; }
+		void SetRotationCenter ( VEC2 v ) { m_rotationCenter = v; }
+		VEC2 GetRotationCenter () const { return m_rotationCenter; }
 
 		void SetRadian ( float rad ) { m_radian = rad; }
 		float GetRadian () const { return m_radian; }

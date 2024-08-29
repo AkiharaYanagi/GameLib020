@@ -77,7 +77,14 @@ namespace GAME
 			x += cnt.x - (cnt.x * v.x);
 			y += cnt.y - (cnt.y * v.y);
 
-			(*ptx)( rectf ).scaled ( vScaling ).draw ( x, y );
+
+			//回転中心位置
+			VEC2 vec_rtt_cntr = pob->GetRotationCenter ();
+			s3d::Vec2 rtt_cntr { vec_rtt_cntr.x, vec_rtt_cntr.y };
+			//回転角
+			double r = pob->GetRadian ();
+
+			(*ptx)( rectf ).scaled ( vScaling ).rotatedAt( rtt_cntr, r ).draw ( x, y );
 		}
 	}
 
