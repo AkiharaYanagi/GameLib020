@@ -45,38 +45,46 @@ namespace GAME
 			const s3d::ScopedRenderTarget2D target ( * m_renderTx );
 
 			for ( P_GrpCr p : *mplp_GrpMain ) { p->Draw (); }
-		}
-
-//		m_renderTx->draw ( 200, 100 );
-
 
 #if 0
-		for ( P_GrpCr p : *mplp_GrpMain ) { p->Draw (); }
-#endif // 0
-
-
-
-		//動画
-		if ( m_startMv )
-		{
-			int32 w = mp_vtx->width ();
-			int32 h = mp_vtx->height ();
-			double dx = ( (double)GAME_WINDOW_WIDTH - w ) * 0.5;
-			double dy = ( (double)GAME_WINDOW_HEIGHT - h ) * 0.5;
-			mp_vtx->advance ();
-			mp_vtx->draw ( dx, dy );
-
-			//終了
-			double length = mp_vtx->lengthSec ();
-			double sec = mp_vtx->posSec ();
-			if ( sec >= length )
+			//動画
+			if ( m_startMv )
 			{
-				m_startMv = false;
-				mp_vtx->reset ();
+				int32 w = mp_vtx->width ();
+				int32 h = mp_vtx->height ();
+				double dx = ( (double)GAME_WINDOW_WIDTH - w ) * 0.5;
+				double dy = ( (double)GAME_WINDOW_HEIGHT - h ) * 0.5;
+				mp_vtx->advance ();
+				mp_vtx->draw ( dx, dy );
+
+				//終了
+				double length = mp_vtx->lengthSec ();
+				double sec = mp_vtx->posSec ();
+				if ( sec >= length )
+				{
+					m_startMv = false;
+					mp_vtx->reset ();
+				}
 			}
+
+#endif // 0
 		}
 
+
+		//@info ShaderListの後でレンダーテクスチャをメイン画面に描画
+//		m_renderTx->draw ( 200, 100 );
+
+		//全体レンダーテクスチャの描画
+		m_renderTx->draw ( 0, 0 );
 	}
+
+
+	void GameGraphicList::PostDraw ()
+	{
+		m_postDraw->Draw ();
+	}
+
+
 
 	//Z値で降順ソートされた位置に挿入
 	void GameGraphicList::InsertByZ ( P_GrpCr pGrpCr )

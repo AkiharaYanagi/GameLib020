@@ -41,6 +41,14 @@ namespace GAME
 		m_fade.PreMove ();
 	}
 
+	void GameObject::NextIndexTexture ()
+	{
+	}
+
+	void GameObject::PrevIndexTexture ()
+	{
+	}
+
 
 }	//namespace GAME
 

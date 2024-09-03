@@ -10,8 +10,9 @@
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-//#include "GameMatrix.h"
+#include "00_Common.h"
 #include "Fade.h"
+
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
@@ -21,7 +22,6 @@ namespace GAME
 
 	class GameObject
 	{
-//		GameMatrix	m_matrix;			//座標
 		bool		m_valid { T };		//表示 ;個別ON/OFF
 		uint32		m_indexTexture { 0 };	//テクスチャ指定添字
 		Fade		m_fade;				//フェード (単色指定もフェードに統合)
@@ -53,6 +53,8 @@ namespace GAME
 		//テクスチャインデックス
 		void SetIndexTexture ( uint32 i ) { m_indexTexture = i; }
 		uint32 GetIndexTexture () const { return m_indexTexture; }
+		void NextIndexTexture ();
+		void PrevIndexTexture ();
 
 		//色
 		void SetColor ( _CLR c ) { m_fade.SetColor ( c ); }
@@ -91,14 +93,9 @@ namespace GAME
 		void SetScalingCenter ( float x, float y ) { m_scalingCenter.x = x, m_scalingCenter.y = y; }
 		void SetScalingCenter ( VEC2 v ) { m_scalingCenter = v; }
 		VEC2 GetScalingCenter () const { return m_scalingCenter; }
-
 		VEC2 GetScaling () const { return m_scaling; }
 		void SetScaling ( VEC2 v ) { m_scaling = v; }
 		void SetScaling ( float x, float y ) { m_scaling.x = x, m_scaling.y = y; }
-
-		//		void SetScalingRotation ( float f ) { m_matrix.SetScalingRotation ( f ); }
-		//		void SetRotationCenter ( VEC2 v ) { m_matrix.SetRotationCenter ( v ); }
-		//		void SetRadian ( float f ) { m_matrix.SetRadian ( f ); }
 
 		void SetRotationCenter ( VEC2 v ) { m_rotationCenter = v; }
 		VEC2 GetRotationCenter () const { return m_rotationCenter; }
@@ -108,11 +105,6 @@ namespace GAME
 
 		s3d::RectF GetRectF () const { return m_rectf; }
 		void SetRectF ( s3d::RectF rectf ) { m_rectf = rectf; }
-
-#if 0
-		float GetZ () const { return m_z; }
-		void SetZ ( float z ) { m_z = z; }
-#endif // 0
 	};
 
 	//型定義

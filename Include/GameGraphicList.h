@@ -47,6 +47,10 @@ namespace GAME
 		//test
 		UP_RndrTx		m_renderTx;			//レンダーテクスチャ
 
+		//test
+		P_GrpCr			m_postDraw;
+
+
 	public:
 
 		//@info 動作はタスクリスト側で行う
@@ -56,6 +60,10 @@ namespace GAME
 
 		//描画
 		void Draw ();
+
+
+		void PostDraw ();
+
 
 		//Z値で降順ソートされた位置に挿入
 		//描画Z位置(後:1.f ～ 0.0f:前) "GameGraphicConst.h"に Z_BG などで定数が宣言してある
@@ -72,6 +80,9 @@ namespace GAME
 		UP_RndrTx Handover_RndrTx () { return std::move ( m_renderTx ); }
 		//レンダーテクスチャ返還
 		void Refund_RndrTx ( UP_RndrTx&& up ) { m_renderTx = std::move ( up ); }
+
+
+		void SetpPostDraw ( P_GrpCr pGrpCr ) { m_postDraw = pGrpCr; }
 
 
 	private:

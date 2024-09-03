@@ -37,11 +37,13 @@ namespace GAME
 		AddpTask ( m_testGrp );
 		GRPLST_INSERT ( m_testGrp );
 
+#if 0
 		m_testEf = std::make_shared < GameGraphic > ();
 		m_testEf->AddTexture ( U"ef_004.png" );
 		m_testEf->SetPos ( 50, 50 );
 		AddpTask ( m_testEf );
 		SDRLST_INSERT ( m_testEf );
+#endif // 0
 	}
 
 	Test::~Test ()

@@ -90,12 +90,11 @@ namespace GAME
 		void SetAllRectF_Size ( s3d::Size size );
 		void ApplyTxSize_ToOb ( P_Tx ptx, P_Ob pob );
 
-#if 0
-		float GetZ () const;
-		void SetZ ( float z );
-#endif // 0
 
 		void SetIndexTexture ( uint32 index ) { mpap_Object->at(0)->SetIndexTexture ( index ); }
+		void NextIndexTexture ();
+		void PrevIndexTexture ();
+		
 		void SetColor ( uint32 clr ) { mpap_Object->at(0)->SetColor ( clr ); }
 		void SetColor ( _CLR clr ) { mpap_Object->at(0)->SetColor ( clr ); }
 

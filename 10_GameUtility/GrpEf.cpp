@@ -14,18 +14,10 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-	GrpEf::GrpEf () :
-		m_base ( VEC2 ( 0.f, 0.f ) ), 
-		m_revised ( VEC2 ( 0.f, 0.f ) ), 
-		m_dispBase ( VEC2 ( 0.f, 0.f ) ), 
-		m_timer ( 0 ), 
-		m_startScaling ( VEC2 ( 1.8f, 1.8f ) ), 
-		m_targetScaling ( VEC2 ( 1.2f, 1.2f ) ),
-		m_vec ( VEC2 ( 0.f, 0.f ) ), 
-		m_vel ( VEC2 ( 0.f, 0.f ) ),
-		m_acc ( VEC2 ( 0.01f, 0.01f ) )
+	GrpEf::GrpEf ()
 	{
-		SetValid ( false );
+		SetValid ( F );
+		m_vPosMatrix.push_back ( VEC2 ( 0, 0 ) );
 	}
 
 	GrpEf::~GrpEf ()
@@ -36,9 +28,11 @@ namespace GAME
 	{
 		GameGraphic::Load ();
 
+#if 0
 		//読み込んだテクスチャのサイズによるので Load() 後
 		m_vPosMatrix.clear ();
 		SetCenterOfTexture ();
+#endif // 0
 	}
 
 	void GrpEf::Init ()
@@ -58,8 +52,12 @@ namespace GAME
 		{
 			//基準位置 + 補正位置 + 外部補正位置 + 個別位置
 			(*pvpObj)[i]->SetPos ( m_base + m_revised + m_dispBase + m_vPosMatrix[i] );
+
 		}
-		
+
+
+#if 0
+
 		//-----------------------------------------------
 		//拡縮
 		for ( UINT i = 0; i < size; ++i )
@@ -86,6 +84,8 @@ namespace GAME
 
 			(*pvpObj)[i]->SetScaling ( m_vec );
 		}
+
+#endif // 0
 
 		GameGraphic::Move ();
 	}
@@ -127,6 +127,18 @@ namespace GAME
 		pOb->SetIndexTexture ( indexTx );
 	}
 
+	void GrpEf::Preset_Ef_Action ()
+	{
+		m_base = VEC2 ( 0.f, 0.f );
+		m_revised = VEC2 ( 0.f, 0.f ); 
+		m_dispBase = VEC2 ( 0.f, 0.f ); 
+		m_timer = 0; 
+		m_startScaling = VEC2 ( 1.8f, 1.8f ); 
+		m_targetScaling = VEC2 ( 1.2f, 1.2f );
+		m_vec = VEC2 ( 0.f, 0.f ); 
+		m_vel = VEC2 ( 0.f, 0.f );
+		m_acc = VEC2 ( 0.01f, 0.01f );
+	}
 
 
 	void GrpEf::SetCenterOfTexture ()
@@ -137,15 +149,10 @@ namespace GAME
 		for ( size_t i = 0; i < size; ++i )
 		{
 			VEC2 vec = GetCenterOfTexture ( (uint32) i );
-			(*pvpObj)[i]->SetScalingCenter ( vec );
+//			(*pvpObj)[i]->SetScalingCenter ( vec );
 			(*pvpObj)[i]->SetRotationCenter ( vec );
-
-			//各オブジェクトの位置に記録
-			m_vPosMatrix.push_back ( -1.f * vec );
 		}
-//		m_base = -1.f * vec;		//表示位置をテクスチャの中心にする
 	}
-
 
 
 }	//namespace GAME

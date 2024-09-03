@@ -17,6 +17,7 @@
 #include "GrpEf.h"
 #include "FadeRect.h"
 #include "GrpBlink.h"
+#include "Menu.h"
 
 
 //-------------------------------------------------------------------------------------------------

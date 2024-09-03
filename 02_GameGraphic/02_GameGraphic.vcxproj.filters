@@ -766,6 +766,9 @@
     <ClCompile Include="GameGraphicCore.cpp" />
     <ClCompile Include="GameGrpStr.cpp" />
     <ClCompile Include="ShaderList.cpp" />
+    <ClCompile Include="G_Font.cpp" />
+    <ClCompile Include="GrpShader.cpp" />
+    <ClCompile Include="GrpMovie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -779,5 +782,8 @@
     <ClInclude Include="..\Include\GameGraphicCore.h" />
     <ClInclude Include="..\Include\GameGrpStr.h" />
     <ClInclude Include="..\Include\ShaderList.h" />
+    <ClInclude Include="..\Include\G_Font.h" />
+    <ClInclude Include="..\Include\GrpMovie.h" />
+    <ClInclude Include="..\Include\GrpShader.h" />
   </ItemGroup>
 </Project>

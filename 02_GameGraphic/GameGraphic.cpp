@@ -51,10 +51,6 @@ namespace GAME
 		{
 			if ( ! pob->GetValid () ) { continue; }
 
-			//拡大縮小
-			VEC2 v = pob->GetScaling();
-			s3d::Vec2 vScaling { v.x, v.y };
-
 			//描画テクスチャの指定
 			uint32 indexTexture = pob->GetIndexTexture ();
 			s3d::RectF rectf = pob->GetRectF ();
@@ -70,6 +66,10 @@ namespace GAME
 				s3d::Point pt = sz.xy ();
 				rectf.set ( 0, 0, sz );
 			}
+
+			//拡大縮小
+			VEC2 v = pob->GetScaling();
+			s3d::Vec2 vScaling { v.x, v.y };
 
 			//拡縮中心位置
 			//原点に戻してから指定位置にする
@@ -188,24 +188,28 @@ namespace GAME
 	}
 
 
-#if 0
-	float GameGraphicBase::GetZ () const
+	void GameGraphicBase::NextIndexTexture ()
 	{
-		if ( mpap_Object->size() > 0 )
-		{
-			return mpap_Object->at ( 0 )->GetZ ();
-		}
-		return 0;
+		size_t size = mpap_Texture->size ();
+		P_Ob pob = mpap_Object->at ( 0 );
+		size_t i = pob->GetIndexTexture ();
+
+		i = ( i >= size - 1 ) ? 0: i + 1;
+		pob->SetIndexTexture ( i );
 	}
 
-	void GameGraphicBase::SetZ ( float z )
+	void GameGraphicBase::PrevIndexTexture ()
 	{
-		if ( mpap_Object->size() > 0 )
-		{
-			mpap_Object->at ( 0 )->SetZ ( z );
-		}
+		size_t size = mpap_Texture->size ();
+		P_Ob pob = mpap_Object->at ( 0 );
+		size_t i = pob->GetIndexTexture ();
+
+		i = ( i == 0 ) ? size - 1 : i - 1;
+		pob->SetIndexTexture ( i );
 	}
-#endif // 0
+
+
+
 
 
 }	//namespace GAME

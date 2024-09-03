@@ -14,7 +14,9 @@
 #include "GamePrimitive.h"
 #include "GameGrpStr.h"
 #include "GameGraphicList.h"
-#include "ShaderList.h"
+//#include "ShaderList.h"
+#include "GrpMovie.h"
+#include "GrpShader.h"
 
 
 //-------------------------------------------------------------------------------------------------
