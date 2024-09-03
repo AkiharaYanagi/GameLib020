@@ -45,10 +45,10 @@ namespace GAME
 		UPLP_GrpCr		mplp_GrpMain;		//グラフィック メイン リスト
 
 		//test
-		UP_RndrTx		m_renderTx;			//レンダーテクスチャ
+//		UP_RndrTx		m_renderTx;			//レンダーテクスチャ
 
 		//test
-		P_GrpCr			m_postDraw;
+//		P_GrpCr			m_postDraw;
 
 
 	public:
@@ -61,8 +61,7 @@ namespace GAME
 		//描画
 		void Draw ();
 
-
-		void PostDraw ();
+//		void PostDraw ();
 
 
 		//Z値で降順ソートされた位置に挿入
@@ -76,6 +75,7 @@ namespace GAME
 		size_t GetNumList () const { return mplp_GrpMain->size (); }
 
 
+#if 0
 		//レンダーテクスチャ移譲
 		UP_RndrTx Handover_RndrTx () { return std::move ( m_renderTx ); }
 		//レンダーテクスチャ返還
@@ -83,6 +83,7 @@ namespace GAME
 
 
 		void SetpPostDraw ( P_GrpCr pGrpCr ) { m_postDraw = pGrpCr; }
+#endif // 0
 
 
 	private:

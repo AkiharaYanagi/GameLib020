@@ -44,6 +44,7 @@ namespace GAME
 
 	void ShaderList::Draw ()
 	{
+#if 0
 		//メイングラフィックからレンダーテクスチャを取得
 		UP_RndrTx upRndrTx = GrpLst::Inst()->Handover_RndrTx ();
 
@@ -56,6 +57,7 @@ namespace GAME
 			GrpLst::Inst()->Refund_RndrTx ( std::move ( upRndrTx ) );
 			return;
 		}
+#endif // 0
 
 
 
@@ -122,7 +124,7 @@ namespace GAME
 					const s3d::ScopedCustomShader2D shader ( m_ps_screen );
 		//			m_emoji.scaled(2).drawAt ( s3d::Scene::Center() );
 //					upRndrTx->draw( 200, 100 );
-					upRndrTx->draw( 0, 0 );
+					//upRndrTx->draw( 0, 0 );
 				}
 			}
 		}
@@ -140,7 +142,7 @@ namespace GAME
 #endif // 0
 
 		//メイングラフィックにレンダーテクスチャを返還
-		GrpLst::Inst()->Refund_RndrTx ( std::move ( upRndrTx ) );
+//		GrpLst::Inst()->Refund_RndrTx ( std::move ( upRndrTx ) );
 	}
 
 	//Z値で降順ソートされた位置に挿入

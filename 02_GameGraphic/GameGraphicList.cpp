@@ -9,6 +9,8 @@
 //-------------------------------------------------------------------------------------------------
 #include "GameGraphicList.h"
 #include "GameLibConst.h"
+#include "G_GrpTx.h"
+
 
 //-------------------------------------------------------------------------------------------------
 // 定義
@@ -26,7 +28,11 @@ namespace GAME
 	{
 		mplp_GrpMain = std::make_unique < LP_GrpCr > ();
 
-		m_renderTx = std::make_unique < s3d::RenderTexture > ( 1280, 960 );
+//		m_renderTx = std::make_unique < s3d::RenderTexture > ( 1280, 960 );
+
+		//グラフィック共通テクスチャ
+		G_GrpTx::Create ();
+		G_GrpTx::Inst()->Load ();
 	}
 
 	GameGraphicList::~GameGraphicList ()
@@ -40,7 +46,8 @@ namespace GAME
 
 	void GameGraphicList::Draw ()
 	{
-		//リストのグラフィックを描画
+
+#if 0
 		{
 			const s3d::ScopedRenderTarget2D target ( * m_renderTx );
 
@@ -69,20 +76,29 @@ namespace GAME
 
 #endif // 0
 		}
+#endif // 0
+
+		//リストのグラフィックを描画
+		for ( P_GrpCr p : *mplp_GrpMain ) { p->Draw (); }
 
 
 		//@info ShaderListの後でレンダーテクスチャをメイン画面に描画
 //		m_renderTx->draw ( 200, 100 );
 
 		//全体レンダーテクスチャの描画
-		m_renderTx->draw ( 0, 0 );
+//		m_renderTx->draw ( 0, 0 );
+
+
+		//全体レンダーテクスチャの描画
+		G_GrpTx::Inst()->Draw ();
 	}
 
-
+#if 0
 	void GameGraphicList::PostDraw ()
 	{
-		m_postDraw->Draw ();
+//		m_postDraw->Draw ();
 	}
+#endif // 0
 
 
 

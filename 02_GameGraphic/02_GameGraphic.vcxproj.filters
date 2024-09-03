@@ -769,6 +769,7 @@
     <ClCompile Include="G_Font.cpp" />
     <ClCompile Include="GrpShader.cpp" />
     <ClCompile Include="GrpMovie.cpp" />
+    <ClCompile Include="G_GrpTx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -785,5 +786,6 @@
     <ClInclude Include="..\Include\G_Font.h" />
     <ClInclude Include="..\Include\GrpMovie.h" />
     <ClInclude Include="..\Include\GrpShader.h" />
+    <ClInclude Include="..\Include\G_GrpTx.h" />
   </ItemGroup>
 </Project>

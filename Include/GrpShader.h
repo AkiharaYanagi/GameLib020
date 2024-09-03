@@ -18,7 +18,7 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-	class GrpShader : public GameGraphic
+	class GrpShader : public GameGraphicBase
 	{
 	public:
 		GrpShader ();
@@ -28,7 +28,7 @@ namespace GAME
 		void Draw ();
 	};
 
-	using GrpShd = std::shared_ptr < GrpShader >;
+	using GrpShd = GrpShader;
 	using P_GrpShd = std::shared_ptr < GrpShd >;
 
 

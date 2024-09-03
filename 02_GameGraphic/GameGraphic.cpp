@@ -9,6 +9,8 @@
 // ヘッダファイル　インクルード
 //-------------------------------------------------------------------------------------------------
 #include "GameGraphic.h"
+#include "G_GrpTx.h"
+
 
 //-------------------------------------------------------------------------------------------------
 // 定義
@@ -39,6 +41,20 @@ namespace GAME
 	}
 
 	void GameGraphicBase::Draw ()
+	{
+		//unique_ptrを取得
+		UP_RndrTx upRndTx = G_GrpTx::Inst()->Handover_RndrTx ();
+
+		{
+			const s3d::ScopedRenderTarget2D target ( * upRndTx );
+			_Draw ();
+		}
+
+		//unique_ptrを返す
+		G_GrpTx::Inst()->Refund_RndrTx ( std::move ( upRndTx ) );
+	}
+
+	void GameGraphicBase::_Draw ()
 	{
 		//稼働フラグ
 		if ( ! m_valid ) { return; }
@@ -195,7 +211,7 @@ namespace GAME
 		size_t i = pob->GetIndexTexture ();
 
 		i = ( i >= size - 1 ) ? 0: i + 1;
-		pob->SetIndexTexture ( i );
+		pob->SetIndexTexture ( (uint32)i );
 	}
 
 	void GameGraphicBase::PrevIndexTexture ()
@@ -205,7 +221,7 @@ namespace GAME
 		size_t i = pob->GetIndexTexture ();
 
 		i = ( i == 0 ) ? size - 1 : i - 1;
-		pob->SetIndexTexture ( i );
+		pob->SetIndexTexture ( (uint32)i );
 	}
 
 
