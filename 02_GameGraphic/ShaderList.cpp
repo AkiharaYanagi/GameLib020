@@ -100,7 +100,10 @@ namespace GAME
 
 
 		//メインテクスチャ unique_ptrを取得
-		UP_RndrTx upRndTx = G_GrpTx::Inst()->Handover_RndrTx ();
+		UP_RndrTx upMainTx = G_GrpTx::Inst()->Handover_RndrTx ();
+
+		//最終テクスチャ unique_ptrを取得
+		UP_RndrTx upOutTx = G_GrpTx::Inst()->Handover_OutTx ();
 
 
 		//各グラフィックの描画
@@ -116,35 +119,56 @@ namespace GAME
 				//位置合わせレンダーテクスチャ
 				{
 					const ScopedRenderTarget2D target { m_rndrTx };
-					//m_rndrTx.clear ( Palette::Blue );
-					//pGrp->_Draw ();
+					m_rndrTx.clear ( Palette::Black );
+					pGrp->_Draw ();
 				}
 
+#if 0
 
 				//メイン　レンダーテクスチャ
 				{
 					const ScopedRenderTarget2D target { * upRndTx };
 
-#if 0
 					//スクリーンオーバーレイのシェーダを適用
 					//s3d::Graphics2D::SetPSTexture ( 1, m_windmill );
-					//s3d::Graphics2D::SetPSTexture ( 1, m_rndrTx );
-					s3d::Graphics2D::SetPSTexture ( 1, * ptx );
-					//s3d::Graphics2D::SetPSTexture ( 1, * upRndrTx );
+					s3d::Graphics2D::SetPSTexture ( 1, m_rndrTx );
+					//s3d::Graphics2D::SetPSTexture ( 1, * ptx );
+					//s3d::Graphics2D::SetPSTexture ( 1, * upRndTx );
 					{
-			//			const s3d::ScopedCustomShader2D shader ( m_ps );
+						//const s3d::ScopedCustomShader2D shader ( m_ps );
 						const s3d::ScopedCustomShader2D shader ( m_ps_screen );
-//						m_emoji.scaled(2).drawAt ( s3d::Scene::Center() );
+
+						m_emoji.scaled(2).drawAt ( s3d::Scene::Center() );
 						//pGrp->_Draw ();
-						//upRndTx->draw( 200, 100 );
-						//upRndTx->draw( 0, 0 );
+						upRndTx->draw( 0, 0 );
 						//m_rndrTx.draw();
 					}
+#if 0
 #endif // 0
 				}
 
-				ptx->draw();
+#endif // 0
+				{
+					//最終描画対象を指定
+					const ScopedRenderTarget2D target { * upOutTx };
+					{
+						//シェーダを適用するテクスチャを指定
+						s3d::Graphics2D::SetPSTexture ( 1, m_rndrTx );
+						const s3d::ScopedCustomShader2D shader ( m_ps_screen );
+
+
+						//m_rndrTx.draw();
+						//m_emoji.scaled(2).drawAt ( s3d::Scene::Center() );
+						//pGrp->_Draw ();
+
+						//シェーダを適用したものを対象に描画
+						upMainTx->draw();
+					}
+				}
+
+	//				ptx->draw();
 			}
+
 		}
 
 
@@ -161,17 +185,27 @@ namespace GAME
 		//GrpLst::Inst()->Refund_RndrTx ( std::move ( upRndrTx ) );
 
 
+		//全体レンダーテクスチャの描画
+		//		upRndTx->draw ( 200, 100 );
+		//		upRndTx->draw ( 0, 0 );
+
+//		m_rndrTx.draw();
+//
+//
+// 
+
 #endif // 0
 
-		//全体レンダーテクスチャの描画
-//		upRndTx->draw ( 200, 100 );
-//		upRndTx->draw ( 0, 0 );
 		//メインテクスチャ unique_ptrを返す
-		G_GrpTx::Inst()->Refund_RndrTx ( std::move ( upRndTx ) );
-		//全体レンダーテクスチャの描画
-//		G_GrpTx::Inst()->Draw ();
+		G_GrpTx::Inst()->Refund_RndrTx ( std::move ( upMainTx ) );
 
+		//最終テクスチャ unique_ptrを返す
+		G_GrpTx::Inst()->Refund_OutTx ( std::move ( upOutTx ) );
+
+		//全体レンダーテクスチャの描画
+		G_GrpTx::Inst()->Draw ();
 	}
+
 
 	//Z値で降順ソートされた位置に挿入
 	void ShaderList::InsertByZ ( P_Grp pGrp )

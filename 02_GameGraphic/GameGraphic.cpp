@@ -43,7 +43,7 @@ namespace GAME
 	void GameGraphicBase::Draw ()
 	{
 		//unique_ptrを取得
-		UP_RndrTx upRndTx = G_GrpTx::Inst()->Handover_RndrTx ();
+		UP_RndrTx upRndTx = G_GrpTx::Inst()->Handover_OutTx ();
 
 		{
 			const s3d::ScopedRenderTarget2D target ( * upRndTx );
@@ -51,7 +51,7 @@ namespace GAME
 		}
 
 		//unique_ptrを返す
-		G_GrpTx::Inst()->Refund_RndrTx ( std::move ( upRndTx ) );
+		G_GrpTx::Inst()->Refund_OutTx ( std::move ( upRndTx ) );
 	}
 
 	void GameGraphicBase::_Draw ()

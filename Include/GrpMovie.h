@@ -35,6 +35,7 @@ namespace GAME
 
 		void Load ();
 		void Draw ();
+		void _Draw ();
 
 		void SetMovName ( s3d::String filename );
 

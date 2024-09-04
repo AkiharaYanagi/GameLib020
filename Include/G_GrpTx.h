@@ -40,6 +40,7 @@ namespace GAME
 		UP_RndrTx		m_renderTx;		//メイン レンダーテクスチャ
 		UP_RndrTx		m_psTx;			//ピクセルシェーダ用 レンダーテクスチャ
 		P_PxShd			m_ps_screen;	//ピクセルシェーダ
+		UP_RndrTx		m_outTx;		//最終 レンダーテクスチャ
 
 	public:
 
@@ -52,13 +53,18 @@ namespace GAME
 		//レンダーテクスチャ返還
 		void Refund_RndrTx ( UP_RndrTx&& up ) { m_renderTx = std::move ( up ); }
 
-		//レンダーテクスチャ移譲
+		//ピクセルシェーダ用 移譲
 		UP_RndrTx Handover_PSTx () { return std::move ( m_psTx ); }
-		//レンダーテクスチャ返還
+		//ピクセルシェーダ用 返還
 		void Refund_PSTx ( UP_RndrTx&& up ) { m_psTx = std::move ( up ); }
 
 		//ピクセルシェーダ
 		P_PxShd GetpPxShd () const { return m_ps_screen; }
+
+		//最終 移譲
+		UP_RndrTx Handover_OutTx () { return std::move ( m_outTx ); }
+		//最終 返還
+		void Refund_OutTx ( UP_RndrTx&& up ) { m_outTx = std::move ( up ); }
 	};
 
 

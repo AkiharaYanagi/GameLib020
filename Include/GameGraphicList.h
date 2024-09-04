@@ -44,12 +44,6 @@ namespace GAME
 	private:
 		UPLP_GrpCr		mplp_GrpMain;		//グラフィック メイン リスト
 
-		//test
-//		UP_RndrTx		m_renderTx;			//レンダーテクスチャ
-
-		//test
-//		P_GrpCr			m_postDraw;
-
 
 	public:
 
@@ -60,8 +54,6 @@ namespace GAME
 
 		//描画
 		void Draw ();
-
-//		void PostDraw ();
 
 
 		//Z値で降順ソートされた位置に挿入
@@ -74,28 +66,6 @@ namespace GAME
 		//個数
 		size_t GetNumList () const { return mplp_GrpMain->size (); }
 
-
-#if 0
-		//レンダーテクスチャ移譲
-		UP_RndrTx Handover_RndrTx () { return std::move ( m_renderTx ); }
-		//レンダーテクスチャ返還
-		void Refund_RndrTx ( UP_RndrTx&& up ) { m_renderTx = std::move ( up ); }
-
-
-		void SetpPostDraw ( P_GrpCr pGrpCr ) { m_postDraw = pGrpCr; }
-#endif // 0
-
-
-	private:
-		bool m_startMv { F };
-		std::unique_ptr < s3d::VideoTexture > mp_vtx;
-
-	public:
-		void SetupVtx ( std::unique_ptr < s3d::VideoTexture > p_vtx )
-		{
-			mp_vtx = std::move ( p_vtx );
-		}
-		void StartVtx () { m_startMv = T; }
 	};
 
 	using GrpLst = GameGraphicList;

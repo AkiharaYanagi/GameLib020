@@ -9,6 +9,8 @@
 // ヘッダファイル　インクルード
 //-------------------------------------------------------------------------------------------------
 #include "GrpMovie.h"
+#include "G_GrpTx.h"
+
 
 //-------------------------------------------------------------------------------------------------
 // 定義
@@ -32,6 +34,20 @@ namespace GAME
 	}
 
 	void GrpMovie::Draw ()
+	{
+		//unique_ptrを取得
+		UP_RndrTx upRndTx = G_GrpTx::Inst()->Handover_RndrTx ();
+
+		{
+			const s3d::ScopedRenderTarget2D target ( * upRndTx );
+			_Draw ();
+		}
+
+		//unique_ptrを返す
+		G_GrpTx::Inst()->Refund_RndrTx ( std::move ( upRndTx ) );
+	}
+
+	void GrpMovie::_Draw ()
 	{
 		//稼働フラグ
 		if ( ! m_valid ) { return; }
