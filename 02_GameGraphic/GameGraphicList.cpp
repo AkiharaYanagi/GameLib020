@@ -90,7 +90,7 @@ namespace GAME
 
 
 		//全体レンダーテクスチャの描画
-		G_GrpTx::Inst()->Draw ();
+//		G_GrpTx::Inst()->Draw ();
 	}
 
 #if 0

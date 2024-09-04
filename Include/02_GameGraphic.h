@@ -15,7 +15,7 @@
 #include "GameGrpStr.h"
 #include "G_GrpTx.h"
 #include "GameGraphicList.h"
-//#include "ShaderList.h"
+#include "ShaderList.h"
 #include "GrpMovie.h"
 #include "GrpShader.h"
 

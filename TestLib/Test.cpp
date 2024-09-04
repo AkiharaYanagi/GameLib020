@@ -33,15 +33,17 @@ namespace GAME
 		m_testGrp = std::make_shared < GameGraphic > ();
 		m_testGrp->AddTexture ( U"000_立ち_00.png" );
 		m_testGrp->SetPos ( 100, 100 );
-		m_testGrp->SetScaling ( 2, 2 );
+//		m_testGrp->SetScaling ( 2, 2 );
 		AddpTask ( m_testGrp );
 		GRPLST_INSERT ( m_testGrp );
 
-		m_testEf = std::make_shared < GrpShd > ();
+//		m_testEf = std::make_shared < GrpShd > ();
+		m_testEf = std::make_shared < GameGraphic > ();
 		m_testEf->AddTexture ( U"ef_004.png" );
 		m_testEf->SetPos ( 50, 50 );
 		AddpTask ( m_testEf );
-		GRPLST_INSERT ( m_testEf );
+//		GRPLST_INSERT ( m_testEf );
+		SDRLST_INSERT ( m_testEf );
 	}
 
 	Test::~Test ()

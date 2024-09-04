@@ -37,11 +37,11 @@ namespace GAME
 		{
 			P_Tx ptx = paptx->at ( pob->GetIndexTexture () );
 
-			//位置合わせレンダーテクスチャ
+			//ピクセルシェーダ用レンダーテクスチャ
 			{
 				const ScopedRenderTarget2D target { * upPSTx };
-				upPSTx->clear ( Palette::Black );
-				GameGraphicBase::Draw ();
+				upPSTx->clear ( Palette::Blue );
+				GameGraphicBase::_Draw ();
 			}
 
 
@@ -51,11 +51,18 @@ namespace GAME
 			//メインテクスチャ unique_ptrを取得
 			UP_RndrTx upRndTx = G_GrpTx::Inst()->Handover_RndrTx ();
 
-			//s3d::Graphics2D::SetPSTexture ( 1, m_rndrTx );
-			s3d::Graphics2D::SetPSTexture ( 1, * upPSTx );
 			{
-				const s3d::ScopedCustomShader2D shader ( * p_pxshd );
-				upRndTx->draw( 0, 0 );
+//				const ScopedRenderTarget2D target{ * upRndTx };
+				const ScopedRenderTarget2D target{ * upPSTx };
+
+				//s3d::Graphics2D::SetPSTexture ( 1, m_rndrTx );
+				s3d::Graphics2D::SetPSTexture ( 1, * upPSTx );
+	//			s3d::Graphics2D::SetPSTexture ( 1, * upRndTx );
+				{
+					const s3d::ScopedCustomShader2D shader ( * p_pxshd );
+					upRndTx->draw( 0, 0 );
+	//				upPSTx->draw( 190, 290 );
+				}
 			}
 
 			//メインテクスチャ unique_ptrを返す

@@ -10,6 +10,7 @@
 #include "ShaderList.h"
 #include "GameLibConst.h"
 #include "GameGraphicList.h"
+#include "G_GrpTx.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -37,6 +38,7 @@ namespace GAME
 	{
 		m_ps = HLSL { U"example/shader/hlsl/multi_texture_blend.hlsl", U"PS" };
 		m_ps_screen = HLSL { U"ScreenBlend.hlsl", U"PS" };
+//		m_ps_screen = HLSL { U"ScreenBlend_0.hlsl", U"PS" };
 		//		m_ps_screen = HLSL { U"example/shader/hlsl/rgb_shift.hlsl", U"PS" };
 		m_emoji = s3d::Texture ( U"🐈️"_emoji );
 		m_windmill = s3d::Texture ( U"example/windmill.png", TextureDesc::Mipped );
@@ -97,6 +99,9 @@ namespace GAME
 
 
 
+		//メインテクスチャ unique_ptrを取得
+		UP_RndrTx upRndTx = G_GrpTx::Inst()->Handover_RndrTx ();
+
 
 		//各グラフィックの描画
 		for ( P_Grp pGrp : * mpap_GrpMain )
@@ -107,25 +112,38 @@ namespace GAME
 			{
 				P_Tx ptx = paptx->at ( pob->GetIndexTexture () );
 
+
 				//位置合わせレンダーテクスチャ
 				{
 					const ScopedRenderTarget2D target { m_rndrTx };
-					m_rndrTx.clear ( Palette::Black );
-					pGrp->Draw ();
+					//m_rndrTx.clear ( Palette::Blue );
+					//pGrp->_Draw ();
 				}
 
 
-				//スクリーンオーバーレイのシェーダを適用
-				//s3d::Graphics2D::SetPSTexture ( 1, m_windmill );
-				s3d::Graphics2D::SetPSTexture ( 1, m_rndrTx );
-				//		s3d::Graphics2D::SetPSTexture ( 1, * upRndrTx );
+				//メイン　レンダーテクスチャ
 				{
-		//			const s3d::ScopedCustomShader2D shader ( m_ps );
-					const s3d::ScopedCustomShader2D shader ( m_ps_screen );
-		//			m_emoji.scaled(2).drawAt ( s3d::Scene::Center() );
-//					upRndrTx->draw( 200, 100 );
-					//upRndrTx->draw( 0, 0 );
+					const ScopedRenderTarget2D target { * upRndTx };
+
+#if 0
+					//スクリーンオーバーレイのシェーダを適用
+					//s3d::Graphics2D::SetPSTexture ( 1, m_windmill );
+					//s3d::Graphics2D::SetPSTexture ( 1, m_rndrTx );
+					s3d::Graphics2D::SetPSTexture ( 1, * ptx );
+					//s3d::Graphics2D::SetPSTexture ( 1, * upRndrTx );
+					{
+			//			const s3d::ScopedCustomShader2D shader ( m_ps );
+						const s3d::ScopedCustomShader2D shader ( m_ps_screen );
+//						m_emoji.scaled(2).drawAt ( s3d::Scene::Center() );
+						//pGrp->_Draw ();
+						//upRndTx->draw( 200, 100 );
+						//upRndTx->draw( 0, 0 );
+						//m_rndrTx.draw();
+					}
+#endif // 0
 				}
+
+				ptx->draw();
 			}
 		}
 
@@ -139,10 +157,20 @@ namespace GAME
 			upRndrTx->draw ( 200, 100 );
 		}
 
+		//メイングラフィックにレンダーテクスチャを返還
+		//GrpLst::Inst()->Refund_RndrTx ( std::move ( upRndrTx ) );
+
+
 #endif // 0
 
-		//メイングラフィックにレンダーテクスチャを返還
-//		GrpLst::Inst()->Refund_RndrTx ( std::move ( upRndrTx ) );
+		//全体レンダーテクスチャの描画
+//		upRndTx->draw ( 200, 100 );
+//		upRndTx->draw ( 0, 0 );
+		//メインテクスチャ unique_ptrを返す
+		G_GrpTx::Inst()->Refund_RndrTx ( std::move ( upRndTx ) );
+		//全体レンダーテクスチャの描画
+//		G_GrpTx::Inst()->Draw ();
+
 	}
 
 	//Z値で降順ソートされた位置に挿入

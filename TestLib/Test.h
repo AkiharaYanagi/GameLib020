@@ -22,7 +22,8 @@ namespace GAME
 
 		P_PrmRect	m_rect;
 		P_Grp		m_testGrp;
-		P_GrpShd	m_testEf;
+//		P_GrpShd	m_testEf;
+		P_Grp		m_testEf;
 
 	public:
 		Test ();
