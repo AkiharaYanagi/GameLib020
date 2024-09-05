@@ -58,8 +58,12 @@ namespace GAME
 		GRPLST_CREATE ();
 
 		//シェーダリスト
-		SDRLST_CREATE ();
-		SDRLST_LOAD ();
+//		SDRLST_CREATE ();
+//		SDRLST_LOAD ();
+
+		//フォント
+		G_Font::Create();
+		G_Font::Inst()->Load();
 
 
 		//ゲーム画面デバッグ表示
@@ -152,7 +156,7 @@ namespace GAME
 	{
 		GRPLST_DRAW ();
 
-		SDRLST_DRAW ();
+//		SDRLST_DRAW ();
 
 		//test
 //		GrpLst::Inst()->PostDraw ();
