@@ -60,6 +60,7 @@ namespace GAME
 		bool IsActive () const { return m_timer->IsActive (); }
 		bool IsLast () const { return m_timer->IsLast (); }
 
+		//終了時に非表示にするかどうか
 		void SetAfterClear ( bool b ) { m_after_clear = b; }
 
 		//-----------------------------------
@@ -68,42 +69,19 @@ namespace GAME
 		
 		//ホワイトイン( 0xffffffff → 0x00ffffff )
 		void SetWhiteIn ( UINT time );
+		void StartWhiteIn ( UINT time ) { SetWhiteIn ( time ); Start ( time ); }
 
 		//ホワイトアウト( 0x00ffffff → 0xffffffff )
 		void SetWhiteOut ( UINT time );
+		void StartWhiteOut ( UINT time ) { SetWhiteOut ( time ); Start ( time ); }
 
 		//ブラックイン ( 0xff000000 → 0x00000000 )
 		void SetBlackIn ( UINT time );
+		void StartBlackIn ( UINT time ) { SetBlackIn ( time ); Start ( time ); }
 
 		//ブラックアウト( 0x00000000 → 0xff000000 )
 		void SetBlackOut ( UINT time );
-
-#if 0
-//		bool IsActive () { return m_timer->IsActive (); }
-		//ホワイトアウト( 0x00ffffff → 0xffffffff )
-		void SetWhiteOut ( UINT time )
-		{
-			PrmRect::SetValid ( true );
-			m_whiteOutTime = time;
-			m_timer->Start (); 
-		}
-
-		//ブラックイン ( 0xff000000 → 0x00000000 )
-		void SetDarkIn ( UINT time )
-		{
-			PrmRect::SetValid ( true );
-			m_darkInTime = time;
-			m_timer->Start ();
-		}
-
-		//ブラックアウト( 0x00000000 → 0xff000000 )
-		void SetDarkOut ( UINT time )
-		{
-			PrmRect::SetValid ( true );
-			m_darkOutTime = time;
-			m_timer->Start ();
-		}
-#endif // 0
+		void StartBlackOut ( UINT time ) { SetBlackOut ( time ); Start ( time ); }
 	};
 
 	using P_FadeRect = std::shared_ptr < FadeRect >;

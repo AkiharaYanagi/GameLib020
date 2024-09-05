@@ -27,7 +27,7 @@ namespace GAME
 
 		m_rect = std::make_shared < GamePrimitiveRect > ();
 		m_rect->SetPos ( s3d::Point ( 20, 100 ) );
-		m_rect->SetSize ( s3d::Point ( 30, 1012 ) );
+		m_rect->SetSize ( s3d::Point ( 1012, 50 ) );
 		m_rect->SetZ ( Z_CH );
 		AddpTask ( m_rect );
 		GRPLST_INSERT ( m_rect );
@@ -56,6 +56,17 @@ namespace GAME
 		AddpTask ( m_testEf );
 		GRPLST_INSERT ( m_testEf );
 //		SDRLST_INSERT ( m_testEf );
+
+
+		m_mov = std::make_shared < GrpMov > ();
+		m_mov->SetMovName ( U"raiden.mp4" );
+		m_mov->Loop ( T );
+		m_mov->SetZ ( Z_SHADOW );
+		AddpTask ( m_mov );
+		GRPLST_INSERT ( m_mov );
+
+		m_mov->Start ();
+
 	}
 
 	Test::~Test ()

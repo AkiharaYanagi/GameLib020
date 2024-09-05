@@ -8,6 +8,8 @@
 // ヘッダファイル　インクルード
 //-------------------------------------------------------------------------------------------------
 #include "GamePrimitive.h"
+#include "G_GrpTx.h"
+
 
 //-------------------------------------------------------------------------------------------------
 // 定義
@@ -29,7 +31,16 @@ namespace GAME
 	{
 		if ( ! m_valid ) { return; }
 
-		m_rect.draw ( m_color );
+		//unique_ptrを取得
+		UP_RndrTx upRndTx = G_GrpTx::Inst()->Handover_OutTx ();
+
+		{
+			const s3d::ScopedRenderTarget2D target ( * upRndTx );
+			m_rect.draw ( m_color );
+		}
+
+		//unique_ptrを返す
+		G_GrpTx::Inst()->Refund_OutTx ( std::move ( upRndTx ) );
 	}
 
 

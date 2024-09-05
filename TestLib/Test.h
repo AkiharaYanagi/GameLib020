@@ -26,6 +26,8 @@ namespace GAME
 		P_GrpShd	m_testEf;
 		//		P_Grp		m_testEf;
 
+		P_GrpMovie		m_mov;
+
 	public:
 		Test ();
 		Test ( const Test & rhs ) = delete;

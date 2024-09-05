@@ -42,16 +42,16 @@ namespace GAME
 
 	void GameGraphicBase::Draw ()
 	{
-		//unique_ptrを取得
-		UP_RndrTx upRndTx = G_GrpTx::Inst()->Handover_OutTx ();
+		//最終描画テクスチャ unique_ptrを取得
+		UP_RndrTx upOutTx = G_GrpTx::Inst()->Handover_OutTx ();
 
 		{
-			const s3d::ScopedRenderTarget2D target ( * upRndTx );
+			const s3d::ScopedRenderTarget2D target ( * upOutTx );
 			_Draw ();
 		}
 
 		//unique_ptrを返す
-		G_GrpTx::Inst()->Refund_OutTx ( std::move ( upRndTx ) );
+		G_GrpTx::Inst()->Refund_OutTx ( std::move ( upOutTx ) );
 	}
 
 	void GameGraphicBase::_Draw ()

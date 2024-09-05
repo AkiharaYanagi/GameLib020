@@ -35,26 +35,26 @@ namespace GAME
 
 	void GrpMovie::Draw ()
 	{
-		//unique_ptrを取得
-		UP_RndrTx upRndTx = G_GrpTx::Inst()->Handover_RndrTx ();
-
-		{
-			const s3d::ScopedRenderTarget2D target ( * upRndTx );
-			_Draw ();
-		}
-
-		//unique_ptrを返す
-		G_GrpTx::Inst()->Refund_RndrTx ( std::move ( upRndTx ) );
-	}
-
-	void GrpMovie::_Draw ()
-	{
 		//稼働フラグ
 		if ( ! m_valid ) { return; }
 
 		//開始フラグ
 		if ( ! m_startMv ) { return; }
 
+		//unique_ptrを取得
+		UP_RndrTx upOutTx = G_GrpTx::Inst()->Handover_OutTx ();
+
+		{
+			const s3d::ScopedRenderTarget2D target ( * upOutTx );
+			_Draw ();
+		}
+
+		//unique_ptrを返す
+		G_GrpTx::Inst()->Refund_OutTx ( std::move ( upOutTx ) );
+	}
+
+	void GrpMovie::_Draw ()
+	{
 		//描画
 		int32 w = mp_vtx->width ();
 		int32 h = mp_vtx->height ();

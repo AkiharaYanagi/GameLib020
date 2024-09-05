@@ -47,6 +47,8 @@ namespace GAME
 		void Load ();
 		void Draw ();
 
+		void Clear ();
+
 
 		//レンダーテクスチャ移譲
 		UP_RndrTx Handover_RndrTx () { return std::move ( m_renderTx ); }

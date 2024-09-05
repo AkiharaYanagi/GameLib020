@@ -43,6 +43,11 @@ namespace GAME
 		m_outTx->draw ();
 	}
 
+	void G_GrpTx::Clear ()
+	{
+		m_outTx->clear ( s3d::Color ( 255, 240, 240, 255 ) );
+	}
+
 
 }	//namespace GAME
 
