@@ -44,6 +44,7 @@ namespace GAME
 
 		void Load ();
 		void Draw ();
+		void Draw ( double x, double y, s3d::ColorF clr );
 
 		void SetSize ( int32 size ) { m_size = size; }
 		void SetPos ( VEC2 v );
@@ -51,6 +52,7 @@ namespace GAME
 		void SetColorF ( s3d::ColorF clrf );
 	};
 
+#define	G_FONT_DRAW		G_Font::Inst()->Draw;
 
 
 }	//namespace GAME

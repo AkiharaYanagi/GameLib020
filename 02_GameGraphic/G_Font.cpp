@@ -40,6 +40,11 @@ namespace GAME
 		m_font ( m_str ).draw ( m_pos.x, m_pos.y, m_colorF );
 	}
 
+	void G_Font::Draw ( double x, double y, s3d::ColorF clr )
+	{
+		m_font ( m_str ).draw ( x, y, clr );
+	}
+
 	void G_Font::SetPos ( VEC2 v )
 	{
 		m_pos = v;
