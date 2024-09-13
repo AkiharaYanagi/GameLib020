@@ -33,6 +33,7 @@ namespace GAME
 		Test ( const Test & rhs ) = delete;
 		~Test ();
 
+		void Init ();
 		void Move ();
 	};
 

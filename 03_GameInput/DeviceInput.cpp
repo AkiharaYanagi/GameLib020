@@ -28,6 +28,29 @@ namespace GAME
 		m_lever = lvr;
 	}
 
+	s3d::String GamePadInput::ToString () const
+	{
+		PAD_INPUT_TYPE pit = GetInputType ();
+
+		s3d::String str = U"P{}_"_fmt ( GetID () );
+
+		switch ( pit )
+		{
+		case PIT_AXIS:			str += U"AXIS_";		break;
+		case PIT_POINT_OF_VIEW:	str += U"POV_";		break;
+
+		case PIT_BUTTON:
+			str += U"BTN_";
+			str += U"{}"_fmt ( GetButtonID() );
+			break;
+
+		case PIT_NO_DATA:		str += U"NO_DATA";	break;
+		default:break;
+		}
+		return str;
+	}
+
+
 	//============================================================
 
 
@@ -62,6 +85,23 @@ namespace GAME
 	{
 		m_dvc_type = INPUT_DEVICE_TYPE::GAMEPAD;
 		m_gamepadnput = gamePadInput;
+	}
+
+
+	s3d::String DeviceInput::ToString ()
+	{
+		INPUT_DEVICE_TYPE idt = GetType ();
+
+		s3d::String str;
+		switch ( idt )
+		{
+		case KEYBOARD:	str = U"Key_{}"_fmt( GetKeyName () );	break;
+		case GAMEPAD:	str = m_gamepadnput.ToString ();		break;
+		case MOUSE:		str = Unicode::Widen ( STR(MOUSE) );	break;
+		default:break;
+		}
+
+		return str;
 	}
 
 

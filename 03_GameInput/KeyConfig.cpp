@@ -96,23 +96,23 @@ namespace GAME
 		m_deviceInput [ P1_BTN1 ].SetKeyboard ( SIK_X );
 		m_deviceInput [ P1_BTN2 ].SetKeyboard ( SIK_C );
 		m_deviceInput [ P1_BTN3 ].SetKeyboard ( SIK_V );
-		m_deviceInput [ P1_BTN4 ].SetKeyboard ( SIK_COMMA );
-		m_deviceInput [ P1_BTN5 ].SetKeyboard ( SIK_PERIOD );
-		m_deviceInput [ P1_BTN6 ].SetKeyboard ( SIK_SLASH );
-		m_deviceInput [ P1_BTN7 ].SetKeyboard ( SIK_BACKSLASH );
+		m_deviceInput [ P1_BTN4 ].SetKeyboard ( SIK_B );
+		m_deviceInput [ P1_BTN5 ].SetKeyboard ( SIK_N );
+		m_deviceInput [ P1_BTN6 ].SetKeyboard ( SIK_M );
+		m_deviceInput [ P1_BTN7 ].SetKeyboard ( SIK_COMMA );
 
-		m_deviceInput [ P2_UP   ].SetKeyboard ( SIK_END );
-		m_deviceInput [ P2_DOWN ].SetKeyboard ( SIK_HOME );
+		m_deviceInput [ P2_UP   ].SetKeyboard ( SIK_HOME );
+		m_deviceInput [ P2_DOWN ].SetKeyboard ( SIK_END );
 		m_deviceInput [ P2_LEFT ].SetKeyboard ( SIK_DELETE );
 		m_deviceInput [ P2_RIGHT].SetKeyboard ( SIK_PAGEDN );
 		m_deviceInput [ P2_BTN0 ].SetKeyboard ( SIK_A );
 		m_deviceInput [ P2_BTN1 ].SetKeyboard ( SIK_S );
 		m_deviceInput [ P2_BTN2 ].SetKeyboard ( SIK_D );
 		m_deviceInput [ P2_BTN3 ].SetKeyboard ( SIK_F );
-		m_deviceInput [ P2_BTN4 ].SetKeyboard ( SIK_L );
-		m_deviceInput [ P2_BTN5 ].SetKeyboard ( SIK_SEMICOLON_JIS );
-		m_deviceInput [ P2_BTN6 ].SetKeyboard ( SIK_COLON_JIS );
-		m_deviceInput [ P2_BTN7 ].SetKeyboard ( SIK_RBRACKET );
+		m_deviceInput [ P2_BTN4 ].SetKeyboard ( SIK_G );
+		m_deviceInput [ P2_BTN5 ].SetKeyboard ( SIK_H );
+		m_deviceInput [ P2_BTN6 ].SetKeyboard ( SIK_J );
+		m_deviceInput [ P2_BTN7 ].SetKeyboard ( SIK_K );
 	}
 
 
@@ -216,7 +216,20 @@ namespace GAME
 			m_deviceInput [ i ] = di;	//代入OK
 		}
 #endif // 0
+		try
+		{
+			_Load ();
+		}
+		catch (...)
+		{
+			SetInitial ();
+		}
+	}
 
+	//--------------------------------------------------
+	//読込
+	void KeyConfig::_Load ()
+	{
 		s3d::FilePath path = U"keyconfig.dat";
 		s3d::BinaryReader br ( path );
 
@@ -262,6 +275,16 @@ namespace GAME
 	}
 
 
+	s3d::String KeyConfig::ToString ()
+	{
+		s3d::String str { U"" };
+		for ( DeviceInput di : m_deviceInput )
+		{
+			str.append ( di.ToString () );
+			str.append ( U"\n" );
+		}
+		return str;
+	}
 
 	//----------------------------------------------------------------------------------
 	//押された状態かどうか

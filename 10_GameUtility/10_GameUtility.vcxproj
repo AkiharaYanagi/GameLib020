@@ -123,6 +123,7 @@
     <ClCompile Include="GrpBlink.cpp" />
     <ClCompile Include="GrpDemo.cpp" />
     <ClCompile Include="GrpEf.cpp" />
+    <ClCompile Include="GrpEfShd.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -332,6 +333,7 @@
     <ClInclude Include="..\Include\GrpBlink.h" />
     <ClInclude Include="..\Include\GrpDemo.h" />
     <ClInclude Include="..\Include\GrpEf.h" />
+    <ClInclude Include="..\Include\GrpEfShd.h" />
     <ClInclude Include="..\Include\Timer.h" />
     <ClInclude Include="Ascii_Font.h" />
     <ClInclude Include="stdafx.h" />

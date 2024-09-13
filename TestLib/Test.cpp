@@ -50,7 +50,8 @@ namespace GAME
 
 		m_testEf = std::make_shared < GrpShd > ();
 //		m_testEf = std::make_shared < GameGraphic > ();
-		m_testEf->AddTexture ( U"ef_004.png" );
+//		m_testEf->AddTexture ( U"ef_004.png" );
+		m_testEf->AddTexture ( U"Ef_Circle_11.png" );
 		m_testEf->SetPos ( 50, 50 );
 		m_testEf->SetZ ( 0.6f );
 		AddpTask ( m_testEf );
@@ -71,6 +72,13 @@ namespace GAME
 
 	Test::~Test ()
 	{
+	}
+
+	void Test::Init ()
+	{
+		TRACE_F ( (LPCTSTR) KeyConfig::Inst()->ToString().toWstr().c_str() );
+
+		TASK_VEC::Init ();
 	}
 
 	void Test::Move ()

@@ -121,6 +121,12 @@ Resource(engine/soundfont/GMGSx.sf2.zstdcmp)
 
 
 
+//
+//	Shaders
+//
+Resource(ScreenBlend.hlsl)
+
+
 /* examples 
 
 	//

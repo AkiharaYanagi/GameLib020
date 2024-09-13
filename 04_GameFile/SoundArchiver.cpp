@@ -234,6 +234,7 @@ namespace GAME
 	void SoundArchiver::Play_BGM ( UINT BGM_ID )
 	{
 		//DxSound::instance()->Play ( BGM_ID );
+		ma_sound [ BGM_ID ].setLoop ( F );
 		ma_sound [ BGM_ID ].play ();
 		m_bPlay = T;
 	}
@@ -242,6 +243,7 @@ namespace GAME
 	void SoundArchiver::Play_Loop_BGM ( UINT BGM_ID )
 	{
 		//DxSound::instance()->PlayLoop ( BGM_ID );
+		ma_sound [ BGM_ID ].setLoop ( T );
 		ma_sound [ BGM_ID ].play ();
 		m_bPlay = T;
 	}
