@@ -23,8 +23,11 @@ constexpr uint8	 SIK_ESCAPE		= 0x1B;
 constexpr uint8	 SIK_SPACE		= 0x20;	
 constexpr uint8	 SIK_PAGEUP		= 0x21;		/* PgUp on arrow keypad */
 constexpr uint8	 SIK_PAGEDN		= 0x22;		/* PgDn on arrow keypad */
-constexpr uint8	 SIK_HOME		= 0x23;		/* Home on arrow keypad */
-constexpr uint8	 SIK_END		= 0x24;		/* End on arrow keypad */
+
+//END, HOMEの順番に注意
+constexpr uint8	 SIK_END		= 0x23;		/* End on arrow keypad */
+constexpr uint8	 SIK_HOME		= 0x24;		/* Home on arrow keypad */
+
 constexpr uint8	 SIK_LEFT		= 0x25;	    /* LeftArrow on arrow keypad */
 constexpr uint8	 SIK_UP			= 0x26;	    /* UpArrow on arrow keypad */
 constexpr uint8	 SIK_RIGHT		= 0x27;	    /* RightArrow on arrow keypad */

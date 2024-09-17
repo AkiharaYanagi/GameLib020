@@ -376,9 +376,9 @@ void Move ()
 	//---------------------------------------------------
 	// 動作
 	//---------------------------------------------------
-#if 0
 	//毎回の更新
 	const Array<Input> & keys = s3d::Keyboard::GetAllInputs();
+#if 0
 	SivInput::Inst()->Update ( keys );
 #endif // 0
 
@@ -391,7 +391,7 @@ void Move ()
 
 void Draw ()
 {
-	s3d::ClearPrint();
+//	s3d::ClearPrint();
 
 	//---------------------------------------------------
 	// 描画

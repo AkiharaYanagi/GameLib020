@@ -45,8 +45,11 @@ static const Array < String > KEYBOARD_STR =
 	U"SPACE",	//0x20;	
 	U"PAGEUP",	//0x21;		/* PgUp on arrow keypad */
 	U"PAGEDN",	//0x22;		/* PgDn on arrow keypad */
-	U"HOME",	//0x23;		/* Home on arrow keypad */
-	U"END",		//0x24;		/* End on arrow keypad */
+
+	//@info ENDとHOMEの順番に注意
+	U"END",		//0x23;		/* End on arrow keypad */
+	U"HOME",	//0x24;		/* Home on arrow keypad */
+	
 	U"LEFT",	//0x25;	    /* LeftArrow on arrow keypad */
 	U"UP",		//0x26;	    /* UpArrow on arrow keypad */
 	U"RIGHT",	//0x27;	    /* RightArrow on arrow keypad */

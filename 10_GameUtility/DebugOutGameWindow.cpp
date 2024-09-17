@@ -50,7 +50,11 @@ namespace GAME
 
 	void DebugOutGameWindow::Draw ()
 	{
-		m_frame.Draw ();
+		for ( P_GrpStr str : ma_str )
+		{
+			str->Draw ();
+		}
+//		m_frame.Draw ();
 	}
 
 	void DebugOutGameWindow::DebugOutf ( uint32 index, s3d::String str )

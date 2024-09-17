@@ -46,7 +46,7 @@ namespace GAME
 
 	void G_GrpTx::Clear ()
 	{
-		m_outTx->clear ( s3d::Color ( 255, 240, 240, 255 ) );
+		m_outTx->clear ( s3d::Color ( 50, 50, 50, 255 ) );
 	}
 
 
