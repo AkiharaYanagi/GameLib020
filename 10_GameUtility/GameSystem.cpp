@@ -139,6 +139,9 @@ namespace GAME
 			//ゲーム画面におけるデバッグ表示の動作
 //			DBGOUT_WND()->Move ();
 			
+			//入力の保存
+			SivInput::Inst()->Store ();
+
 			DBGOUT_WND()->DebugOutWnd_Frame ( frame_time );
 			++ frame_time;
 		}

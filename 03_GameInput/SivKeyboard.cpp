@@ -28,28 +28,10 @@ namespace GAME
 	//--------------------------------------------------------------------------
 	//ゲーム利用
 	//--------------------------------------------------------------------------
-//	void SivKeyboard::Update( const Array < Input > & keys )
 	void SivKeyboard::Update()
 	{
 		//キーボード状態を取得
 		const Array<Input> & keys = s3d::Keyboard::GetAllInputs();
-
-
-#if 0
-		if ( m_lpDIKeyboard )
-		{
-			for ( DWORD dw = 0; dw < DI_KEYBOARD; dw++ )
-			{
-				m_preKeyState[dw] = m_keyState[dw];	//以前の状態の記録
-			}
-
-			HRESULT hr = m_lpDIKeyboard->GetDeviceState ( DI_KEYBOARD, m_keyState );
-			if ( hr == DIERR_INPUTLOST )	//アクセス権を失った場合
-			{
-				m_lpDIKeyboard->Acquire();	//再取得
-			}
-		}
-#endif // 0
 
 		//以前の状態を記録
 		uint32 index = 0; 
@@ -60,11 +42,7 @@ namespace GAME
 			++ index;
 		}
 
-
 		//キー状態の取得
-
-		//メインオブジェクトから取得
-//		Array < Input > keys = Keyboard::GetAllInputs ();
 		Array < Input >::const_iterator it = keys.begin ();
 		Array < Input >::const_iterator end = keys.end ();
 
@@ -80,27 +58,6 @@ namespace GAME
 	//指定したキーが押されているか
 	bool SivKeyboard::IsKey( KEY_NAME nKey )
 	{
-#if 0
-		//デバイスの直接データを取得する
-		BYTE byKeyState[DI_KEYBOARD];
-		HRESULT hr = m_lpDIKeyboard->GetDeviceState ( DI_KEYBOARD, byKeyState );
-
-		if ( SUCCEEDED ( hr ) )
-		{
-			//キーが押されているか調べる
-			if ( m_keyState[nKey] & 0x80 )	//key番目のキーが押されているかどうか
-			{
-				return true;
-			}
-		}
-		else if ( hr == DIERR_INPUTLOST )		//アクセス権を失った場合
-		{
-			m_lpDIKeyboard->Acquire ();		//アクセス権の再取得
-		}
-
-		return false;	//対象のキーが押された状態でないときはfalseを返す
-#endif // 0
-
 		return ma_keyState [ nKey ];
 	}
 
@@ -108,29 +65,6 @@ namespace GAME
 	//指定したキーが押された瞬間か
 	bool SivKeyboard::PushKey ( KEY_NAME nKey )
 	{
-#if 0
-		if ( m_lpDIKeyboard == nullptr ) return false;	//キーボードのない状態はfalseを返す
-
-		//デバイスの直接データを取得する
-		BYTE byKeyState[DI_KEYBOARD];
-		HRESULT hr = m_lpDIKeyboard->GetDeviceState ( DI_KEYBOARD, byKeyState );
-
-		if ( SUCCEEDED ( hr ) )
-		{
-			//キーが押されているか調べる
-			if ( (m_keyState[nKey] & 0x80) && ( ! (m_preKeyState[nKey] & 0x80) ) )	//key番目のキーが押された瞬間かどうか
-			{
-				return true;
-			}
-		}
-		else if ( hr == DIERR_INPUTLOST )		//アクセス権を失った場合
-		{
-			m_lpDIKeyboard->Acquire ();		//アクセス権の再取得
-		}
-
-		return false;	//対象のキーが押された状態でないときはfalseを返す
-#endif // 0
-
 		return ma_keyState [ nKey ] && ! ma_preKeyState [ nKey ];
 	}
 
@@ -138,33 +72,12 @@ namespace GAME
 	//指定したキーが離された瞬間か
 	bool SivKeyboard::ReleaseKey ( KEY_NAME nKey )
 	{
-#if 0
-		if ( m_lpDIKeyboard == nullptr ) return false;	//キーボードのない状態はfalseを返す
-
-		//デバイスの直接データを取得する
-		BYTE byKeyState[DI_KEYBOARD];
-		HRESULT hr = m_lpDIKeyboard->GetDeviceState ( DI_KEYBOARD, byKeyState );
-
-		if ( SUCCEEDED ( hr ) )
-		{
-			//キーが押されているか調べる
-			if ( ( ! (m_keyState[nKey] & 0x80) ) && (m_preKeyState[nKey] & 0x80) )	//key番目のキーが押された瞬間かどうか
-			{
-				return true;
-			}
-		}
-		else if ( hr == DIERR_INPUTLOST )		//アクセス権を失った場合
-		{
-			m_lpDIKeyboard->Acquire ();		//アクセス権の再取得
-		}
-
-		return false;	//対象のキーが押された状態でないときはfalseを返す
-#endif // 0
-
 		return ! ma_keyState [ nKey ] && ma_preKeyState [ nKey ];
 	}
 
 
+	//キー設定用
+	//いずれかの押された瞬間のキーを返す
 	KEY_NAME SivKeyboard::WhichInput ()
 	{
 		for ( uint8 nKey = 0; nKey < SIV_KEYBOARD_NUM; ++ nKey )

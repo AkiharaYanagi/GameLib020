@@ -87,10 +87,17 @@ namespace GAME
 	{
 		DBGOUT_WND()->DebugOutf ( 0, U"Test::Move" );
 
+
+		if ( CFG_IS_KEY ( P1_UP ) )
+		{
+			int i = 0; (void)i;
+		}
+
+
 		TRACE_F ( (LPCTSTR) KeyConfig::Inst()->ToString().toWstr().c_str() );
 		if ( CFG_PUSH_KEY ( P1_UP ) || CFG_PUSH_KEY ( P2_UP ) )
 		{
-			int i = 0;
+			int i = 0; (void)i;
 		}
 
 		DeviceInput di = SivInput::Inst()->PushInput ();

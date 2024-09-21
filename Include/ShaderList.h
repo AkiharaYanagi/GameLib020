@@ -56,6 +56,9 @@ namespace GAME
 		void Clear ();
 
 		void InsertByZ ( P_Grp	pGrp );
+
+		//対象タスクを取外
+		void Remove ( P_Grp p ) { mpap_GrpMain->remove ( p ); }
 	};
 
 	using SdrLst = ShaderList;

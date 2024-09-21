@@ -48,5 +48,8 @@ namespace GAME
 #define TRACE_F_S	DebugOutTrace::DebugOutf_s3d
 
 
+#define BREAK_POINT		DebugOutTrace::DebugOutf ( "" );
+
+
 }	//namespace GAME
 

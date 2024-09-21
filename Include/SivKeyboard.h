@@ -38,8 +38,6 @@ namespace GAME
 
 		//ゲーム利用
 		//状態の更新
-		//メインオブジェクトから取得
-//		void Update ( const Array < s3d::Input > & keys );
 		void Update ();
 
 		//キー設定用

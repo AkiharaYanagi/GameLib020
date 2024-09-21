@@ -343,7 +343,6 @@ namespace GAME
 		{
 		case PIT_AXIS: return Push_Axis_Lvr ( id, ji.GetLever () ); break;
 		case PIT_POINT_OF_VIEW: return Push_POV_Lvr ( id, ji.GetLever () ); break;
-			//		case PIT_BUTTON: return DXINP->PushJoyButton ( id, ji.GetButtonID () ); break;
 		case PIT_BUTTON: return SVINP->PushJoyButton ( id, ji.GetButtonID () ); break;
 		}
 		return false;
