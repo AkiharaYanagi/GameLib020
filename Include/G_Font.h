@@ -35,24 +35,15 @@ namespace GAME
 	//--------------------------------------------------
 
 		s3d::Font	m_font;
-		s3d::String m_str { U"GrpStr" };		
-		int32		m_size { 20 };
-		VEC2		m_pos { 0, 0 };		//基準位置
-		s3d::ColorF	m_colorF { 1.f, 1.f, 1.f, 1.f };
+		static const int32		FONT_SIZE;
 
 	public:
 
 		void Load ();
-		void Draw ();
-		void Draw ( double x, double y, s3d::ColorF clr );
-
-		void SetSize ( int32 size ) { m_size = size; }
-		void SetPos ( VEC2 v );
-		void SetStr ( s3d::String str );
-		void SetColorF ( s3d::ColorF clrf );
+		void Draw ( s3d::String str, double x, double y, s3d::ColorF clr ) const;
 	};
 
-#define	G_FONT_DRAW		G_Font::Inst()->Draw;
+#define	G_FONT_DRAW		G_Font::Inst()->Draw
 
 
 }	//namespace GAME

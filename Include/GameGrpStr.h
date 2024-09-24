@@ -22,7 +22,7 @@ namespace GAME
 	//=======================================================================
 	class GameGraphicString : public GameGraphicCore
 	{
-		s3d::Font	m_font;
+//		s3d::Font	m_font;
 		s3d::String m_str { U"GrpStr" };		
 		int32		m_size { 20 };
 		VEC2		m_pos { 0, 0 };		//基準位置

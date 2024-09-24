@@ -8,6 +8,8 @@
 // ヘッダファイル　インクルード
 //-------------------------------------------------------------------------------------------------
 #include "GameGrpStr.h"
+#include "G_Font.h"
+
 
 //-------------------------------------------------------------------------------------------------
 // 定義
@@ -27,7 +29,7 @@ namespace GAME
 
 	void GameGraphicString::Load ()
 	{
-		m_font = s3d::Font ( m_size );
+//		m_font = s3d::Font ( m_size );
 		GameGraphicCore::Load ();
 	}
 
@@ -35,7 +37,8 @@ namespace GAME
 	{
 		if ( ! m_valid ) { return; }
 
-		m_font ( m_str ).draw ( m_pos.x, m_pos.y, m_colorF );
+		//m_font ( m_str ).draw ( m_pos.x, m_pos.y, m_colorF );
+		G_FONT_DRAW ( m_str, m_pos.x, m_pos.y, m_colorF );
 	}
 
 	void GameGraphicString::SetPos ( VEC2 v )

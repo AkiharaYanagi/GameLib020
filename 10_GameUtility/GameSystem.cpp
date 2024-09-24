@@ -51,22 +51,16 @@ namespace GAME
 		KeyConfig::Create ();
 		KeyConfig::Inst()->Load ();
 
-		//ゲーム画面デバッグ表示
-		DebugOutGameWindow::Create ();
+
+		//共通フォント
+		G_Font::Create ();
+		G_Font::Inst()->Load ();
 
 		//Graphic配列の初期化
 		GRPLST_CREATE ();
 
-		//シェーダリスト
-//		SDRLST_CREATE ();
-//		SDRLST_LOAD ();
-
-		//フォント
-		G_Font::Create();
-		G_Font::Inst()->Load();
-
-
 		//ゲーム画面デバッグ表示
+		DebugOutGameWindow::Create ();
 		DebugOutGameWindow::Inst()->Load ();
 
 
