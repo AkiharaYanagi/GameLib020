@@ -18,7 +18,6 @@ namespace GAME
 	: m_color0 ( 0x00000000UL ), m_color1 ( 0xff000000UL )
 	{
 		PrmRect::SetValid ( false );
-//		PrmRect::SetRect ( 0, 0, 1.f * 1280, 1.f * 960 );
 		PrmRect::SetRect(0, 0, GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT);
 		PrmRect::SetZ ( Z_FADE );
 		m_timer = std::make_shared < Timer > ();
@@ -33,7 +32,6 @@ namespace GAME
 		UINT t = m_timer->GetTime ();
 
 		//初期色->目標色( m_color0 → m_color1 )
-//		if ( 0 != m_targetTime )
 		if ( m_timer->IsActive () )
 		{
 			//終了時
@@ -63,6 +61,7 @@ namespace GAME
 	//ホワイトイン( 0xffffffff → 0x00ffffff )
 	void FadeRect::SetWhiteIn ( UINT time )
 	{
+		m_timer->SetTargetTime ( time );
 		s3d::ColorF clr0 = s3d::ColorF ( 1.0, 1.0, 1.0, 1.0 );
 		s3d::ColorF clr1 = s3d::ColorF ( 1.0, 1.0, 1.0, 0.0 );
 		SetColor ( clr0, clr1 );
@@ -71,6 +70,7 @@ namespace GAME
 	//ホワイトアウト( 0x00ffffff → 0xffffffff )
 	void FadeRect::SetWhiteOut ( UINT time )
 	{
+		m_timer->SetTargetTime ( time );
 		s3d::ColorF clr0 = s3d::ColorF ( 1.0, 1.0, 1.0, 0.0 );
 		s3d::ColorF clr1 = s3d::ColorF ( 1.0, 1.0, 1.0, 1.0 );
 		SetColor ( clr0, clr1 );
@@ -79,6 +79,7 @@ namespace GAME
 	//ブラックイン ( 0xff000000 → 0x00000000 )
 	void FadeRect::SetBlackIn ( UINT time )
 	{
+		m_timer->SetTargetTime ( time );
 		s3d::ColorF clr0 = s3d::ColorF ( 0.0, 0.0, 0.0, 1.0 );
 		s3d::ColorF clr1 = s3d::ColorF ( 0.0, 0.0, 0.0, 0.0 );
 		SetColor ( clr0, clr1 );;
@@ -87,6 +88,7 @@ namespace GAME
 	//ブラックアウト( 0x00000000 → 0xff000000 )
 	void FadeRect::SetBlackOut ( UINT time )
 	{
+		m_timer->SetTargetTime ( time );
 		s3d::ColorF clr0 = s3d::ColorF ( 0.0, 0.0, 0.0, 0.0 );
 		s3d::ColorF clr1 = s3d::ColorF ( 0.0, 0.0, 0.0, 1.0 );
 		SetColor ( clr0, clr1 );

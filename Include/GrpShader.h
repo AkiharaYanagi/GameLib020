@@ -18,6 +18,10 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+
+	//@info GameGraphicBaseに統合
+
+#if 0
 	class GrpShader : public GameGraphicBase
 	{
 	public:
@@ -30,6 +34,7 @@ namespace GAME
 
 	using GrpShd = GrpShader;
 	using P_GrpShd = std::shared_ptr < GrpShd >;
+#endif // 0
 
 
 }	//namespace GAME

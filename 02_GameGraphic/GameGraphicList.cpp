@@ -28,8 +28,6 @@ namespace GAME
 	{
 		mplp_GrpMain = std::make_unique < LP_GrpCr > ();
 
-//		m_renderTx = std::make_unique < s3d::RenderTexture > ( 1280, 960 );
-
 		//グラフィック共通テクスチャ
 		G_GrpTx::Create ();
 		G_GrpTx::Inst()->Load ();

@@ -23,7 +23,11 @@ namespace GAME
 
 	DebugOutGameWindow::DebugOutGameWindow ()
 	{
-		m_frame.SetPos ( VEC2 ( 0, 0 ) );
+		m_frame = std::make_shared < GrpStr > ();
+		m_frame->SetPos ( VEC2 ( 0, 0 ) );
+		m_frame->SetZ ( Z_MENU );
+		m_frame->SetColorF ( s3d::ColorF { 1.0, 0.0, 1.0 } );
+//		GRPLST_INSERT ( m_frame );
 
 		for ( int i = 0; i < DBGOUT_WND_N; ++ i )
 		{
@@ -31,6 +35,7 @@ namespace GAME
 			ma_str [ i ]->SetPos ( VEC2 ( 0, 300.f + 30 * i ) );
 			ma_str [ i ]->SetZ ( Z_MENU );
 			ma_str [ i ]->SetSize ( 30 );
+			GRPLST_INSERT ( ma_str [ i ] );
 		}
 	}
 
@@ -41,11 +46,6 @@ namespace GAME
 
 	void DebugOutGameWindow::Load ()
 	{
-		for ( P_GrpStr str : ma_str )
-		{
-			str->Load ();
-			GRPLST_INSERT ( str );
-		}
 	}
 
 	void DebugOutGameWindow::Draw ()
@@ -54,7 +54,7 @@ namespace GAME
 		{
 			str->Draw ();
 		}
-//		m_frame.Draw ();
+		m_frame->Draw ();
 	}
 
 	void DebugOutGameWindow::DebugOutf ( uint32 index, s3d::String str )
@@ -70,6 +70,7 @@ namespace GAME
 		{
 			str->SetValid ( T );
 		}
+		m_frame->SetValid ( T );
 	}
 
 	void DebugOutGameWindow::Off ()
@@ -78,13 +79,14 @@ namespace GAME
 		{
 			str->SetValid ( F );
 		}
+		m_frame->SetValid ( F );
 	}
 
 
 	//固定表示 : 稼働時間[F]
 	void DebugOutGameWindow::DebugOutWnd_Frame ( UINT frame )
 	{
-		m_frame.SetStr ( U"frame = {}"_fmt( frame ) );
+		m_frame->SetStr ( U"frame = {}"_fmt( frame ) );
 	}
 
 

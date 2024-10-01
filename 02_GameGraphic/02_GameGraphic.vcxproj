@@ -396,10 +396,8 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GamePrimitive.cpp" />
     <ClCompile Include="GrpMovie.cpp" />
-    <ClCompile Include="GrpShader.cpp" />
     <ClCompile Include="G_Font.cpp" />
     <ClCompile Include="G_GrpTx.cpp" />
-    <ClCompile Include="ShaderList.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -415,10 +413,8 @@
     <ClInclude Include="..\Include\GameObject.h" />
     <ClInclude Include="..\Include\GamePrimitive.h" />
     <ClInclude Include="..\Include\GrpMovie.h" />
-    <ClInclude Include="..\Include\GrpShader.h" />
     <ClInclude Include="..\Include\G_Font.h" />
     <ClInclude Include="..\Include\G_GrpTx.h" />
-    <ClInclude Include="..\Include\ShaderList.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

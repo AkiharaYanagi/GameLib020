@@ -22,7 +22,7 @@ namespace GAME
 		m_bg->SetZ ( Z_BG );
 		//		m_bg->SetRectF ( s3d::RectF { 20, 30, 400, 500 } );
 		AddpTask ( m_bg );
-//		GRPLST_INSERT ( m_bg );
+		GRPLST_INSERT ( m_bg );
 
 
 		m_rect = std::make_shared < GamePrimitiveRect > ();
@@ -48,8 +48,7 @@ namespace GAME
 		AddpTask ( m_testGrp1 );
 //		GRPLST_INSERT ( m_testGrp1 );
 
-		m_testEf = std::make_shared < GrpShd > ();
-//		m_testEf = std::make_shared < GameGraphic > ();
+		m_testEf = std::make_shared < GameGraphic > ();
 //		m_testEf->AddTexture ( U"ef_004.png" );
 		m_testEf->AddTexture ( U"Ef_Circle_11.png" );
 		m_testEf->SetPos ( 50, 50 );
@@ -68,6 +67,16 @@ namespace GAME
 
 //		m_mov->Start ();
 
+
+
+		m_str = std::make_shared < GrpStr > ();
+		m_str->SetStr ( U"test." );
+		AddpTask ( m_str );
+		GRPLST_INSERT ( m_str );
+
+
+		//DBGOUT_WND_OFF ();
+		DBGOUT_WND_ON ();
 	}
 
 	Test::~Test ()
@@ -87,7 +96,7 @@ namespace GAME
 	{
 		DBGOUT_WND()->DebugOutf ( 0, U"Test::Move" );
 
-
+#if 0
 		if ( CFG_IS_KEY ( P1_UP ) )
 		{
 			int i = 0; (void)i;
@@ -99,6 +108,7 @@ namespace GAME
 		{
 			int i = 0; (void)i;
 		}
+#endif // 0
 
 		DeviceInput di = SivInput::Inst()->PushInput ();
 //		s3d::Print ( di.ToString () );

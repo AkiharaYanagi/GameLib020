@@ -18,7 +18,7 @@ namespace GAME
 
 	class Base_DebugOut
 	{
-		s3d::Font	m_font { 20 };
+//		s3d::Font	m_font { 20 };
 		bool		m_valid { T };
 		VEC2		m_pos { 0, 0 };		//基準位置
 		s3d::String m_str { U"Base" };		

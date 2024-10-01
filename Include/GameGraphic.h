@@ -33,6 +33,9 @@ namespace GAME
 		//オブジェクト配列
 		PAP_Ob		mpap_Object;
 
+		//シェーダ利用フラグ
+		bool		m_shader { F };
+
 	public:
 		GameGraphicBase ();
 		GameGraphicBase ( const GameGraphicBase & rhs ) = delete;
@@ -42,6 +45,9 @@ namespace GAME
 		void Move ();
 		void Draw ();
 		void _Draw ();
+
+		void SetShader ( bool b ) { m_shader = b; }
+		void ShaderDraw ();
 
 		//---------------------------------------------------------------------
 		//テクスチャ

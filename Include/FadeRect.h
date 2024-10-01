@@ -26,7 +26,7 @@ namespace GAME
 		s3d::ColorF		m_color0;	//初期色
 		s3d::ColorF		m_color1;	//目標色
 
-		bool	m_after_clear { T };	//終了時に非表示にするかどうか
+		bool	m_after_clear { F };	//終了時に非表示にするかどうか
 
 	public:
 		FadeRect ();
@@ -69,19 +69,19 @@ namespace GAME
 		
 		//ホワイトイン( 0xffffffff → 0x00ffffff )
 		void SetWhiteIn ( UINT time );
-		void StartWhiteIn ( UINT time ) { SetWhiteIn ( time ); Start ( time ); }
+		void StartWhiteIn ( UINT time ) { SetWhiteIn ( time ); Start (); }
 
 		//ホワイトアウト( 0x00ffffff → 0xffffffff )
 		void SetWhiteOut ( UINT time );
-		void StartWhiteOut ( UINT time ) { SetWhiteOut ( time ); Start ( time ); }
+		void StartWhiteOut ( UINT time ) { SetWhiteOut ( time ); Start (); }
 
 		//ブラックイン ( 0xff000000 → 0x00000000 )
 		void SetBlackIn ( UINT time );
-		void StartBlackIn ( UINT time ) { SetBlackIn ( time ); Start ( time ); }
+		void StartBlackIn ( UINT time ) { SetBlackIn ( time ); Start (); }
 
 		//ブラックアウト( 0x00000000 → 0xff000000 )
 		void SetBlackOut ( UINT time );
-		void StartBlackOut ( UINT time ) { SetBlackOut ( time ); Start ( time ); }
+		void StartBlackOut ( UINT time ) { SetBlackOut ( time ); Start (); }
 	};
 
 	using P_FadeRect = std::shared_ptr < FadeRect >;

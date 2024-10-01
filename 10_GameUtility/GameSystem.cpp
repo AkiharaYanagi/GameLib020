@@ -159,7 +159,7 @@ namespace GAME
 //		GrpLst::Inst()->PostDraw ();
 
 
-		DBGOUT_WND()->Draw ();
+//		DBGOUT_WND()->Draw ();
 	}
 
 

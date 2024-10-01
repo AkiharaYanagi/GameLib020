@@ -26,8 +26,8 @@ namespace GAME
 	class Timer : public GameTask
 	{
 		bool	m_active { F };
-		UINT	m_time { 0 };
-		UINT	m_targetTime { 0 };
+		UINT	m_time { 0 };			//Œ»İŠÔ
+		UINT	m_targetTime { 0 };		//–Ú•WŠÔ
 		UINT	m_wait { 0 };
 
 	public:

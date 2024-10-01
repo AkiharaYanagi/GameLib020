@@ -34,6 +34,7 @@ namespace GAME
 		static P_G_Font & Inst() { return m_inst; }
 	//--------------------------------------------------
 
+	private:
 		s3d::Font	m_font;
 		static const int32		FONT_SIZE;
 

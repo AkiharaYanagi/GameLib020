@@ -16,6 +16,7 @@ namespace GAME
 {
 	GrpEfShd::GrpEfShd ()
 	{
+		SetShader ( T );
 		SetValid ( F );
 		m_vPosMatrix.push_back ( VEC2 ( 0, 0 ) );
 	}
@@ -26,7 +27,7 @@ namespace GAME
 
 	void GrpEfShd::Load ()
 	{
-		GrpShd::Load ();
+		GameGraphic::Load ();
 
 #if 0
 		//読み込んだテクスチャのサイズによるので Load() 後
@@ -46,7 +47,7 @@ namespace GAME
 	{
 		//-----------------------------------------------
 		//位置
-		PAP_Ob pvpObj = GrpShd::Getpap_ob ();
+		PAP_Ob pvpObj = GameGraphic::Getpap_ob ();
 		size_t size = pvpObj->size ();
 		for ( size_t i = 0; i < size; ++ i )
 		{
@@ -87,7 +88,7 @@ namespace GAME
 
 #endif // 0
 
-		GrpShd::Move ();
+		GameGraphic::Move ();
 	}
 
 	void GrpEfShd::On ()
@@ -104,12 +105,12 @@ namespace GAME
 	void GrpEfShd::Advance ()
 	{
 		//オブジェクトの個数チェック
-		PAP_Ob papOb = GrpShd::Getpap_ob ();
+		PAP_Ob papOb = GameGraphic::Getpap_ob ();
 		size_t size_ob = papOb->size ();
 		if ( size_ob == 0 ) { return; }
 
 		//テクスチャの個数チェック
-		PAP_Tx papTx = GrpShd::Getpap_tx ();
+		PAP_Tx papTx = GameGraphic::Getpap_tx ();
 		size_t size_tx = papTx->size ();
 		if ( size_tx <= 1 ) { return; }
 
@@ -144,7 +145,7 @@ namespace GAME
 	void GrpEfShd::SetCenterOfTexture ()
 	{
 		//デフォルトでScalingCenterとRotationCenterをテクスチャの中心にする
-		PAP_Ob pvpObj = GrpShd::Getpap_ob ();
+		PAP_Ob pvpObj = GameGraphic::Getpap_ob ();
 		size_t size = pvpObj->size ();
 		for ( size_t i = 0; i < size; ++i )
 		{

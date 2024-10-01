@@ -16,6 +16,8 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+#if 0
+
 	GrpShader::GrpShader ()
 	{
 	}
@@ -86,6 +88,7 @@ namespace GAME
 	}
 
 
+#endif // 0
 
 }	//namespace GAME
 

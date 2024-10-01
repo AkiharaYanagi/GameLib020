@@ -60,7 +60,8 @@ namespace GAME
 		//====================================================
 		//Šî–{î•ñ
 	private:
-		Base_DebugOut		m_frame;
+		//Base_DebugOut		m_frame;
+		P_GrpStr		m_frame;
 
 	public:
 		//ŒÅ’è•\¦ : ‰Ò“­ŠÔ[F]

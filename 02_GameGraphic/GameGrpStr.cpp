@@ -8,6 +8,7 @@
 // ヘッダファイル　インクルード
 //-------------------------------------------------------------------------------------------------
 #include "GameGrpStr.h"
+#include "G_GrpTx.h"
 #include "G_Font.h"
 
 
@@ -27,16 +28,30 @@ namespace GAME
 	{
 	}
 
-	void GameGraphicString::Load ()
-	{
-//		m_font = s3d::Font ( m_size );
-		GameGraphicCore::Load ();
-	}
-
 	void GameGraphicString::Draw ()
 	{
+		//稼働フラグ
 		if ( ! m_valid ) { return; }
 
+		//シェーダ利用は分岐
+//		if ( m_shader ) { ShaderDraw (); return; }
+
+
+		//最終描画テクスチャ unique_ptrを取得
+		UP_RndrTx upOutTx = G_GrpTx::Inst()->Handover_OutTx ();
+
+		{
+			const s3d::ScopedRenderTarget2D target ( * upOutTx );
+			_Draw ();
+		}
+
+		//unique_ptrを返す
+		G_GrpTx::Inst()->Refund_OutTx ( std::move ( upOutTx ) );
+	}
+
+
+	void GameGraphicString::_Draw ()
+	{
 		//m_font ( m_str ).draw ( m_pos.x, m_pos.y, m_colorF );
 		G_FONT_DRAW ( m_str, m_pos.x, m_pos.y, m_colorF );
 	}

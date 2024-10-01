@@ -18,7 +18,7 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-	class GrpEfShd : public GrpShd
+	class GrpEfShd : public GameGraphic
 	{
 		VEC2	m_base { 0, 0 };		//äÓèÄà íu
 		VEC2	m_revised { 0, 0 };		//ï‚ê≥à íu	//GrpAcvÇ∆ÇÃç¨ìØÇ…íçà”
@@ -81,7 +81,7 @@ namespace GAME
 		void AddpObject ( P_Ob p )
 		{
 			m_vPosMatrix.push_back ( VEC2 ( 0, 0 ) );
-			GrpShd::AddpObject ( p );
+			GameGraphic::AddpObject ( p );
 		}
 		
 		void SetPosMatrix ( UINT i, VEC2 pos )

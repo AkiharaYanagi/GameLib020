@@ -45,7 +45,7 @@ namespace GAME
 		MODE_NETWORK,
 	};
 
-	//対戦種類
+	//対戦 組み合わせ 種類
 	enum MUTCH_MODE
 	{
 		MODE_PLAYER_PLAYER,
@@ -53,6 +53,13 @@ namespace GAME
 		MODE_CPU_PLAYER,
 		MODE_CPU_CPU,
 		MODE_PLAYER_NETWORK,
+	};
+
+	//ゲームモード
+	enum GAME_MODE
+	{
+		MODE_MAIN,		//対人(メイン)
+		MODE_TRAINING,	//トレーニング
 	};
 
 }
