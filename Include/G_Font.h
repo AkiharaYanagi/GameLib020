@@ -35,13 +35,23 @@ namespace GAME
 	//--------------------------------------------------
 
 	private:
-		s3d::Font	m_font;
-		static const int32		FONT_SIZE;
+		s3d::Font	m_font_20;
+		static const int32		FONT_SIZE_20;
+
+		s3d::Font	m_font_40;
+		static const int32		FONT_SIZE_40;
 
 	public:
+		enum FONT_SIZE
+		{
+			SIZE_20,
+			SIZE_40,
+		};
 
 		void Load ();
-		void Draw ( s3d::String str, double x, double y, s3d::ColorF clr ) const;
+		void Draw ( FONT_SIZE size, s3d::String str, double x, double y, s3d::ColorF clr ) const;
+		void Draw_40 ( s3d::String str, double x, double y, s3d::ColorF clr ) const;
+
 	};
 
 #define	G_FONT_DRAW		G_Font::Inst()->Draw

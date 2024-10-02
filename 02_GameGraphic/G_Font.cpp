@@ -19,7 +19,8 @@ namespace GAME
 	P_G_Font	G_Font::m_inst = nullptr;
 	//--------------------------------------------------
 
-	const int32 G_Font::FONT_SIZE = 20;
+	const int32 G_Font::FONT_SIZE_20 = 20;
+	const int32 G_Font::FONT_SIZE_40 = 40;
 
 	G_Font::G_Font ()
 	{
@@ -31,13 +32,36 @@ namespace GAME
 
 	void G_Font::Load ()
 	{
-		m_font = s3d::Font ( FONT_SIZE );
+		m_font_20 = s3d::Font ( FONT_SIZE_20 );
+		m_font_40 = s3d::Font { s3d::FontMethod::SDF, FONT_SIZE_40 };
 	}
 
 
-	void G_Font::Draw ( s3d::String str, double x, double y, s3d::ColorF clr ) const
+	void G_Font::Draw ( FONT_SIZE size, s3d::String str, double x, double y, s3d::ColorF clr ) const
 	{
-		m_font ( str ).draw ( x, y, clr );
+		switch ( size )
+		{
+		case SIZE_20:
+			m_font_20 ( str ).draw ( x, y, clr );
+			break;
+
+		case SIZE_40:
+			Draw_40 ( str, x, y, clr );
+			break;
+		}
+
+	}
+
+	void G_Font::Draw_40 ( s3d::String str, double x, double y, s3d::ColorF clr ) const
+	{
+		const double outline = 0.2;
+		const s3d::ColorF oClr { 0.0, 0.3, 0.6 };
+
+
+
+		s3d::TextStyle txs = s3d::TextStyle::Outline ( outline, oClr );
+
+		m_font_40 ( str ).draw ( txs, x, y, clr );
 	}
 
 

@@ -32,8 +32,7 @@ namespace GAME
 	{
 		if ( ! m_valid ) { return; }
 
-		//m_font ( m_str ).draw ( m_pos.x, m_pos.y, s3d::ColorF { 1.0, 0.0, 1.0 } );
-		G_FONT_DRAW ( m_str, m_pos.x, m_pos.y, s3d::ColorF { 1.0, 0.0, 1.0 } );
+		G_FONT_DRAW ( G_Font::SIZE_20, m_str, m_pos.x, m_pos.y, s3d::ColorF { 1.0, 0.0, 1.0 } );
 	}
 
 	void Base_DebugOut::SetPos ( VEC2 v )
