@@ -115,8 +115,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Ascii_Font.cpp" />
-    <ClCompile Include="Base_DebugOut.cpp" />
     <ClCompile Include="DebugOutGameWindow.cpp" />
     <ClCompile Include="FadeRect.cpp" />
     <ClCompile Include="GameSystem.cpp" />
@@ -325,7 +323,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\10_GameUtility.h" />
-    <ClInclude Include="..\Include\Base_DebugOut.h" />
     <ClInclude Include="..\Include\DebugOutGameWindow.h" />
     <ClInclude Include="..\Include\FadeRect.h" />
     <ClInclude Include="..\Include\GameMainBase.h" />
@@ -335,7 +332,6 @@
     <ClInclude Include="..\Include\GrpEf.h" />
     <ClInclude Include="..\Include\GrpEfShd.h" />
     <ClInclude Include="..\Include\Timer.h" />
-    <ClInclude Include="Ascii_Font.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>

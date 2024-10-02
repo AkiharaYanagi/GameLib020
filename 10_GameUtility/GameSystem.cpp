@@ -40,7 +40,6 @@ namespace GAME
 		UINT window_h = AppSettingFile::Inst ()->GetWindowH ();
 		bool bFullScreen = AppSettingFile::Inst ()->GetbFullscreen ();
 		int displayNum = AppSettingFile::Inst ()->GetDisplayNum ();
-
 #endif // 0
 
 
@@ -151,15 +150,17 @@ namespace GAME
 	//描画
 	void GameSystem::Draw()
 	{
+		//全体レンダーテクスチャのクリア
+		G_GrpTx::Inst()->Clear ();
+
+		//グラフィックリストから描画
 		GRPLST_DRAW ();
 
-//		SDRLST_DRAW ();
+		//デバッグ表示から描画
+		DBGOUT_WND()->Draw ();
 
-		//test
-//		GrpLst::Inst()->PostDraw ();
-
-
-//		DBGOUT_WND()->Draw ();
+		//全体レンダーテクスチャの描画
+		G_GrpTx::Inst()->Draw ();
 	}
 
 

@@ -8,7 +8,6 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "DebugOutGameWindow.h"
-#include "Ascii_Font.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -35,7 +34,7 @@ namespace GAME
 			ma_str [ i ]->SetPos ( VEC2 ( 0, 300.f + 30 * i ) );
 			ma_str [ i ]->SetZ ( Z_MENU );
 			ma_str [ i ]->SetSize ( 30 );
-			GRPLST_INSERT ( ma_str [ i ] );
+			//GRPLST_INSERT ( ma_str [ i ] );
 		}
 	}
 

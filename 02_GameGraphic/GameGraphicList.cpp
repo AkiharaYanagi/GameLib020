@@ -44,14 +44,8 @@ namespace GAME
 
 	void GameGraphicList::Draw ()
 	{
-		//クリア
-		G_GrpTx::Inst()->Clear ();
-
 		//リストのグラフィックを描画
 		for ( P_GrpCr p : *mplp_GrpMain ) { p->Draw (); }
-
-		//全体レンダーテクスチャの描画
-		G_GrpTx::Inst()->Draw ();
 	}
 
 

@@ -134,8 +134,6 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="DebugOutGameWindow.cpp" />
     <ClCompile Include="GameSystem.cpp" />
-    <ClCompile Include="Ascii_Font.cpp" />
-    <ClCompile Include="Base_DebugOut.cpp" />
     <ClCompile Include="GrpDemo.cpp" />
     <ClCompile Include="FadeRect.cpp" />
     <ClCompile Include="GrpEf.cpp" />
@@ -776,8 +774,6 @@
     <ClInclude Include="..\Include\DebugOutGameWindow.h" />
     <ClInclude Include="..\Include\GameSystem.h" />
     <ClInclude Include="..\Include\GameMainBase.h" />
-    <ClInclude Include="Ascii_Font.h" />
-    <ClInclude Include="..\Include\Base_DebugOut.h" />
     <ClInclude Include="..\Include\GrpDemo.h" />
     <ClInclude Include="..\Include\FadeRect.h" />
     <ClInclude Include="..\Include\GrpEf.h" />

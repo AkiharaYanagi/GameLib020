@@ -71,6 +71,7 @@ namespace GAME
 
 		m_str = std::make_shared < GrpStr > ();
 		m_str->SetStr ( U"test." );
+		m_str->SetPos ( VEC2 ( 200, 400 ) );
 		AddpTask ( m_str );
 		GRPLST_INSERT ( m_str );
 
