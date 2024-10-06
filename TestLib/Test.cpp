@@ -73,7 +73,23 @@ namespace GAME
 		m_str->SetStr ( U"test." );
 		m_str->SetPos ( VEC2 ( 200, 400 ) );
 		AddpTask ( m_str );
-		GRPLST_INSERT ( m_str );
+//		GRPLST_INSERT ( m_str );
+
+
+
+		m_menu = std::make_shared < Menu > ();
+		m_menu->PushMenuItem ();
+		AddpTask ( m_menu );
+		m_menu->UpdatePos ( VEC2 ( 500, 300 ) );
+
+
+
+		m_blink = std::make_shared < GrpBlink > ();
+		m_blink->AddTexture ( U"NextTriangle.png" );
+		m_blink->SetPos ( VEC2 ( 800, 800 ) );
+		m_blink->Start ();
+		AddpTask ( m_blink );
+		GRPLST_INSERT ( m_blink );
 
 
 		//DBGOUT_WND_OFF ();

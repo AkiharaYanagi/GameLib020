@@ -24,9 +24,9 @@ namespace GAME
 
 	void GrpBlink::Move ()
 	{
+		//点滅
 		if ( m_active )
 		{
-			//点滅
 			Blink ();
 		}
 		GameGraphic::Move ();
@@ -59,7 +59,14 @@ namespace GAME
 		}
 
 		//α値を算出して設定
-		UINT alpha = 0x80 + (0xff / m_blinkTime) / 2 * m_timer;
+		uint32 alpha = (0xff / m_blinkTime) * m_timer;
+
+		//半分で折り返し
+		if ( m_half )
+		{
+			alpha = 0x80 + (0xff / m_blinkTime) / 2 * m_timer;
+		}
+
 		_CLR color = _CLR ( alpha << 24 ^ 0x00ffffff );
 		SetColor ( color );
 	}

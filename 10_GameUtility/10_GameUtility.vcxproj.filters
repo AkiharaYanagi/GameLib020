@@ -139,6 +139,7 @@
     <ClCompile Include="GrpEf.cpp" />
     <ClCompile Include="GrpBlink.cpp" />
     <ClCompile Include="GrpEfShd.cpp" />
+    <ClCompile Include="Menu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -779,5 +780,6 @@
     <ClInclude Include="..\Include\GrpEf.h" />
     <ClInclude Include="..\Include\GrpBlink.h" />
     <ClInclude Include="..\Include\GrpEfShd.h" />
+    <ClInclude Include="..\Include\Menu.h" />
   </ItemGroup>
 </Project>

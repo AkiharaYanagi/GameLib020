@@ -1,13 +1,13 @@
 ﻿//=================================================================================================
 //
-// SoundArchiver ソースファイル
+// _SoundArchiver ソースファイル
 //
 //=================================================================================================
 
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-#include "SoundArchiver.h"
+#include "_SoundArchiver.h"
 
 //-------------------------------------------------------------------------------------------------
 // 定義
@@ -17,74 +17,51 @@ namespace GAME
 	//@info 読み込むディレクトリをSEとBGMに分け、SEはバッファを複数、BGMはバッファを単一で持つ
 	//IDはSE，BGM共通で監理, 呼び出しからのID指定は別enumで行う
 
-	//------------------------------------------
-	//	定数
-	//------------------------------------------
-	//作成するサウンドアーカイブファイル名
-	LPCTSTR SoundArchiver::m_archiveFileName = _T("sound.dat");
-
-	//アーカイブ作成のため読み込むディレクトリ名
-	LPCTSTR SoundArchiver::m_archiveDirName = _T ( "Sound/" );
-
-	//アーカイブ作成のため読み込むファイル名条件
-	LPCTSTR SoundArchiver::m_searchCondition = _T ( "Sound/*.*" );
-
-	//SE アーカイブ作成のため読み込むディレクトリ名
-	LPCTSTR SoundArchiver::m_archiveDirName_SE = _T ( "SE/" );
-
-	//SE アーカイブ作成のため読み込むファイル名条件
-	LPCTSTR SoundArchiver::m_searchCondition_SE = _T ( "SE/*.*" );
-
-	//------------------------------------------
-	//	Static実体
-	//------------------------------------------
-	// シングルトンオブジェクト
-	SoundArchiver::P_SoundArchiver		SoundArchiver::m_inst;
 
 	//------------------------------------------
 	//コンストラクタ
-	SoundArchiver::SoundArchiver ()
+	_SoundArchiver::_SoundArchiver ()
 	{
 	}
 
 	//デストラクタ
-	SoundArchiver::~SoundArchiver ()
+	_SoundArchiver::~_SoundArchiver ()
 	{
 	}
 
+	void _SoundArchiver::SetName ( s3d::String& ArchiveName, s3d::String& DirName, s3d::String& Condition )
+	{
+		m_archiveFileName.assign ( ArchiveName );
+		m_archiveDirName.assign ( DirName );
+		m_searchCondition.assign ( Condition );
+	}
+
 	//作成
-	void SoundArchiver::Make ()
+	void _SoundArchiver::Make ()
 	{
 		//カレントディレクトリの取得
 		TCHAR path [ MAX_PATH ];
 		::GetCurrentDirectory ( MAX_PATH, path );
 
 		//バイナリで書出用ファイルを開く
-		HANDLE hWriteFile = CreateFile ( m_archiveFileName, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr );
+		HANDLE hWriteFile = CreateFile ( m_archiveFileName.toWstr().c_str(), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr );
 
 		//ファイル個数を列挙
-		m_nBGM = CountFileNum ( m_searchCondition );
-		m_nSE = CountFileNum ( m_searchCondition_SE );
+		m_nFile = CountFileNum ( m_searchCondition.toWstr().c_str() );
 
-		//各ファイル個数を書出
-		::WriteFile ( hWriteFile, & m_nBGM, sizeof ( DWORD ), nullptr, nullptr );
-		::WriteFile ( hWriteFile, & m_nSE, sizeof ( DWORD ), nullptr, nullptr );
+		//ファイル個数を書出
+		::WriteFile ( hWriteFile, & m_nFile, sizeof ( uint32 ), nullptr, nullptr );
 
-
-		///BGM
-		_Make ( hWriteFile, m_archiveDirName, m_searchCondition );
-
-		//SE
-		_Make ( hWriteFile, m_archiveDirName_SE, m_searchCondition_SE );
+		///ファイル実体を書出
+		_Make ( hWriteFile, m_archiveDirName.toWstr().c_str(), m_searchCondition.toWstr().c_str() );
 
 
 		//終了
 		CloseHandle ( hWriteFile );
 	}
 
-
 	//条件のファイル数え上げ
-	UINT SoundArchiver::CountFileNum ( LPCTSTR condition )
+	UINT _SoundArchiver::CountFileNum ( LPCTSTR condition )
 	{
 		UINT ret = 0;
 
@@ -117,8 +94,9 @@ namespace GAME
 		return ret;
 	}
 
+
 	//作成
-	void SoundArchiver::_Make ( HANDLE hWriteFile, LPCTSTR dirname, LPCTSTR condition )
+	void _SoundArchiver::_Make ( HANDLE hWriteFile, LPCTSTR dirname, LPCTSTR condition )
 	{
 		//再列挙
 		WIN32_FIND_DATA		fileData;
@@ -145,7 +123,7 @@ namespace GAME
 				filename.append ( fileData.cFileName );	//ファイルパス作成
 				HANDLE hReadFile = CreateFile ( filename.c_str(), GENERIC_READ, 0, nullptr, 
 					OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr );
-				
+
 				std::unique_ptr < BYTE[] > buf = std::make_unique < BYTE[] > ( fileSize );
 				DWORD numberOfByteRead = 0;
 				::ReadFile ( hReadFile, buf.get(), fileSize, &numberOfByteRead, nullptr );
@@ -166,27 +144,21 @@ namespace GAME
 	}
 
 
-
 	//開
-	void SoundArchiver::Open ()
+	void _SoundArchiver::Open ()
 	{
 		BOOL bRet = F;	//戻値
 
 		//ファイル読込
-		HANDLE hFile = CreateFile ( m_archiveFileName, GENERIC_READ, 0, nullptr, OPEN_EXISTING,
+		HANDLE hFile = CreateFile ( m_archiveFileName.toWstr().c_str(), GENERIC_READ, 0, nullptr, OPEN_EXISTING,
 			FILE_ATTRIBUTE_NORMAL, nullptr );
 
 		//ファイル個数合計を読込
-		bRet = ::ReadFile ( hFile, & m_nBGM, sizeof ( DWORD ), nullptr, nullptr );
+		bRet = ::ReadFile ( hFile, & m_nFile, sizeof ( uint32 ), nullptr, nullptr );
 		if ( ! bRet ) { return; }
-
-		bRet = ::ReadFile ( hFile, & m_nSE, sizeof ( DWORD ), nullptr, nullptr );
-		if ( ! bRet ) { return; }
-
-		UINT count = m_nBGM + m_nSE;
 
 		//各ファイル読込
-		for ( UINT i = 0; i < count; ++i )
+		for ( uint32 i = 0; i < m_nFile; ++i )
 		{
 			DWORD numberOfByteRead = 0;
 			DWORD fileSize = 0;
@@ -194,27 +166,17 @@ namespace GAME
 			std::unique_ptr < BYTE [] > buf = std::make_unique < BYTE [] > ( fileSize );
 			bRet = ::ReadFile ( hFile, buf.get(), fileSize, &numberOfByteRead, nullptr );
 
+			//メモリ上からサウンドに変換
+			s3d::MemoryReader mr { (void*)buf.get(), fileSize };
+			ma_sound.push_back ( s3d::Audio { s3d::Wave { std::move ( mr ) }, s3d::Loop::Yes } );
 
-			//BGM
-			if ( i < m_nBGM )
-			{
-				//メモリ上からサウンドに変換
-				s3d::MemoryReader mr { (void*)buf.get(), fileSize };
-				ma_sound.push_back ( s3d::Audio { s3d::Wave { std::move ( mr ) }, s3d::Loop::Yes } );
-			}
-			//SE
-			else
-			{
-				//メモリ上からサウンドに変換(ループ無し)
-				s3d::MemoryReader mr { (void*)buf.get(), fileSize };
-				ma_sound.push_back ( s3d::Audio { s3d::Wave { std::move ( mr ) }, s3d::Loop::No } );
-			}
 		}
 
 		//閉じる
 		CloseHandle ( hFile );
 	}
 
+#if 0
 	//------------------------------------------------------------------
 	//再生
 	void SoundArchiver::Play_BGM ( UINT BGM_ID )
@@ -260,7 +222,15 @@ namespace GAME
 		//DxSound::instance()->Play ( m_nBGM + SE_ID );
 		ma_sound [ m_nBGM + SE_ID ].playOneShot ();
 	}
+#endif // 0
 
+	void _SoundArchiver::SetVolume ( double volume )
+	{
+		for ( s3d::Audio & audio : ma_sound )
+		{
+			audio.setVolume ( volume );
+		}
+	}
 
 
 }	//namespace GAME

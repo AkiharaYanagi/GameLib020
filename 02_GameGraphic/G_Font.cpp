@@ -34,6 +34,7 @@ namespace GAME
 	{
 		m_font_20 = s3d::Font ( FONT_SIZE_20 );
 		m_font_40 = s3d::Font { s3d::FontMethod::SDF, FONT_SIZE_40 };
+		m_font_Menu = s3d::Font { s3d::FontMethod::MSDF, 60 };
 	}
 
 
@@ -56,12 +57,16 @@ namespace GAME
 	{
 		const double outline = 0.2;
 		const s3d::ColorF oClr { 0.0, 0.3, 0.6 };
-
-
-
 		s3d::TextStyle txs = s3d::TextStyle::Outline ( outline, oClr );
-
 		m_font_40 ( str ).draw ( txs, x, y, clr );
+	}
+
+	void G_Font::DrawMenuStr ( s3d::String str, double x, double y )
+	{
+		const double outline = 0.2;
+		const s3d::ColorF oClr { 0.0, 0.3, 0.6 };
+		s3d::TextStyle txs = s3d::TextStyle::Outline ( outline, oClr );
+		m_font_Menu ( str ).draw ( txs, x, y );
 	}
 
 

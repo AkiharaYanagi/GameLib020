@@ -33,7 +33,7 @@ namespace GAME
 			ma_str [ i ] = std::make_shared < GrpStr > ();
 			ma_str [ i ]->SetPos ( VEC2 ( 0, 300.f + 30 * i ) );
 			ma_str [ i ]->SetZ ( Z_MENU );
-			ma_str [ i ]->SetSize ( 30 );
+			ma_str [ i ]->SetSize ( G_Font::SIZE_20 );
 			//GRPLST_INSERT ( ma_str [ i ] );
 		}
 	}

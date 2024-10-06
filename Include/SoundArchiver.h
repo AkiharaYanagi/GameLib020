@@ -12,7 +12,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Define.h"
-#include "SivSound.h"
+//#include "SivSound.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -77,6 +77,7 @@ namespace GAME
 		void Play_BGM ( UINT BGM_ID );
 		void Play_Loop_BGM ( UINT BGM_ID );
 		void Stop_BGM ( UINT BGM_ID );
+		void All_Stop ();
 
 		//すでにプレイ中でなければ再生
 		//明示的にStop_BGM()を実行すれば再生される

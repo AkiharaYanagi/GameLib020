@@ -133,7 +133,8 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Document.cpp" />
     <ClCompile Include="SoundArchiver.cpp" />
-    <ClCompile Include="SivSound.cpp" />
+    <ClCompile Include="GameSound.cpp" />
+    <ClCompile Include="_SoundArchver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -767,6 +768,7 @@
     <ClInclude Include="..\Include\Document.h" />
     <ClInclude Include="..\Include\04_GameFile.h" />
     <ClInclude Include="..\Include\SoundArchiver.h" />
-    <ClInclude Include="..\Include\SivSound.h" />
+    <ClInclude Include="..\Include\GameSound.h" />
+    <ClInclude Include="_SoundArchiver.h" />
   </ItemGroup>
 </Project>

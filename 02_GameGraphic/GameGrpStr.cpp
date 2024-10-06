@@ -22,6 +22,7 @@ namespace GAME
 	//=======================================================================
 	GameGraphicString::GameGraphicString ()
 	{
+		m_size = G_Font::SIZE_20;
 	}
 
 	GameGraphicString::~GameGraphicString ()
@@ -47,13 +48,14 @@ namespace GAME
 
 		//unique_ptrを返す
 		G_GrpTx::Inst()->Refund_OutTx ( std::move ( upOutTx ) );
+
+
 	}
 
 
 	void GameGraphicString::_Draw ()
 	{
-		G_FONT_DRAW ( G_Font::SIZE_20, m_str, m_pos.x, m_pos.y, m_colorF );
-//		G_FONT_DRAW ( G_Font::SIZE_40, m_str, m_pos.x, m_pos.y + 50, m_colorF );
+		G_FONT_DRAW ( m_size, m_str, m_pos.x, m_pos.y, m_colorF );
 	}
 
 	void GameGraphicString::SetPos ( VEC2 v )

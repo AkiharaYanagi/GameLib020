@@ -41,6 +41,9 @@ namespace GAME
 		s3d::Font	m_font_40;
 		static const int32		FONT_SIZE_40;
 
+		//メニュ用フォント
+		s3d::Font	m_font_Menu;
+
 	public:
 		enum FONT_SIZE
 		{
@@ -52,6 +55,7 @@ namespace GAME
 		void Draw ( FONT_SIZE size, s3d::String str, double x, double y, s3d::ColorF clr ) const;
 		void Draw_40 ( s3d::String str, double x, double y, s3d::ColorF clr ) const;
 
+		void DrawMenuStr ( s3d::String str, double x, double y );
 	};
 
 #define	G_FONT_DRAW		G_Font::Inst()->Draw

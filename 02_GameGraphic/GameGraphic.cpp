@@ -104,7 +104,11 @@ namespace GAME
 			//回転角
 			double r = pob->GetRadian ();
 
-			(*ptx)( rectf ).scaled ( vScaling ).rotatedAt( rtt_cntr, r ).draw ( x, y );
+			//色補正(アルファ値は透明, RGBは乗算)
+			_CLR clr = pob->GetColor ();
+			s3d::ColorF clrf { clr.r, clr.g, clr.b, clr.a };
+
+			(*ptx)( rectf ).scaled ( vScaling ).rotatedAt( rtt_cntr, r ).draw ( x, y, clrf );
 		}
 	}
 
