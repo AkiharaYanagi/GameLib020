@@ -8,6 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "GameSound.h"
+#include "_SoundArchiver.h"
 
 //-------------------------------------------------------------------------------------------------
 // 定義
@@ -18,15 +19,49 @@ namespace GAME
 	//------------------------------------------
 	//	定数
 	//------------------------------------------
-	//作成するサウンドアーカイブファイル名
-//	LPCTSTR GameSound::m_archiveFileName = _T("sound.dat");
+	CSIVSTR	GameSound::ACV_FILENAME_BGM		= U"Bgm.dat";	
+	CSIVSTR	GameSound::ACV_DIRNAME_BGM		= U"Bgm/";
+	CSIVSTR	GameSound::ACV_CND_BGM			= U"Bgm/*.wav";	
 
-	//アーカイブ作成のため読み込むディレクトリ名
-//	LPCTSTR GameSound::m_archiveDirName = _T ( "Sound/" );
+	CSIVSTR	GameSound::ACV_FILENAME_SE		= U"Se.dat";
+	CSIVSTR	GameSound::ACV_DIRNAME_SE		= U"Se/";	
+	CSIVSTR	GameSound::ACV_CND_SE			= U"Se/*.wav";
 
-	//アーカイブ作成のため読み込むファイル名条件
-//	LPCTSTR GameSound::m_searchCondition = _T ( "Sound/*.*" );
+	CSIVSTR	GameSound::ACV_FILENAME_VC		= U"Vc.dat";
+	CSIVSTR	GameSound::ACV_DIRNAME_VC		= U"Vc/";
+	CSIVSTR	GameSound::ACV_CND_VC			= U"Vc/*.wav";
 
+
+	//------------------------------------------
+	GameSound::GameSound ()
+	{
+	}
+
+	GameSound::~GameSound ()
+	{
+	}
+
+
+	void GameSound::Load ()
+	{
+		m_bgm.SetName ( ACV_FILENAME_BGM, ACV_DIRNAME_BGM, ACV_CND_BGM );
+		m_se.SetName ( ACV_FILENAME_SE, ACV_DIRNAME_SE, ACV_CND_SE );
+		m_vc.SetName ( ACV_FILENAME_VC, ACV_DIRNAME_VC, ACV_CND_VC );
+	}
+
+	void GameSound::Make ()
+	{
+		m_bgm.Make ();
+		m_se.Make ();
+		m_vc.Make ();
+	}
+
+	void GameSound::Open ()
+	{
+		m_bgm.Open ();
+		m_se.Open ();
+		m_vc.Open ();
+	}
 
 
 }	//namespace GAME

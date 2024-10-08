@@ -29,11 +29,11 @@ namespace GAME
 	{
 	}
 
-	void _SoundArchiver::SetName ( s3d::String& ArchiveName, s3d::String& DirName, s3d::String& Condition )
+	void _SoundArchiver::SetName ( CSIVSTR& ArchiveName, CSIVSTR& DirName, CSIVSTR& Condition )
 	{
-		m_archiveFileName.assign ( ArchiveName );
-		m_archiveDirName.assign ( DirName );
-		m_searchCondition.assign ( Condition );
+		ACV_FILENAME.assign ( ArchiveName );
+		ACV_DIRNAME.assign ( DirName );
+		ACV_CND.assign ( Condition );
 	}
 
 	//作成
@@ -44,16 +44,16 @@ namespace GAME
 		::GetCurrentDirectory ( MAX_PATH, path );
 
 		//バイナリで書出用ファイルを開く
-		HANDLE hWriteFile = CreateFile ( m_archiveFileName.toWstr().c_str(), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr );
+		HANDLE hWriteFile = CreateFile ( ACV_FILENAME.toWstr().c_str(), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr );
 
 		//ファイル個数を列挙
-		m_nFile = CountFileNum ( m_searchCondition.toWstr().c_str() );
+		m_nFile = CountFileNum ( ACV_CND.toWstr().c_str() );
 
 		//ファイル個数を書出
 		::WriteFile ( hWriteFile, & m_nFile, sizeof ( uint32 ), nullptr, nullptr );
 
 		///ファイル実体を書出
-		_Make ( hWriteFile, m_archiveDirName.toWstr().c_str(), m_searchCondition.toWstr().c_str() );
+		_Make ( hWriteFile, ACV_DIRNAME.toWstr().c_str(), ACV_CND.toWstr().c_str() );
 
 
 		//終了
@@ -150,7 +150,7 @@ namespace GAME
 		BOOL bRet = F;	//戻値
 
 		//ファイル読込
-		HANDLE hFile = CreateFile ( m_archiveFileName.toWstr().c_str(), GENERIC_READ, 0, nullptr, OPEN_EXISTING,
+		HANDLE hFile = CreateFile ( ACV_FILENAME.toWstr().c_str(), GENERIC_READ, 0, nullptr, OPEN_EXISTING,
 			FILE_ATTRIBUTE_NORMAL, nullptr );
 
 		//ファイル個数合計を読込

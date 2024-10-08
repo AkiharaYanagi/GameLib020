@@ -92,8 +92,20 @@ namespace GAME
 			s3d::Vec2 vScaling { v.x, v.y };
 
 			//拡縮中心位置
+			VEC2 cnt = { 0, 0 };
+			if ( pob->GetbScalingCenter () )
+			{
+				//テクスチャ中心位置
+				cnt.x = ptx->size ().x * 0.5f;
+				cnt.y = ptx->size ().y *0.5f;
+			}
+			else
+			{
+				cnt.x = pob->GetScalingCenter ().x;
+				cnt.y = pob->GetScalingCenter ().y;
+			}
+
 			//原点に戻してから指定位置にする
-			VEC2 cnt = pob->GetScalingCenter ();
 			x += cnt.x - (cnt.x * v.x);
 			y += cnt.y - (cnt.y * v.y);
 

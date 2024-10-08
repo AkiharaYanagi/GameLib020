@@ -20,23 +20,23 @@ namespace GAME
 
 	class GrpDemo : public GameGraphic
 	{
-		UINT		m_timer { 0 };	//内部タイマ
-		UINT		m_endTime { 10 };
-		VEC2		m_startScaling;		//開始
-		VEC2		m_targetScaling;	//目標
-		VEC2		m_mag;		//倍率
-		VEC2		m_vel;		//倍率変化速度
-		VEC2		m_acc;		//倍率変化加速度
+		UINT		m_timer { 0 };		//タイマ現在値
+		UINT		m_endTime { 10 };	//タイマ終了
+		bool		m_end { F };		//終了フラグ
 
-		VEC2		m_secondVel;	//第2速度
-
-		bool		m_end { F };	//終了フラグ
+		VEC2		m_startScaling { 1.f, 1.f };	//開始
+		VEC2		m_targetScaling { 1.f, 1.f };	//目標
+		VEC2		m_mag { 1.f, 1.f };		//倍率
+		VEC2		m_vel { 0, 0 };			//倍率変化速度
+		VEC2		m_acc { 0, 0 };			//倍率変化加速度
+		VEC2		m_secondVel { 0, 0 };	//第2速度
 
 	public:
 		GrpDemo ();
 		GrpDemo ( const GrpDemo& rhs ) = delete;
 		~GrpDemo ();
 
+		void DemoInit ();	//動作する初期値
 		void Init ();
 		void Move ();
 

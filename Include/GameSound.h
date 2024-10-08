@@ -38,6 +38,30 @@ namespace GAME
 		static P_GameSound & Inst () { return m_inst; }
 	//--------------------------------------------------
 
+	private:
+#pragma region CONST
+
+	//ファイル名関連
+		static CSIVSTR	ACV_FILENAME_BGM;	//作成するサウンドアーカイブファイル名
+		static CSIVSTR	ACV_DIRNAME_BGM;	//アーカイブ作成のため読み込むディレクトリ名
+		static CSIVSTR	ACV_CND_BGM;		//アーカイブ作成のため読み込むファイル名条件
+
+		static CSIVSTR	ACV_FILENAME_SE;	//作成するサウンドアーカイブファイル名
+		static CSIVSTR	ACV_DIRNAME_SE;		//アーカイブ作成のため読み込むディレクトリ名
+		static CSIVSTR	ACV_CND_SE;			//アーカイブ作成のため読み込むファイル名条件
+
+		static CSIVSTR	ACV_FILENAME_VC;	//作成するサウンドアーカイブファイル名
+		static CSIVSTR	ACV_DIRNAME_VC;		//アーカイブ作成のため読み込むディレクトリ名
+		static CSIVSTR	ACV_CND_VC;			//アーカイブ作成のため読み込むファイル名条件
+
+#pragma endregion
+
+	public:
+		void Load ();
+		void Make ();
+		void Open ();
+
+
 		//サウンドアーカイバ
 		_SoundArchiver		m_bgm; //BGM
 		_SoundArchiver		m_se; //SE

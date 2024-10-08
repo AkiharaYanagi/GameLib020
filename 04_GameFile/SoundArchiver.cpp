@@ -242,6 +242,16 @@ namespace GAME
 		m_bPlay = F;
 	}
 
+	//すべて停止
+	void SoundArchiver::All_Stop ()
+	{
+		for ( Audio& audio : ma_sound )
+		{
+			audio.stop ();
+		}
+	}
+
+
 	//すでにプレイ中でなければ再生
 	void SoundArchiver::If_Play_Loop_BGM ( UINT BGM_ID )
 	{

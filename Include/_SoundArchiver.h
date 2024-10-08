@@ -19,6 +19,7 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+	using CSIVSTR = const s3d::String;
 
 	//========================================================
 	//	◆ サウンドアーカイブ フォーマット
@@ -32,15 +33,13 @@ namespace GAME
 
 	class _SoundArchiver
 	{
-	private:
 		//--------------------------------------------------
-		//ファイル名関連
-		s3d::String		m_archiveFileName;	//作成するサウンドアーカイブファイル名
-		s3d::String		m_archiveDirName;	//アーカイブ作成のため読み込むディレクトリ名
-		s3d::String		m_searchCondition;	//アーカイブ作成のため読み込むファイル名条件
+		//ファイル名
+		s3d::String		ACV_FILENAME;	//作成するサウンドアーカイブファイル名
+		s3d::String		ACV_DIRNAME;	//アーカイブ作成のため読み込むディレクトリ名
+		s3d::String		ACV_CND;		//アーカイブ作成のため読み込むファイル名条件
+
 		//--------------------------------------------------
-
-
 		//サウンドデータ
 		s3d::Array < s3d::Audio >	ma_sound;
 
@@ -56,7 +55,7 @@ namespace GAME
 		_SoundArchiver ( const _SoundArchiver & rhs ) = delete;
 		~_SoundArchiver ();
 
-		void SetName ( s3d::String& ArchiveName, s3d::String& DirName, s3d::String& Condition );
+		void SetName ( CSIVSTR& ArchiveName, CSIVSTR& DirName, CSIVSTR& Condition );
 
 		void Make ();
 		void Open ();

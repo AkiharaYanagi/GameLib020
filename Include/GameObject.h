@@ -38,6 +38,8 @@ namespace GAME
 
 		float		m_z { 0.5f };				//疑似z位置(順番で描画位置を表現する)
 
+		bool		m_bScalingCenter { F };		//拡大中心位置をテクスチャの位置にする
+
 	public:
 		GameObject ();
 		GameObject ( const GameObject& rhs );	//コピー可能
@@ -93,6 +95,9 @@ namespace GAME
 		void SetScalingCenter ( float x, float y ) { m_scalingCenter.x = x, m_scalingCenter.y = y; }
 		void SetScalingCenter ( VEC2 v ) { m_scalingCenter = v; }
 		VEC2 GetScalingCenter () const { return m_scalingCenter; }
+		void SetbScalingCenter ( bool b ) { m_bScalingCenter = b; }
+		bool GetbScalingCenter () const { return m_bScalingCenter; }
+
 		VEC2 GetScaling () const { return m_scaling; }
 		void SetScaling ( VEC2 v ) { m_scaling = v; }
 		void SetScaling ( float x, float y ) { m_scaling.x = x, m_scaling.y = y; }

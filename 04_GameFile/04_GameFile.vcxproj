@@ -322,8 +322,8 @@
     <ClInclude Include="..\Include\Document.h" />
     <ClInclude Include="..\Include\GameSound.h" />
     <ClInclude Include="..\Include\SoundArchiver.h" />
+    <ClInclude Include="..\Include\_SoundArchiver.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="_SoundArchiver.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App\example\obj\blacksmith.obj">

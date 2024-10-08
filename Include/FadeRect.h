@@ -57,6 +57,13 @@ namespace GAME
 			PrmRect::SetValid ( true );
 		}
 
+		void Off ()
+		{
+			m_timer->Clear ();
+			PrmRect::SetColor ( m_color1 );
+			PrmRect::SetValid ( F );
+		}
+
 		bool IsActive () const { return m_timer->IsActive (); }
 		bool IsLast () const { return m_timer->IsLast (); }
 

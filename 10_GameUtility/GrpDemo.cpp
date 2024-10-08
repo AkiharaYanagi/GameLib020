@@ -15,17 +15,31 @@
 namespace GAME
 {
 
-	GrpDemo::GrpDemo () : 
-		m_startScaling ( VEC2 ( 1.8f, 1.8f ) ), 
-		m_targetScaling ( VEC2 ( 1.2f, 1.2f ) ), 
-		m_mag ( VEC2 ( 0.f, 0.f ) ), 
-		m_vel ( VEC2 ( 0.f, 0.f ) ), m_acc ( VEC2 ( -0.01f, -0.01f ) ), 
-		m_secondVel ( VEC2 ( 0.f, 0.f ) )
+	GrpDemo::GrpDemo ()
 	{
+		DemoInit ();
+
+		//オブジェクトの拡大縮小基準をテクスチャの中心にする
+		//　オブエクト追加時は手動で設定する
+		PAP_Ob papob = GameGraphic::Getpap_ob ();
+		papob->at ( 0 )->SetbScalingCenter ( T );
 	}
 
 	GrpDemo::~GrpDemo ()
 	{
+	}
+
+	void GrpDemo::DemoInit ()
+	{
+		m_timer = 0;
+		m_end = F;
+
+		m_startScaling = VEC2 ( 1.8f, 1.8f );
+		m_targetScaling = VEC2 ( 1.2f, 1.2f ); 
+		m_mag = VEC2 ( 0.f, 0.f );
+		m_vel = VEC2 ( 0.f, 0.f );
+		m_acc = VEC2 ( -0.01f, -0.01f );
+		m_secondVel = VEC2 ( 0.f, 0.f );
 	}
 
 	void GrpDemo::Init ()

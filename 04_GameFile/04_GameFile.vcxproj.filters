@@ -767,8 +767,8 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\Include\Document.h" />
     <ClInclude Include="..\Include\04_GameFile.h" />
-    <ClInclude Include="..\Include\SoundArchiver.h" />
     <ClInclude Include="..\Include\GameSound.h" />
-    <ClInclude Include="_SoundArchiver.h" />
+    <ClInclude Include="..\Include\_SoundArchiver.h" />
+    <ClInclude Include="..\Include\SoundArchiver.h" />
   </ItemGroup>
 </Project>
