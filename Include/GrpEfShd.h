@@ -24,14 +24,12 @@ namespace GAME
 		VEC2	m_revised { 0, 0 };		//補正位置	//GrpAcvとの混同に注意
 		V_VEC2	m_vPosMatrix;			//複数マトリックス使用時の補正位置
 		VEC2	m_dispBase { 0, 0 };	//外部補正位置
-
 		UINT	m_timer { 0 };
 		VEC2	m_startScaling { 1.f, 1.f };	//開始
 		VEC2	m_targetScaling { 1.f, 1.f };	//目標
 		VEC2	m_vec { 0, 0 };
 		VEC2	m_vel { 0, 0 };
 		VEC2	m_acc { 0, 0 };
-
 
 	public:
 		GrpEfShd ();

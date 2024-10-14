@@ -12,6 +12,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Define.h"
+#include "00_Common.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -20,6 +21,9 @@
 namespace GAME
 {
 	using CSIVSTR = const s3d::String;
+	using P_Adi = std::shared_ptr < s3d::Audio >;
+	using AP_Adi = s3d::Array < P_Adi >;
+
 
 	//========================================================
 	//	◆ サウンドアーカイブ フォーマット
@@ -41,7 +45,12 @@ namespace GAME
 
 		//--------------------------------------------------
 		//サウンドデータ
-		s3d::Array < s3d::Audio >	ma_sound;
+//		s3d::Array < s3d::Audio >	ma_sound;
+		AP_Adi		map_adi;
+
+		//名前とサウンドデータ
+		s3d::HashTable < s3d::String, P_Adi >	mhst_adi;
+		
 
 		uint32		m_nFile { 0 };	//ファイル個数
 
@@ -60,6 +69,15 @@ namespace GAME
 		void Make ();
 		void Open ();
 
+		void Play ( uint32 id );
+		void Play ( const s3d::String & filename );
+		void Play_Loop ( uint32 id );
+		void Play_Loop ( const s3d::String & filename );
+		void Play_OneShot ( uint32 id );
+		void Play_OneShot ( const s3d::String & filename );
+		void Stop ( uint32 id );
+		void Stop ( const s3d::String & filename );
+		void Stop_All ();
 #if 0
 
 		//------------------------------------------------------------------
@@ -79,6 +97,8 @@ namespace GAME
 		//音量設定 ( 0.0 ～ 1.0 )
 		void SetVolume ( double volume );
 
+		void Test ();
+
 	private:
 
 		//条件のファイル数え上げ
@@ -90,7 +110,7 @@ namespace GAME
 	};
 
 	//外部利用定義
-#define		SOUND	SoundArchiver::Inst()
+//#define		SOUND	SoundArchiver::Inst()
 
 
 }	//namespace GAME

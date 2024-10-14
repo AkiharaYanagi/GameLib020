@@ -70,6 +70,9 @@ namespace GAME
 		//終了時に非表示にするかどうか
 		void SetAfterClear ( bool b ) { m_after_clear = b; }
 
+		//目標値にする
+		void ShiftTargetColor ();
+
 		//-----------------------------------
 		//具体設定
 		//@info 0x00000000 を指定するときD3DXCOLORの初期化のため整数リテラル UL を付ける

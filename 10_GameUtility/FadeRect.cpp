@@ -94,5 +94,11 @@ namespace GAME
 		SetColor ( clr0, clr1 );
 	}
 
+
+	void FadeRect::ShiftTargetColor ()
+	{
+		PrmRect::SetColor ( m_color1 );
+	}
+
 }	//namespace GAME
 

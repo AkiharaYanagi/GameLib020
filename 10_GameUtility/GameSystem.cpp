@@ -10,6 +10,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "GameSystem.h"
 #include "DebugOutGameWindow.h"
+#include "AppSettingFile.h"
 
 #include "01_GameStructure.h"
 #include "02_GameGraphic.h"
@@ -33,7 +34,7 @@ namespace GAME
 		//	システム初期化
 		//----------------------------
 
-		//ゲーム設定ファイル
+		//アプリケーション設定ファイル
 #if 0
 		//設定からウィンドウ状態の取得
 		UINT window_w = AppSettingFile::Inst ()->GetWindowW ();
@@ -41,7 +42,9 @@ namespace GAME
 		bool bFullScreen = AppSettingFile::Inst ()->GetbFullscreen ();
 		int displayNum = AppSettingFile::Inst ()->GetDisplayNum ();
 #endif // 0
-
+		//アプリケーション設定ファイルを読込
+		APP_STG()->Create ();
+		APP_STG()->Load ();
 
 		//入力
 		SivInput::Create ();
@@ -82,15 +85,10 @@ namespace GAME
 #endif // 0
 
 		//サウンドアーカイバの初期化
+
+#if 0
+
 		SoundArchiver::Create ();
-
-		//設定ファイルから音量設定
-		//LONG vlm = AppSettingFile::Inst()->GetSoundVolume();	//0-100
-		LONG vlm = 50;	//0-100
-
-//		LONG revised_vlm = 4 * ( vlm * 10 - 1000 );
-		LONG revised_vlm = -( 100 - vlm ) * ( 100 - vlm );
-		SOUND->SetVolume ( revised_vlm );
 
 #if	_DEBUG
 		//デバッグ時 かつ フラグON のみアーカイブファイルを生成する
@@ -100,6 +98,43 @@ namespace GAME
 		}
 #endif	//_DEBUG
 		SoundArchiver::Inst()->Open ();		//アーカイブファイルの読込
+
+		//設定ファイルから音量設定
+
+		//音量の設定
+		//設定値(0-100) => 実効値( 0.0 ~ 1.0 )
+		int32 vlm = APP_STG()->GetSoundVolume ();
+		SOUND->SetVolume ( (double)vlm / 100.0 );
+
+#endif // 0
+
+
+		//新規サウンド
+		GameSound::Create ();
+		GameSound::Inst()->Load ();
+#if	_DEBUG
+		//デバッグ時 かつ フラグON のみアーカイブファイルを生成する
+		if ( m_bMakeArchive )
+		{
+			GameSound::Inst()->Make ();
+	}
+#endif	//_DEBUG
+		GameSound::Inst()->Open ();		//アーカイブファイルの読込
+
+		//設定ファイルから音量設定
+		//設定値(0-100) => 実効値( 0.0 ~ 1.0 )
+		int32 vlm = APP_STG()->GetSoundVolume ();
+		SND()->SetVolume ( (double)vlm / 100.0 );
+
+
+#if 0
+		//LONG vlm = AppSettingFile::Inst()->GetSoundVolume();	//0-100
+		LONG vlm = 50;	//0-100
+
+//		LONG revised_vlm = 4 * ( vlm * 10 - 1000 );
+		LONG revised_vlm = -( 100 - vlm ) * ( 100 - vlm );
+		SOUND->SetVolume ( revised_vlm );
+#endif // 0
 
 
 	}

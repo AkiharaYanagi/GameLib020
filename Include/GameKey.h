@@ -80,6 +80,8 @@ namespace GAME
 		GameKey ( const GameKey & rhs );
 		~GameKey ();
 
+		void ClearKey ();
+
 		//更新(今回のキーを前回に保存する)
 //		void Update ();
 		//前回のキーを今回に保存する)

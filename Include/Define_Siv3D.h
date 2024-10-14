@@ -24,7 +24,7 @@ namespace GAME
 	using PAP_Tx = std::shared_ptr < AP_Tx >;
 
 
-	class S3d_Utl
+	class s3d_UTL
 	{
 	public:
 		static s3d::Color DWORD_to_Color ( DWORD clr )
@@ -38,6 +38,11 @@ namespace GAME
 		static s3d::ColorF DWORD_to_ColorF ( DWORD clr )
 		{
 			return ColorF { DWORD_to_Color ( clr ) };
+		}
+
+		static VEC2 GetTxCenter ( const s3d::Texture & tx )
+		{
+			return VEC2 ( tx.size().x * 0.5f, tx.size().y * 0.5f );
 		}
 	};
 

@@ -38,7 +38,8 @@ namespace GAME
 
 		float		m_z { 0.5f };				//疑似z位置(順番で描画位置を表現する)
 
-		bool		m_bScalingCenter { F };		//拡大中心位置をテクスチャの位置にする
+		bool		m_bScalingCntrOfTx { F };		//描画時に拡大中心位置をテクスチャの位置にする
+		bool		m_bRotationCntrOfTx { F };	//描画時に回転中心位置をテクスチャの位置にする
 
 	public:
 		GameObject ();
@@ -95,8 +96,8 @@ namespace GAME
 		void SetScalingCenter ( float x, float y ) { m_scalingCenter.x = x, m_scalingCenter.y = y; }
 		void SetScalingCenter ( VEC2 v ) { m_scalingCenter = v; }
 		VEC2 GetScalingCenter () const { return m_scalingCenter; }
-		void SetbScalingCenter ( bool b ) { m_bScalingCenter = b; }
-		bool GetbScalingCenter () const { return m_bScalingCenter; }
+		void SetbScalingCntrOfTx ( bool b ) { m_bScalingCntrOfTx = b; }
+		bool GetbScalingCntrOfTx () const { return m_bScalingCntrOfTx; }
 
 		VEC2 GetScaling () const { return m_scaling; }
 		void SetScaling ( VEC2 v ) { m_scaling = v; }
@@ -104,6 +105,8 @@ namespace GAME
 
 		void SetRotationCenter ( VEC2 v ) { m_rotationCenter = v; }
 		VEC2 GetRotationCenter () const { return m_rotationCenter; }
+		void SetbRotationCntrOfTx ( bool b ) { m_bRotationCntrOfTx = b; }
+		bool GetbRotationCntrOfTx () const { return m_bRotationCntrOfTx; }
 
 		void SetRadian ( float rad ) { m_radian = rad; }
 		float GetRadian () const { return m_radian; }

@@ -70,11 +70,13 @@ namespace GAME
 		//ディレクトリ指定("sound/*.*")
 		HANDLE hFileList = ::FindFirstFile ( condition, & fileData );
 
+#if 0
+
 		//個数を数え上げ
 		while ( T )
 		{
 			//次ファイルを取得
-			if ( ::FindNextFile ( hFileList, &fileData ) )
+			if ( ::FindNextFile ( hFileList, & fileData ) )
 			{
 				//ディレクトリは飛ばす
 				if ( FILE_ATTRIBUTE_DIRECTORY == fileData.dwFileAttributes ) { continue; }
@@ -89,6 +91,20 @@ namespace GAME
 				break;
 			}
 		}
+
+#endif // 0
+
+		do
+		{
+			//ディレクトリは飛ばす
+			if ( FILE_ATTRIBUTE_DIRECTORY == fileData.dwFileAttributes ) { continue; }
+			//システムファイル(Thumbs.dbなど)は飛ばす
+			if ( FILE_ATTRIBUTE_SYSTEM & fileData.dwFileAttributes ) { continue; }
+
+			++ ret;
+		}
+		while ( ::FindNextFile ( hFileList, & fileData ) );
+
 		::FindClose ( hFileList );
 
 		return ret;
@@ -103,6 +119,8 @@ namespace GAME
 		HANDLE hFileList = ::FindFirstFile ( condition, &fileData );	//ディレクトリ指定("sound/*.*")
 
 		//書出
+#if 0
+
 		while ( T )
 		{
 			//次ファイルを取得
@@ -113,10 +131,18 @@ namespace GAME
 				//システムファイル(Thumbs.dbなど)は飛ばす
 				if ( FILE_ATTRIBUTE_SYSTEM & fileData.dwFileAttributes ) { continue; }
 
+				
+
 				//ファイルサイズ書込
 				DWORD fileSize = fileData.nFileSizeLow;	//4Gbyte未満のみ
 				DWORD numberOfBytesWritten = 0;
 				::WriteFile ( hWriteFile, &fileSize, sizeof ( DWORD ), &numberOfBytesWritten, nullptr );
+
+				//ファイル名書込
+				DWORD nWrtn = 0;
+				TCHAR fn [ MAX_PATH ];
+				_tcscpy_s ( fn, MAX_PATH, fileData.cFileName );
+				::WriteFile ( hWriteFile, fn, sizeof ( fn ), &nWrtn, nullptr );
 
 				//バッファにファイルデータ読込
 				tstring filename ( dirname );			
@@ -126,7 +152,8 @@ namespace GAME
 
 				std::unique_ptr < BYTE[] > buf = std::make_unique < BYTE[] > ( fileSize );
 				DWORD numberOfByteRead = 0;
-				::ReadFile ( hReadFile, buf.get(), fileSize, &numberOfByteRead, nullptr );
+				bool bRead = ::ReadFile ( hReadFile, buf.get(), fileSize, &numberOfByteRead, nullptr );
+				(void)bRead;
 
 				::CloseHandle ( hReadFile );
 
@@ -139,6 +166,50 @@ namespace GAME
 				break;
 			}
 		}
+
+#endif // 0
+
+
+		do
+		{
+			//ディレクトリは飛ばす
+			if ( FILE_ATTRIBUTE_DIRECTORY == fileData.dwFileAttributes ) { continue; }
+			//システムファイル(Thumbs.dbなど)は飛ばす
+			if ( FILE_ATTRIBUTE_SYSTEM & fileData.dwFileAttributes ) { continue; }
+
+
+
+			//ファイルサイズ書込
+			DWORD fileSize = fileData.nFileSizeLow;	//4Gbyte未満のみ
+			DWORD numberOfBytesWritten = 0;
+			::WriteFile ( hWriteFile, &fileSize, sizeof ( DWORD ), &numberOfBytesWritten, nullptr );
+
+			//ファイル名書込
+			DWORD nWrtn = 0;
+			TCHAR fn [ MAX_PATH ];
+			_tcscpy_s ( fn, MAX_PATH, fileData.cFileName );
+			::WriteFile ( hWriteFile, fn, sizeof ( fn ), &nWrtn, nullptr );
+
+			//バッファにファイルデータ読込
+			tstring filename ( dirname );			
+			filename.append ( fileData.cFileName );	//ファイルパス作成
+			HANDLE hReadFile = CreateFile ( filename.c_str(), GENERIC_READ, 0, nullptr, 
+				OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr );
+
+			std::unique_ptr < BYTE[] > buf = std::make_unique < BYTE[] > ( fileSize );
+			DWORD numberOfByteRead = 0;
+			bool bRead = ::ReadFile ( hReadFile, buf.get(), fileSize, &numberOfByteRead, nullptr );
+			(void)bRead;
+
+			::CloseHandle ( hReadFile );
+
+			//アーカイブにサイズ分書出
+			::WriteFile ( hWriteFile, buf.get(), fileSize, &numberOfBytesWritten, nullptr );
+		}
+		while ( ::FindNextFile ( hFileList, & fileData ) );
+
+
+
 		//終了
 		FindClose ( hFileList );
 	}
@@ -162,19 +233,103 @@ namespace GAME
 		{
 			DWORD numberOfByteRead = 0;
 			DWORD fileSize = 0;
-			bRet = ::ReadFile ( hFile, &fileSize, sizeof ( DWORD ), &numberOfByteRead, nullptr );
+
+			//ファイルサイズ
+			bRet = ::ReadFile ( hFile, &fileSize, sizeof ( DWORD ), & numberOfByteRead, nullptr );
+
+			//ファイル名
+			TCHAR fn [ MAX_PATH ] = _T("");
+			bRet = ::ReadFile ( hFile, fn, sizeof ( fn ), & numberOfByteRead, nullptr );
+
+			//実データ
 			std::unique_ptr < BYTE [] > buf = std::make_unique < BYTE [] > ( fileSize );
-			bRet = ::ReadFile ( hFile, buf.get(), fileSize, &numberOfByteRead, nullptr );
+			bRet = ::ReadFile ( hFile, buf.get(), fileSize, & numberOfByteRead, nullptr );
 
 			//メモリ上からサウンドに変換
 			s3d::MemoryReader mr { (void*)buf.get(), fileSize };
-			ma_sound.push_back ( s3d::Audio { s3d::Wave { std::move ( mr ) }, s3d::Loop::Yes } );
+			//ma_sound.push_back ( s3d::Audio { s3d::Wave { std::move ( mr ) }, s3d::Loop::Yes } );
+
+			//保存
+			//デフォルトはループ無し
+			P_Adi pAdi = std::make_shared < s3d::Audio > ( s3d::Wave { std::move ( mr ) }, s3d::Loop::No );
+			map_adi.push_back ( pAdi );
+
+			mhst_adi.emplace ( s3d::Unicode::FromWstring ( fn ), pAdi );
 
 		}
 
 		//閉じる
 		CloseHandle ( hFile );
 	}
+
+
+
+	//------------------------------------------------------------------
+	//再生
+	void _SoundArchiver::Play ( uint32 id )
+	{
+		map_adi [ id ]->setLoop ( F );
+		map_adi [ id ]->play ();
+		m_bPlay = T;
+	}
+	void _SoundArchiver::Play ( const s3d::String & filename )
+	{
+		if ( ! mhst_adi.contains ( filename ) ) { return; }
+		mhst_adi [ filename ]->setLoop ( F );
+		mhst_adi [ filename ]->play ();
+		m_bPlay = T;
+	}
+
+	//ループ再生
+	void _SoundArchiver::Play_Loop ( uint32 id )
+	{
+		map_adi [ id ]->setLoop ( T );
+		map_adi [ id ]->play ();
+		m_bPlay = T;
+	}
+	void _SoundArchiver::Play_Loop ( const s3d::String & filename )
+	{
+		if ( ! mhst_adi.contains ( filename ) ) { return; }
+		mhst_adi [ filename ]->setLoop ( T );
+		mhst_adi [ filename ]->play ();
+		m_bPlay = T;
+	}
+
+	//１回 再生
+	void _SoundArchiver::Play_OneShot ( uint32 id )
+	{
+		map_adi [ id ]->setLoop ( F );
+		map_adi [ id ]->playOneShot ();
+	}
+	void _SoundArchiver::Play_OneShot ( const s3d::String & filename )
+	{
+		if ( ! mhst_adi.contains ( filename ) ) { return; }
+		mhst_adi [ filename ]->setLoop ( F );
+		mhst_adi [ filename ]->playOneShot ();
+	}
+
+	//停止
+	void _SoundArchiver::Stop ( uint32 id )
+	{
+		map_adi [ id ]->stop ();
+		m_bPlay = F;
+	}
+	void _SoundArchiver::Stop ( const s3d::String & filename )
+	{
+		if ( ! mhst_adi.contains ( filename ) ) { return; }
+		mhst_adi [ filename ]->stop ();
+		m_bPlay = F;
+	}
+
+	//すべて停止
+	void _SoundArchiver::Stop_All ()
+	{
+		for ( P_Adi pAdi : map_adi )
+		{
+			pAdi->stop ();
+		}
+	}
+
 
 #if 0
 	//------------------------------------------------------------------
@@ -226,10 +381,29 @@ namespace GAME
 
 	void _SoundArchiver::SetVolume ( double volume )
 	{
+#if 0
 		for ( s3d::Audio & audio : ma_sound )
 		{
 			audio.setVolume ( volume );
 		}
+#endif // 0
+		for ( P_Adi pAdi : map_adi )
+		{
+			pAdi->setVolume ( volume );
+		}
+	}
+
+
+
+	void _SoundArchiver::Test ()
+	{
+		TRACE_F ( _T("■■■------------------------------\n") );
+		for ( auto [ str, pAdi ] : mhst_adi )
+		{
+			TRACE_F ( str.toWstr().c_str() );
+			TRACE_F ( _T("\n") );
+		}
+		TRACE_F ( _T("■■■------------------------------\n") );
 	}
 
 

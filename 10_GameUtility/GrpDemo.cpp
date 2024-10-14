@@ -22,7 +22,7 @@ namespace GAME
 		//オブジェクトの拡大縮小基準をテクスチャの中心にする
 		//　オブエクト追加時は手動で設定する
 		PAP_Ob papob = GameGraphic::Getpap_ob ();
-		papob->at ( 0 )->SetbScalingCenter ( T );
+		papob->at ( 0 )->SetbScalingCntrOfTx ( T );
 	}
 
 	GrpDemo::~GrpDemo ()

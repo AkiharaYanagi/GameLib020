@@ -285,7 +285,7 @@ namespace GAME
 				//ファイルのオフセット計算
 				m_current_offset += findData.nFileSizeLow;
 			}
-		} while ( FindNextFile ( hFind, & findData ) );
+		} while ( ::FindNextFile ( hFind, & findData ) );
 
 		::FindClose ( hFind );
 	}

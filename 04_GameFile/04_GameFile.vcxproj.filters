@@ -132,7 +132,6 @@
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Document.cpp" />
-    <ClCompile Include="SoundArchiver.cpp" />
     <ClCompile Include="GameSound.cpp" />
     <ClCompile Include="_SoundArchver.cpp" />
   </ItemGroup>
@@ -769,6 +768,5 @@
     <ClInclude Include="..\Include\04_GameFile.h" />
     <ClInclude Include="..\Include\GameSound.h" />
     <ClInclude Include="..\Include\_SoundArchiver.h" />
-    <ClInclude Include="..\Include\SoundArchiver.h" />
   </ItemGroup>
 </Project>

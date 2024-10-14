@@ -15,10 +15,10 @@
 #include "GameMainBase.h"
 #include "GrpDemo.h"
 #include "GrpEf.h"
-#include "GrpEfShd.h"
 #include "FadeRect.h"
 #include "GrpBlink.h"
 #include "Menu.h"
+#include "AppSettingFile.h"
 
 
 //-------------------------------------------------------------------------------------------------

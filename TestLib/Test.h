@@ -33,6 +33,10 @@ namespace GAME
 
 		P_GrpBlink	m_blink;
 
+
+		s3d::Audio	m_testAdi;
+
+
 	public:
 		Test ();
 		Test ( const Test & rhs ) = delete;

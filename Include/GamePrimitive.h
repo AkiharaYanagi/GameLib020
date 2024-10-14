@@ -41,7 +41,7 @@ namespace GAME
 		s3d::Point GetPos () const { return m_rect.pos; }
 
 		void SetSize ( const s3d::Rect::size_type size ) { m_rect.setSize ( size ); }
-		void SetColor ( const s3d::ColorF color ) { m_color = color; }
+		void SetColor ( const s3d::ColorF color );
 
 		void SetZero () { m_rect.set( 0, 0, 0, 0 ); }
 	};

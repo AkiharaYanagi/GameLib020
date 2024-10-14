@@ -23,7 +23,6 @@ namespace GAME
 	GameGraphicBase::GameGraphicBase ()
 	{
 		mpap_Texture = std::make_shared < AP_Tx > ();
-
 		mpap_Object = std::make_shared < AP_Ob > ();
 		mpap_Object->push_back ( std::make_shared < GameObject > () );
 	}
@@ -32,7 +31,6 @@ namespace GAME
 	{
 		mpap_Object->clear ();
 	}
-
 
 	//---------------------------------------------------------------------
 	void GameGraphicBase::Move ()
@@ -69,9 +67,11 @@ namespace GAME
 		//オブジェクトの数だけ描画
 		for ( P_Ob pob : *mpap_Object )
 		{
+			//稼働フラグ
 			if ( ! pob->GetValid () ) { continue; }
 
-			//描画テクスチャの指定
+
+			//テクスチャ範囲の指定
 			uint32 indexTexture = pob->GetIndexTexture ();
 			s3d::RectF rectf = pob->GetRectF ();
 			double x = pob->GetPos().x;
@@ -87,34 +87,46 @@ namespace GAME
 				rectf.set ( 0, 0, sz );
 			}
 
+			//テクスチャ中心位置
+			VEC2 txCntr = s3d_UTL::GetTxCenter ( * ptx );
+
 			//拡大縮小
 			VEC2 v = pob->GetScaling();
 			s3d::Vec2 vScaling { v.x, v.y };
 
 			//拡縮中心位置
-			VEC2 cnt = { 0, 0 };
-			if ( pob->GetbScalingCenter () )
+			VEC2 SclCntr = { 0, 0 };
+			if ( pob->GetbScalingCntrOfTx () )
 			{
-				//テクスチャ中心位置
-				cnt.x = ptx->size ().x * 0.5f;
-				cnt.y = ptx->size ().y *0.5f;
+				SclCntr = txCntr;
 			}
 			else
 			{
-				cnt.x = pob->GetScalingCenter ().x;
-				cnt.y = pob->GetScalingCenter ().y;
+				//指定値を利用
+				SclCntr.x = pob->GetScalingCenter ().x;
+				SclCntr.y = pob->GetScalingCenter ().y;
 			}
 
 			//原点に戻してから指定位置にする
-			x += cnt.x - (cnt.x * v.x);
-			y += cnt.y - (cnt.y * v.y);
+			x += SclCntr.x - (SclCntr.x * v.x);
+			y += SclCntr.y - (SclCntr.y * v.y);
 
 
 			//回転中心位置
 			VEC2 vec_rtt_cntr = pob->GetRotationCenter ();
+			if ( pob->GetbRotationCntrOfTx () )
+			{
+				vec_rtt_cntr = txCntr;
+			}
+			else
+			{
+				vec_rtt_cntr = pob->GetRotationCenter ();
+			}
+
 			s3d::Vec2 rtt_cntr { vec_rtt_cntr.x, vec_rtt_cntr.y };
 			//回転角
 			double r = pob->GetRadian ();
+
 
 			//色補正(アルファ値は透明, RGBは乗算)
 			_CLR clr = pob->GetColor ();
@@ -148,7 +160,6 @@ namespace GAME
 	void GameGraphicBase::AddTexture_FromArchive ( s3d::String filename )
 	{
 		//アーカイブからファイルを取得
-//		ARCHIVE_FILE_USE file = ACVR()->GetFilePointer ( (LPCTSTR)filename.c_str() );
 		ARCHIVE_FILE_USE file = ACVR()->GetFilePointer ( filename.toWstr().c_str() );
 
 		if ( file.filePointer == nullptr )
@@ -183,13 +194,27 @@ namespace GAME
 		VEC2 ret { 0, 0 };
 		if ( mpap_Texture->size () < index ) { return ret; }
 
+		P_Tx pTx = mpap_Texture->at ( index );
+		ret = s3d_UTL::GetTxCenter ( * pTx );
+#if 0
 		s3d::Size size = mpap_Texture->at ( index )->size ();
 		ret.x = 0.5f * (float)size.x;
 		ret.y = 0.5f * (float)size.y;
+#endif // 0
 		return ret;
 	}
 
 	//---------------------------------------------------------------------
+	void GameGraphicBase::AddObject ()
+	{
+		P_Ob pOb = std::make_shared < GameObject > ();
+		if ( mpap_Texture->size () > 0 )
+		{
+			ApplyTxSize_ToOb ( mpap_Texture->at(0), pOb );
+		}
+		mpap_Object->push_back ( pOb );
+	}
+
 	void GameGraphicBase::AddpObject ( P_Ob pOb )
 	{
 		if ( mpap_Texture->size () > 0 )

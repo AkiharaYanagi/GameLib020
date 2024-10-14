@@ -43,6 +43,11 @@ namespace GAME
 		G_GrpTx::Inst()->Refund_OutTx ( std::move ( upRndTx ) );
 	}
 
+	void GamePrimitiveRect::SetColor ( const s3d::ColorF color )
+	{
+		m_color = color;
+		GameGraphicCore::SetColor ( color.toColor().asUint32() );
+	}
 
 }	//namespace GAME
 

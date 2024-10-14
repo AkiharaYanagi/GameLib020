@@ -66,6 +66,7 @@ namespace GAME
 
 		// DSBVOLUME_MAX : 減衰無し(0), DSBVOLUME_MIN : 最小値(-10000) [1/100dB]
 		LONG		m_volume { 0 };		//全体ボリューム
+		double		m_dVolume { 0.50 };		//ボリューム ( 0.0 ~ 1.0 )
 
 		bool		m_bPlay { F };	//すでにプレイ中かどうか
 
@@ -88,7 +89,14 @@ namespace GAME
 		//音量設定
 		// DSBVOLUME_MAX : 減衰無し(0), DSBVOLUME_MIN : 最小値(-10000) [1/100dB]
 		void SetVolume ( LONG volume ) { m_volume = volume; }
-
+		void SetVolume ( double d )
+		{
+			m_dVolume = d; 
+			for ( Audio& audio : ma_sound )
+			{
+				audio.setVolume ( d );
+			}
+		}
 	private:
 
 		//条件のファイル数え上げ

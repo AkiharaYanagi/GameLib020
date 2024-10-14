@@ -68,6 +68,7 @@ namespace GAME
 		PAP_Ob Getpap_ob () const { return mpap_Object; }
 		P_Ob GetpObject ( size_t index ) { return mpap_Object->at ( index ); }
 
+		void AddObject ();
 		void AddpObject ( P_Ob pOb );
 		void ClearObject () { mpap_Object->clear (); }
 

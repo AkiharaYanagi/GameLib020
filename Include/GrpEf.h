@@ -1,7 +1,7 @@
 //=================================================================================================
 //
 // GrpEf ヘッダファイル
-//	キャラ同士による位置補正を用いる
+//	PosをBaseとRevisedで計算する
 //
 //=================================================================================================
 #pragma once
@@ -10,6 +10,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "GameGraphic.h"
+#include "Timer.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -21,15 +22,19 @@ namespace GAME
 	{
 		VEC2	m_base { 0, 0 };		//基準位置
 		VEC2	m_revised { 0, 0 };		//補正位置	//GrpAcvとの混同に注意
-		V_VEC2	m_vPosMatrix;			//複数マトリックス使用時の補正位置
-		VEC2	m_dispBase { 0, 0 };	//外部補正位置
+//		V_VEC2	m_vPosMatrix;			//複数オブジェクト使用時の個別補正位置
+		VEC2	m_dispBase { 0, 0 };	//外部補正位置(キャラ同士による画面補正)
 
-		UINT	m_timer { 0 };
 		VEC2	m_startScaling { 1.f, 1.f };	//開始
 		VEC2	m_targetScaling { 1.f, 1.f };	//目標
 		VEC2	m_vec { 0, 0 };
 		VEC2	m_vel { 0, 0 };
 		VEC2	m_acc { 0, 0 };
+
+		Timer	m_tmr;
+
+		//表示をテクスチャ中心位置にする(毎F指定)
+		bool	m_bCenterOfTx { F };
 
 
 	public:
@@ -44,19 +49,23 @@ namespace GAME
 		void On ();
 		void Off ();
 
-		void Advance ();	//次に進める
+		void Advance ();		//テクスチャを次に進める　最後まで行ったらOff()
+		void Advance_Loop ();	//テクスチャを次に進める　最後まで行ったら最初に戻る
 
 		//プリセット
 		void Preset_Ef_Action ();
 
-		//キャラ位置による画面補正
+		//キャラ位置によるゲーム画面補正
 		void SetDispBase ( VEC2 v ) { m_dispBase = v; }
 
+		//ベースにゲーム位置を代入する
 		void SetBase ( VEC2 vec ) { m_base = vec; }
+
+		//リバイズドが表示位置を修正する(テクスチャの中心など)
 		VEC2 GetRevised () const { return m_revised; }
 		void SetRevised ( VEC2 vec ) { m_revised = vec; }
 
-		void SetTimer ( UINT n ) { m_timer = n; }
+//		void SetTimer ( UINT n ) { m_timer = n; }
 		void SetStartScaling ( VEC2 vec ) { m_startScaling = vec; }
 		void SetTargetScaling ( VEC2 vec ) { m_targetScaling = vec; }
 
@@ -65,6 +74,8 @@ namespace GAME
 
 		//複数オブジェクトの初期設定
 //		void ResetObjectNUm ( UINT n ) {}
+
+#if 0
 
 		void AddObject () 
 		{
@@ -88,16 +99,28 @@ namespace GAME
 			m_vPosMatrix[i] = pos;
 		}
 
+#endif // 0
+
 		//計算後の最終位置を取得
 		VEC2 GetCalcPos ( UINT i )
 		{
+			(void)i;
+
 			//基準位置 + 補正位置 + 外部補正位置 + 個別位置
-			return m_base + m_revised + m_dispBase + m_vPosMatrix[i];
+//			return m_base + m_revised + m_dispBase + m_vPosMatrix[i];
+			return m_base + m_revised + m_dispBase;
 
 		}
 
 		//インデックスで指定したテクスチャで中心を設定する
 		void SetCenterOfTexture ();
+
+
+		//位置指定開始
+		void Start ( VEC2 v, uint32 t );
+
+		//テクスチャ中心位置で表示
+		void SetbCenterOfTx ( bool b ) { m_bCenterOfTx = b; }
 	};
 
 	using P_GrpEf = std::shared_ptr < GrpEf >;

@@ -115,13 +115,13 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AppSettingFile.cpp" />
     <ClCompile Include="DebugOutGameWindow.cpp" />
     <ClCompile Include="FadeRect.cpp" />
     <ClCompile Include="GameSystem.cpp" />
     <ClCompile Include="GrpBlink.cpp" />
     <ClCompile Include="GrpDemo.cpp" />
     <ClCompile Include="GrpEf.cpp" />
-    <ClCompile Include="GrpEfShd.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -324,6 +324,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\10_GameUtility.h" />
+    <ClInclude Include="..\Include\AppSettingFile.h" />
     <ClInclude Include="..\Include\DebugOutGameWindow.h" />
     <ClInclude Include="..\Include\FadeRect.h" />
     <ClInclude Include="..\Include\GameMainBase.h" />
@@ -331,7 +332,6 @@
     <ClInclude Include="..\Include\GrpBlink.h" />
     <ClInclude Include="..\Include\GrpDemo.h" />
     <ClInclude Include="..\Include\GrpEf.h" />
-    <ClInclude Include="..\Include\GrpEfShd.h" />
     <ClInclude Include="..\Include\Menu.h" />
     <ClInclude Include="..\Include\Timer.h" />
     <ClInclude Include="stdafx.h" />

@@ -47,6 +47,20 @@ namespace GAME
 
 	}
 
+	void GameKey::ClearKey ()
+	{
+		for ( UINT i = 0; i < LVR_NUM; ++ i )
+		{
+			Lvr[i] = false;
+			PreLvr[i] = false;
+		}
+		for ( UINT i = 0; i < BTN_NUM; ++ i )
+		{
+			Btn[i] = false;
+			PreBtn[i] = false;
+		}
+	}
+
 #if 0
 
 	void GameKey::Update ()

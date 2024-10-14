@@ -94,6 +94,8 @@ namespace GAME
 
 		//DBGOUT_WND_OFF ();
 		DBGOUT_WND_ON ();
+
+//		m_testAdi = s3d::Audio { U"BGM//00_BGM_GABA.wav" };
 	}
 
 	Test::~Test ()
@@ -105,6 +107,15 @@ namespace GAME
 		TRACE_F ( (LPCTSTR) KeyConfig::Inst()->ToString().toWstr().c_str() );
 
 //		DBGOUT_WND_ON ();
+
+//		SND_PLAY_BGM ( 0 );
+//		SND_PLAY_BGM ( s3d::String ( U"00_BGM_GABA.wav" ) );
+		SND_PLAY_BGM ( s3d::String ( U"10_BGM_Title.wav" ) );
+
+		SND()->Test ();
+
+
+//		m_testAdi.play ();
 
 		TASK_VEC::Init ();
 	}
