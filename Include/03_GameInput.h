@@ -14,6 +14,7 @@
 #include "SivInput.h"
 #include "KeyConfig.h"
 #include "SivKeyboard_Name.h"
+#include "GameKey.h"
 
 
 //-------------------------------------------------------------------------------------------------
