@@ -81,12 +81,16 @@ namespace GAME
 		void Play_OneShotSE ( uint32 id ) { m_se.Play_OneShot ( id ); }
 		void Play_OneShotSE ( const s3d::String & filename ) { m_se.Play_OneShot ( filename ); }
 		void StopSE ( uint32 id ) { m_se.Stop ( id ); }
+		void StopSE ( const s3d::String & filename ) { m_se.Stop ( filename ); }
+		void Stop_All_SE () { m_se.Stop_All (); }
 
 		void PlayVC ( uint32 id ) { m_vc.Play ( id ); }
 		void PlayVC ( const s3d::String & filename ) { m_vc.Play ( filename ); }
 		void Play_OneShotVC ( uint32 id ) { m_vc.Play_OneShot ( id ); }
 		void Play_OneShotVC ( const s3d::String & filename ) { m_vc.Play_OneShot ( filename ); }
 		void StopVC ( uint32 id ) { m_vc.Stop ( id ); }
+		void StopVC ( const s3d::String & filename ) { m_vc.Stop ( filename ); }
+		void Stop_All_VC () { m_vc.Stop_All (); }
 
 
 		void SetVolume ( double vol );
@@ -105,9 +109,13 @@ namespace GAME
 
 #define	SND_PLAY_SE			GameSound::Inst()->PlaySE
 #define	SND_PLAY_ONESHOT_SE	GameSound::Inst()->Play_OneShotSE
+#define	SND_STOP_SE			GameSound::Inst()->StopSE
+#define	SND_STOP_ALL_SE		GameSound::Inst()->Stop_All_SE
 
 #define	SND_PLAY_VC			GameSound::Inst()->PlayVC
 #define	SND_PLAY_ONESHOT_VC	GameSound::Inst()->Play_OneShotVC
+#define	SND_STOP_VC			GameSound::Inst()->StopVC
+#define	SND_STOP_ALL_VC		GameSound::Inst()->Stop_All_VC
 
 
 }	//namespace GAME

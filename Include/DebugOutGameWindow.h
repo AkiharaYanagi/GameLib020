@@ -21,7 +21,19 @@ namespace GAME
 {
 
 	constexpr size_t DBGOUT_WND_N = 10;		//表示行数
-
+	enum DBGOUT_LINE			//位置指定
+	{
+		DBGOUT_0 = 0,
+		DBGOUT_1 = 1,
+		DBGOUT_2 = 2,
+		DBGOUT_3 = 3,
+		DBGOUT_4 = 4,
+		DBGOUT_5 = 5,
+		DBGOUT_6 = 6,
+		DBGOUT_7 = 7,
+		DBGOUT_8 = 8,
+		DBGOUT_9 = 9,
+	};
 
 	class DebugOutGameWindow;
 	using DBGO_WND = DebugOutGameWindow;
@@ -50,7 +62,7 @@ namespace GAME
 		void Load ();
 		void Draw ();
 
-		void DebugOutf ( uint32 index, s3d::String str );
+		void DebugOutf ( DBGOUT_LINE line, s3d::String str );
 
 
 		void On ();

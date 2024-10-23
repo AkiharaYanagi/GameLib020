@@ -56,10 +56,10 @@ namespace GAME
 		m_frame->Draw ();
 	}
 
-	void DebugOutGameWindow::DebugOutf ( uint32 index, s3d::String str )
+	void DebugOutGameWindow::DebugOutf ( DBGOUT_LINE line, s3d::String str )
 	{
-		if ( index < 0 || DBGOUT_WND_N <= index ) { return; }
-		ma_str [ index ]->SetStr ( str );
+		if ( line < 0 || DBGOUT_WND_N <= line ) { return; }
+		ma_str [ line ]->SetStr ( str );
 	}
 
 

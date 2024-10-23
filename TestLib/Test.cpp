@@ -122,7 +122,7 @@ namespace GAME
 
 	void Test::Move ()
 	{
-		DBGOUT_WND()->DebugOutf ( 0, U"Test::Move" );
+		DBGOUT_WND()->DebugOutf ( DBGOUT_0, U"Test::Move" );
 
 #if 0
 		if ( CFG_IS_KEY ( P1_UP ) )
@@ -141,8 +141,8 @@ namespace GAME
 		DeviceInput di = SivInput::Inst()->PushInput ();
 //		s3d::Print ( di.ToString () );
 		s3d::String di_str = di.ToString ();
-		DBGOUT_WND_F ( 1, di_str );
-//		DBGOUT_WND_F ( 1, U"test" );
+		DBGOUT_WND_F ( DBGOUT_1, di_str );
+//		DBGOUT_WND_F ( DBGOUT_1, U"test" );
 
 		TASK_VEC::Move ();
 	}

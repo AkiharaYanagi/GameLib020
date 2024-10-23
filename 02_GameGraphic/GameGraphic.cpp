@@ -73,11 +73,18 @@ namespace GAME
 
 			//テクスチャ範囲の指定
 			uint32 indexTexture = pob->GetIndexTexture ();
+			if ( mpap_Texture->size () <= indexTexture )
+			{
+				TRACE_F ( _T("Texture index error: %d\n"), indexTexture ); assert ( 0 );
+			}
+			P_Tx ptx = mpap_Texture->at ( indexTexture );
+
+
+			//その他の値を取得
 			s3d::RectF rectf = pob->GetRectF ();
 			double x = pob->GetPos().x;
 			double y = pob->GetPos().y;
 
-			P_Tx ptx = mpap_Texture->at ( indexTexture );
 
 			//初期値０(エリアなし)ならテクスチャ全体を描画
 			if ( ! rectf.hasArea () )
@@ -151,6 +158,7 @@ namespace GAME
 	void GameGraphicBase::AddTexture ( s3d::String filename )
 	{
 		P_Tx ptx = std::make_shared < s3d::Texture > ( filename );
+
 		mpap_Texture->push_back ( ptx );
 
 		s3d::Size sz = ptx->size ();
