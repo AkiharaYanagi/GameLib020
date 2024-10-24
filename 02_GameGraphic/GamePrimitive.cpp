@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-//
+﻿//=================================================================================================//
 // ゲームプリミティブ グラフィック
 //
 //=================================================================================================
@@ -43,10 +42,32 @@ namespace GAME
 		G_GrpTx::Inst()->Refund_OutTx ( std::move ( upRndTx ) );
 	}
 
+
+	void GamePrimitiveRect::SetPos ( VEC2 vec )
+	{
+		m_rect.setPos ( s3d::Point ( (int32)vec.x, (int32)vec.y ) );
+	}
+
+	void GamePrimitiveRect::SetSize ( int32 w, int32 h )
+	{
+		m_rect.setSize ( s3d::Size ( w, h ) );
+	}
+
+	void GamePrimitiveRect::SetSize ( VEC2 vec )
+	{
+		m_rect.setSize ( s3d::Size ( (int32)vec.x, (int32)vec.y ) );
+	}
+
 	void GamePrimitiveRect::SetColor ( const s3d::ColorF color )
 	{
 		m_color = color;
 		GameGraphicCore::SetColor ( color.toColor().asUint32() );
+	}
+
+	void GamePrimitiveRect::SetColor ( const _CLR color )
+	{
+		m_color = s3d::ColorF { (double)color.r, (double)color.g, (double)color.b, (double)color.a };
+		GameGraphicCore::SetColor ( color );
 	}
 
 }	//namespace GAME

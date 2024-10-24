@@ -25,8 +25,9 @@ namespace GAME
 	constexpr float Z_CH = 0.5f;		//キャラクタ(グラフィックのデフォルト位置)
 	constexpr float Z_EFF = 0.4f;		//前面エフェクト
 	constexpr float Z_SYS = 0.3f;		//バトルシステム表示
-	constexpr float Z_MENU = 0.2f;		//メニュ
-	constexpr float Z_FADE = 0.1f;		//フェード
+
+	constexpr float Z_MENU = 0.02f;		//メニュ
+	constexpr float Z_FADE = 0.01f;		//フェード
 	//@info 小さい方が手前
 
 	//--------------------------------------

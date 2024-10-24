@@ -36,7 +36,7 @@ namespace GAME
 
 
 	//--------------------------------------------------
-	//ゲーム利用
+	//ゲーム利用 (1p/2p指定)
 	bool KeyConfig::IsKey ( GAME_USE_KEY key ) const
 	{
 		bool ret = false;
@@ -81,6 +81,36 @@ namespace GAME
 		case KEYBOARD: ret = Rele_Keyboard ( di.GetKey () ); break;
 		}
 		return ret;
+	}
+
+
+	//ゲーム利用 (1p/2p共通)
+	bool KeyConfig::IsKey_12 ( PLAYER_INPUT key ) const
+	{
+		GAME_USE_KEY key1p = InputFromPlayer ( PLAYER_ID_1, key );
+		GAME_USE_KEY key2p = InputFromPlayer ( PLAYER_ID_2, key );
+		return IsKey ( key1p ) || IsKey ( key2p );
+	}
+
+	bool KeyConfig::OffKey_12 ( PLAYER_INPUT key ) const
+	{
+		GAME_USE_KEY key1p = InputFromPlayer ( PLAYER_ID_1, key );
+		GAME_USE_KEY key2p = InputFromPlayer ( PLAYER_ID_2, key );
+		return OffKey ( key1p ) || OffKey ( key2p );
+	}
+
+	bool KeyConfig::PushKey_12 ( PLAYER_INPUT key ) const
+	{
+		GAME_USE_KEY key1p = InputFromPlayer ( PLAYER_ID_1, key );
+		GAME_USE_KEY key2p = InputFromPlayer ( PLAYER_ID_2, key );
+		return PushKey ( key1p ) || PushKey ( key2p );
+	}
+
+	bool KeyConfig::ReleKey_12 ( PLAYER_INPUT key ) const
+	{
+		GAME_USE_KEY key1p = InputFromPlayer ( PLAYER_ID_1, key );
+		GAME_USE_KEY key2p = InputFromPlayer ( PLAYER_ID_2, key );
+		return ReleKey ( key1p ) || ReleKey ( key2p );
 	}
 
 
@@ -427,6 +457,36 @@ namespace GAME
 	}
 
 	//----------------------------------------------------------------------------------
+
+
+	//static プレイヤーとキー種類から判定値を取得する
+	GAME_USE_KEY KeyConfig::InputFromPlayer ( PLAYER_ID id, PLAYER_INPUT input )
+	{
+		GAME_USE_KEY ret = GAME_USE_KEY::GAME_USE_KEY_NUM;
+
+		//プレイヤー側によって分岐
+		bool b = ( PLAYER_ID_1 == id );
+
+		switch ( input )
+		{
+		case PLY_UP:    ret = b ? P1_UP:    P2_UP;		break;
+		case PLY_DOWN:  ret = b ? P1_DOWN:  P2_DOWN;	break;
+		case PLY_LEFT:  ret = b ? P1_LEFT:  P2_LEFT;	break;
+		case PLY_RIGHT: ret = b ? P1_RIGHT: P2_RIGHT;	break;
+		case PLY_BTN0:  ret = b ? P1_BTN0:  P2_BTN0;	break;
+		case PLY_BTN1:  ret = b ? P1_BTN1:  P2_BTN1;	break;
+		case PLY_BTN2:  ret = b ? P1_BTN2:  P2_BTN2;	break;
+		case PLY_BTN3:  ret = b ? P1_BTN3:  P2_BTN3;	break;
+		case PLY_BTN4:  ret = b ? P1_BTN4:  P2_BTN4;	break;
+		case PLY_BTN5:  ret = b ? P1_BTN5:  P2_BTN5;	break;
+		case PLY_BTN6:  ret = b ? P1_BTN6:  P2_BTN6;	break;
+		case PLY_BTN7:  ret = b ? P1_BTN7:  P2_BTN7;	break;
+		};
+
+		if ( ret == GAME_USE_KEY::GAME_USE_KEY_NUM ) { assert ( 0 ); }
+
+		return ret;
+	}
 
 
 }	//namespace GAME

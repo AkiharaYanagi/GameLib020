@@ -28,6 +28,7 @@ namespace GAME
 //		SetFontFace ( _T ( "MSゴシック" ) );
 		SetFontColor ( 0xffffffff, 0xff202080 );
 #endif // 0
+		SetbMenu ( T );
 		SetZ ( Z_MENU );
 		SetStr ( U"MenuStr" );
 	}
@@ -42,7 +43,7 @@ namespace GAME
 	{
 		m_str = std::make_shared < MenuString > ();
 		m_str->SetPos ( 100, 20 );
-		GRPLST_INSERT ( m_str );
+//		GRPLST_INSERT ( m_str );
 	}
 
 	MenuItem::~MenuItem ()
@@ -57,7 +58,6 @@ namespace GAME
 
 	//=================================================
 	Menu::Menu ()
-		: m_active ( F )
 	{
 		m_itItem = mvp_MenuItem.begin ();
 
@@ -66,6 +66,7 @@ namespace GAME
 		m_bg = std::make_shared < PrmRect > ();
 		m_bg->SetSize ( s3d::Point { 500, 300 } );
 		m_bg->SetColor ( s3d::ColorF { 0, 0, 0, 0.5 } );
+		m_bg->SetZ ( Z_MENU );
 		GRPLST_INSERT ( m_bg );
 	}
 
@@ -130,6 +131,9 @@ namespace GAME
 	
 	void Menu::Do ()
 	{
+		//BG切替
+		m_bg->SetValid ( m_bBg );
+
 		( * m_itItem )->Do ();
 	}
 
@@ -173,6 +177,20 @@ namespace GAME
 
 		m_itItem = mvp_MenuItem.begin ();
 		m_itItem += n;
+	}
+
+
+	//On/Off
+	void Menu::Off ()
+	{
+		m_bg->SetValid ( F );
+		MenuItem::Off ();
+	}
+
+	void Menu::On ()
+	{
+		m_bg->SetValid ( T );
+		MenuItem::On ();
 	}
 
 	void Menu::AllOff ()
@@ -227,6 +245,19 @@ namespace GAME
 		for ( P_MenuItem p : mvp_MenuItem )
 		{
 			p->UpdatePos ( v );
+		}
+	}
+
+	void Menu::SetBG_use ( bool b )
+	{
+		m_bg->SetValid ( b );
+		m_bBg = b;
+
+		if ( ! b )
+		{
+			m_bg->SetColor  ( _CLR ( 0x00000000 ) );
+			m_bg->SetSize ( 0, 0 );
+			m_bg->SetPos ( 0, 0 );
 		}
 	}
 

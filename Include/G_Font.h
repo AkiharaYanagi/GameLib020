@@ -59,6 +59,7 @@ namespace GAME
 	};
 
 #define	G_FONT_DRAW		G_Font::Inst()->Draw
+#define	G_FONT_DRAW_MENU		G_Font::Inst()->DrawMenuStr
 
 
 }	//namespace GAME

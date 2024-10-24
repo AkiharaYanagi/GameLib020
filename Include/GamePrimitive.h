@@ -36,12 +36,18 @@ namespace GAME
 		void SetRect ( const s3d::Rect rect ) { m_rect.set( rect ); }
 		void SetRect ( int32 x, int32 y, int32 w, int32 h ) { m_rect.set( x, y, w, h ); }
 		
-		void SetPos ( int32 x, int32 y ) { m_rect.setPos ( s3d::Point ( x, y ) ); }
 		void SetPos ( const s3d::Rect::position_type pos ) { m_rect.setPos ( pos ); }
+		void SetPos ( int32 x, int32 y ) { m_rect.setPos ( s3d::Point ( x, y ) ); }
+		void SetPos ( VEC2 vec );
 		s3d::Point GetPos () const { return m_rect.pos; }
 
 		void SetSize ( const s3d::Rect::size_type size ) { m_rect.setSize ( size ); }
+		void SetSize ( int32 w, int32 h );
+		void SetSize ( VEC2 vec );
+		VEC2 GetSize () const { return VEC2 ( (float)m_rect.w, (float)m_rect.h ); }
+
 		void SetColor ( const s3d::ColorF color );
+		void SetColor ( const _CLR color );
 
 		void SetZero () { m_rect.set( 0, 0, 0, 0 ); }
 	};

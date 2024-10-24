@@ -55,7 +55,14 @@ namespace GAME
 
 	void GameGraphicString::_Draw ()
 	{
-		G_FONT_DRAW ( m_size, m_str, m_pos.x, m_pos.y, m_colorF );
+		if ( m_bMenu )
+		{
+			G_FONT_DRAW_MENU ( m_str, m_pos.x, m_pos.y );
+		}
+		else
+		{
+			G_FONT_DRAW ( m_size, m_str, m_pos.x, m_pos.y, m_colorF );
+		}
 	}
 
 	void GameGraphicString::SetPos ( VEC2 v )

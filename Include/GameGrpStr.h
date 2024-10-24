@@ -29,6 +29,7 @@ namespace GAME
 		s3d::ColorF	m_colorF { 1.f, 1.f, 1.f, 1.f };
 
 		G_Font::FONT_SIZE		m_size;
+		bool		m_bMenu { F };		//メニュ分岐
 
 	public:
 		GameGraphicString ();
@@ -43,6 +44,8 @@ namespace GAME
 		void SetPos ( float x, float y ) { m_pos.x = x; m_pos.y = y; }
 		void SetStr ( s3d::String str );
 		void SetColorF ( s3d::ColorF clrf );
+
+		void SetbMenu ( bool b ) { m_bMenu = b; }
 	};
 
 	using GrpStr = GameGraphicString;
