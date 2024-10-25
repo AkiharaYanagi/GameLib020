@@ -67,6 +67,7 @@ namespace GAME
 		m_bg->SetSize ( s3d::Point { 500, 300 } );
 		m_bg->SetColor ( s3d::ColorF { 0, 0, 0, 0.5 } );
 		m_bg->SetZ ( Z_MENU );
+		m_bg->SetValid ( F );
 		GRPLST_INSERT ( m_bg );
 	}
 
@@ -131,9 +132,6 @@ namespace GAME
 	
 	void Menu::Do ()
 	{
-		//BG切替
-		m_bg->SetValid ( m_bBg );
-
 		( * m_itItem )->Do ();
 	}
 
@@ -259,6 +257,16 @@ namespace GAME
 			m_bg->SetSize ( 0, 0 );
 			m_bg->SetPos ( 0, 0 );
 		}
+	}
+
+	void Menu::SetBG_Z ( float z )
+	{
+		m_bg->SetZ ( z );
+
+		//Z値変更のため、再度グラフィックリストで位置を調整する
+		//Zが同値で順番を指定しているときに再指定のために位置がずれることに注意
+		GRPLST_REMOVE ( m_bg );
+		GRPLST_INSERT ( m_bg );
 	}
 
 

@@ -35,7 +35,8 @@ namespace GAME
 		m_renderTx = std::make_unique < s3d::RenderTexture > ( 1280, 960 );
 		m_psTx = std::make_unique < s3d::RenderTexture > ( 1280, 960 );
 //		m_ps_screen = std::make_shared < s3d::PixelShader > ( HLSL { Resource(U"ScreenBlend.hlsl"), U"PS" } );
-		m_ps_screen = std::make_shared < s3d::PixelShader > ( HLSL { U"ScreenBlend.hlsl", U"PS" } );
+//		m_ps_screen = std::make_shared < s3d::PixelShader > ( HLSL { U"ScreenBlend.hlsl", U"PS" } );
+		m_ps_screen = std::make_shared < s3d::PixelShader > ( HLSL { U"ScreenBlend.ps" } );
 		m_outTx = std::make_unique < s3d::RenderTexture > ( 1280, 960 );
 	}
 

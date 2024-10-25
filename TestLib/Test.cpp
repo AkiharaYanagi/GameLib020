@@ -96,6 +96,16 @@ namespace GAME
 		DBGOUT_WND_ON ();
 
 //		m_testAdi = s3d::Audio { U"BGM//00_BGM_GABA.wav" };
+
+
+		//hlslコンパイル
+		if ( not Platform::Windows::CompileHLSLToFile(
+			 U"ScreenBlend.hlsl"
+			,U"ScreenBlend.ps"
+			,s3d::ShaderStage::Pixel, U"PS" ) )
+		{
+			throw s3d::Error { U"" };
+		}
 	}
 
 	Test::~Test ()
