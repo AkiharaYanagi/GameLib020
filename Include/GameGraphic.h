@@ -79,6 +79,9 @@ namespace GAME
 
 		void SetPos ( VEC2 v ) { mpap_Object->at ( 0 )->SetPos ( v ); }
 		void SetPos ( float x, float y ) { mpap_Object->at ( 0 )->SetPos ( x, y ); }
+		void SetPosX ( float x ) {  mpap_Object->at ( 0 )->SetPosX ( x ); }
+		void SetPosY ( float y ) {  mpap_Object->at ( 0 )->SetPosY ( y ); }
+
 		VEC2 GetPos () const { return mpap_Object->at ( 0 )->GetPos (); }
 		void AddPos ( VEC2 v ) { mpap_Object->at ( 0 )->AddPos ( v ); }
 

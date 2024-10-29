@@ -275,6 +275,11 @@ namespace GAME
 	void _SoundArchiver::Play ( const s3d::String & filename )
 	{
 		if ( ! mhst_adi.contains ( filename ) ) { return; }
+
+
+		double volume = mhst_adi [ filename ]->getVolume ();
+
+
 		mhst_adi [ filename ]->setLoop ( F );
 		mhst_adi [ filename ]->play ();
 		m_bPlay = T;
@@ -283,6 +288,11 @@ namespace GAME
 	//ループ再生
 	void _SoundArchiver::Play_Loop ( uint32 id )
 	{
+
+
+		double volume = map_adi [ id ]->getVolume ();
+
+
 		map_adi [ id ]->setLoop ( T );
 		map_adi [ id ]->play ();
 		m_bPlay = T;
@@ -290,8 +300,14 @@ namespace GAME
 	void _SoundArchiver::Play_Loop ( const s3d::String & filename )
 	{
 		if ( ! mhst_adi.contains ( filename ) ) { return; }
-		mhst_adi [ filename ]->setLoop ( T );
-		mhst_adi [ filename ]->play ();
+
+
+		double volume = mhst_adi [ filename ]->getVolume ();
+
+
+		P_Adi pAdi = mhst_adi [ filename ];
+		pAdi->setLoop ( T );
+		pAdi->play ();
 		m_bPlay = T;
 	}
 

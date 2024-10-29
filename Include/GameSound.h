@@ -74,6 +74,7 @@ namespace GAME
 		void StopBGM ( uint32 id ) { m_bgm.Stop ( id ); }
 		void StopBGM ( const s3d::String & filename ) { m_bgm.Stop ( filename ); }
 		void Stop_All_BGM () { m_bgm.Stop_All (); }
+		void SetVolume_BGM ( double vol );
 
 
 		void PlaySE ( uint32 id ) { m_se.Play ( id ); }
@@ -83,6 +84,7 @@ namespace GAME
 		void StopSE ( uint32 id ) { m_se.Stop ( id ); }
 		void StopSE ( const s3d::String & filename ) { m_se.Stop ( filename ); }
 		void Stop_All_SE () { m_se.Stop_All (); }
+		void SetVolume_SE ( double vol );
 
 		void PlayVC ( uint32 id ) { m_vc.Play ( id ); }
 		void PlayVC ( const s3d::String & filename ) { m_vc.Play ( filename ); }
@@ -91,6 +93,7 @@ namespace GAME
 		void StopVC ( uint32 id ) { m_vc.Stop ( id ); }
 		void StopVC ( const s3d::String & filename ) { m_vc.Stop ( filename ); }
 		void Stop_All_VC () { m_vc.Stop_All (); }
+		void SetVolume_VC ( double vol );
 
 
 		void SetVolume ( double vol );

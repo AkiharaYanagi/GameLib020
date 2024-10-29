@@ -71,6 +71,21 @@ namespace GAME
 		m_vc.Open ();
 	}
 
+	void GameSound::SetVolume_BGM ( double vol )
+	{
+		m_bgm.SetVolume ( vol );
+	}
+
+	void GameSound::SetVolume_SE ( double vol )
+	{
+		m_se.SetVolume ( vol );
+	}
+
+	void GameSound::SetVolume_VC ( double vol )
+	{
+		m_vc.SetVolume ( vol );
+	}
+
 	void GameSound::SetVolume ( double vol )
 	{
 		m_bgm.SetVolume ( vol );

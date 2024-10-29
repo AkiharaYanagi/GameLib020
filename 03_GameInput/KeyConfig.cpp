@@ -84,6 +84,7 @@ namespace GAME
 	}
 
 
+	//----------------------------------------------------------------------------------
 	//ゲーム利用 (1p/2p共通)
 	bool KeyConfig::IsKey_12 ( PLAYER_INPUT key ) const
 	{
@@ -111,6 +112,33 @@ namespace GAME
 		GAME_USE_KEY key1p = InputFromPlayer ( PLAYER_ID_1, key );
 		GAME_USE_KEY key2p = InputFromPlayer ( PLAYER_ID_2, key );
 		return ReleKey ( key1p ) || ReleKey ( key2p );
+	}
+
+
+	//----------------------------------------------------------------------------------
+	//ゲーム利用 (引数で1p/2pを指定)
+	bool KeyConfig::IsKey_PL ( PLAYER_ID id, PLAYER_INPUT key ) const
+	{
+		GAME_USE_KEY use_key = InputFromPlayer ( id, key );
+		return IsKey ( use_key );
+	}
+
+	bool KeyConfig::OffKey_PL ( PLAYER_ID id, PLAYER_INPUT key ) const
+	{
+		GAME_USE_KEY use_key = InputFromPlayer ( id, key );
+		return OffKey ( use_key );
+	}
+
+	bool KeyConfig::PushKey_PL ( PLAYER_ID id, PLAYER_INPUT key ) const
+	{
+		GAME_USE_KEY use_key = InputFromPlayer ( id, key );
+		return PushKey ( use_key );
+	}
+
+	bool KeyConfig::ReleKey_PL ( PLAYER_ID id, PLAYER_INPUT key ) const
+	{
+		GAME_USE_KEY use_key = InputFromPlayer ( id, key );
+		return ReleKey ( use_key );
 	}
 
 
@@ -419,7 +447,6 @@ namespace GAME
 		{
 		case PIT_AXIS: return Push_Axis_Lvr ( id, ji.GetLever () ); break;
 		case PIT_POINT_OF_VIEW: return Push_POV_Lvr ( id, ji.GetLever () ); break;
-//		case PIT_BUTTON: return DXINP->PushJoyButton ( id, ji.GetButtonID () ); break;
 		case PIT_BUTTON: return SVINP->PushJoyButton ( id, ji.GetButtonID () ); break;
 		}
 		return false;
