@@ -57,10 +57,12 @@ namespace GAME
 	{
 		if ( m_bMenu )
 		{
+			//メニュ
 			G_FONT_DRAW_MENU ( m_str, m_pos.x, m_pos.y );
 		}
 		else
 		{
+			//通常フォント(サイズ指定)
 			G_FONT_DRAW ( m_size, m_str, m_pos.x, m_pos.y, m_colorF );
 		}
 	}
@@ -70,7 +72,7 @@ namespace GAME
 		m_pos = v;
 	}
 
-	void GameGraphicString::SetStr ( s3d::String str )
+	void GameGraphicString::SetStr ( const s3d::String & str )
 	{
 		m_str = str;
 	}

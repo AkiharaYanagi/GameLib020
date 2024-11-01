@@ -62,7 +62,7 @@ namespace GAME
 		void Load ();
 		void Draw ();
 
-		void DebugOutf ( DBGOUT_LINE line, s3d::String str );
+		void DebugOutf ( DBGOUT_LINE line, const s3d::String & str );
 
 
 		void On ();

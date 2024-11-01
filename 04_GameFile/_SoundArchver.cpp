@@ -319,7 +319,7 @@ namespace GAME
 	{
 		if ( ! mhst_adi.contains ( filename ) ) { return; }
 
-
+#if 0
 		TRACE_F ( _T("■■■　SND: Volume\n") );
 		for ( auto it = mhst_adi.begin (); it != mhst_adi.end (); ++ it )
 		{
@@ -331,6 +331,7 @@ namespace GAME
 			TRACE_F ( _T("%lf, ") , pAdi->getVolume () );
 		}
 		TRACE_F ( _T("\n■■■\n") );
+#endif // 0
 
 #if 0
 		double volume = mhst_adi [ filename ]->getVolume ();
