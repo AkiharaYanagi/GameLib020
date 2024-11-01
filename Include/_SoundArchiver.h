@@ -54,8 +54,11 @@ namespace GAME
 
 		uint32		m_nFile { 0 };	//ファイル個数
 
+#if 0
 		// DSBVOLUME_MAX : 減衰無し(0), DSBVOLUME_MIN : 最小値(-10000) [1/100dB]
-		LONG		m_volume { 0 };		//全体ボリューム
+//		LONG		m_volume { 0 };		//全体ボリューム
+#endif // 0
+		double		m_volume { 0.5 };	//音量（保存用）
 
 		bool		m_bPlay { F };	//すでにプレイ中かどうか
 
@@ -78,6 +81,11 @@ namespace GAME
 		void Stop ( uint32 id );
 		void Stop ( const s3d::String & filename );
 		void Stop_All ();
+
+		bool IsPlaying ( uint32 id ) { return map_adi [ id ]->isPlaying (); }
+		bool IsPlaying ( const s3d::String & filename );
+
+
 #if 0
 
 		//------------------------------------------------------------------

@@ -120,9 +120,12 @@ namespace GAME
 
 //		SND_PLAY_BGM ( 0 );
 //		SND_PLAY_BGM ( s3d::String ( U"00_BGM_GABA.wav" ) );
-		SND_PLAY_BGM ( s3d::String ( U"10_BGM_Title.wav" ) );
+		SND_PLAY_LOOP_BGM ( s3d::String ( U"10_BGM_Title.wav" ) );
 
-		SND()->Test ();
+//		SND()->Test ();
+
+		SND_STOP_ALL_BGM ();
+
 
 
 //		m_testAdi.play ();
@@ -153,6 +156,19 @@ namespace GAME
 		s3d::String di_str = di.ToString ();
 		DBGOUT_WND_F ( DBGOUT_1, di_str );
 //		DBGOUT_WND_F ( DBGOUT_1, U"test" );
+
+
+		if ( CFG_PUSH_KEY_12 ( PLY_BTN0 ) )
+		{
+			SND_PLAY_LOOP_BGM ( s3d::String ( U"10_BGM_Title.wav" ) );
+		}
+
+
+		if ( CFG_PUSH_KEY_12 ( PLY_BTN1 ) )
+		{
+			SND_STOP_ALL_BGM ();
+		}
+
 
 		TASK_VEC::Move ();
 	}

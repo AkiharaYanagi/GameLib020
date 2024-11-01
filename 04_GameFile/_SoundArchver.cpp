@@ -268,6 +268,8 @@ namespace GAME
 	//再生
 	void _SoundArchiver::Play ( uint32 id )
 	{
+		map_adi [ id ]->setVolume ( m_volume );
+
 		map_adi [ id ]->setLoop ( F );
 		map_adi [ id ]->play ();
 		m_bPlay = T;
@@ -276,9 +278,24 @@ namespace GAME
 	{
 		if ( ! mhst_adi.contains ( filename ) ) { return; }
 
+#if 0
+
+		TRACE_F ( _T("■■■　SND: Volume\n") );
+		for ( auto it = mhst_adi.begin (); it != mhst_adi.end (); ++ it )
+		{
+			TRACE_F ( _T("%d, ") , it->second->getVolume () );
+		}
+		for ( P_Adi pAdi : map_adi )
+		{
+			TRACE_F ( _T("%d, ") , pAdi->getVolume () );
+		}
+		TRACE_F ( _T("■■■\n") );
 
 		double volume = mhst_adi [ filename ]->getVolume ();
 
+#endif // 0
+
+		mhst_adi [ filename ]->setVolume ( m_volume );
 
 		mhst_adi [ filename ]->setLoop ( F );
 		mhst_adi [ filename ]->play ();
@@ -292,6 +309,7 @@ namespace GAME
 
 		double volume = map_adi [ id ]->getVolume ();
 
+		map_adi [ id ]->setVolume ( m_volume );
 
 		map_adi [ id ]->setLoop ( T );
 		map_adi [ id ]->play ();
@@ -302,7 +320,24 @@ namespace GAME
 		if ( ! mhst_adi.contains ( filename ) ) { return; }
 
 
+		TRACE_F ( _T("■■■　SND: Volume\n") );
+		for ( auto it = mhst_adi.begin (); it != mhst_adi.end (); ++ it )
+		{
+			TRACE_F ( _T("■%s:%lf, ") , it->first.toWstr().c_str(), it->second->getVolume () );
+		}
+		TRACE_F ( _T("\n") );
+		for ( P_Adi pAdi : map_adi )
+		{
+			TRACE_F ( _T("%lf, ") , pAdi->getVolume () );
+		}
+		TRACE_F ( _T("\n■■■\n") );
+
+#if 0
 		double volume = mhst_adi [ filename ]->getVolume ();
+#endif // 0
+
+
+		mhst_adi [ filename ]->setVolume ( m_volume );
 
 
 		P_Adi pAdi = mhst_adi [ filename ];
@@ -342,8 +377,67 @@ namespace GAME
 	{
 		for ( P_Adi pAdi : map_adi )
 		{
+			//@info s3d::Audioをstop()するとVolumeが1.0にリセットされる
 			pAdi->stop ();
 		}
+
+
+
+#if 0
+		TRACE_F ( _T("■■■　SND: Volume\n") );
+		for ( auto it = mhst_adi.begin (); it != mhst_adi.end (); ++ it )
+		{
+			TRACE_F ( _T("■%s:%lf, ") , it->first.toWstr().c_str(), it->second->getVolume () );
+		}
+		TRACE_F ( _T("\n") );
+		for ( P_Adi pAdi : map_adi )
+		{
+			TRACE_F ( _T("%lf, ") , pAdi->getVolume () );
+		}
+		TRACE_F ( _T("\n■■■\n") );
+#endif // 0
+
+
+
+#if 0
+
+		for ( P_Adi pAdi : map_adi )
+		{
+			for ( auto it = mhst_adi.begin (); it != mhst_adi.end (); ++ it )
+			{
+				if ( it->second == pAdi )
+				{
+					TRACE_F ( _T("■%s:") , it->first.toWstr().c_str() );
+					break;
+				}
+			}
+			TRACE_F ( _T("%lf, ->") , pAdi->getVolume () );
+
+
+			//@info s3d::Audioをstop()するとVolumeが1.0にリセットされる
+			pAdi->stop ();
+
+
+			TRACE_F ( _T(" stop() ->%lf, \n") , pAdi->getVolume () );
+		}
+
+#endif // 0
+
+
+#if 0
+		TRACE_F ( _T("■■■　SND: Volume\n") );
+		for ( auto it = mhst_adi.begin (); it != mhst_adi.end (); ++ it )
+		{
+			TRACE_F ( _T("■%s:%lf, ") , it->first.toWstr().c_str(), it->second->getVolume () );
+		}
+		TRACE_F ( _T("\n") );
+		for ( P_Adi pAdi : map_adi )
+		{
+			TRACE_F ( _T("%lf, ") , pAdi->getVolume () );
+		}
+		TRACE_F ( _T("\n■■■\n") );
+#endif // 0
+
 	}
 
 
@@ -403,12 +497,23 @@ namespace GAME
 			audio.setVolume ( volume );
 		}
 #endif // 0
+
+		//stopするとvolumeがリセットされるので
+		//値を保存しておいてPlay前に再設定する
+		m_volume = volume;
+
 		for ( P_Adi pAdi : map_adi )
 		{
 			pAdi->setVolume ( volume );
 		}
 	}
 
+
+	bool _SoundArchiver::IsPlaying ( const s3d::String & filename )
+	{
+		if ( ! mhst_adi.contains ( filename ) ) { return F; }
+		return mhst_adi [ filename ]->isPlaying ();
+	}
 
 
 	void _SoundArchiver::Test ()

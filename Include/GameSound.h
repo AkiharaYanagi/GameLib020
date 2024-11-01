@@ -75,6 +75,8 @@ namespace GAME
 		void StopBGM ( const s3d::String & filename ) { m_bgm.Stop ( filename ); }
 		void Stop_All_BGM () { m_bgm.Stop_All (); }
 		void SetVolume_BGM ( double vol );
+		bool IsPlayBGM ( uint32 id ) { return m_bgm.IsPlaying ( id ); }
+		bool IsPlayBGM ( const s3d::String & filename ) { return m_bgm.IsPlaying ( filename ); }
 
 
 		void PlaySE ( uint32 id ) { m_se.Play ( id ); }
