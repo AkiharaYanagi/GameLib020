@@ -305,16 +305,14 @@ namespace GAME
 	//ループ再生
 	void _SoundArchiver::Play_Loop ( uint32 id )
 	{
-
-
-		double volume = map_adi [ id ]->getVolume ();
+		m_volume = map_adi [ id ]->getVolume ();
 
 		map_adi [ id ]->setVolume ( m_volume );
-
 		map_adi [ id ]->setLoop ( T );
 		map_adi [ id ]->play ();
 		m_bPlay = T;
 	}
+
 	void _SoundArchiver::Play_Loop ( const s3d::String & filename )
 	{
 		if ( ! mhst_adi.contains ( filename ) ) { return; }
@@ -333,13 +331,8 @@ namespace GAME
 		TRACE_F ( _T("\n■■■\n") );
 #endif // 0
 
-#if 0
-		double volume = mhst_adi [ filename ]->getVolume ();
-#endif // 0
-
 
 		mhst_adi [ filename ]->setVolume ( m_volume );
-
 
 		P_Adi pAdi = mhst_adi [ filename ];
 		pAdi->setLoop ( T );
