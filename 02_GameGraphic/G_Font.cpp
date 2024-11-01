@@ -49,7 +49,7 @@ namespace GAME
 			break;
 
 		case SIZE_30:
-			m_font_30 ( str ).draw ( x, y, clr );
+			Draw_30 ( str, x, y, clr );
 			break;
 
 		case SIZE_40:

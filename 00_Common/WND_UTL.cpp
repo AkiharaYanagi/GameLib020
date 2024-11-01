@@ -40,13 +40,15 @@ namespace GAME
 		s3d::Window::SetPos ( pt );
 	}
 
-	void WND_UTL::MoveWindow_toCenter_onCursor ()
+	void WND_UTL::MoveWindow_toCenter_onCursor ( int32 width, int32 height )
 	{
 		//ウィンドウサイズ
-		//	s3d::Window::Resize ( 1600, 900 );
-		int32 wnd_w = 1728;
-		int32 wnd_h = 972;
 		//16:9 で(1280,960)が入るサイズ
+		//	s3d::Window::Resize ( 1728, 972 );
+
+		//外部指定
+		int32 wnd_w = width;
+		int32 wnd_h = height;
 
 		//マウス位置にウィンドウを移動
 		s3d::Point pt = s3d::Cursor::Pos () ;

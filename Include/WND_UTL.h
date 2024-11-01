@@ -30,7 +30,7 @@ namespace GAME
 		static void MoveWindow_toCursor ();
 
 		//カーソル位置があるモニタの中心に移動
-		static void MoveWindow_toCenter_onCursor ();
+		static void MoveWindow_toCenter_onCursor ( int32 width, int32 height );
 	};
 
 
