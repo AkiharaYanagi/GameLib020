@@ -49,6 +49,8 @@ namespace GAME
 		//状態の記録
 		void Store();
 
+		const GMPD & GetPadState () const { return m_gamepad.GetState (); }
+
 		//---------------------------------------------------------------------------
 		//キーコンフィグ用
 		//いずれかが押されていたら優先順で返す

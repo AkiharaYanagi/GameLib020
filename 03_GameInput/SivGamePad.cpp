@@ -127,6 +127,12 @@ namespace GAME
 	}
 
 
+	const GMPD & SivGamePad::GetState () const 
+	{
+		return m_impl [ 0 ];
+	}
+
+
 	//---------------------------------------------------------------------------
 	//キーコンフィグ用
 	//いずれかが押されていたら優先順で返す
@@ -244,13 +250,34 @@ namespace GAME
 		return  m_impl[id].axes[AXIS_Z];
 	}
 
-	//Axis:押した状態の判定
-	bool SivGamePad::IsAxisUp	( size_t id ) const { return ( m_impl[id].axes[AXIS_Y] <= -500 );}
-	bool SivGamePad::IsAxisDown	( size_t id ) const { return ( m_impl[id].axes[AXIS_Y] >=  500 ); }
-	bool SivGamePad::IsAxisLeft	( size_t id ) const { return ( m_impl[id].axes[AXIS_X] <= -500 ); }
-	bool SivGamePad::IsAxisRight( size_t id ) const { return ( m_impl[id].axes[AXIS_X] >=  500 ); }
+	//Axis:押した状態の判定 ( -1 < double < 1 )
+	bool SivGamePad::IsAxisY_Plus	( size_t id ) const
+	{
+		return ( m_impl[id].axes[AXIS_Y] <= -0.500 );
+	}
+	bool SivGamePad::IsAxisY_Minus	( size_t id ) const
+	{
+		return ( m_impl[id].axes[AXIS_Y] >= +0.500 );
+	}
+	bool SivGamePad::IsAxisX_Minus	( size_t id ) const
+	{
+		return ( m_impl[id].axes[AXIS_X] <= -0.500 );
+	}
+	bool SivGamePad::IsAxisX_Plus( size_t id ) const
+	{
+		return ( m_impl[id].axes[AXIS_X] >= +0.500 );
+	}
+	bool SivGamePad::IsAxisZ_Minus	( size_t id ) const
+	{
+		return ( m_impl[id].axes[AXIS_Z] <= -0.500 );
+	}
+	bool SivGamePad::IsAxisZ_Plus( size_t id ) const
+	{
+		return ( m_impl[id].axes[AXIS_Z] >= +0.500 );
+	}
 
 	//前フレームの状態
+#if 0
 	bool SivGamePad::WasAxisUp		( size_t id ) const
 	{
 		if ( id < 0 || detail::Gamepad_helper::MaxPlayerCount <= id ) { return F; }
@@ -271,6 +298,31 @@ namespace GAME
 		if ( id < 0 || detail::Gamepad_helper::MaxPlayerCount <= id ) { return F; }
 		return m_pre_store[id].WasAxisRight ();
 	}
+#endif // 0
+		bool SivGamePad::WasAxisY_Minus	( size_t id ) const
+		{
+			return m_pre_store[id].WasAxisY_Minus ();
+		}
+		bool SivGamePad::WasAxisY_Plus	( size_t id ) const
+		{
+			return m_pre_store[id].WasAxisY_Plus ();
+		}
+		bool SivGamePad::WasAxisX_Minus	( size_t id ) const
+		{
+			return m_pre_store[id].WasAxisX_Minus ();
+		}
+		bool SivGamePad::WasAxisX_Plus	( size_t id ) const
+		{
+			return m_pre_store[id].WasAxisX_Plus ();
+		}
+		bool SivGamePad::WasAxisZ_Minus	( size_t id ) const
+		{
+			return m_pre_store[id].WasAxisZ_Minus ();
+		}
+		bool SivGamePad::WasAxisZ_Plus	( size_t id ) const
+		{
+			return m_pre_store[id].WasAxisZ_Plus ();
+		}
 
 
 	//--------------------------------------------------------------
