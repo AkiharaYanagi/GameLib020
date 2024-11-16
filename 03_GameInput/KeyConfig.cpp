@@ -352,22 +352,24 @@ namespace GAME
 		PAD_INPUT_TYPE type = ji.GetInputType ();
 		switch ( type )
 		{
-		case PIT_AXIS: return Is_Axis_Lvr ( id, ji.GetLever () ); break;
+		case PIT_AXIS: return Is_Axis_Vl ( id, ji.GetAxis () ); break;
 		case PIT_POINT_OF_VIEW: return Is_POV_Lvr ( id, ji.GetLever () ); break;
 		case PIT_BUTTON: return SVINP->IsJoyButton ( id, ji.GetButtonID () ); break;
 		}
 		return false;
 	}
 
-	bool KeyConfig::Is_Axis_Lvr ( uint32 ID, LEVER_DIR lvr ) const
+	bool KeyConfig::Is_Axis_Vl ( uint32 ID, AXIS_VALUE vl ) const
 	{
 		bool ret = false;
-		switch ( lvr )
+		switch ( vl )
 		{
-		case LEVER_DIR::LVR_UP:		ret = SVINP->IsAxisUp ( ID );		break;
-		case LEVER_DIR::LVR_DOWN:	ret = SVINP->IsAxisDown ( ID );		break;
-		case LEVER_DIR::LVR_LEFT:	ret = SVINP->IsAxisLeft ( ID );		break;
-		case LEVER_DIR::LVR_RIGHT:	ret = SVINP->IsAxisRight ( ID );	break;
+		case AXIS_VALUE::AXIS_X_P:	ret = SVINP->IsAxisX_Plus ( ID );	break;
+		case AXIS_VALUE::AXIS_X_M:	ret = SVINP->IsAxisX_Minus ( ID );	break;
+		case AXIS_VALUE::AXIS_Y_P:	ret = SVINP->IsAxisY_Plus ( ID );	break;
+		case AXIS_VALUE::AXIS_Y_M:	ret = SVINP->IsAxisY_Minus ( ID );	break;
+		case AXIS_VALUE::AXIS_Z_P:	ret = SVINP->IsAxisZ_Plus ( ID );	break;
+		case AXIS_VALUE::AXIS_Z_M:	ret = SVINP->IsAxisZ_Minus ( ID );	break;
 		}
 		return ret;
 	}
@@ -399,22 +401,24 @@ namespace GAME
 		PAD_INPUT_TYPE type = ji.GetInputType ();
 		switch ( type )
 		{
-		case PIT_AXIS: return Push_Axis_Lvr ( id, ji.GetLever () ); break;
+		case PIT_AXIS: return Push_Axis_Vl ( id, ji.GetAxis () ); break;
 		case PIT_POINT_OF_VIEW: return Push_POV_Lvr ( id, ji.GetLever () ); break;
 		case PIT_BUTTON: return SVINP->PushJoyButton ( id, ji.GetButtonID () ); break;
 		}
 		return false;
 	}
 
-	bool KeyConfig::Push_Axis_Lvr ( uint32 ID, LEVER_DIR lvr ) const
+	bool KeyConfig::Push_Axis_Vl ( uint32 ID, AXIS_VALUE vl ) const
 	{
 		bool ret = false;
-		switch ( lvr )
+		switch ( vl )
 		{
-		case LEVER_DIR::LVR_UP:		ret = SVINP->PushAxisUp ( ID );		break;
-		case LEVER_DIR::LVR_DOWN:	ret = SVINP->PushAxisDown ( ID );		break;
-		case LEVER_DIR::LVR_LEFT:	ret = SVINP->PushAxisLeft ( ID );		break;
-		case LEVER_DIR::LVR_RIGHT:	ret = SVINP->PushAxisRight ( ID );	break;
+		case AXIS_VALUE::AXIS_X_P:	ret = SVINP->PushAxisX_Plus ( ID );	break;
+		case AXIS_VALUE::AXIS_X_M:	ret = SVINP->PushAxisX_Minus ( ID );	break;
+		case AXIS_VALUE::AXIS_Y_P:	ret = SVINP->PushAxisY_Plus ( ID );	break;
+		case AXIS_VALUE::AXIS_Y_M:	ret = SVINP->PushAxisY_Minus ( ID );	break;
+		case AXIS_VALUE::AXIS_Z_P:	ret = SVINP->PushAxisZ_Plus ( ID );	break;
+		case AXIS_VALUE::AXIS_Z_M:	ret = SVINP->PushAxisZ_Minus ( ID );	break;
 		}
 		return ret;
 	}
@@ -445,22 +449,24 @@ namespace GAME
 		PAD_INPUT_TYPE type = ji.GetInputType ();
 		switch ( type )
 		{
-		case PIT_AXIS: return Push_Axis_Lvr ( id, ji.GetLever () ); break;
-		case PIT_POINT_OF_VIEW: return Push_POV_Lvr ( id, ji.GetLever () ); break;
-		case PIT_BUTTON: return SVINP->PushJoyButton ( id, ji.GetButtonID () ); break;
+		case PIT_AXIS: return Rele_Axis_Vl ( id, ji.GetAxis () ); break;
+		case PIT_POINT_OF_VIEW: return Rele_POV_Lvr ( id, ji.GetLever () ); break;
+		case PIT_BUTTON: return SVINP->ReleJoyButton ( id, ji.GetButtonID () ); break;
 		}
 		return false;
 	}
 
-	bool KeyConfig::Rele_Axis_Lvr ( uint32 ID, LEVER_DIR lvr ) const
+	bool KeyConfig::Rele_Axis_Vl ( uint32 ID, AXIS_VALUE vl ) const
 	{
 		bool ret = false;
-		switch ( lvr )
+		switch ( vl )
 		{
-		case LEVER_DIR::LVR_UP:		ret = SVINP->ReleAxisUp ( ID );		break;
-		case LEVER_DIR::LVR_DOWN:	ret = SVINP->ReleAxisDown ( ID );		break;
-		case LEVER_DIR::LVR_LEFT:	ret = SVINP->ReleAxisLeft ( ID );		break;
-		case LEVER_DIR::LVR_RIGHT:	ret = SVINP->ReleAxisRight ( ID );	break;
+		case AXIS_VALUE::AXIS_X_P:	ret = SVINP->ReleAxisX_Plus ( ID );	break;
+		case AXIS_VALUE::AXIS_X_M:	ret = SVINP->ReleAxisX_Minus ( ID );	break;
+		case AXIS_VALUE::AXIS_Y_P:	ret = SVINP->ReleAxisY_Plus ( ID );	break;
+		case AXIS_VALUE::AXIS_Y_M:	ret = SVINP->ReleAxisY_Minus ( ID );	break;
+		case AXIS_VALUE::AXIS_Z_P:	ret = SVINP->ReleAxisZ_Plus ( ID );	break;
+		case AXIS_VALUE::AXIS_Z_M:	ret = SVINP->ReleAxisZ_Minus ( ID );	break;
 		}
 		return ret;
 	}

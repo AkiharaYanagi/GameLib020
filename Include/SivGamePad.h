@@ -127,11 +127,11 @@ namespace GAME
 		double GetJoyAxisY( size_t id ) const;
 		double GetJoyAxisZ( size_t id ) const;
 
-		//Axis:押した状態の判定
-		bool IsAxisY_Minus	( size_t id ) const;	//上
-		bool IsAxisY_Plus	( size_t id ) const;	//下
-		bool IsAxisX_Minus	( size_t id ) const;	//左
-		bool IsAxisX_Plus	( size_t id ) const;	//右
+		//Axis:状態の判定  ( -1.0 < double < 1.0 )
+		bool IsAxisY_Minus	( size_t id ) const;
+		bool IsAxisY_Plus	( size_t id ) const;
+		bool IsAxisX_Minus	( size_t id ) const;
+		bool IsAxisX_Plus	( size_t id ) const;
 		bool IsAxisZ_Minus	( size_t id ) const;
 		bool IsAxisZ_Plus	( size_t id ) const;
 
@@ -143,40 +143,28 @@ namespace GAME
 		bool WasAxisLeft	( size_t id ) const;
 		bool WasAxisRight	( size_t id ) const;
 #endif // 0
-		bool WasAxisY_Minus	( size_t id ) const;	//上
-		bool WasAxisY_Plus	( size_t id ) const;	//下
-		bool WasAxisX_Minus	( size_t id ) const;	//左
-		bool WasAxisX_Plus	( size_t id ) const;	//右
+		bool WasAxisY_Minus	( size_t id ) const;
+		bool WasAxisY_Plus	( size_t id ) const;
+		bool WasAxisX_Minus	( size_t id ) const;
+		bool WasAxisX_Plus	( size_t id ) const;
 		bool WasAxisZ_Minus	( size_t id ) const;
 		bool WasAxisZ_Plus	( size_t id ) const;
 
 
 		//押した瞬間の判定(前回off 今回on)
-#if 0
-		bool PushAxisUp		( size_t id ) const { return ( ! WasAxisUp(id)    && IsAxisUp(id)    ); }
-		bool PushAxisDown	( size_t id ) const { return ( ! WasAxisDown(id)  && IsAxisDown(id)  ); }
-		bool PushAxisLeft	( size_t id ) const { return ( ! WasAxisLeft(id)  && IsAxisLeft(id)  ); }
-		bool PushAxisRight	( size_t id ) const { return ( ! WasAxisRight(id) && IsAxisRight(id) ); }
-#endif // 0
-		bool PushAxisY_Minus	( size_t id ) const;	//上
-		bool PushAxisY_Plus		( size_t id ) const;	//下
-		bool PushAxisX_Minus	( size_t id ) const;	//左
-		bool PushAxisX_Plus		( size_t id ) const;	//右
+		bool PushAxisY_Minus	( size_t id ) const;
+		bool PushAxisY_Plus		( size_t id ) const;
+		bool PushAxisX_Minus	( size_t id ) const;
+		bool PushAxisX_Plus		( size_t id ) const;
 		bool PushAxisZ_Minus	( size_t id ) const;
 		bool PushAxisZ_Plus		( size_t id ) const;
 
 
 		//離した瞬間の判定(前回on 今回off)
-#if 0
-		bool ReleAxisUp   ( size_t id ) const { return ( WasAxisUp(id)    && ! IsAxisUp(id)    ); }
-		bool ReleAxisDown ( size_t id ) const { return ( WasAxisDown(id)  && ! IsAxisDown(id)  ); }
-		bool ReleAxisLeft ( size_t id ) const { return ( WasAxisLeft(id)  && ! IsAxisLeft(id)  ); }
-		bool ReleAxisRight( size_t id ) const { return ( WasAxisRight(id) && ! IsAxisRight(id) ); }
-#endif // 0
-		bool ReleAxisY_Minus	( size_t id ) const;	//上
-		bool ReleAxisY_Plus		( size_t id ) const;	//下
-		bool ReleAxisX_Minus	( size_t id ) const;	//左
-		bool ReleAxisX_Plus		( size_t id ) const;	//右
+		bool ReleAxisY_Minus	( size_t id ) const;
+		bool ReleAxisY_Plus		( size_t id ) const;
+		bool ReleAxisX_Minus	( size_t id ) const;
+		bool ReleAxisX_Plus		( size_t id ) const;
 		bool ReleAxisZ_Minus	( size_t id ) const;
 		bool ReleAxisZ_Plus		( size_t id ) const;
 
@@ -216,7 +204,7 @@ namespace GAME
 	private:
 		//内部関数
 		void SetGPI_POV ( GamePadInput& ret, uint32 pad_id, LEVER_DIR dir );
-		void SetGPI_Axis ( GamePadInput& ret, uint32 pad_id, LEVER_DIR dir );
+		void SetGPI_Axis ( GamePadInput& ret, uint32 pad_id, AXIS_VALUE dir );
 
 	};
 

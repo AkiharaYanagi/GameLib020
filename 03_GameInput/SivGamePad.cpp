@@ -168,11 +168,13 @@ namespace GAME
 			if ( gmpd.povLeft.down () )	 { SetGPI_POV ( ret, i, LVR_LEFT ); return ret;}
 			if ( gmpd.povRight.down () ) { SetGPI_POV ( ret, i, LVR_RIGHT ); return ret;}
 
-			//XY Axis
-			if ( PushAxisUp ( i ) )		{ SetGPI_Axis ( ret, i, LVR_UP ); return ret; }
-			if ( PushAxisDown ( i ) )	{ SetGPI_Axis ( ret, i, LVR_DOWN ); return ret; }
-			if ( PushAxisLeft ( i ) )	{ SetGPI_Axis ( ret, i, LVR_LEFT ); return ret; }
-			if ( PushAxisRight ( i ) )	{ SetGPI_Axis ( ret, i, LVR_RIGHT ); return ret; }
+			//XYZ Axis
+			if ( PushAxisX_Plus ( i ) )		{ SetGPI_Axis ( ret, i, AXIS_X_P ); return ret; }
+			if ( PushAxisX_Minus ( i ) )	{ SetGPI_Axis ( ret, i, AXIS_X_M ); return ret; }
+			if ( PushAxisY_Plus ( i ) )		{ SetGPI_Axis ( ret, i, AXIS_Y_P ); return ret; }
+			if ( PushAxisY_Minus ( i ) )	{ SetGPI_Axis ( ret, i, AXIS_Y_M ); return ret; }
+			if ( PushAxisZ_Plus ( i ) )		{ SetGPI_Axis ( ret, i, AXIS_Z_P ); return ret; }
+			if ( PushAxisZ_Minus ( i ) )	{ SetGPI_Axis ( ret, i, AXIS_Z_M ); return ret; }
 		}
 
 		return ret;
@@ -183,9 +185,9 @@ namespace GAME
 		ret.Set ( pad_id, PIT_POINT_OF_VIEW, 0, dir );
 	}
 
-	void SivGamePad::SetGPI_Axis ( GamePadInput & ret, uint32 pad_id, LEVER_DIR dir )
+	void SivGamePad::SetGPI_Axis ( GamePadInput & ret, uint32 pad_id, AXIS_VALUE axv )
 	{
-		ret.Set ( pad_id, PIT_AXIS, 0, dir );
+		ret.Set ( pad_id, PIT_AXIS, 0, axv );
 	}
 
 	//--------------------------------------------------------------
@@ -234,7 +236,7 @@ namespace GAME
 
 	//--------------------------------------------------------------
 	//軸
-	//軸の状態を返す
+	//軸の状態を返す ( -1.0 < double < 1.0 )
 	double SivGamePad::GetJoyAxisX( size_t id ) const
 	{
 		return  m_impl[id].axes[AXIS_X];
@@ -250,7 +252,7 @@ namespace GAME
 		return  m_impl[id].axes[AXIS_Z];
 	}
 
-	//Axis:押した状態の判定 ( -1 < double < 1 )
+	//Axis:状態の判定 ( -1.0 < double < 1.0 )
 	bool SivGamePad::IsAxisY_Plus	( size_t id ) const
 	{
 		return ( m_impl[id].axes[AXIS_Y] <= -0.500 );
@@ -322,6 +324,60 @@ namespace GAME
 		bool SivGamePad::WasAxisZ_Plus	( size_t id ) const
 		{
 			return m_pre_store[id].WasAxisZ_Plus ();
+		}
+
+
+		//押した瞬間の判定(前回off 今回on)
+		bool SivGamePad::PushAxisY_Minus ( size_t id ) const
+		{
+			return ( ! WasAxisY_Minus(id) && IsAxisY_Minus(id) );
+		}
+		bool SivGamePad::PushAxisY_Plus ( size_t id ) const
+		{
+			return ( ! WasAxisY_Plus(id) && IsAxisY_Plus(id) );
+		}
+		bool SivGamePad::PushAxisX_Minus ( size_t id ) const
+		{
+			return ( ! WasAxisX_Minus(id) && IsAxisX_Minus(id) );
+		}
+		bool SivGamePad::PushAxisX_Plus ( size_t id ) const
+		{
+			return ( ! WasAxisX_Plus(id) && IsAxisX_Plus(id) );
+		}
+		bool SivGamePad::PushAxisZ_Minus ( size_t id ) const
+		{
+			return ( ! WasAxisZ_Minus(id) && IsAxisZ_Minus(id) );
+		}
+		bool SivGamePad::PushAxisZ_Plus ( size_t id ) const
+		{
+			return ( ! WasAxisZ_Plus(id) && IsAxisZ_Plus(id) );
+		}
+
+
+		//離した瞬間の判定(前回on 今回off)
+		bool SivGamePad::ReleAxisY_Minus ( size_t id ) const
+		{
+			return ( WasAxisY_Minus(id) && ! IsAxisY_Minus(id) );
+		}
+		bool SivGamePad::ReleAxisY_Plus ( size_t id ) const
+		{
+			return ( WasAxisY_Plus(id) && ! IsAxisY_Plus(id) );
+		}
+		bool SivGamePad::ReleAxisX_Minus ( size_t id ) const
+		{
+			return ( WasAxisX_Minus(id) && ! IsAxisX_Minus(id) );
+		}
+		bool SivGamePad::ReleAxisX_Plus ( size_t id ) const
+		{
+			return ( WasAxisX_Plus(id) && ! IsAxisX_Plus(id) );
+		}
+		bool SivGamePad::ReleAxisZ_Minus ( size_t id ) const
+		{
+			return ( WasAxisZ_Minus(id) && ! IsAxisZ_Minus(id) );
+		}
+		bool SivGamePad::ReleAxisZ_Plus ( size_t id ) const
+		{
+			return ( WasAxisZ_Plus(id) && ! IsAxisZ_Plus(id) );
 		}
 
 

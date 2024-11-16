@@ -26,6 +26,16 @@ namespace GAME
 		m_type = type;
 		m_buttonID = btn_id;
 		m_lever = lvr;
+//		m_axis = axv;
+	}
+
+	void GamePadInput::Set ( uint32 pad_id, PAD_INPUT_TYPE type, uint32 btn_id, AXIS_VALUE axv )
+	{
+		m_gamepadID = pad_id;
+		m_type = type;
+		m_buttonID = btn_id;
+//		m_lever = lvr;
+		m_axis = axv;
 	}
 
 	s3d::String GamePadInput::ToString () const

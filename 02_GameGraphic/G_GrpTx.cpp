@@ -42,14 +42,38 @@ namespace GAME
 
 	void G_GrpTx::Draw ()
 	{
-		m_outTx->draw ();
+		//振動
+		//初期値０以外になっていたら振動開始
+		if ( m_vib != 0 )
+		{
+			m_vib = ( m_vib == VIB_N ) ? - VIB_N : + VIB_N;
+		}
+
+		//m_outTx->draw ( 0, 0 );
+		//m_outTx->draw ( m_vib, 100 );
+		m_outTx->draw ( m_vib, 0 );
 	}
 
 	void G_GrpTx::Clear ()
 	{
+		//何も描画しないときの背景色
 		m_outTx->clear ( s3d::Color ( 50, 50, 50, 255 ) );
+//		m_outTx->clear ( s3d::Color ( 50, 255, 50, 255 ) );
 	}
 
+
+	void G_GrpTx::VibOn ()
+	{
+		m_vib = VIB_N;
+	}
+
+	void G_GrpTx::VibOff ()
+	{
+		m_vib = 0;
+	}
+
+
+	const int32 G_GrpTx::VIB_N = 5;
 
 }	//namespace GAME
 
