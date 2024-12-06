@@ -231,10 +231,19 @@ namespace GAME
 		}
 	}
 
-	void GrpEf::Start ( VEC2 v, uint32 t )
+	void GrpEf::Start ( VEC2 v, uint32 time )
 	{
 		m_base = v;
-		m_tmr.Start ( t );
+		m_tmr.Start ( time );
+	}
+
+	void GrpEf::Start_Rnd ( VEC2 v, uint32 time, int32 rnd )
+	{
+		VEC2 rv = v;
+		rv.x += ( +rnd + s3d::RandomInt32() % 100 );
+		rv.y += ( -rnd + s3d::RandomInt32() % 100 );
+		m_base = rv;
+		m_tmr.Start ( time );
 	}
 
 }	//namespace GAME

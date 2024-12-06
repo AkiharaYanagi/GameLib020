@@ -143,6 +143,76 @@ namespace GAME
 	//フレーム毎動作
 	void GameSystem::Move ()
 	{
+//		Frame ();
+		_Move ();
+	}
+
+
+	void GameSystem::Frame ()
+	{
+		//----------------------------------------------
+		//時間計測
+		const double FPS = 60;
+		const double IDEAL_TIME = 1.0 / FPS;
+
+		//現在時間
+		double now_time = s3d::Scene::DeltaTime ();
+
+
+		//経過時間
+		m_progress_time += now_time;
+
+#if 0
+
+		double sleep_time = 0;
+		if ( m_progress_time < IDEAL_TIME )
+		{
+			sleep_time = IDEAL_TIME - m_progress_time;
+			auto t = std::chrono::duration < double > ( sleep_time );
+			std::this_thread::sleep_for ( t );
+			s3d::ClearPrint ();
+			s3d::Print ( IDEAL_TIME );
+			s3d::Print ( m_progress_time );
+			s3d::Print ( sleep_time );
+		}
+
+#endif // 0
+
+		//経過時間が理想時間より過ぎていたら動作
+		if ( IDEAL_TIME <= m_progress_time )
+		{
+			m_progress_time = 0;
+
+			//フレーム毎動作
+			_Move ();
+
+			//FPSの更新 : 1[Second]
+			if ( m_frame > FPS )
+			{
+				s3d::ClearPrint ();
+				s3d::Print ( m_frame );
+
+				auto now_fps = std::chrono::system_clock::now ();
+				auto dulation_fps = std::chrono::duration_cast < std::chrono::milliseconds > ( now_fps.time_since_epoch () );
+				double dulation_time = (double)dulation_fps.count ();
+				double fps_d = m_frame / ( dulation_time - m_start_time ); 
+				s3d::Print ( dulation_time - m_start_time );
+				s3d::Print ( fps_d );
+
+				m_frame = 0;
+				m_start_time = dulation_time;
+			}
+			else
+			{
+				++ m_frame;
+			}
+		}
+	}
+
+
+	//フレーム毎動作
+	void GameSystem::_Move ()
+	{
 		//----------------------------------------------
 		//稼働フレーム数
 		static UINT frame_time = 0;

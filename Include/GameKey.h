@@ -92,11 +92,13 @@ namespace GAME
 		void SetLvrOff ();
 		bool GetPreLvr ( UINT index ) const { return PreLvr[index]; }
 		void SetPreLvr ( UINT index, bool b ) { PreLvr[index] = b; }
+		bool PushLvr ( UINT index ) const { return Lvr[index] && ! PreLvr[index]; }
 
 		bool GetBtn ( UINT index ) const { return Btn[index]; }
 		void SetBtn ( UINT index, bool b ) { Btn[index] = b; }
 		bool GetPreBtn ( UINT index ) const { return PreBtn[index]; }
 		void SetPreBtn ( UINT index, bool b ) { PreBtn[index] = b; }
+		bool PushBtn ( UINT index ) const { return Btn[index] && ! PreBtn[index]; }
 	};
 
 	using V_GAME_KEY = std::vector < GameKey >;

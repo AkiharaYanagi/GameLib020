@@ -117,7 +117,10 @@ namespace GAME
 
 
 		//位置指定開始
-		void Start ( VEC2 v, uint32 t );
+		void Start ( VEC2 v, uint32 time );
+
+		//位置指定開始(ランダム付加)
+		void Start_Rnd ( VEC2 v, uint32 time, int32 rnd );
 
 		//テクスチャ中心位置で表示
 		void SetbCenterOfTx ( bool b ) { m_bCenterOfTx = b; }
