@@ -50,6 +50,7 @@ namespace GAME
 		void Store();
 
 		const GMPD & GetPadState () const { return m_gamepad.GetState (); }
+		const GamePadInputStore & GetStore () const { return m_gamepad.GetStore (); }
 
 		//---------------------------------------------------------------------------
 		//キーコンフィグ用

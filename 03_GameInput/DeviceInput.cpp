@@ -20,23 +20,45 @@ namespace GAME
 	{
 	}
 
-	void GamePadInput::Set ( uint32 pad_id, PAD_INPUT_TYPE type, uint32 btn_id, LEVER_DIR lvr )
+	void GamePadInput::Set ( uint32 pad_id, PAD_INPUT_TYPE type, uint32 btn, LEVER_DIR lvr, AXIS_VALUE axis, POV_VALUE pov )
 	{
 		m_gamepadID = pad_id;
 		m_type = type;
-		m_buttonID = btn_id;
+		m_buttonID = btn;
 		m_lever = lvr;
-//		m_axis = axv;
+		m_axis = axis;
+		m_pov = pov;
 	}
 
-	void GamePadInput::Set ( uint32 pad_id, PAD_INPUT_TYPE type, uint32 btn_id, AXIS_VALUE axv )
+
+	void GamePadInput::SetBtn ( uint32 pad_id, uint32 btn )
 	{
 		m_gamepadID = pad_id;
-		m_type = type;
-		m_buttonID = btn_id;
-//		m_lever = lvr;
-		m_axis = axv;
+		m_type = PIT_BUTTON;
+		m_buttonID = btn;
 	}
+
+	void GamePadInput::SetLvr ( uint32 pad_id, LEVER_DIR lvr )
+	{
+		m_gamepadID = pad_id;
+		m_type = PIT_LEVER;
+		m_lever = lvr;
+	}
+
+	void GamePadInput::SetAxis ( uint32 pad_id, AXIS_VALUE axis )
+	{
+		m_gamepadID = pad_id;
+		m_type = PIT_AXIS;
+		m_axis = axis;
+	}
+
+	void GamePadInput::SetPov ( uint32 pad_id, POV_VALUE pov )
+	{
+		m_gamepadID = pad_id;
+		m_type = PIT_POINT_OF_VIEW;
+		m_pov = pov;
+	}
+
 
 	s3d::String GamePadInput::ToString () const
 	{
@@ -46,7 +68,7 @@ namespace GAME
 
 		switch ( pit )
 		{
-		case PIT_AXIS:			str += U"AXIS_";		break;
+		case PIT_AXIS:			str += GetStrAxis ( m_axis ); break;
 		case PIT_POINT_OF_VIEW:	str += U"POV_";		break;
 
 		case PIT_BUTTON:
@@ -57,6 +79,23 @@ namespace GAME
 		case PIT_NO_DATA:		str += U"NO_DATA";	break;
 		default:break;
 		}
+		return str;
+	}
+
+	s3d::String GamePadInput::GetStrAxis ( AXIS_VALUE axis ) const
+	{
+		s3d::String str = U"AXIS_";
+
+		switch ( axis )
+		{
+		case AXIS_X_P:	str += U"X:+";		break;
+		case AXIS_X_M:	str += U"X:-";		break;
+		case AXIS_Y_P:	str += U"Y:+";		break;
+		case AXIS_Y_M:	str += U"Y:-";		break;
+		case AXIS_Z_P:	str += U"Z:+";		break;
+		case AXIS_Z_M:	str += U"Z:-";		break;
+		}
+
 		return str;
 	}
 
@@ -114,6 +153,57 @@ namespace GAME
 		return str;
 	}
 
+
+
+
+	void DeviceInput::Save ( s3d::BinaryWriter & bw )
+	{
+		//デバイスタイプ
+		INPUT_DEVICE_TYPE type = GetType ();
+		bw.write ( (uint8)type );
+
+		//デバイスタイプが何であれすべてを記録する
+		GamePadInput ji = GetPad ();
+		bw.write ( (uint8)ji.GetID () );
+		bw.write ( (uint8)ji.GetInputType () );
+		bw.write ( (uint8)ji.GetButtonID () );
+		bw.write ( (uint8)ji.GetLever () );
+		bw.write ( (uint8)ji.GetAxis () );
+		bw.write ( (uint8)ji.GetPov () );
+
+		bw.write ( (uint8)GetKey() );
+	}
+
+	void DeviceInput::Load ( s3d::BinaryReader & br )
+	{
+		//読込
+		INPUT_DEVICE_TYPE idt = (INPUT_DEVICE_TYPE)s3d_UTL::ReadUInt8 ( br );
+		uint32 pad_id = s3d_UTL::ReadUInt8 ( br );
+		PAD_INPUT_TYPE input_type = (PAD_INPUT_TYPE)s3d_UTL::ReadUInt8 ( br );
+		uint32 btn = s3d_UTL::ReadUInt8 ( br );
+		LEVER_DIR lvr = (LEVER_DIR)s3d_UTL::ReadUInt8 ( br );
+		AXIS_VALUE axis = (AXIS_VALUE)s3d_UTL::ReadUInt8 ( br );
+		POV_VALUE pov = (POV_VALUE)s3d_UTL::ReadUInt8 ( br );
+		KEY_NAME key = (KEY_NAME)s3d_UTL::ReadUInt8 ( br );
+
+		//一時保存
+		GamePadInput gpi;
+
+		//デバイス種類による分岐
+		switch ( idt )
+		{
+		case KEYBOARD:
+			SetKeyboard ( key );
+			break;
+
+		case GAMEPAD:
+			gpi.Set ( pad_id, input_type, btn, lvr, axis, pov );
+			SetPad ( gpi );
+			break;
+
+		default:break;
+		}
+	}
 
 
 }	//namespace GAME

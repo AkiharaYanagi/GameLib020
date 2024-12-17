@@ -24,9 +24,9 @@ namespace GAME
 	{
 		Array < bool > buttons;
 
-		double axes_x { 0 };
-		double axes_y { 0 };
-		double axes_z { 0 };
+		double axis_x { 0 };
+		double axis_y { 0 };
+		double axis_z { 0 };
 
 		bool povUp { F };
 		bool povDown { F };
@@ -41,6 +41,12 @@ namespace GAME
 
 		void Store ( const s3d::detail::Gamepad_impl & inp );
 
+
+		double GetAxisX () const { return axis_x; }
+		double GetAxisY () const { return axis_y; }
+		double GetAxisZ () const { return axis_z; }
+
+
 		bool WasBtn ( size_t nBtn ) const { return buttons [ nBtn ]; }
 		size_t BtnSize () const { return buttons.size (); }
 
@@ -50,12 +56,12 @@ namespace GAME
 		bool WasAxisLeft () const { return axes_x <= -500; }
 		bool WasAxisRight () const { return axes_x >= 500; }
 #endif // 0
-		bool WasAxisY_Minus	() const { return axes_y <= -0.500; };
-		bool WasAxisY_Plus  () const { return axes_y >= +0.500; };
-		bool WasAxisX_Minus	() const { return axes_x <= -0.500; };
-		bool WasAxisX_Plus	() const { return axes_x >= +0.500; };
-		bool WasAxisZ_Minus	() const { return axes_z <= -0.500; };
-		bool WasAxisZ_Plus	() const { return axes_z >= +0.500; };
+		bool WasAxisY_Minus	() const { return axis_y <= -0.500; };
+		bool WasAxisY_Plus  () const { return axis_y >= +0.500; };
+		bool WasAxisX_Minus	() const { return axis_x <= -0.500; };
+		bool WasAxisX_Plus	() const { return axis_x >= +0.500; };
+		bool WasAxisZ_Minus	() const { return axis_z <= -0.500; };
+		bool WasAxisZ_Plus	() const { return axis_z >= +0.500; };
 
 		bool WasPovUp () const { return povUp; }
 		bool WasPovDown () const { return povDown; }
@@ -100,6 +106,7 @@ namespace GAME
 
 		//状態の取得
 		const GMPD &	GetState () const ;
+		const GamePadInputStore & GetStore () const;
 
 		//---------------------------------------------------------------------------
 		//キーコンフィグ用
@@ -203,8 +210,9 @@ namespace GAME
 
 	private:
 		//内部関数
-		void SetGPI_POV ( GamePadInput& ret, uint32 pad_id, LEVER_DIR dir );
-		void SetGPI_Axis ( GamePadInput& ret, uint32 pad_id, AXIS_VALUE dir );
+		void SetGPI_Lvr ( GamePadInput& ret, uint32 pad_id, LEVER_DIR lvr );
+		void SetGPI_Axis ( GamePadInput& ret, uint32 pad_id, AXIS_VALUE axis );
+		void SetGPI_Pov ( GamePadInput& ret, uint32 pad_id, POV_VALUE pov );
 
 	};
 

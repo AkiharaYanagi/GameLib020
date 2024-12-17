@@ -178,10 +178,13 @@ namespace GAME
 	//保存
 	void KeyConfig::Save ()
 	{
-		std::fstream fs ( _T ( "keyConfig.dat" ), std::ios::out, std::ios::binary );
+//		std::fstream fs ( _T ( "keyConfig.dat" ), std::ios::out, std::ios::binary );
+		s3d::BinaryWriter bw { U"keyConfig.dat" };
 			 
 		for ( int i = 0; i < GAME_USE_KEY_NUM; ++ i )
 		{
+#if 0
+
 			DeviceInput di = m_deviceInput [ i ];
 			INPUT_DEVICE_TYPE type = di.GetType ();
 			fs.write ( (char*)type, sizeof (INPUT_DEVICE_TYPE) );
@@ -189,26 +192,23 @@ namespace GAME
 			switch ( type )
 			{
 			case KEYBOARD:
-//				fs.write ( (char*)di.GetKey (), sizeof ( DWORD ) );
-				fs << di.GetKey();
+				fs << (uint8)di.GetKey();
 			break;
 	
 			case GAMEPAD:
 				GamePadInput ji = di.GetPad ();
-				DWORD id = ji.GetID ();
-//				fs.write ( (char*)id, sizeof ( DWORD ) );
-				fs << id;
-				PAD_INPUT_TYPE joytype = ji.GetInputType ();
-//				fs.write ( (char*)joytype, sizeof ( PAD_INPUT_TYPE ) );
-				fs << joytype;
-				DWORD btn = ji.GetButtonID ();
-//				fs.write ( (char*)btn, sizeof ( DWORD ) );
-				fs << btn;
-				LEVER_DIR lvr = ji.GetLever ();
-//				fs.write ( (char*)lvr, sizeof ( LEVER_DIR ) );
-				fs << lvr;
+				fs << (uint8)ji.GetID ();
+				fs << (uint8)ji.GetInputType ();
+				fs << (uint8)ji.GetButtonID ();
+				fs << (uint8)ji.GetLever ();
+				fs << (uint8)ji.GetAxis ();
+				fs << (uint8)ji.GetPov ();
 			break;
 			}
+		}
+
+#endif // 0
+			m_deviceInput [ i ].Save ( bw );
 		}
 	}
 
@@ -295,6 +295,7 @@ namespace GAME
 
 		for ( size_t i = 0; i < NUM_STG; ++ i )
 		{
+#if 0
 			uint8 device_type = 0;
 			br.read ( device_type );
 
@@ -310,25 +311,47 @@ namespace GAME
 			uint8 lever = 0;
 			br.read ( lever );
 
+			uint8 axis = 0;
+			br.read ( axis );
+
+			uint8 pov = 0;
+			br.read ( pov );
+
 			uint8 key = 0;
 			br.read ( key );
+#endif // 0
 
+#if 0
 
-			INPUT_DEVICE_TYPE idt = (INPUT_DEVICE_TYPE)device_type;
+			INPUT_DEVICE_TYPE idt = (INPUT_DEVICE_TYPE)ReadUInt8 ( br );
+			uint32 pad_id = ReadUInt8 ( br );
+			PAD_INPUT_TYPE input_type = (PAD_INPUT_TYPE)ReadUInt8 ( br );
+			uint32 btn = ReadUInt8 ( br );
+			LEVER_DIR lvr = (LEVER_DIR)ReadUInt8 ( br );
+			AXIS_VALUE axis = (AXIS_VALUE)ReadUInt8 ( br );
+			POV_VALUE pov = (POV_VALUE)ReadUInt8 ( br );
+			KEY_NAME key = (KEY_NAME)ReadUInt8 ( br );
+
 			GamePadInput gpi;
+
 			switch ( idt )
 			{
 			case KEYBOARD:
-				m_deviceInput [ i ].SetKeyboard ( (KEY_NAME)key );
+				m_deviceInput [ i ].SetKeyboard ( key );
 				break;
 
 			case GAMEPAD:
-				gpi.Set ( pad_id, (PAD_INPUT_TYPE)input_type, btn, (LEVER_DIR)lever );
+				gpi.Set ( pad_id, input_type, btn, lvr, axis, pov );
 				m_deviceInput [ i ].SetPad ( gpi );
 				break;
 
 			default:break;
 			}
+
+#endif // 0
+			DeviceInput di;
+			di.Load ( br );
+			m_deviceInput [ i ] = di;
 		}
 	}
 

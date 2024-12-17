@@ -20,9 +20,9 @@ namespace GAME
 	//1[F]のゲームパッドの入力を保存する
 	GamePadInputStore::GamePadInputStore ( const GamePadInputStore & rhs )
 	{
-		axes_x = rhs.axes_x;
-		axes_x = rhs.axes_x;
-		axes_x = rhs.axes_x;
+		axis_x = rhs.axis_x;
+		axis_x = rhs.axis_x;
+		axis_x = rhs.axis_x;
 		for ( size_t i = 0; i < buttons.size (); ++ i )
 		{
 			buttons [ i ] = rhs.buttons [ i ];
@@ -37,9 +37,9 @@ namespace GAME
 
 	void GamePadInputStore::Store ( const s3d::detail::Gamepad_impl & impl )
 	{
-		axes_x = impl.axes [ AXIS_X ];
-		axes_y = impl.axes [ AXIS_Y ];
-		axes_z = impl.axes [ AXIS_Z ];
+		axis_x = impl.axes [ AXIS_X ];
+		axis_y = impl.axes [ AXIS_Y ];
+		axis_z = impl.axes [ AXIS_Z ];
 
 		int index = 0;
 		size_t nBtn = impl.buttons.size ();
@@ -65,11 +65,13 @@ namespace GAME
 		m_impl.clear ();
 //		m_pre_impl.clear ();
 
+		//接続されているゲームパッドを列挙する
+		s3d::Array < s3d::GamepadInfo > aryGamepads = s3d::System::EnumerateGamepads ();
 
 		size_t MAX = detail::Gamepad_helper::MaxPlayerCount;
 		for ( size_t i = 0; i < MAX; ++ i )
 		{
-			m_impl.push_back ( Gamepad ( i ) );
+			m_impl.push_back ( s3d::Gamepad ( i ) );
 //			m_pre_impl.push_back ( Gamepad ( i ) );
 			m_pre_store.push_back ( GamePadInputStore () );
 		}
@@ -104,10 +106,10 @@ namespace GAME
 		for ( size_t i = 0; i < MAX; ++ i )
 		{
 			//接続されていなかったら何もしない
-			if ( ! Gamepad ( i ) ) { continue; }
+			if ( ! s3d::Gamepad ( i ) ) { continue; }
 
 			//現在の状態を取得
-			m_impl [ i ] = Gamepad ( i );
+			m_impl [ i ] = s3d::Gamepad ( i );
 		}
 	}
 
@@ -119,7 +121,7 @@ namespace GAME
 		for ( size_t i = 0; i < MAX; ++ i )
 		{
 			//接続されていなかったら何もしない
-			if ( ! Gamepad ( i ) ) { continue; }
+			if ( ! s3d::Gamepad ( i ) ) { continue; }
 
 			//現在の状態を保存して次回に利用
 			m_pre_store [ i ].Store ( m_impl [ i ] );
@@ -132,10 +134,15 @@ namespace GAME
 		return m_impl [ 0 ];
 	}
 
+	const GamePadInputStore & SivGamePad::GetStore () const 
+	{
+		return m_pre_store [ 0 ];
+	}
+
 
 	//---------------------------------------------------------------------------
 	//キーコンフィグ用
-	//いずれかが押されていたら優先順で返す
+	//いずれかが押された瞬間なら優先順で返す
 	GamePadInput SivGamePad::PushInput ()
 	{
 		GamePadInput ret;	//戻値用
@@ -146,7 +153,7 @@ namespace GAME
 		for ( uint32 i = 0; i < MAX; ++ i )
 		{
 			//接続されていなかったら何もしない
-			if ( ! Gamepad ( i ) ) { continue; }
+			if ( ! s3d::Gamepad ( i ) ) { continue; }
 
 			GMPD gmpd = m_impl [ i ];
 
@@ -156,17 +163,11 @@ namespace GAME
 			{
 				if ( ipt.down () )
 				{
-					ret.Set ( i, PIT_BUTTON, nBtn, LVR_UP );
+					ret.SetBtn ( i, nBtn );
 					return ret;
 				}
 				++ nBtn;
 			}
-
-			//POV ( Point Of View )
-			if ( gmpd.povUp.down () )	 { SetGPI_POV ( ret, i, LVR_UP ); return ret;}
-			if ( gmpd.povDown.down () )	 { SetGPI_POV ( ret, i, LVR_DOWN ); return ret;}
-			if ( gmpd.povLeft.down () )	 { SetGPI_POV ( ret, i, LVR_LEFT ); return ret;}
-			if ( gmpd.povRight.down () ) { SetGPI_POV ( ret, i, LVR_RIGHT ); return ret;}
 
 			//XYZ Axis
 			if ( PushAxisX_Plus ( i ) )		{ SetGPI_Axis ( ret, i, AXIS_X_P ); return ret; }
@@ -175,19 +176,30 @@ namespace GAME
 			if ( PushAxisY_Minus ( i ) )	{ SetGPI_Axis ( ret, i, AXIS_Y_M ); return ret; }
 			if ( PushAxisZ_Plus ( i ) )		{ SetGPI_Axis ( ret, i, AXIS_Z_P ); return ret; }
 			if ( PushAxisZ_Minus ( i ) )	{ SetGPI_Axis ( ret, i, AXIS_Z_M ); return ret; }
+
+			//POV ( Point Of View )
+			if ( gmpd.povUp.down () )	 { SetGPI_Pov ( ret, i, POV_UP ); return ret;}
+			if ( gmpd.povDown.down () )	 { SetGPI_Pov ( ret, i, POV_DOWN ); return ret;}
+			if ( gmpd.povLeft.down () )	 { SetGPI_Pov ( ret, i, POV_LEFT ); return ret;}
+			if ( gmpd.povRight.down () ) { SetGPI_Pov ( ret, i, POV_RIGHT ); return ret;}
 		}
 
 		return ret;
 	}
 
-	void SivGamePad::SetGPI_POV ( GamePadInput & ret, uint32 pad_id, LEVER_DIR dir )
+	void SivGamePad::SetGPI_Lvr ( GamePadInput & ret, uint32 pad_id, LEVER_DIR lvr )
 	{
-		ret.Set ( pad_id, PIT_POINT_OF_VIEW, 0, dir );
+		ret.SetLvr ( pad_id, lvr );
 	}
 
-	void SivGamePad::SetGPI_Axis ( GamePadInput & ret, uint32 pad_id, AXIS_VALUE axv )
+	void SivGamePad::SetGPI_Axis ( GamePadInput & ret, uint32 pad_id, AXIS_VALUE axis )
 	{
-		ret.Set ( pad_id, PIT_AXIS, 0, axv );
+		ret.SetAxis ( pad_id, axis );
+	}
+
+	void SivGamePad::SetGPI_Pov ( GamePadInput & ret, uint32 pad_id, POV_VALUE pov )
+	{
+		ret.SetPov ( pad_id, pov );
 	}
 
 	//--------------------------------------------------------------
