@@ -369,15 +369,15 @@ namespace GAME
 
 	//----------------------------------------------------------------------------------
 	//押された状態かどうか
-	bool KeyConfig::Is_Joy ( GamePadInput ji ) const
+	bool KeyConfig::Is_Joy ( GamePadInput gpi ) const
 	{
-		DWORD id = ji.GetID ();
-		PAD_INPUT_TYPE type = ji.GetInputType ();
+		DWORD id = gpi.GetID ();
+		PAD_INPUT_TYPE type = gpi.GetInputType ();
 		switch ( type )
 		{
-		case PIT_AXIS: return Is_Axis_Vl ( id, ji.GetAxis () ); break;
-		case PIT_POINT_OF_VIEW: return Is_POV_Lvr ( id, ji.GetLever () ); break;
-		case PIT_BUTTON: return SVINP->IsJoyButton ( id, ji.GetButtonID () ); break;
+		case PIT_AXIS: return Is_Axis_Vl ( id, gpi.GetAxis () ); break;
+		case PIT_POINT_OF_VIEW: return Is_POV_Vl ( id, gpi.GetPov () ); break;
+		case PIT_BUTTON: return SVINP->IsJoyButton ( id, gpi.GetButtonID () ); break;
 		}
 		return false;
 	}
@@ -397,15 +397,15 @@ namespace GAME
 		return ret;
 	}
 	
-	bool KeyConfig::Is_POV_Lvr ( uint32 ID, LEVER_DIR lvr ) const
+	bool KeyConfig::Is_POV_Vl ( uint32 ID, POV_VALUE vl ) const
 	{
 		bool ret = false;
-		switch ( lvr )
+		switch ( vl )
 		{
-		case LEVER_DIR::LVR_UP:		ret = SVINP->IsPovUp ( ID );	break;
-		case LEVER_DIR::LVR_DOWN:	ret = SVINP->IsPovDown ( ID );	break;
-		case LEVER_DIR::LVR_LEFT:	ret = SVINP->IsPovLeft ( ID );	break;
-		case LEVER_DIR::LVR_RIGHT:	ret = SVINP->IsPovRight ( ID );	break;
+		case POV_VALUE::POV_UP:		ret = SVINP->IsPovUp ( ID );	break;
+		case POV_VALUE::POV_DOWN:	ret = SVINP->IsPovDown ( ID );	break;
+		case POV_VALUE::POV_LEFT:	ret = SVINP->IsPovLeft ( ID );	break;
+		case POV_VALUE::POV_RIGHT:	ret = SVINP->IsPovRight ( ID );	break;
 		}
 		return ret;
 	}
@@ -418,15 +418,15 @@ namespace GAME
 
 	//----------------------------------------------------------------------------------
 	//押された瞬間かどうか
-	bool KeyConfig::Push_Joy ( GamePadInput ji ) const
+	bool KeyConfig::Push_Joy ( GamePadInput gpi ) const
 	{
-		DWORD id = ji.GetID ();
-		PAD_INPUT_TYPE type = ji.GetInputType ();
+		DWORD id = gpi.GetID ();
+		PAD_INPUT_TYPE type = gpi.GetInputType ();
 		switch ( type )
 		{
-		case PIT_AXIS: return Push_Axis_Vl ( id, ji.GetAxis () ); break;
-		case PIT_POINT_OF_VIEW: return Push_POV_Lvr ( id, ji.GetLever () ); break;
-		case PIT_BUTTON: return SVINP->PushJoyButton ( id, ji.GetButtonID () ); break;
+		case PIT_AXIS: return Push_Axis_Vl ( id, gpi.GetAxis () ); break;
+		case PIT_POINT_OF_VIEW: return Push_POV_Vl ( id, gpi.GetPov () ); break;
+		case PIT_BUTTON: return SVINP->PushJoyButton ( id, gpi.GetButtonID () ); break;
 		}
 		return false;
 	}
@@ -446,15 +446,15 @@ namespace GAME
 		return ret;
 	}
 
-	bool KeyConfig::Push_POV_Lvr ( uint32 ID, LEVER_DIR lvr ) const
+	bool KeyConfig::Push_POV_Vl ( uint32 ID, POV_VALUE vl ) const
 	{
 		bool ret = false;
-		switch ( lvr )
+		switch ( vl )
 		{
-		case LEVER_DIR::LVR_UP:		ret = SVINP->PushPovUp ( ID );	break;
-		case LEVER_DIR::LVR_DOWN:	ret = SVINP->PushPovDown ( ID );	break;
-		case LEVER_DIR::LVR_LEFT:	ret = SVINP->PushPovLeft ( ID );	break;
-		case LEVER_DIR::LVR_RIGHT:	ret = SVINP->PushPovRight ( ID );	break;
+		case POV_VALUE::POV_UP:		ret = SVINP->PushPovUp ( ID );	break;
+		case POV_VALUE::POV_DOWN:	ret = SVINP->PushPovDown ( ID );	break;
+		case POV_VALUE::POV_LEFT:	ret = SVINP->PushPovLeft ( ID );	break;
+		case POV_VALUE::POV_RIGHT:	ret = SVINP->PushPovRight ( ID );	break;
 		}
 		return ret;
 	}
@@ -466,15 +466,15 @@ namespace GAME
 
 	//----------------------------------------------------------------------------------
 	//離された瞬間かどうか
-	bool KeyConfig::Rele_Joy ( GamePadInput ji ) const
+	bool KeyConfig::Rele_Joy ( GamePadInput gpi ) const
 	{
-		DWORD id = ji.GetID ();
-		PAD_INPUT_TYPE type = ji.GetInputType ();
+		DWORD id = gpi.GetID ();
+		PAD_INPUT_TYPE type = gpi.GetInputType ();
 		switch ( type )
 		{
-		case PIT_AXIS: return Rele_Axis_Vl ( id, ji.GetAxis () ); break;
-		case PIT_POINT_OF_VIEW: return Rele_POV_Lvr ( id, ji.GetLever () ); break;
-		case PIT_BUTTON: return SVINP->ReleJoyButton ( id, ji.GetButtonID () ); break;
+		case PIT_AXIS: return Rele_Axis_Vl ( id, gpi.GetAxis () ); break;
+		case PIT_POINT_OF_VIEW: return Rele_POV_Lvr ( id, gpi.GetPov () ); break;
+		case PIT_BUTTON: return SVINP->ReleJoyButton ( id, gpi.GetButtonID () ); break;
 		}
 		return false;
 	}
@@ -494,15 +494,15 @@ namespace GAME
 		return ret;
 	}
 
-	bool KeyConfig::Rele_POV_Lvr ( uint32 ID, LEVER_DIR lvr ) const
+	bool KeyConfig::Rele_POV_Lvr ( uint32 ID, POV_VALUE vl ) const
 	{
 		bool ret = false;
-		switch ( lvr )
+		switch ( vl )
 		{
-		case LEVER_DIR::LVR_UP:		ret = SVINP->RelePovUp ( ID );	break;
-		case LEVER_DIR::LVR_DOWN:	ret = SVINP->RelePovDown ( ID );	break;
-		case LEVER_DIR::LVR_LEFT:	ret = SVINP->RelePovLeft ( ID );	break;
-		case LEVER_DIR::LVR_RIGHT:	ret = SVINP->RelePovRight ( ID );	break;
+		case POV_VALUE::POV_UP:		ret = SVINP->RelePovUp ( ID );	break;
+		case POV_VALUE::POV_DOWN:	ret = SVINP->RelePovDown ( ID );	break;
+		case POV_VALUE::POV_LEFT:	ret = SVINP->RelePovLeft ( ID );	break;
+		case POV_VALUE::POV_RIGHT:	ret = SVINP->RelePovRight ( ID );	break;
 		}
 		return ret;
 	}

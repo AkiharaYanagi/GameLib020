@@ -82,6 +82,11 @@ namespace GAME
 		return str;
 	}
 
+	s3d::String GamePadInput::GetStrAxis () const
+	{
+		return GetStrAxis ( m_axis );
+	}
+
 	s3d::String GamePadInput::GetStrAxis ( AXIS_VALUE axis ) const
 	{
 		s3d::String str = U"AXIS_";
@@ -99,6 +104,21 @@ namespace GAME
 		return str;
 	}
 
+	s3d::String GamePadInput::GetStrPov () const
+	{
+		s3d::String str = U"POV_";
+
+		switch ( m_pov )
+		{
+		case POV_UP:	str += U"UP";		break;
+		case POV_DOWN:	str += U"DOWN";		break;
+		case POV_LEFT:	str += U"LEFT";		break;
+		case POV_RIGHT:	str += U"RIGHT";	break;
+		}
+
+		return str;
+	}
+
 
 	//============================================================
 
@@ -111,7 +131,7 @@ namespace GAME
 	{
 		m_dvc_type = rhs.m_dvc_type;
 		m_keyboardInput = rhs.m_keyboardInput;
-		m_gamepadnput = rhs.m_gamepadnput;
+		m_gamepadInput = rhs.m_gamepadInput;
 	}
 
 	DeviceInput::~DeviceInput ()
@@ -133,7 +153,7 @@ namespace GAME
 	void DeviceInput::SetPad ( GamePadInput gamePadInput )
 	{
 		m_dvc_type = INPUT_DEVICE_TYPE::GAMEPAD;
-		m_gamepadnput = gamePadInput;
+		m_gamepadInput = gamePadInput;
 	}
 
 
@@ -145,15 +165,13 @@ namespace GAME
 		switch ( idt )
 		{
 		case KEYBOARD:	str = U"Key_{}"_fmt( GetKeyName () );	break;
-		case GAMEPAD:	str = m_gamepadnput.ToString ();		break;
+		case GAMEPAD:	str = m_gamepadInput.ToString ();		break;
 		case MOUSE:		str = Unicode::Widen ( STR(MOUSE) );	break;
 		default:break;
 		}
 
 		return str;
 	}
-
-
 
 
 	void DeviceInput::Save ( s3d::BinaryWriter & bw )

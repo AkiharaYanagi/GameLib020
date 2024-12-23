@@ -24,14 +24,16 @@ namespace GAME
 	{
 		Array < bool > buttons;
 
-		double axis_x { 0 };
-		double axis_y { 0 };
+		double axis_x { 0 };	//値の範囲は -1 <= n <= +1
+		double axis_y { 0 };	//レバー遊びを除く確定値は -1.0, +1.0で判定
 		double axis_z { 0 };
 
 		bool povUp { F };
 		bool povDown { F };
 		bool povLeft { F };
 		bool povRight { F };
+
+		//POVの状態 ( 真上から時計回りに 0, 1, 2, 3, 4, 5, 6, 7 )
 		s3d::Optional < int32 > povD8 { 0 };
 
 	public :
@@ -46,7 +48,6 @@ namespace GAME
 		double GetAxisY () const { return axis_y; }
 		double GetAxisZ () const { return axis_z; }
 
-
 		bool WasBtn ( size_t nBtn ) const { return buttons [ nBtn ]; }
 		size_t BtnSize () const { return buttons.size (); }
 
@@ -56,12 +57,12 @@ namespace GAME
 		bool WasAxisLeft () const { return axes_x <= -500; }
 		bool WasAxisRight () const { return axes_x >= 500; }
 #endif // 0
-		bool WasAxisY_Minus	() const { return axis_y <= -0.500; };
-		bool WasAxisY_Plus  () const { return axis_y >= +0.500; };
-		bool WasAxisX_Minus	() const { return axis_x <= -0.500; };
-		bool WasAxisX_Plus	() const { return axis_x >= +0.500; };
-		bool WasAxisZ_Minus	() const { return axis_z <= -0.500; };
-		bool WasAxisZ_Plus	() const { return axis_z >= +0.500; };
+		bool WasAxisX_Plus	() const { return axis_x >= +1.0; };
+		bool WasAxisX_Minus	() const { return axis_x <= -1.0; };
+		bool WasAxisY_Plus  () const { return axis_y >= +1.0; };
+		bool WasAxisY_Minus	() const { return axis_y <= -1.0; };
+		bool WasAxisZ_Plus	() const { return axis_z >= +1.0; };
+		bool WasAxisZ_Minus	() const { return axis_z <= -1.0; };
 
 		bool WasPovUp () const { return povUp; }
 		bool WasPovDown () const { return povDown; }
@@ -128,19 +129,20 @@ namespace GAME
 
 		//--------------------------------------------------------------
 		//軸
-		// 
+#if 0
 		//軸の状態を返す ( -1.0 < double < 1.0 )
 		double GetJoyAxisX( size_t id ) const;
 		double GetJoyAxisY( size_t id ) const;
 		double GetJoyAxisZ( size_t id ) const;
+#endif // 0
 
 		//Axis:状態の判定  ( -1.0 < double < 1.0 )
-		bool IsAxisY_Minus	( size_t id ) const;
-		bool IsAxisY_Plus	( size_t id ) const;
-		bool IsAxisX_Minus	( size_t id ) const;
 		bool IsAxisX_Plus	( size_t id ) const;
-		bool IsAxisZ_Minus	( size_t id ) const;
+		bool IsAxisX_Minus	( size_t id ) const;
+		bool IsAxisY_Plus	( size_t id ) const;
+		bool IsAxisY_Minus	( size_t id ) const;
 		bool IsAxisZ_Plus	( size_t id ) const;
+		bool IsAxisZ_Minus	( size_t id ) const;
 
 
 		//前フレームの状態
@@ -150,30 +152,30 @@ namespace GAME
 		bool WasAxisLeft	( size_t id ) const;
 		bool WasAxisRight	( size_t id ) const;
 #endif // 0
-		bool WasAxisY_Minus	( size_t id ) const;
-		bool WasAxisY_Plus	( size_t id ) const;
-		bool WasAxisX_Minus	( size_t id ) const;
 		bool WasAxisX_Plus	( size_t id ) const;
-		bool WasAxisZ_Minus	( size_t id ) const;
+		bool WasAxisX_Minus	( size_t id ) const;
+		bool WasAxisY_Plus	( size_t id ) const;
+		bool WasAxisY_Minus	( size_t id ) const;
 		bool WasAxisZ_Plus	( size_t id ) const;
+		bool WasAxisZ_Minus	( size_t id ) const;
 
 
 		//押した瞬間の判定(前回off 今回on)
-		bool PushAxisY_Minus	( size_t id ) const;
-		bool PushAxisY_Plus		( size_t id ) const;
-		bool PushAxisX_Minus	( size_t id ) const;
 		bool PushAxisX_Plus		( size_t id ) const;
-		bool PushAxisZ_Minus	( size_t id ) const;
+		bool PushAxisX_Minus	( size_t id ) const;
+		bool PushAxisY_Plus		( size_t id ) const;
+		bool PushAxisY_Minus	( size_t id ) const;
 		bool PushAxisZ_Plus		( size_t id ) const;
+		bool PushAxisZ_Minus	( size_t id ) const;
 
 
 		//離した瞬間の判定(前回on 今回off)
-		bool ReleAxisY_Minus	( size_t id ) const;
-		bool ReleAxisY_Plus		( size_t id ) const;
-		bool ReleAxisX_Minus	( size_t id ) const;
 		bool ReleAxisX_Plus		( size_t id ) const;
-		bool ReleAxisZ_Minus	( size_t id ) const;
+		bool ReleAxisX_Minus	( size_t id ) const;
+		bool ReleAxisY_Plus		( size_t id ) const;
+		bool ReleAxisY_Minus	( size_t id ) const;
 		bool ReleAxisZ_Plus		( size_t id ) const;
+		bool ReleAxisZ_Minus	( size_t id ) const;
 
 
 		//--------------------------------------------------------------

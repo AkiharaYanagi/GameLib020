@@ -36,6 +36,7 @@ namespace GAME
 	//状態の記録
 	void SivInput::Store ()
 	{
+		//キーボードはUpdateで状態の記録も行う
 		m_gamepad.Store ();			//ゲームパッド
 	}
 
@@ -131,11 +132,14 @@ namespace GAME
 	bool SivInput::RelePovLeft(int id) const { return m_gamepad.RelePovLeft ( id ); }
 	bool SivInput::RelePovRight(int id) const { return m_gamepad.RelePovRight ( id ); }
 
+#if 0
 
 	//軸の状態を返す
 	double SivInput::GetJoyAxisX(int id) const { return m_gamepad.GetJoyAxisX ( id ); }
 	double SivInput::GetJoyAxisY(int id) const { return m_gamepad.GetJoyAxisY ( id ); }
 	double SivInput::GetJoyAxisZ(int id) const { return m_gamepad.GetJoyAxisZ ( id ); }
+
+#endif // 0
 
 
 	//POVの状態を返す
