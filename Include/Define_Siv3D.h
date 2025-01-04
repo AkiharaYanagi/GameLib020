@@ -44,6 +44,13 @@ namespace GAME
 		{
 			return VEC2 ( tx.size().x * 0.5f, tx.size().y * 0.5f );
 		}
+
+		static uint8 ReadUInt8 ( s3d::BinaryReader & br )
+		{
+			uint8 ret = 0;
+			br.read ( ret );
+			return ret;
+		}
 	};
 
 

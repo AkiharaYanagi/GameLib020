@@ -42,6 +42,13 @@ namespace GAME
 	private:
 		static bool m_bMakeArchive;		//アーカイブ作成フラグ
 
+		//フレーム制御
+		void Frame ();
+		void _Move ();
+		double	m_frame { 0 };
+		double	m_start_time { 0 };
+		double	m_progress_time { 0 };
+
 	public:
 		//-----------------------------
 		//	static 環境設定

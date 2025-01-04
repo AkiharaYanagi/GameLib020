@@ -18,15 +18,19 @@ namespace GAME
 
 	//-----------------------------------------------------------
 	//1[F]のゲームパッドの入力を保存する
+
+	//コピーコンストラクタ
 	GamePadInputStore::GamePadInputStore ( const GamePadInputStore & rhs )
 	{
-		axes_x = rhs.axes_x;
-		axes_x = rhs.axes_x;
-		axes_x = rhs.axes_x;
 		for ( size_t i = 0; i < buttons.size (); ++ i )
 		{
 			buttons [ i ] = rhs.buttons [ i ];
 		}
+
+		axis_x = rhs.axis_x;
+		axis_x = rhs.axis_x;
+		axis_x = rhs.axis_x;
+
 		povUp = rhs.povUp;
 		povDown = rhs.povDown;
 		povLeft = rhs.povLeft;
@@ -34,13 +38,10 @@ namespace GAME
 		povUp = rhs.povUp;povD8;
 	}
 
-
+	//s3d::detail::Gamepad_impl から変換
 	void GamePadInputStore::Store ( const s3d::detail::Gamepad_impl & impl )
 	{
-		axes_x = impl.axes [ AXIS_X ];
-		axes_y = impl.axes [ AXIS_Y ];
-		axes_z = impl.axes [ AXIS_Z ];
-
+		//ボタン
 		int index = 0;
 		size_t nBtn = impl.buttons.size ();
 		buttons.resize ( nBtn );
@@ -49,6 +50,22 @@ namespace GAME
 			buttons [ index ++ ] = inp.pressed ();
 		}
 
+		//Axis
+		size_t sizeAxis = impl.axes.size (); 
+		if ( sizeAxis >= 1 )
+		{
+			axis_x = impl.axes [ AXIS_X ];
+			if ( sizeAxis >= 2 )
+			{
+				axis_y = impl.axes [ AXIS_Y ];
+				if ( sizeAxis >= 3 )
+				{
+					axis_z = impl.axes [ AXIS_Z ];
+				}
+			}
+		}
+
+		//POV
 		povUp = impl.povUp.pressed ();
 		povDown = impl.povDown.pressed ();
 		povLeft = impl.povLeft.pressed ();
@@ -56,20 +73,19 @@ namespace GAME
 		povD8 = impl.povD8 ();
 	}
 
-
-
-
 	//-----------------------------------------------------------
 	SivGamePad::SivGamePad()
 	{
 		m_impl.clear ();
 //		m_pre_impl.clear ();
 
+		//接続されているゲームパッドを列挙する
+		s3d::Array < s3d::GamepadInfo > aryGamepads = s3d::System::EnumerateGamepads ();
 
 		size_t MAX = detail::Gamepad_helper::MaxPlayerCount;
 		for ( size_t i = 0; i < MAX; ++ i )
 		{
-			m_impl.push_back ( Gamepad ( i ) );
+			m_impl.push_back ( s3d::Gamepad ( i ) );
 //			m_pre_impl.push_back ( Gamepad ( i ) );
 			m_pre_store.push_back ( GamePadInputStore () );
 		}
@@ -104,10 +120,10 @@ namespace GAME
 		for ( size_t i = 0; i < MAX; ++ i )
 		{
 			//接続されていなかったら何もしない
-			if ( ! Gamepad ( i ) ) { continue; }
+			if ( ! s3d::Gamepad ( i ) ) { continue; }
 
 			//現在の状態を取得
-			m_impl [ i ] = Gamepad ( i );
+			m_impl [ i ] = s3d::Gamepad ( i );
 		}
 	}
 
@@ -119,7 +135,7 @@ namespace GAME
 		for ( size_t i = 0; i < MAX; ++ i )
 		{
 			//接続されていなかったら何もしない
-			if ( ! Gamepad ( i ) ) { continue; }
+			if ( ! s3d::Gamepad ( i ) ) { continue; }
 
 			//現在の状態を保存して次回に利用
 			m_pre_store [ i ].Store ( m_impl [ i ] );
@@ -132,10 +148,15 @@ namespace GAME
 		return m_impl [ 0 ];
 	}
 
+	const GamePadInputStore & SivGamePad::GetStore () const 
+	{
+		return m_pre_store [ 0 ];
+	}
+
 
 	//---------------------------------------------------------------------------
 	//キーコンフィグ用
-	//いずれかが押されていたら優先順で返す
+	//いずれかが押された瞬間なら優先順で返す
 	GamePadInput SivGamePad::PushInput ()
 	{
 		GamePadInput ret;	//戻値用
@@ -146,9 +167,29 @@ namespace GAME
 		for ( uint32 i = 0; i < MAX; ++ i )
 		{
 			//接続されていなかったら何もしない
-			if ( ! Gamepad ( i ) ) { continue; }
+			if ( ! s3d::Gamepad ( i ) ) { continue; }
 
 			GMPD gmpd = m_impl [ i ];
+
+			//XYZ Axis
+			if ( PushAxisX_Plus ( i ) )		{ SetGPI_Axis ( ret, i, AXIS_X_P ); return ret; }
+			if ( PushAxisX_Minus ( i ) )	{ SetGPI_Axis ( ret, i, AXIS_X_M ); return ret; }
+			if ( PushAxisY_Plus ( i ) )		{ SetGPI_Axis ( ret, i, AXIS_Y_P ); return ret; }
+			if ( PushAxisY_Minus ( i ) )	{ SetGPI_Axis ( ret, i, AXIS_Y_M ); return ret; }
+			if ( PushAxisZ_Plus ( i ) )		{ SetGPI_Axis ( ret, i, AXIS_Z_P ); return ret; }
+			if ( PushAxisZ_Minus ( i ) )	{ SetGPI_Axis ( ret, i, AXIS_Z_M ); return ret; }
+
+			//POV ( Point Of View )
+#if 0
+			if ( gmpd.povUp.down () )	 { SetGPI_Pov ( ret, i, POV_UP ); return ret;}
+			if ( gmpd.povDown.down () )	 { SetGPI_Pov ( ret, i, POV_DOWN ); return ret;}
+			if ( gmpd.povLeft.down () )	 { SetGPI_Pov ( ret, i, POV_LEFT ); return ret;}
+			if ( gmpd.povRight.down () ) { SetGPI_Pov ( ret, i, POV_RIGHT ); return ret;}
+#endif // 0
+			if ( gmpd.povRight.down () ) { SetGPI_Pov ( ret, i, POV_RIGHT ); return ret;}
+			if ( gmpd.povUp.down () )	 { SetGPI_Pov ( ret, i, POV_UP ); return ret;}
+			if ( gmpd.povDown.down () )	 { SetGPI_Pov ( ret, i, POV_DOWN ); return ret;}
+			if ( gmpd.povLeft.down () )	 { SetGPI_Pov ( ret, i, POV_LEFT ); return ret;}
 
 			//ボタン
 			uint32 nBtn = 0;
@@ -156,36 +197,29 @@ namespace GAME
 			{
 				if ( ipt.down () )
 				{
-					ret.Set ( i, PIT_BUTTON, nBtn, LVR_UP );
+					ret.SetBtn ( i, nBtn );
 					return ret;
 				}
 				++ nBtn;
 			}
-
-			//POV ( Point Of View )
-			if ( gmpd.povUp.down () )	 { SetGPI_POV ( ret, i, LVR_UP ); return ret;}
-			if ( gmpd.povDown.down () )	 { SetGPI_POV ( ret, i, LVR_DOWN ); return ret;}
-			if ( gmpd.povLeft.down () )	 { SetGPI_POV ( ret, i, LVR_LEFT ); return ret;}
-			if ( gmpd.povRight.down () ) { SetGPI_POV ( ret, i, LVR_RIGHT ); return ret;}
-
-			//XY Axis
-			if ( PushAxisUp ( i ) )		{ SetGPI_Axis ( ret, i, LVR_UP ); return ret; }
-			if ( PushAxisDown ( i ) )	{ SetGPI_Axis ( ret, i, LVR_DOWN ); return ret; }
-			if ( PushAxisLeft ( i ) )	{ SetGPI_Axis ( ret, i, LVR_LEFT ); return ret; }
-			if ( PushAxisRight ( i ) )	{ SetGPI_Axis ( ret, i, LVR_RIGHT ); return ret; }
 		}
 
 		return ret;
 	}
 
-	void SivGamePad::SetGPI_POV ( GamePadInput & ret, uint32 pad_id, LEVER_DIR dir )
+	void SivGamePad::SetGPI_Lvr ( GamePadInput & ret, uint32 pad_id, LEVER_DIR lvr )
 	{
-		ret.Set ( pad_id, PIT_POINT_OF_VIEW, 0, dir );
+		ret.SetLvr ( pad_id, lvr );
 	}
 
-	void SivGamePad::SetGPI_Axis ( GamePadInput & ret, uint32 pad_id, LEVER_DIR dir )
+	void SivGamePad::SetGPI_Axis ( GamePadInput & ret, uint32 pad_id, AXIS_VALUE axis )
 	{
-		ret.Set ( pad_id, PIT_AXIS, 0, dir );
+		ret.SetAxis ( pad_id, axis );
+	}
+
+	void SivGamePad::SetGPI_Pov ( GamePadInput & ret, uint32 pad_id, POV_VALUE pov )
+	{
+		ret.SetPov ( pad_id, pov );
 	}
 
 	//--------------------------------------------------------------
@@ -234,7 +268,9 @@ namespace GAME
 
 	//--------------------------------------------------------------
 	//軸
-	//軸の状態を返す
+#if 0
+
+	//軸の状態を返す ( -1.0 < double < 1.0 )
 	double SivGamePad::GetJoyAxisX( size_t id ) const
 	{
 		return  m_impl[id].axes[AXIS_X];
@@ -250,30 +286,40 @@ namespace GAME
 		return  m_impl[id].axes[AXIS_Z];
 	}
 
-	//Axis:押した状態の判定 ( -1 < double < 1 )
-	bool SivGamePad::IsAxisY_Plus	( size_t id ) const
+#endif // 0
+
+	//Axis:状態の判定 ( -1.0 < double < 1.0 )
+	bool SivGamePad::IsAxisX_Plus( size_t id ) const
 	{
-		return ( m_impl[id].axes[AXIS_Y] <= -0.500 );
-	}
-	bool SivGamePad::IsAxisY_Minus	( size_t id ) const
-	{
-		return ( m_impl[id].axes[AXIS_Y] >= +0.500 );
+		if ( m_impl[id].axes.size () <= AXIS_X ) { return F; }
+		return ( m_impl[id].axes[AXIS_X] >= +1.0 );
 	}
 	bool SivGamePad::IsAxisX_Minus	( size_t id ) const
 	{
-		return ( m_impl[id].axes[AXIS_X] <= -0.500 );
+		if ( m_impl[id].axes.size () <= AXIS_X ) { return F; }
+		return ( m_impl[id].axes[AXIS_X] <= -1.0 );
 	}
-	bool SivGamePad::IsAxisX_Plus( size_t id ) const
+
+	bool SivGamePad::IsAxisY_Plus	( size_t id ) const
 	{
-		return ( m_impl[id].axes[AXIS_X] >= +0.500 );
+		if ( m_impl[id].axes.size () <= AXIS_Y ) { return F; }
+		return (m_impl[id].axes[AXIS_Y] >= +1.0);
+	}
+	bool SivGamePad::IsAxisY_Minus	( size_t id ) const
+	{
+		if ( m_impl[id].axes.size () <= AXIS_Y ) { return F; }
+		return (m_impl[id].axes[AXIS_Y] <= -1.0);
+	}
+
+	bool SivGamePad::IsAxisZ_Plus( size_t id ) const
+	{
+		if ( m_impl[id].axes.size () <= AXIS_Z ) { return F; }
+		return ( m_impl[id].axes[AXIS_Z] >= +1.0 );
 	}
 	bool SivGamePad::IsAxisZ_Minus	( size_t id ) const
 	{
-		return ( m_impl[id].axes[AXIS_Z] <= -0.500 );
-	}
-	bool SivGamePad::IsAxisZ_Plus( size_t id ) const
-	{
-		return ( m_impl[id].axes[AXIS_Z] >= +0.500 );
+		if ( m_impl[id].axes.size () <= AXIS_Z ) { return F; }
+		return ( m_impl[id].axes[AXIS_Z] <= -1.0 );
 	}
 
 	//前フレームの状態
@@ -299,30 +345,91 @@ namespace GAME
 		return m_pre_store[id].WasAxisRight ();
 	}
 #endif // 0
-		bool SivGamePad::WasAxisY_Minus	( size_t id ) const
-		{
-			return m_pre_store[id].WasAxisY_Minus ();
-		}
-		bool SivGamePad::WasAxisY_Plus	( size_t id ) const
-		{
-			return m_pre_store[id].WasAxisY_Plus ();
-		}
-		bool SivGamePad::WasAxisX_Minus	( size_t id ) const
-		{
-			return m_pre_store[id].WasAxisX_Minus ();
-		}
-		bool SivGamePad::WasAxisX_Plus	( size_t id ) const
-		{
-			return m_pre_store[id].WasAxisX_Plus ();
-		}
-		bool SivGamePad::WasAxisZ_Minus	( size_t id ) const
-		{
-			return m_pre_store[id].WasAxisZ_Minus ();
-		}
-		bool SivGamePad::WasAxisZ_Plus	( size_t id ) const
-		{
-			return m_pre_store[id].WasAxisZ_Plus ();
-		}
+
+	bool SivGamePad::WasAxisX_Plus	( size_t id ) const
+	{
+		return m_pre_store[id].WasAxisX_Plus ();
+	}
+	bool SivGamePad::WasAxisX_Minus	( size_t id ) const
+	{
+		return m_pre_store[id].WasAxisX_Minus ();
+	}
+
+	bool SivGamePad::WasAxisY_Plus	( size_t id ) const
+	{
+		return m_pre_store[id].WasAxisY_Plus ();
+	}
+	bool SivGamePad::WasAxisY_Minus	( size_t id ) const
+	{
+		return m_pre_store[id].WasAxisY_Minus ();
+	}
+
+	bool SivGamePad::WasAxisZ_Plus	( size_t id ) const
+	{
+		return m_pre_store[id].WasAxisZ_Plus ();
+	}
+	bool SivGamePad::WasAxisZ_Minus	( size_t id ) const
+	{
+		return m_pre_store[id].WasAxisZ_Minus ();
+	}
+
+
+	//押した瞬間の判定(前回off 今回on)
+	bool SivGamePad::PushAxisX_Plus ( size_t id ) const
+	{
+		return ( ! WasAxisX_Plus(id) && IsAxisX_Plus(id) );
+	}
+	bool SivGamePad::PushAxisX_Minus ( size_t id ) const
+	{
+		return ( ! WasAxisX_Minus(id) && IsAxisX_Minus(id) );
+	}
+
+	bool SivGamePad::PushAxisY_Plus ( size_t id ) const
+	{
+		return ( ! WasAxisY_Plus(id) && IsAxisY_Plus(id) );
+	}
+	bool SivGamePad::PushAxisY_Minus ( size_t id ) const
+	{
+		return ( ! WasAxisY_Minus(id) && IsAxisY_Minus(id) );
+	}
+
+	bool SivGamePad::PushAxisZ_Plus ( size_t id ) const
+	{
+		return ( ! WasAxisZ_Plus(id) && IsAxisZ_Plus(id) );
+	}
+	bool SivGamePad::PushAxisZ_Minus ( size_t id ) const
+	{
+		return ( ! WasAxisZ_Minus(id) && IsAxisZ_Minus(id) );
+	}
+
+
+	//離した瞬間の判定(前回on 今回off)
+	bool SivGamePad::ReleAxisX_Plus ( size_t id ) const
+	{
+		return ( WasAxisX_Plus(id) && ! IsAxisX_Plus(id) );
+	}
+	bool SivGamePad::ReleAxisX_Minus ( size_t id ) const
+	{
+		return ( WasAxisX_Minus(id) && ! IsAxisX_Minus(id) );
+	}
+
+	bool SivGamePad::ReleAxisY_Plus ( size_t id ) const
+	{
+		return ( WasAxisY_Plus(id) && ! IsAxisY_Plus(id) );
+	}
+	bool SivGamePad::ReleAxisY_Minus ( size_t id ) const
+	{
+		return ( WasAxisY_Minus(id) && ! IsAxisY_Minus(id) );
+	}
+
+	bool SivGamePad::ReleAxisZ_Plus ( size_t id ) const
+	{
+		return ( WasAxisZ_Plus(id) && ! IsAxisZ_Plus(id) );
+	}
+	bool SivGamePad::ReleAxisZ_Minus ( size_t id ) const
+	{
+		return ( WasAxisZ_Minus(id) && ! IsAxisZ_Minus(id) );
+	}
 
 
 	//--------------------------------------------------------------
@@ -337,9 +444,8 @@ namespace GAME
 	}
 
 
-	//POVの状態を返す( 上から 0, 9000, 18000, 27000 )
+	//POVの状態 ( 真上から時計回りに 0, 1, 2, 3, 4, 5, 6, 7 )
 	//※単一の値なので範囲で指定する
-	// (0,4500,9000,13500,18000,22500,27000,31500)
 	bool SivGamePad::IsPovUp ( size_t id ) const
 	{
 		const detail::Gamepad_impl & gamepad = Gamepad ( id );
@@ -347,53 +453,59 @@ namespace GAME
 
 		//オプショナル(null許容)型 チェック
 		Optional < int32 > pov = gamepad.povD8 ();
-		if ( pov ) { return F; }
-
-		return ( 0 <= pov && pov <= 4500 ) || ( 31500 <= pov && pov <= 35999 );
+		if ( ! pov.has_value () ) { return F; }
+		return ( 0 == pov ) || ( 7 == pov ) || ( 1 == pov );
 	}
 
 
 	bool SivGamePad::IsPovRight ( size_t id ) const
 	{
 		Optional < int32 > pov = Gamepad ( id ).povD8 ();
-		return ( 4500 <= pov && pov <= 13500 );
+		if ( ! pov.has_value () ) { return F; }
+		return ( 2 == pov ) || ( 1 == pov ) || ( 3 == pov );
 	}
 
 	bool SivGamePad::IsPovDown ( size_t id ) const
 	{
 		Optional < int32 > pov = Gamepad ( id ).povD8 ();
-		return ( 13500 <= pov && pov <= 22500 );
+		if ( ! pov.has_value () ) { return F; }
+		return ( 4 == pov ) || ( 3 == pov ) || ( 5 == pov );
 	}
 
 	bool SivGamePad::IsPovLeft ( size_t id )  const
 	{
 		Optional < int32 > pov = Gamepad ( id ).povD8 ();
-		return ( 22500 <= pov && pov <= 31500 );
+		if ( ! pov.has_value () ) { return F; }
+		return ( 6 == pov ) || ( 5 == pov ) || ( 7 == pov );
 	}
 
 	//-----------------------------------------------
 	bool SivGamePad::WasPovUp ( size_t id ) const
 	{
 		Optional < int32 > pov = m_pre_store[id].PovD8 ();
-		return ( 0 <= pov && pov <= 4500 ) || ( 31500 <= pov && pov <= 35999 );
+		if ( ! pov.has_value () ) { return F; }
+		return ( 0 == pov ) || ( 7 == pov ) || ( 1 == pov );
 	}
 
 	bool SivGamePad::WasPovRight ( size_t id ) const
 	{
 		Optional < int32 > pov = m_pre_store[id].PovD8 ();
-		return ( 4500 <= pov && pov <= 13500 );
+		if ( ! pov.has_value () ) { return F; }
+		return ( 2 == pov ) || ( 1 == pov ) || ( 3 == pov );
 	}
 
 	bool SivGamePad::WasPovDown ( size_t id ) const
 	{
 		Optional < int32 > pov = m_pre_store[id].PovD8 ();
-		return ( 13500 <= pov && pov <= 22500 );
+		if ( ! pov.has_value () ) { return F; }
+		return ( 4 == pov ) || ( 3 == pov ) || ( 5 == pov );
 	}
 
 	bool SivGamePad::WasPovLeft ( size_t id )  const
 	{
 		Optional < int32 > pov = m_pre_store[id].PovD8 ();
-		return ( 22500 <= pov && pov <= 31500 );
+		if ( ! pov.has_value () ) { return F; }
+		return ( 6 == pov ) || ( 5 == pov ) || ( 7 == pov );
 	}
 
 

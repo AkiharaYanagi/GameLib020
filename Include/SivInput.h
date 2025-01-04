@@ -50,6 +50,7 @@ namespace GAME
 		void Store();
 
 		const GMPD & GetPadState () const { return m_gamepad.GetState (); }
+		const GamePadInputStore & GetStore () const { return m_gamepad.GetStore (); }
 
 		//---------------------------------------------------------------------------
 		//キーコンフィグ用
@@ -70,24 +71,41 @@ namespace GAME
 		//	引数：num デバイス番号, btn キー番号
 		bool IsJoyButton ( int id, int btn ) const;
 
-		bool IsAxisUp(int nDevice) const;
-		bool IsAxisDown(int nDevice) const;
-		bool IsAxisLeft(int nDevice) const;
-		bool IsAxisRight(int nDevice) const;
+#if 0
+		bool IsAxisUp(int id) const;
+		bool IsAxisDown(int id) const;
+		bool IsAxisLeft(int id) const;
+		bool IsAxisRight(int id) const;
+#endif // 0
+		bool IsAxisX_Plus ( int id ) const;
+		bool IsAxisX_Minus ( int id ) const;
+		bool IsAxisY_Plus ( int id ) const;
+		bool IsAxisY_Minus ( int id ) const;
+		bool IsAxisZ_Plus ( int id ) const;
+		bool IsAxisZ_Minus ( int id ) const;
 
-		bool IsPovUp(int nDevice) const;
-		bool IsPovRight(int nDevice) const;
-		bool IsPovDown(int nDevice) const;
-		bool IsPovLeft(int nDevice) const;
+
+		bool IsPovUp(int id) const;
+		bool IsPovRight(int id) const;
+		bool IsPovDown(int id) const;
+		bool IsPovLeft(int id) const;
 
 		//	ジョイスティックで押された瞬間かどうかを取得する
 		//	引数：num デバイス番号, btn キー番号
 		bool PushJoyButton(int num, int btn) const;
 
+#if 0
 		bool PushAxisUp(int id) const;
 		bool PushAxisDown(int id) const;
 		bool PushAxisLeft(int id) const;
 		bool PushAxisRight(int id) const;
+#endif // 0
+		bool PushAxisX_Plus ( int id ) const;
+		bool PushAxisX_Minus ( int id ) const;
+		bool PushAxisY_Plus ( int id ) const;
+		bool PushAxisY_Minus ( int id ) const;
+		bool PushAxisZ_Plus ( int id ) const;
+		bool PushAxisZ_Minus ( int id ) const;
 
 		bool PushPovUp(int id) const;
 		bool PushPovRight(int id) const;
@@ -98,10 +116,19 @@ namespace GAME
 		//	引数：num デバイス番号, btn キー番号
 		bool ReleJoyButton(int num, int btn) const;
 
+#if 0
 		bool ReleAxisUp(int id) const;
 		bool ReleAxisDown(int id) const;
 		bool ReleAxisLeft(int id) const;
 		bool ReleAxisRight(int id) const;
+#endif // 0
+
+		bool ReleAxisX_Plus ( int id ) const;
+		bool ReleAxisX_Minus ( int id ) const;
+		bool ReleAxisY_Plus ( int id ) const;
+		bool ReleAxisY_Minus ( int id ) const;
+		bool ReleAxisZ_Plus ( int id ) const;
+		bool ReleAxisZ_Minus ( int id ) const;
 
 		bool RelePovUp(int id) const;
 		bool RelePovRight(int id) const;

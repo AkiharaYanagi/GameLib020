@@ -42,6 +42,9 @@ namespace GAME
 		P_PxShd			m_ps_screen;	//ピクセルシェーダ
 		UP_RndrTx		m_outTx;		//最終 レンダーテクスチャ
 
+		//全体演出
+		int32			m_vib { 0 };	//振動
+
 	public:
 
 		void Load ();
@@ -67,6 +70,14 @@ namespace GAME
 		UP_RndrTx Handover_OutTx () { return std::move ( m_outTx ); }
 		//最終 返還
 		void Refund_OutTx ( UP_RndrTx&& up ) { m_outTx = std::move ( up ); }
+
+
+		//振動
+		void VibOn ();
+		void VibOff ();
+
+	private:
+		static const int32 VIB_N;
 	};
 
 
