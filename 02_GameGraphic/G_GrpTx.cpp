@@ -42,16 +42,41 @@ namespace GAME
 
 	void G_GrpTx::Draw ()
 	{
+		double x = 0;
+		double y = 0;
+
 		//振動
 		//初期値０以外になっていたら振動開始
 		if ( m_vib != 0 )
 		{
-			m_vib = ( m_vib == VIB_N ) ? - VIB_N : + VIB_N;
+			//反転
+//			m_vib = ( m_vib == VIB_N ) ? - VIB_N : + VIB_N;
+
+
+			//ランダム：円周
+			x = s3d::Random ( 0.0, m_vib ); 
+			y = std::sqrt ( m_vib * m_vib - x * x );
+
+			//象限
+
+
+
+			//最初の２フレームは拡大
+			if ( m_vibCount == 1 )
+			{
+				x *= 1.8;
+				y *= 1.8;
+			}
+			if ( m_vibCount == 2 )
+			{
+				x *= 1.5;
+				y *= 1.5;
+			}
+
 		}
 
-		//m_outTx->draw ( 0, 0 );
-		//m_outTx->draw ( m_vib, 100 );
-		m_outTx->draw ( m_vib, 0 );
+		//描画
+		m_outTx->draw ( x, y );
 	}
 
 	void G_GrpTx::Clear ()
@@ -65,15 +90,17 @@ namespace GAME
 	void G_GrpTx::VibOn ()
 	{
 		m_vib = VIB_N;
+		m_vibCount = 1;
 	}
 
 	void G_GrpTx::VibOff ()
 	{
 		m_vib = 0;
+		m_vibCount = 0;
 	}
 
 
-	const int32 G_GrpTx::VIB_N = 5;
+	const double G_GrpTx::VIB_N = 5;
 
 }	//namespace GAME
 
