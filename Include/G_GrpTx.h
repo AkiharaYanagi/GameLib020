@@ -43,7 +43,8 @@ namespace GAME
 		UP_RndrTx		m_outTx;		//最終 レンダーテクスチャ
 
 		//全体演出
-		double			m_vib { 0 };	//振動
+		double			m_vibStart { 0 };	//振動　初期値
+		double			m_vib { 0 };		//振動　現在値
 		int32			m_vibCount { 0 };	//振動カウント
 
 	public:
@@ -76,6 +77,7 @@ namespace GAME
 		//振動
 		void VibOn ();
 		void VibOff ();
+		void SetVibStart ( double vib ) { m_vibStart = vib; }
 
 	private:
 		static const double VIB_N;

@@ -24,6 +24,7 @@ namespace GAME
 	//=======================================================================
 	G_GrpTx::G_GrpTx ()
 	{
+		m_vibStart = VIB_N;
 	}
 
 	G_GrpTx::~G_GrpTx ()
@@ -58,21 +59,42 @@ namespace GAME
 			y = std::sqrt ( m_vib * m_vib - x * x );
 
 			//象限
-
+			x *= s3d::Random ( 0, 1 ) ? 1 : -1;
+			y *= s3d::Random ( 0, 1 ) ? 1 : -1;
 
 
 			//最初の２フレームは拡大
-			if ( m_vibCount == 1 )
+#if 0
+			if ( 1 <= m_vibCount && m_vibCount < 4 )
 			{
-				x *= 1.8;
-				y *= 1.8;
+				x *= 16 / m_vibCount;
+				y *= 16 / m_vibCount;
 			}
-			if ( m_vibCount == 2 )
+			if ( 4 <= m_vibCount && m_vibCount < 8 )
 			{
-				x *= 1.5;
-				y *= 1.5;
+				x *= 16 / m_vibCount;
+				y *= 16 / m_vibCount;
+			}
+#endif // 0
+
+			double d = 1;
+
+			switch ( m_vibCount )
+			{
+			case 1: d = 9.0; break;
+			case 2: d = 8.5; break;
+			case 3: d = 5.0; break;
+			case 4: d = 4.5; break;
+			case 5: d = 2.0; break;
+			case 6: d = 1.8; break;
+			case 7: d = 1.4; break;
+			case 8: d = 1.2; break;
 			}
 
+			x *= d;
+			y *= d;
+
+			++ m_vibCount;
 		}
 
 		//描画
@@ -89,7 +111,7 @@ namespace GAME
 
 	void G_GrpTx::VibOn ()
 	{
-		m_vib = VIB_N;
+		m_vib = m_vibStart;
 		m_vibCount = 1;
 	}
 
