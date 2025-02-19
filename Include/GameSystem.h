@@ -11,6 +11,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "00_Common.h"
 #include "GameMainBase.h"
+using CLK = std::chrono::high_resolution_clock;
 
 
 //-------------------------------------------------------------------------------------------------
@@ -25,6 +26,22 @@ namespace GAME
 	class GameSystem
 	{
 		UP_GameMainBase		m_pGameMain;
+
+
+		//éûä‘åvë™
+		CLK::time_point start_time;
+		CLK::time_point now_time;
+		CLK::time_point end_time;
+		uint32 frame { 0 };
+		uint32 frame_ps { 0 };
+
+		CLK::time_point fps_time;
+		uint32 fps { 60 };
+		int64 disp_fps { 0 };
+		int64 sleep { 0 };
+		double aveSleep { 0 };
+		double dispSleep { 0 };
+
 
 	public:
 		GameSystem () {}
@@ -44,7 +61,9 @@ namespace GAME
 
 		//ÉtÉåÅ[ÉÄêßå‰
 		void Frame ();
+		void _Frame ();
 		void _Move ();
+
 		double	m_frame { 0 };
 		double	m_start_time { 0 };
 		double	m_progress_time { 0 };

@@ -17,6 +17,8 @@
 #include "03_GameInput.h"
 #include "04_GameFile.h"
 
+using namespace std::chrono;
+
 
 //-------------------------------------------------------------------------------------------------
 // 定義
@@ -144,7 +146,8 @@ namespace GAME
 	void GameSystem::Move ()
 	{
 //		Frame ();
-		_Move ();
+//		_Move ();
+		_Frame ();
 	}
 
 
@@ -207,6 +210,60 @@ namespace GAME
 				++ m_frame;
 			}
 		}
+	}
+
+
+	void GameSystem::_Frame ()
+	{
+		//フレーム制御
+		now_time = CLK::now ();
+		duration drtn = duration_cast < microseconds > ( now_time - start_time );
+		long long mcsec = drtn.count ();
+
+#if 0
+#endif // 0
+
+
+		//144Hz など規定時刻より早いとき
+		if ( 16666 > mcsec )
+		{
+			//早い時間だけスリープ
+			sleep = 16666 - mcsec - 700;
+			std::this_thread::sleep_for ( microseconds ( sleep ) );
+			aveSleep += sleep;
+		}
+		//遅いときはそのまま実行
+
+		start_time = CLK::now ();
+
+		//動作
+		_Move ();
+
+		++ frame;
+		++ frame_ps;
+
+
+		//FPS計測
+		duration drtn_fps = duration_cast < microseconds > ( now_time - fps_time );
+		long long mcsec_fps = drtn_fps.count ();
+
+		if ( 1000000 <= mcsec_fps )
+		{
+			fps = frame_ps;
+			frame_ps = 1;
+
+			dispSleep = aveSleep / frame;
+			aveSleep = 0;
+
+			fps_time = CLK::now ();
+			disp_fps = mcsec_fps;
+		}
+
+		s3d::ClearPrint ();
+		s3d::Print << U"Frame:" << frame;
+		s3d::Print << U"FPS:" << fps;
+		s3d::Print << U"sleep:" << dispSleep;
+		s3d::Print << U"drtn_fps:" << disp_fps;
 	}
 
 

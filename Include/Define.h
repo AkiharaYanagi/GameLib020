@@ -24,6 +24,7 @@
 #include <fstream>
 #include <iomanip>	//std::setw(), std::setfill() など
 #include <regex>
+#include <filesystem>
 
 #define WIN32_LEAN_AND_MEAN		// Windows ヘッダーからほとんど使用されていない部分を除外する
 
