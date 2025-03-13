@@ -62,10 +62,6 @@ namespace GAME
 	};
 
 	using P_Atlas = std::shared_ptr < Atlas >;
-	using UP_CHAR = std::unique_ptr < char [] >;
-	using UP_BYTE = std::unique_ptr < BYTE [] >;
-
-
 
 
 

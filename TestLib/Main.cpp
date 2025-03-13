@@ -232,6 +232,16 @@ std::unique_ptr < s3d::VideoTexture > p_vtx;
 //メイン
 void Main()
 {
+#if 0
+	ClearPrint ();
+	const Array < s3d::MonitorInfo > mnt_info = s3d::System::EnumerateMonitors ();
+	for ( MonitorInfo mi : mnt_info )
+	{
+		Print << mi.refreshRate;
+	}
+#endif // 0
+
+
 	//読込
 	Load ();
 

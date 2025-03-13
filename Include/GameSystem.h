@@ -37,7 +37,7 @@ namespace GAME
 
 		CLK::time_point fps_time;
 		uint32 fps { 60 };
-		int64 disp_fps { 0 };
+		double disp_fps { 0 };
 		int64 sleep { 0 };
 		double aveSleep { 0 };
 		double dispSleep { 0 };

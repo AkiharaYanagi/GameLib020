@@ -71,12 +71,17 @@ namespace GAME
 		//====================================================
 		//Šî–{î•ñ
 	private:
-		//Base_DebugOut		m_frame;
-		P_GrpStr		m_frame;
+		P_GrpStr		m_frame;	//‰Ò“­ŠÔ
+		P_GrpStr		m_FPS;		//Frame Per Second
 
 	public:
 		//ŒÅ’è•\¦ : ‰Ò“­ŠÔ[F]
 		void DebugOutWnd_Frame ( UINT frame );
+
+		//ŒÅ’è•\¦ : FPS
+		void DebugOutWnd_FPS ( double fps );
+
+
 #if 0
 
 	private:

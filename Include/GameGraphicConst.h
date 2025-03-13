@@ -28,6 +28,7 @@ namespace GAME
 
 	constexpr float Z_MENU = 0.02f;		//メニュ
 	constexpr float Z_FADE = 0.01f;		//フェード
+	constexpr float Z_DEBUG = 0.001f;	//デバッグ
 	//@info 小さい方が手前
 
 	//--------------------------------------

@@ -66,6 +66,8 @@ namespace GAME
 		//個数
 		size_t GetNumList () const { return mplp_GrpMain->size (); }
 
+		//対象タスクを同一Z値の中で先頭にする
+		void TopByZ ( P_GrpCr pGrpCr );
 	};
 
 	using GrpLst = GameGraphicList;

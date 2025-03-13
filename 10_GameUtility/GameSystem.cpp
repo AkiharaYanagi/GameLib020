@@ -256,14 +256,17 @@ namespace GAME
 			aveSleep = 0;
 
 			fps_time = CLK::now ();
-			disp_fps = mcsec_fps;
+
+			//余剰分[mcsec]を次の60FPSのパーセンテージで減算
+			disp_fps = (double)fps - 60.0 * ( (double)mcsec_fps - 1000000 ) / 1000000;
 		}
 
-		s3d::ClearPrint ();
-		s3d::Print << U"Frame:" << frame;
-		s3d::Print << U"FPS:" << fps;
-		s3d::Print << U"sleep:" << dispSleep;
-		s3d::Print << U"drtn_fps:" << disp_fps;
+//		s3d::ClearPrint ();
+//		s3d::Print << U"Frame:" << frame;
+//		s3d::Print << U"FPS:" << fps;
+//		s3d::Print << U"sleep:" << dispSleep;
+//		s3d::Print << U"drtn_fps:" << disp_fps;
+		DBGOUT_WND()->DebugOutWnd_FPS ( disp_fps );
 	}
 
 

@@ -22,20 +22,27 @@ namespace GAME
 
 	DebugOutGameWindow::DebugOutGameWindow ()
 	{
-		m_frame = std::make_shared < GrpStr > ();
-		m_frame->SetPos ( VEC2 ( 0, 0 ) );
-		m_frame->SetZ ( Z_MENU );
-		m_frame->SetColorF ( s3d::ColorF { 1.0, 0.0, 1.0 } );
-//		GRPLST_INSERT ( m_frame );
-
+		//任意表示
 		for ( int i = 0; i < DBGOUT_WND_N; ++ i )
 		{
 			ma_str [ i ] = std::make_shared < GrpStr > ();
 			ma_str [ i ]->SetPos ( VEC2 ( 0, 300.f + 30 * i ) );
-			ma_str [ i ]->SetZ ( Z_MENU );
+			ma_str [ i ]->SetZ ( Z_DEBUG );
 			ma_str [ i ]->SetSize ( G_Font::SIZE_20 );
-			//GRPLST_INSERT ( ma_str [ i ] );
 		}
+
+		//固定表示 : 稼働時間[F]
+		m_frame = std::make_shared < GrpStr > ();
+		m_frame->SetPos ( VEC2 ( 0, 0 ) );
+		m_frame->SetZ ( Z_DEBUG );
+		m_frame->SetColorF ( s3d::ColorF { 1.0, 0.0, 1.0 } );
+
+		//固定表示 : FPS
+		m_FPS = std::make_shared < GrpStr > ();
+		m_FPS->SetPos ( VEC2 ( 0, 20 ) );
+		m_FPS->SetZ ( Z_DEBUG );
+		m_FPS->SetColorF ( s3d::ColorF { 1.0, 0.0, 1.0 } );
+
 	}
 
 	DebugOutGameWindow::~DebugOutGameWindow ()
@@ -54,6 +61,7 @@ namespace GAME
 			str->Draw ();
 		}
 		m_frame->Draw ();
+		m_FPS->Draw ();
 	}
 
 	void DebugOutGameWindow::DebugOutf ( DBGOUT_LINE line, const s3d::String & str )
@@ -72,6 +80,7 @@ namespace GAME
 			str->SetValid ( T );
 		}
 		m_frame->SetValid ( T );
+		m_FPS->SetValid ( T );
 	}
 
 	void DebugOutGameWindow::Off ()
@@ -81,6 +90,7 @@ namespace GAME
 			str->SetValid ( F );
 		}
 		m_frame->SetValid ( F );
+		m_FPS->SetValid ( F );
 	}
 
 
@@ -88,6 +98,19 @@ namespace GAME
 	void DebugOutGameWindow::DebugOutWnd_Frame ( UINT frame )
 	{
 		m_frame->SetStr ( U"frame = {}"_fmt( frame ) );
+	}
+
+	//固定表示 : FPS
+	void DebugOutGameWindow::DebugOutWnd_FPS ( double fps )
+	{
+		Optional < double > rr = 0;
+		const Array < s3d::MonitorInfo > mnt_info = s3d::System::EnumerateMonitors ();
+		for ( MonitorInfo mi : mnt_info )
+		{
+			//Print << mi.refreshRate;
+			rr = mi.refreshRate;
+		}
+		m_FPS->SetStr ( U"{}Hz, FPS:{:.3f}"_fmt( rr.value(), fps ) );
 	}
 
 

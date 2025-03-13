@@ -132,8 +132,7 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="Test.cpp" />
-    <ClCompile Include="Mov.cpp" />
+    <ClCompile Include="test_ketsuchaku.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -766,7 +765,6 @@
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\Include\Game.h" />
-    <ClInclude Include="Test.h" />
-    <ClInclude Include="Mov.h" />
+    <ClInclude Include="test_ketsuchaku.h" />
   </ItemGroup>
 </Project>

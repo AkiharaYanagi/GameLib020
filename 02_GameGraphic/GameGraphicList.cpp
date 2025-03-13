@@ -73,5 +73,13 @@ namespace GAME
 	}
 
 
+	//対象タスクを同一Z値の中で先頭にする
+	void GameGraphicList::TopByZ ( P_GrpCr pGrpCr )
+	{
+		Remove ( pGrpCr );
+		InsertByZ ( pGrpCr );
+	}
+
+
 }	//namespace GAME
 
