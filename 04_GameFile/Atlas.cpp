@@ -120,7 +120,7 @@ namespace GAME
 		P_Tx ptx;
 		if ( m_aryCmprs.size () > 0 )
 		{
-			return m_aryCmprs[0]->Tx();
+			return m_aryCmprs[0]->Tx_Thawing();
 		}
 		return ptx;
 	}
@@ -133,7 +133,7 @@ namespace GAME
 		size_t index = 0;
 		for ( P_Compress p : m_aryCmprs )
 		{
-			(*paptx) [ index ++ ] = p->Tx ();
+			(*paptx) [ index ++ ] = p->Tx_Thawing ();	//空白をチェックして解凍
 		}
 		return paptx;
 	}

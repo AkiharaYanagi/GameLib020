@@ -305,7 +305,7 @@ namespace GAME
 			//記録IDとインデックスが異なるとき
 			while ( index != tile.GetId () )
 			{
-				//すべて空白して次へ
+				//すべて空白にして次へ
 				for ( int32 y = 0; y < TIP_H; ++ y )
 				{
 					for ( int32 x = 0; x < TIP_W; ++ x )

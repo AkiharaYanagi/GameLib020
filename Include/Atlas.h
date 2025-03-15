@@ -44,6 +44,8 @@ namespace GAME
 		void Make ( std::filesystem::path dir );
 		void Write ();
 		PAP_Tx Read ();
+	
+		//C#からバイナリで.png形式をまとめた.imgファイルから作成
 		void Conversion ( s3d::String filepath );
 
 		P_Tx GetpTx ();
