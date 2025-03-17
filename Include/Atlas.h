@@ -51,6 +51,8 @@ namespace GAME
 		P_Tx GetpTx ();
 		PAP_Tx GetpapTx ();
 
+		bool Compare ( const Atlas & rhs ) const;
+
 
 		//取得
 		//Image Get ();
@@ -61,6 +63,13 @@ namespace GAME
 		{
 			t ( m_aryCmprs );
 		}
+
+
+		//MemoryStream上に展開
+		void WriteMemoryStream ( s3d::MemoryWriter & mw );
+
+		//MemoryStreamから読込
+		void LoadMemoryStream ( s3d::MemoryReader & mr );
 	};
 
 	using P_Atlas = std::shared_ptr < Atlas >;

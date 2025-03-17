@@ -121,5 +121,55 @@ namespace GAME
 		return 0xff0000ff;
 	}
 
+	bool Tile::Compare ( const Tile & rhs ) const
+	{
+		if ( m_id != rhs.m_id ) { return F; }
+
+		size_t index = 0;
+		for	( uint32 i : m_tip )
+		{
+			if ( i != rhs.m_tip [ index ] )
+			{
+				uint32 tip = rhs.m_tip [ index ];
+				return F;
+			}
+			++ index;
+		}
+		return T;
+	}
+
+	//MemoryStream上に展開
+	void Tile::WriteMemoryStream ( s3d::MemoryWriter & mw )
+	{
+		//ID [4byte]
+		mw.write ( m_id );
+
+		//個数は固定 TIP_N
+
+		//データ
+		for ( uint32 i : m_tip )
+		{
+			mw.write ( i );
+		}
+	}
+
+	//MemoryStreamから読込
+	void Tile::LoadMemoryStream ( s3d::MemoryReader & mr )
+	{
+		//ID [4byte]
+		mr.read ( m_id );
+
+		//個数は固定 TIP_N
+
+		//データ
+		m_tip.clear ();
+		m_tip.resize ( TIP_N );
+		
+		for ( size_t index = 0; index < TIP_N; ++ index )
+		{
+			mr.read ( m_tip [ index ] );
+		}
+	}
+
 
 }	//namespace GAME

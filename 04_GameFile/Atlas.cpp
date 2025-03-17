@@ -138,6 +138,55 @@ namespace GAME
 		return paptx;
 	}
 
+	bool Atlas::Compare ( const Atlas & rhs ) const
+	{
+		if ( m_aryCmprs.size () != m_aryCmprs.size () ) { return F; }
+
+		size_t index = 0;
+		for ( P_Compress p : m_aryCmprs )
+		{
+			if ( ! p->Compare ( * rhs.m_aryCmprs [ index ++ ] ) ) { return F; }
+		}
+		return T;
+	}
+
+
+
+	//MemoryStream上に展開
+	void Atlas::WriteMemoryStream ( s3d::MemoryWriter & mw )
+	{
+		//個数 [4byte]
+		int32 sz = (int32)m_aryCmprs.size ();
+		mw.write ( sz );
+
+		//データ
+		for ( P_Compress p : m_aryCmprs )
+		{
+			p->WriteMemoryStream ( mw );
+		}
+	}
+
+
+	//MemoryStreamから読込
+	void Atlas::LoadMemoryStream ( s3d::MemoryReader & mr )
+	{
+		//個数 [4byte]
+		int32 sz = 0;
+		mr.read ( sz );
+
+		//データ
+		m_aryCmprs.clear ();
+		m_aryCmprs.resize ( sz );
+
+		size_t index = 0;
+		for ( P_Compress p : m_aryCmprs )
+		{
+			m_aryCmprs [ index ] = std::make_shared < Compress > ();
+			m_aryCmprs [ index ]->LoadMemoryStream ( mr );
+			++ index;
+		}
+	}
+
 
 	//---------------------------------------------
 
@@ -184,6 +233,9 @@ namespace GAME
 //		Atlas atls;
 //		sbr ( atls );
 	}
+
+
+
 
 
 }	//namespace GAME

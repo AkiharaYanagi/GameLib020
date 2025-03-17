@@ -48,6 +48,7 @@ namespace GAME
 		P_Tx Tx ();
 		P_Tx Tx_Thawing ();	//解凍して生成
 
+		bool Compare ( const Compress & rhs ) const;
 
 		//-------------------------------------------
 		//シリアライズ可能にするためのテンプレート関数定義
@@ -56,6 +57,13 @@ namespace GAME
 		{
 			t ( m_tiles, m_w, m_h );
 		}
+
+		//-------------------------------------------
+		//MemoryStream上に展開
+		void WriteMemoryStream ( s3d::MemoryWriter & mw );
+
+		//MemoryStreamから読込
+		void LoadMemoryStream ( s3d::MemoryReader & mr );
 	};
 
 	using P_Compress = std::shared_ptr < Compress >;

@@ -359,4 +359,60 @@ namespace GAME
 	}
 
 
+	bool Compress::Compare ( const Compress & rhs ) const
+	{
+		if ( m_w != rhs.m_w ) { return F; }
+		if ( m_h != rhs.m_h ) { return F; }
+
+		size_t index = 0;
+		for	( Tile t : m_tiles )
+		{
+			if ( ! t.Compare ( rhs.m_tiles [ index ++ ] ) )
+			{
+				return F;
+			}
+		}
+		return T;
+	}
+
+
+	//MemoryStream上に展開
+	void Compress::WriteMemoryStream ( s3d::MemoryWriter & mw )
+	{
+		//元タイル個数 [4byte,4byte]
+		mw.write ( m_w );
+		mw.write ( m_h );
+
+		//個数 [4byte]
+		int32 sz = (int)m_tiles.size ();
+		mw.write ( sz );
+
+		//データ
+		for ( Tile tile : m_tiles )
+		{
+			tile.WriteMemoryStream ( mw );
+		}
+	}
+
+	//MemoryStreamから読込
+	void Compress::LoadMemoryStream ( s3d::MemoryReader & mr )
+	{
+		//元タイル個数 [4byte,4byte]
+		mr.read ( m_w );
+		mr.read ( m_h );
+
+		//個数 [4byte]
+		int32 sz = 0;
+		mr.read ( sz );
+
+		//データ
+		m_tiles.clear ();
+		m_tiles.resize ( sz );
+		
+		for ( int32 index = 0; index < sz; ++ index )
+		{
+			m_tiles [ index ].LoadMemoryStream ( mr );
+		}
+	}
+
 }	//namespace GAME

@@ -50,6 +50,7 @@ namespace GAME
 		//値を取得
 		uint32 GetUint ( int32 x, int32 y ) const;
 
+		bool Compare ( const Tile & rhs ) const;
 
 		//-------------------------------------------
 		//シリアライズ可能にするためのテンプレート関数定義
@@ -58,6 +59,13 @@ namespace GAME
 		{
 			t ( m_id, m_tip );
 		}
+
+		//-------------------------------------------
+		//MemoryStream上に展開
+		void WriteMemoryStream ( s3d::MemoryWriter & mw );
+
+		//MemoryStreamから読込
+		void LoadMemoryStream ( s3d::MemoryReader & mr );
 	};
 
 	using P_Tile = std::shared_ptr < Tile >;
