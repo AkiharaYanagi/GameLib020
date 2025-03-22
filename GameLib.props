@@ -8,11 +8,14 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>F:\Projects\GameLib020\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\Programming\lz4-dev\lib;F:\Projects\GameLib020\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Library;F:\Programming\lz4-dev\build\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>F:\Programming\lz4-dev\build\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

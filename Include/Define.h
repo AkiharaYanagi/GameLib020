@@ -26,6 +26,10 @@
 #include <regex>
 #include <filesystem>
 
+#include <lz4.h>
+#pragma comment ( lib, "lz4.lib" )
+//@info .dllファイルはコピーして参照できる位置に置く
+
 #define WIN32_LEAN_AND_MEAN		// Windows ヘッダーからほとんど使用されていない部分を除外する
 
 
