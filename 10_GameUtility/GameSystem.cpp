@@ -159,11 +159,11 @@ namespace GAME
 		const double IDEAL_TIME = 1.0 / FPS;
 
 		//現在時間
-		double now_time = s3d::Scene::DeltaTime ();
+		double _now_time = s3d::Scene::DeltaTime ();
 
 
 		//経過時間
-		m_progress_time += now_time;
+		m_progress_time += _now_time;
 
 #if 0
 

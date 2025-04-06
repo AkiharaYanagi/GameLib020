@@ -769,6 +769,7 @@
     <ClInclude Include="..\Include\Rect.h" />
     <ClInclude Include="..\Include\DebugOutTrace.h" />
     <ClInclude Include="..\Include\Archiver.h" />
+    <ClInclude Include="..\Include\DebugOutPrint.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -779,5 +780,6 @@
     <ClCompile Include="Archiver.cpp" />
     <ClCompile Include="WND_UTL.cpp" />
     <ClCompile Include="STR_UTL.cpp" />
+    <ClCompile Include="DebugOutPrint.cpp" />
   </ItemGroup>
 </Project>

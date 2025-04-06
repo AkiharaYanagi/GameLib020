@@ -58,7 +58,8 @@ namespace GAME
 		void AddTexture ( s3d::String filename );
 		void AddTexture_FromArchive ( s3d::String filename );
 		void AddpTexture ( P_Tx ptx );
-		void SetpTexture ( P_Tx ptx );
+		void SetpTexture ( P_Tx ptx );	//[0]の位置にテクスチャを再設定
+		void AssignpTexture ( P_Tx ptx );	//[0]の位置にテクスチャを設定
 		VEC2 GetCenterOfTexture ( uint32 index );
 
 		//---------------------------------------------------------------------
@@ -103,6 +104,7 @@ namespace GAME
 
 
 		void SetIndexTexture ( uint32 index ) { mpap_Object->at(0)->SetIndexTexture ( index ); }
+		uint32 GetIndexTexture () const { return mpap_Object->at(0)->GetIndexTexture (); }
 		void NextIndexTexture ();
 		void PrevIndexTexture ();
 		
@@ -126,6 +128,14 @@ namespace GAME
 	
 	using	AP_Grp = s3d::Array < P_Grp >;
 	using	UPAP_Grp = std::unique_ptr < AP_Grp >;
+
+
+	//---------------------------------------------------------------------
+	class TxUtl
+	{
+	public:
+		static P_Tx MakeTx_FromArchive ( const s3d::String & filename );
+	};
 
 
 

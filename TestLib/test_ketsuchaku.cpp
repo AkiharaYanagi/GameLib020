@@ -17,6 +17,12 @@ namespace GAME
 	//Test
 	Test::Test ()
 	{
+
+		//test プロンプト表示
+		DebugOutPrint::Create ();
+
+		PRINT_F_S ( U"test prompt." );
+
 		m_grp = std::make_shared < GameGraphic > ();
 //		m_grp->AddTexture_FromArchive ( U"decision_ketsu.png" );
 		m_grp->AddTexture_FromArchive ( U"BG0.png" );

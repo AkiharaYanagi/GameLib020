@@ -75,7 +75,7 @@ namespace GAME
 			uint32 indexTexture = pob->GetIndexTexture ();
 			if ( mpap_Texture->size () <= indexTexture )
 			{
-				TRACE_F ( _T("Texture index error: %d\n"), indexTexture ); assert ( 0 );
+//				TRACE_F ( _T("Texture index error: %d\n"), indexTexture ); assert ( 0 );
 			}
 			P_Tx ptx = mpap_Texture->at ( indexTexture );
 
@@ -189,12 +189,18 @@ namespace GAME
 		mpap_Texture->push_back ( pTx );
 	}
 
+	//[0]の位置にテクスチャを再設定
 	void GameGraphicBase::SetpTexture ( P_Tx ptx )
 	{
-		//0の位置にテクスチャを設定します
 		//map_Texture->at ( 0 ) = ptx;
 		mpap_Texture->remove_at ( 0 );
 		mpap_Texture->push_back ( ptx );
+	}
+
+	//[0]の位置にテクスチャを再設定
+	void GameGraphicBase::AssignpTexture ( P_Tx ptx )
+	{
+		(*mpap_Texture)[0] = ptx;
 	}
 
 	VEC2 GameGraphicBase::GetCenterOfTexture ( uint32 index )
@@ -339,6 +345,30 @@ namespace GAME
 		//ピクセルシェーダ用テクスチャ unique_ptrを返す
 		G_GrpTx::Inst()->Refund_PSTx ( std::move ( upPSTx ) );
 	}
+
+
+	//---------------------------------------------------------------------
+	P_Tx TxUtl::MakeTx_FromArchive ( const s3d::String & filename )
+	{
+		//アーカイブからファイルを取得
+		ARCHIVE_FILE_USE file = ACVR()->GetFilePointer ( filename.toWstr().c_str() );
+
+		if ( file.filePointer == nullptr )
+		{
+			//TRACE_F ( TEXT("アーカイブにファイルが見つかりませんでした\n") );
+			return nullptr;
+		}
+
+		//メモリ上からテクスチャに変換
+		s3d::MemoryReader mr ( (void*)(file.filePointer), file.fileSize );
+		mr.setPos ( 0 );
+
+		//テクスチャの作成
+		P_Tx pTx = std::make_shared < s3d::Texture > ( std::move ( mr ) );
+
+		return pTx;
+	}
+
 
 
 }	//namespace GAME
