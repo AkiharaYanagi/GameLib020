@@ -75,7 +75,7 @@ namespace GAME
 			uint32 indexTexture = pob->GetIndexTexture ();
 			if ( mpap_Texture->size () <= indexTexture )
 			{
-//				TRACE_F ( _T("Texture index error: %d\n"), indexTexture ); assert ( 0 );
+				TRACE_F ( _T("Texture index error: %d\n"), indexTexture ); assert ( 0 );
 			}
 			P_Tx ptx = mpap_Texture->at ( indexTexture );
 
@@ -137,6 +137,10 @@ namespace GAME
 
 			//色補正(アルファ値は透明, RGBは乗算)
 			_CLR clr = pob->GetColor ();
+			if ( _CLR ( 0xffffffff )!= clr )
+			{
+				int i; (void)i;
+			}
 			s3d::ColorF clrf { clr.r, clr.g, clr.b, clr.a };
 
 			(*ptx)( rectf ).scaled ( vScaling ).rotatedAt( rtt_cntr, r ).draw ( x, y, clrf );

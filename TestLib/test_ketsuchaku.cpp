@@ -19,7 +19,7 @@ namespace GAME
 	{
 
 		//test プロンプト表示
-		DebugOutPrint::Create ();
+//		DebugOutPrint::Create ();
 
 		PRINT_F_S ( U"test prompt." );
 

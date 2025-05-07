@@ -315,7 +315,12 @@ namespace GAME
 
 	void _SoundArchiver::Play_Loop ( const s3d::String & filename )
 	{
-		if ( ! mhst_adi.contains ( filename ) ) { return; }
+		if ( ! mhst_adi.contains ( filename ) )
+		{
+			TRACE_F_S ( U"■■■　SND: \"{}\" not exist.\n"_fmt( filename ) );
+			return;
+		}
+
 
 #if 0
 		TRACE_F ( _T("■■■　SND: Volume\n") );

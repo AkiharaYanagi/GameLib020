@@ -16,10 +16,7 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-	/*===========================================================================*/
-	// デバッグ出力 コマンドプロンプト Print
-	/*===========================================================================*/
-
+#if 0
 	//--------------------------------------------------
 	//シングルトンパターン	static実体
 	P_DBG_PRNT	DBG_PRNT::m_inst = nullptr;
@@ -29,20 +26,13 @@ namespace GAME
 	//コンストラクタ
 	DebugOutPrint::DebugOutPrint ()
 	{
-		if ( ::AllocConsole () )
-		{
-			FILE* stream;
-			::freopen_s ( &stream, "CONOUT$", "w", stdout );
-
-			//コンソールのコードページをUTF-8に設定
-			::SetConsoleOutputCP ( CP_UTF8 );
-		}
 	}
 
 
 	DebugOutPrint::~DebugOutPrint ()
 	{
 	}
+#endif // 0
 
 #if 0
 
@@ -115,6 +105,19 @@ namespace GAME
 	}
 #endif // 0
 
+
+	//新規コマンドプロンプト表示
+	void DebugOutPrint::OpenPrompt ()
+	{
+		if ( ::AllocConsole () )
+		{
+			FILE* stream;
+			::freopen_s ( &stream, "CONOUT$", "w", stdout );
+
+			//コンソールのコードページをUTF-8に設定
+			::SetConsoleOutputCP ( CP_UTF8 );
+		}
+	}
 
 	//Siv3D対応デバッグ出力表示
 	void DebugOutPrint::DebugOutf_s3d ( s3d::String str )

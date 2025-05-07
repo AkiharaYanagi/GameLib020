@@ -229,6 +229,9 @@ namespace GAME
 		_CLR ( UINT32 argb ); 
 		~_CLR () {}
 
+		bool operator == ( const _CLR& rhs );
+		bool operator != ( const _CLR& rhs );
+
 		_CLR& operator += ( const _CLR& rhs );
 		_CLR& operator -= ( const _CLR& rhs );
 		_CLR& operator *= ( float f );

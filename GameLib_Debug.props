@@ -5,6 +5,8 @@
   <PropertyGroup>
     <OutDir>$(SolutionDir)Library\</OutDir>
     <TargetName>$(ProjectName)(debug)</TargetName>
+    <IncludePath>$(SIV3D_0_6_16)\include;$(SIV3D_0_6_16)\include\ThirdParty;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SIV3D_0_6_16)\lib\Windows;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>

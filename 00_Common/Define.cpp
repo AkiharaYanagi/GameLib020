@@ -132,6 +132,20 @@ namespace GAME
 		this->b = (float)((argb & 0x000000ff) )		 / 255.f;
 	}
 
+	bool _CLR::operator == ( const _CLR& rhs )
+	{
+		if ( this->r != rhs.r ) { return F; } 
+		if ( this->g != rhs.g ) { return F; } 
+		if ( this->b != rhs.b ) { return F; } 
+		if ( this->a != rhs.a ) { return F; } 
+		return T;
+	}
+
+	bool _CLR::operator != ( const _CLR& rhs )
+	{
+		return ! (*this == rhs);
+	}
+
 	_CLR& _CLR::operator += ( const _CLR& rhs )
 	{
 		this->r += rhs.r; 
