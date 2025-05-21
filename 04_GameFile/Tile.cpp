@@ -130,7 +130,7 @@ namespace GAME
 		{
 			if ( i != rhs.m_tip [ index ] )
 			{
-				uint32 tip = rhs.m_tip [ index ];
+//				uint32 tip = rhs.m_tip [ index ];
 				return F;
 			}
 			++ index;

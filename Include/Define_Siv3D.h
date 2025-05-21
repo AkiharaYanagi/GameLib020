@@ -57,6 +57,12 @@ namespace GAME
 	//文字列リテラル U""
 	using LPCUSTR = const char32_t *;
 
+	//配列　エイリアス
+	using A_UINT32 = s3d::Array < uint32 >;
+	using A_INT32 = s3d::Array < int32 >;
+
+	using UPA_UINT32 = std::unique_ptr < A_UINT32 >;
+
 
 }	//namespace GAME
 

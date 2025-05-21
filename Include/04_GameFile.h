@@ -18,7 +18,7 @@
 // ライブラリファイルのリンク
 //-------------------------------------------------------------------------------------------------
 #if	_DEBUG
-#pragma comment ( lib, "04_GameFile(debug).lib" )
+#pragma comment ( lib, "04_GameFile_debug.lib" )
 #else
 #pragma comment ( lib, "04_GameFile.lib" )
 #endif	//_DEBUG

@@ -26,7 +26,7 @@
 // ライブラリファイルのリンク
 //-------------------------------------------------------------------------------------------------
 #if	_DEBUG
-#pragma comment ( lib, "00_Common(debug).lib" )
+#pragma comment ( lib, "00_Common_debug.lib" )
 #else
 #pragma comment ( lib, "00_Common.lib" )
 #endif	//_DEBUG

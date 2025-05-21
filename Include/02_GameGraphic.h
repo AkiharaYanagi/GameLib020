@@ -25,7 +25,7 @@
 // ライブラリファイルのリンク
 //-------------------------------------------------------------------------------------------------
 #if	_DEBUG
-#pragma comment ( lib, "02_GameGraphic(debug).lib" )
+#pragma comment ( lib, "02_GameGraphic_debug.lib" )
 #else
 #pragma comment ( lib, "02_GameGraphic.lib" )
 #endif	//_DEBUG

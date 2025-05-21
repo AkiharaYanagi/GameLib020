@@ -21,7 +21,7 @@
 // ライブラリファイルのリンク
 //-------------------------------------------------------------------------------------------------
 #if	_DEBUG
-#pragma comment ( lib, "03_GameInput(debug).lib" )
+#pragma comment ( lib, "03_GameInput_debug.lib" )
 #else
 #pragma comment ( lib, "03_GameInput.lib" )
 #endif	//_DEBUG

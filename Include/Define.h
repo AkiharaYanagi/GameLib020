@@ -250,12 +250,13 @@ namespace GAME
 	{
 	public:
 		USIZE () { w = 0; h = 0; }
-		USIZE ( UINT w0, UINT h0 ) { w = w0; h = h0; }
+		USIZE ( UINT32 w0, UINT32 h0 ) { w = w0; h = h0; }
 		UINT32 w;
 		UINT32 h;
 	} USIZE;
 
-	using V_UINT = std::vector < UINT32 >;
+	using V_UINT32 = std::vector < UINT32 >;
+
 
 	//-------------------------------------------------------------------------------------------------
 	// TCAHR対応
@@ -312,6 +313,30 @@ namespace GAME
 	#define GET(type,Getter,prm)			type Getter () const { return prm; }
 	#define SET(type,Setter,prm)			void Setter ( type t ){ prm = t; }
 	#define GET_SET(type,Getter,Setter,b)	GET(type,Getter,b) SET(type,Setter,b)
+
+	//-------------------------------------------------------------------------------------------------
+	//	より安全なテンプレートtype型 get;set;
+	//-------------------------------------------------------------------------------------------------
+	template < typename T >
+	class Property
+	{
+	private:
+		T _t;
+	public:
+		Property () {}
+		Property(const Property& rhs) { _t = rhs._t; }
+		Property(const T& t) { _t = t; }
+		~Property() {}
+
+		T Get() const { return _t; }
+		void Set(T t) { _t = t; }
+	};
+
+	using Prp_bool = Property < bool >;
+	using Prp_INT32 = Property < INT32 >;
+	using Prp_UINT32 = Property < UINT32 >;
+	using Prp_float = Property < float >;
+	using Prp_VEC2 = Property < VEC2 >;
 
 
 }	//namespace GAME

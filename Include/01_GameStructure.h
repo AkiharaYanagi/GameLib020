@@ -18,7 +18,7 @@
 // ライブラリファイルのリンク
 //-------------------------------------------------------------------------------------------------
 #if	_DEBUG
-#pragma comment ( lib, "01_GameStructure(debug).lib" )
+#pragma comment ( lib, "01_GameStructure_debug.lib" )
 #else
 #pragma comment ( lib, "01_GameStructure.lib" )
 #endif	//_DEBUG
