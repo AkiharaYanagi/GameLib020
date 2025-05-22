@@ -5,8 +5,8 @@
   <PropertyGroup>
     <OutDir>$(SolutionDir)Library\</OutDir>
     <TargetExt>.lib</TargetExt>
-    <IncludePath>$(SIV3D_0_6_16)\include;$(SIV3D_0_6_16)\include\ThirdParty;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SIV3D_0_6_16)\lib\Windows;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\GameLib020\Include;F:\Programming\lz4-dev\lib;$(SIV3D_0_6_16)\include;$(SIV3D_0_6_16)\include\ThirdParty;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\GameLib020\Library;F:\Programming\lz4-dev\build\Release;$(SIV3D_0_6_16)\lib\Windows;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>

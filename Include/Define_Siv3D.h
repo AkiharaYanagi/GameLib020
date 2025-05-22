@@ -18,12 +18,13 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-
+	//テクスチャ　エイリアス
 	using P_Tx = std::shared_ptr < s3d::Texture >;
 	using AP_Tx = s3d::Array < P_Tx >;
 	using PAP_Tx = std::shared_ptr < AP_Tx >;
 
 
+	//ユーティリティ
 	class s3d_UTL
 	{
 	public:
@@ -62,6 +63,9 @@ namespace GAME
 	using A_INT32 = s3d::Array < int32 >;
 
 	using UPA_UINT32 = std::unique_ptr < A_UINT32 >;
+
+	//文字列　エイリアス
+	using Prp_Str = Property < s3d::String >;
 
 
 }	//namespace GAME
