@@ -70,13 +70,13 @@ namespace GAME
 		~GameKeyCommand ();
 
 		//比較
-		bool CompareTarget ( GameKey gameKeyData ) const;
+		bool CompareTarget ( const GameKey & gameKeyData ) const;
 
 		//向き指定の比較
 		//thisの状態がチェックするコマンド条件、引数がプレイヤ入力
 		//引数：コマンド成立条件となるゲームキー状態, キャラクタ向き(右正)
 		//戻値：適合したらtrue、それ以外はfalse
-		bool CompareTarget ( GameKey gameKeyData, bool dirRight ) const;
+		bool CompareTarget ( const GameKey & gameKeyData, bool dirRight ) const;
 
 		//-----------------------------------------------------------------
 		//レバー(方向指定)

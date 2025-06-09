@@ -44,7 +44,7 @@ namespace GAME
 	}
 
 
-	bool GameKeyCommand::CompareTarget ( GameKey gameKeyData ) const
+	bool GameKeyCommand::CompareTarget ( const GameKey & gameKeyData ) const
 	{
 		//条件がワイルドのときは比較しない
 		bool bWildLvr[GameKey::LVR_NUM] = { false };
@@ -106,7 +106,7 @@ namespace GAME
 
 
 	//向き指定の比較
-	bool GameKeyCommand::CompareTarget ( GameKey gameKeyData, bool dirRight ) const
+	bool GameKeyCommand::CompareTarget ( const GameKey & gameKeyData, bool dirRight ) const
 	{
 		//比較するかどうか ( 条件がワイルドのときは比較しない )
 		bool bWildLvr[GameKey::LVR_NUM] = { false };

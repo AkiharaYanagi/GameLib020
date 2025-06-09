@@ -336,7 +336,9 @@ namespace GAME
 	using Prp_INT32 = Property < INT32 >;
 	using Prp_UINT32 = Property < UINT32 >;
 	using Prp_float = Property < float >;
+
 	using Prp_VEC2 = Property < VEC2 >;
+	using Prp_CLR = Property < _CLR >;
 
 
 }	//namespace GAME
