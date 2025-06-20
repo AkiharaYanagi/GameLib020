@@ -25,6 +25,8 @@ namespace GAME
 		mpap_Texture = std::make_shared < AP_Tx > ();
 		mpap_Object = std::make_shared < AP_Ob > ();
 		mpap_Object->push_back ( std::make_shared < GameObject > () );
+
+		m_plgn = std::make_shared < s3d::Polygon > ();
 	}
 
 	GameGraphicBase::~GameGraphicBase ()
@@ -143,6 +145,22 @@ namespace GAME
 			}
 			s3d::ColorF clrf { clr.r, clr.g, clr.b, clr.a };
 
+
+			//ポリゴンマスク使用時に分岐
+			if ( m_bPlgnMask )
+			{
+				s3d::Vec2 vec { m_vecInMaskPos.x, m_vecInMaskPos.y };
+
+//				s3d::Texture tx = (*ptx)( rectf ).scaled ( vScaling ).rotatedAt( rtt_cntr, r ).texture;
+//				m_plgn->toBuffer2D ( vec, tx.size() ).draw ( tx );
+				//@info TextureRegion::textureは元のテクスチャなので変更後の値ではない
+
+				m_plgn->toBuffer2D ( vec, ptx->size() ).draw ( * ptx );
+
+				return;
+			}
+
+			//最終描画
 			(*ptx)( rectf ).scaled ( vScaling ).rotatedAt( rtt_cntr, r ).draw ( x, y, clrf );
 		}
 	}
@@ -180,14 +198,34 @@ namespace GAME
 			return;
 		}
 
-		//テクスチャの作成
-//		P_Tx ptx = std::make_shared < s3d::Texture > ( filename );
-
 		//メモリ上からテクスチャに変換
 		s3d::MemoryReader mr ( (void*)(file.filePointer), file.fileSize );
 		mr.setPos ( 0 );
 
 		P_Tx pTx = std::make_shared < s3d::Texture > ( std::move ( mr ) );
+
+		//テクスチャの設定
+		mpap_Texture->push_back ( pTx );
+	}
+
+	void GameGraphicBase::AddTexture_FromArchive_mrr ( s3d::String filename )
+	{
+		//アーカイブからファイルを取得
+		ARCHIVE_FILE_USE file = ACVR()->GetFilePointer ( filename.toWstr().c_str() );
+
+		if ( file.filePointer == nullptr )
+		{
+			//TRACE_F ( TEXT("アーカイブにファイルが見つかりませんでした\n") );
+			return;
+		}
+
+		//メモリ上からイメージに変換
+		s3d::MemoryReader mr ( (void*)(file.filePointer), file.fileSize );
+		mr.setPos ( 0 );
+		s3d::Image img { std::move (mr) };
+
+		//反転イメージからテクスチャに変換
+		P_Tx pTx = std::make_shared < s3d::Texture > ( img.mirror() );
 
 		//テクスチャの設定
 		mpap_Texture->push_back ( pTx );
