@@ -23,6 +23,9 @@ namespace GAME
 	using AP_Tx = s3d::Array < P_Tx >;
 	using PAP_Tx = std::shared_ptr < AP_Tx >;
 
+	//ポリゴン エイリアス
+	using P_Plgn = std::shared_ptr < s3d::Polygon >;
+
 
 	//ユーティリティ
 	class s3d_UTL

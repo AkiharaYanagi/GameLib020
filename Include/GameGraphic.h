@@ -36,6 +36,11 @@ namespace GAME
 		//シェーダ利用フラグ
 		bool		m_shader { F };
 
+		//ポリゴンマスク使用フラグ
+		bool		m_bPlgnMask { F };
+		P_Plgn		m_plgn;
+		VEC2		m_vecInMaskPos{ 0, 0 };		//ポリゴン内で表示するスクリーン位置
+
 	public:
 		GameGraphicBase ();
 		GameGraphicBase ( const GameGraphicBase & rhs ) = delete;
@@ -57,6 +62,7 @@ namespace GAME
 		void AddTexture ();
 		void AddTexture ( s3d::String filename );
 		void AddTexture_FromArchive ( s3d::String filename );
+		void AddTexture_FromArchive_mrr ( s3d::String filename );
 		void AddpTexture ( P_Tx ptx );
 		void SetpTexture ( P_Tx ptx );	//[0]の位置にテクスチャを再設定
 		void AssignpTexture ( P_Tx ptx );	//[0]の位置にテクスチャを設定
@@ -112,6 +118,11 @@ namespace GAME
 		void SetColor ( _CLR clr ) { mpap_Object->at(0)->SetColor ( clr ); }
 
 		//---------------------------------------------------------------------
+		//ポリゴンマスク
+		void SetbPlgnMask ( bool b ) { m_bPlgnMask = b; }
+		void SetpPolygon ( P_Plgn p ) { m_plgn = p; }
+		void SetPosInMask ( VEC2 pos ) { m_vecInMaskPos = pos; }
+
 	};
 
 	using GrpBs = GameGraphicBase;
