@@ -26,6 +26,14 @@ namespace GAME
 	//ポリゴン エイリアス
 	using P_Plgn = std::shared_ptr < s3d::Polygon >;
 
+	//文字列 エイリアス
+	using CSIVSTR = const s3d::String;
+
+	//オーディオ エイリアス
+	using P_Adi = std::shared_ptr < s3d::Audio >;
+	using AP_Adi = s3d::Array < P_Adi >;
+	using PAP_Adi = std::shared_ptr < AP_Adi >;
+
 
 	//ユーティリティ
 	class s3d_UTL
