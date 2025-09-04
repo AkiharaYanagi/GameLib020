@@ -72,6 +72,18 @@ namespace GAME
 		return;
 	}
 
+	void GameGraphicList::Remove(P_GrpCr p)
+	{
+		//iterator
+		auto it = std::find ( mplp_GrpMain->begin(), mplp_GrpMain->end(), p );
+
+		//最後でないときは存在する
+		if ( it != mplp_GrpMain->end())
+		{
+			mplp_GrpMain->remove ( p );
+		}
+	}
+
 
 	//対象タスクを同一Z値の中で先頭にする
 	void GameGraphicList::TopByZ ( P_GrpCr pGrpCr )

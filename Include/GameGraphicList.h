@@ -60,8 +60,8 @@ namespace GAME
 		//描画Z位置(後:1.f ～ 0.0f:前) "GameGraphicConst.h"に Z_BG などで定数が宣言してある
 		void InsertByZ ( P_GrpCr pGrpCr );
 
-		//対象タスクを取外
-		void Remove ( P_GrpCr p ) { mplp_GrpMain->remove ( p ); }
+		//対象タスクが存在したら取外
+		void Remove ( P_GrpCr p );
 
 		//個数
 		size_t GetNumList () const { return mplp_GrpMain->size (); }
