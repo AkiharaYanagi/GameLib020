@@ -84,6 +84,19 @@ namespace GAME
 	}
 
 
+	float VEC2::Length() const
+	{
+		return std::sqrt ( x * x + y * y );
+	}
+
+	VEC2 VEC2::Normalized() const
+	{
+		float len = Length ();
+		if ( len < 1e-6f ) { return {0.f, 0.f}; }
+		return { x / len, y / len };
+	}
+
+
 	//------------------------------------
 	VEC3::VEC3 () {};
 	VEC3::VEC3 ( const VEC3& rhs ) { this->x = rhs.x; this->y = rhs.y; this->z = rhs.z; }

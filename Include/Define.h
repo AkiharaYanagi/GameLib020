@@ -120,6 +120,8 @@ namespace GAME
 		bool operator == ( const VEC2& rhs ) const;
 		bool operator != ( const VEC2& rhs ) const;
 
+		float Length () const;
+		VEC2 Normalized () const;
 	};
 	using P_VEC2 = std::shared_ptr < VEC2 >;
 	using V_VEC2 = std::vector < VEC2 >;

@@ -75,6 +75,7 @@ namespace GAME
 
 
 #define		GRPLST_CREATE	GrpLst::Create
+#define		GRPLST_INST		GrpLst::Inst()
 #define		GRPLST_DRAW		GrpLst::Inst()->Draw
 #define		GRPLST_INSERT	GrpLst::Inst()->InsertByZ
 #define		GRPLST_REMOVE	GrpLst::Inst()->Remove
