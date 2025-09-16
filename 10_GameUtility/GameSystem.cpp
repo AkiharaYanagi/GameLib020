@@ -279,14 +279,16 @@ namespace GAME
 
 		//----------------------------------------------
 		// 'W'キーでスタート/ストップのトグル切替
-		static bool bStop = false;
+//		static bool bStop = false;
 		if( WND_UTL::AscKey ( 'W' ) )
 		{
-			bStop ^= true; 
+//			bStop ^= true; 
+			m_bStop ^= true; 
 		}
 		//----------------------------------------------
 		// ストップ時、'Q'キーで 1 フレームずつ進ませる
-		if( ! bStop || WND_UTL::AscKey ( 'Q' ) )
+//		if( ! bStop || WND_UTL::AscKey ( 'Q' ) )
+		if( ! m_bStop || WND_UTL::AscKey ( 'Q' ) )
 		{
 			//入力の更新
 			SivInput::Inst()->Update ();

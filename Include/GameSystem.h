@@ -42,6 +42,8 @@ namespace GAME
 		double aveSleep { 0 };
 		double dispSleep { 0 };
 
+		//一時停止用
+		bool		m_bStop { F };
 
 	public:
 		GameSystem () {}
@@ -55,6 +57,8 @@ namespace GAME
 
 		//メインオブジェクトの設定
 		void SetpGameMain ( UP_GameMainBase pGameMain );
+
+		void SetbStop ( bool b ) { m_bStop = b; }
 
 	private:
 		static bool m_bMakeArchive;		//アーカイブ作成フラグ
