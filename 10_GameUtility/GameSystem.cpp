@@ -277,6 +277,8 @@ namespace GAME
 		//稼働フレーム数
 		static UINT frame_time = 0;
 
+		FlipToggle ();	//デバッグ表示切替トグル
+
 		//----------------------------------------------
 		// 'W'キーでスタート/ストップのトグル切替
 //		static bool bStop = false;
@@ -337,6 +339,32 @@ namespace GAME
 		m_pGameMain = std::move ( pGameMain ); 
 	}
 
+
+	//デバッグ表示切替トグル
+	void GameSystem::FlipToggle()
+	{
+		bool is_bDispDebug = WND_UTL::AscKey ( VK_F8 );
+
+		//今回押した瞬間ならば、1回のみ切替
+		if ( ! m_pre_bDispDebug && is_bDispDebug )	// false -> true
+		{
+			if ( m_bDispDebug )
+			{
+				//デバッグ表示オフ
+				DBGOUT_WND_OFF ();
+				m_bDispDebug = F;
+			}
+			else
+			{
+				//デバッグ表示オン
+				DBGOUT_WND_ON ();
+				m_bDispDebug = T;
+			}
+		}
+		//今回の保存
+		m_pre_bDispDebug = is_bDispDebug;
+
+	}
 
 }	//namespace GAME
 

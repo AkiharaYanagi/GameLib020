@@ -72,6 +72,11 @@ namespace GAME
 		double	m_start_time { 0 };
 		double	m_progress_time { 0 };
 
+		//デバッグ表示切替トグル
+		bool m_bDispDebug { T };
+		bool m_pre_bDispDebug { T };
+		void FlipToggle ();
+
 	public:
 		//-----------------------------
 		//	static 環境設定
