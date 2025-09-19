@@ -333,7 +333,7 @@ namespace GAME
 		T Get() const { return _t; }
 		void Set(T t) { _t = t; }
 		
-		bool Is ( T t ) { return _t == t; }
+		bool Is ( const T & t ) { return _t == t; }
 	};
 
 	using Prp_bool = Property < bool >;
