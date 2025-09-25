@@ -75,6 +75,9 @@ namespace GAME
 
 	using UPA_UINT32 = std::unique_ptr < A_UINT32 >;
 
+	using A_STR = s3d::Array < s3d::String >;
+
+
 	//文字列　エイリアス
 	using Prp_Str = Property < s3d::String >;
 
