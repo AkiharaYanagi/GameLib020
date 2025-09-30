@@ -55,10 +55,10 @@ namespace GAME
 		MODE_PLAYER_NETWORK,
 	};
 
-	//ゲームモード
-	enum GAME_MODE
+	//戦闘（対戦種類：メイン, トレーニング) モード
+	enum FTG_MODE
 	{
-		MODE_MAIN,		//対人(メイン)
+		MODE_FTG_MAIN,	//対人(メイン)
 		MODE_TRAINING,	//トレーニング
 	};
 
