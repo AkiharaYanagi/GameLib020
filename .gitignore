@@ -371,3 +371,4 @@ TestLib/App/TestLib(debug).exe
 00_Common/App/00_Common(debug).lib
 TestLib/App/TestLib(debug).exp
 *.exp
+*.exp
