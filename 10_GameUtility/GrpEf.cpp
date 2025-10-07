@@ -71,7 +71,7 @@ namespace GAME
 			{
 				uint32 indexTx = (*pvpObj)[i]->GetIndexTexture ();
 				PAP_Tx papTx = GameGraphic::Getpap_tx ();
-				if ( papTx->size() < indexTx ) { continue; }
+				if ( papTx->size() <= indexTx ) { continue; }
 
 				P_Tx pTx = papTx->at ( indexTx );
 				m_revised = -1 * s3d_UTL::GetTxCenter ( * pTx );
