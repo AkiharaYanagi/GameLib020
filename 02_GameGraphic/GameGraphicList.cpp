@@ -35,6 +35,9 @@ namespace GAME
 
 	GameGraphicList::~GameGraphicList ()
 	{
+		//TRACE_F( _T("■■■■　GameGraphicList Destructer.\n") );
+		OutputDebugString ( _T("■■■■　GameGraphicList Destructer.\n") );
+
 	}
 
 	void GameGraphicList::Clear ()
