@@ -142,6 +142,14 @@ namespace GAME
 	}
 
 
+	void GameSystem::SystemRele ()
+	{
+		//Graphic配列の解放
+		GRPLST_CLEAR ();
+
+	}
+
+
 	//フレーム毎動作
 	void GameSystem::Move ()
 	{

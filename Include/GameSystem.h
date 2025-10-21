@@ -51,6 +51,7 @@ namespace GAME
 		~GameSystem () {}
 
 		void SystemLoad ();		//シングルトンのクリエイトなど初期化
+		void SystemRele	();		//解放
 
 		void Move ();
 		void Draw ();
