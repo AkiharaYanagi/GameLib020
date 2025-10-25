@@ -75,6 +75,13 @@ namespace GAME
 		return;
 	}
 
+	//１回外し、再挿入
+	void GameGraphicList::ReInsertByZ(P_GrpCr p)
+	{
+		Remove ( p );
+		InsertByZ ( p );	
+	}
+
 	void GameGraphicList::Remove(P_GrpCr p)
 	{
 		//iterator

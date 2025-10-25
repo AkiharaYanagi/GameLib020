@@ -47,7 +47,7 @@ namespace GAME
 
 	public:
 
-		//@info 動作はタスクリスト側で行う
+		//@info Move()動作はタスクリスト側で行う
 
 		//全消去
 		void Clear ();
@@ -59,6 +59,9 @@ namespace GAME
 		//Z値で降順ソートされた位置に挿入
 		//描画Z位置(後:1.f ～ 0.0f:前) "GameGraphicConst.h"に Z_BG などで定数が宣言してある
 		void InsertByZ ( P_GrpCr pGrpCr );
+
+		//１回外し、再挿入
+		void ReInsertByZ ( P_GrpCr pGrpCr );
 
 		//対象タスクが存在したら取外
 		void Remove ( P_GrpCr p );
@@ -78,6 +81,7 @@ namespace GAME
 #define		GRPLST_INST		GrpLst::Inst()
 #define		GRPLST_DRAW		GrpLst::Inst()->Draw
 #define		GRPLST_INSERT	GrpLst::Inst()->InsertByZ
+#define		GRPLST_REINSERT	GrpLst::Inst()->ReInsertByZ
 #define		GRPLST_REMOVE	GrpLst::Inst()->Remove
 #define		GRPLST_CLEAR	GrpLst::Inst()->Clear
 
