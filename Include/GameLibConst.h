@@ -54,13 +54,5 @@ namespace GAME
 		MODE_CPU_CPU,
 		MODE_PLAYER_NETWORK,
 	};
-
-	//戦闘（対戦種類：メイン, トレーニング) モード
-	enum FTG_MODE
-	{
-		MODE_FTG_MAIN,	//対人(メイン)
-		MODE_TRAINING,	//トレーニング
-	};
-
 }
 
