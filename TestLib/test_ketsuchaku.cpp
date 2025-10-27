@@ -28,6 +28,17 @@ namespace GAME
 		m_grp->AddTexture_FromArchive ( U"BG0.png" );
 		AddpTask ( m_grp );
 		GRPLST_INSERT ( m_grp );
+		//m_grp->SetValid ( F );
+
+
+		m_grpStr = std::make_shared < GrpStr >();
+		m_grpStr->SetPos ( VEC2 ( 100, 100 ) );
+		m_grpStr->SetStr(U"KetsuChaku Test");
+		AddpTask ( m_grpStr );
+		GRPLST_INSERT ( m_grpStr );
+
+//		FontAsset::Register ( U"test", 60 );
+
 
 		m_grp_chaku = std::make_shared < GrpDemo > ();
 		m_grp_chaku->AddTexture_FromArchive ( U"decision_chaku.png" );
@@ -95,6 +106,13 @@ namespace GAME
 
 	void Test::Move ()
 	{
+		s3d::ClearPrint ();
+		s3d::Print << FONT_20 << FontAsset::IsReady ( FONT_20 );
+		s3d::Print << FONT_30 << FontAsset::IsReady ( FONT_30 );
+		s3d::Print << FONT_40 << FontAsset::IsReady ( FONT_40 );
+		s3d::Print << FONT_60 << FontAsset::IsReady ( FONT_60 );
+
+
 		if ( CFG_PUSH_KEY ( P1_BTN0 ) )
 		{
 			m_grp_Ketsu->Start ();
@@ -104,7 +122,11 @@ namespace GAME
 		}
 
 		TASK_VEC::Move ();
+
+//		FontAsset(ASYNC_FONT)(U"Press P1 BTN0 to Start KetsuChaku").drawAt(60, 50, 50, ColorF{ 1.0, 1.0, 0.0 });
+//		FontAsset(U"test")(U"testAsset").drawAt( 40, s3d::Vec2{120, 120}, ColorF{ 1.0 } );
 	}
+
 
 
 }	//namespace GAME

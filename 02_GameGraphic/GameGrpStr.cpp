@@ -48,8 +48,6 @@ namespace GAME
 
 		//unique_ptrを返す
 		G_GrpTx::Inst()->Refund_OutTx ( std::move ( upOutTx ) );
-
-
 	}
 
 
@@ -64,6 +62,7 @@ namespace GAME
 		{
 			//通常フォント(サイズ指定)
 			G_FONT_DRAW ( m_size, m_str, m_pos.x, m_pos.y, m_colorF );
+
 		}
 	}
 

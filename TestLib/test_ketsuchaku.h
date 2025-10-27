@@ -19,6 +19,7 @@ namespace GAME
 	class Test	: public TASK_VEC
 	{
 		P_Grp		m_grp;
+		P_GrpStr	m_grpStr;
 
 		P_GrpDemo	m_grp_Ketsu;
 		P_GrpDemo	m_grp_chaku;

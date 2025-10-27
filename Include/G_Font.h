@@ -17,6 +17,13 @@
 namespace GAME
 {
 
+//	constexpr char32_t ASYNC_FONT[] = U"AsyncFont";
+	constexpr char32_t FONT_20[] = U"Font_20";
+	constexpr char32_t FONT_30[] = U"Font_30";
+	constexpr char32_t FONT_40[] = U"Font_40";
+	constexpr char32_t FONT_60[] = U"Font_60";
+
+
 	class G_Font;
 	using P_G_Font = std::unique_ptr < G_Font >;
 	
@@ -35,17 +42,22 @@ namespace GAME
 	//--------------------------------------------------
 
 	private:
-		s3d::Font	m_font_20;
+
+//		s3d::Font	m_font_async;
+
+
+//		s3d::Font	m_font_20;
 		static const int32		FONT_SIZE_20;
 
-		s3d::Font	m_font_30;
+//		s3d::Font	m_font_30;
 		static const int32		FONT_SIZE_30;
 
-		s3d::Font	m_font_40;
+//		s3d::Font	m_font_40;
 		static const int32		FONT_SIZE_40;
 
 		//メニュ用フォント
-		s3d::Font	m_font_Menu;
+//		s3d::Font	m_font_Menu;
+		static const int32		FONT_SIZE_60;
 
 	public:
 		enum FONT_SIZE
@@ -56,11 +68,13 @@ namespace GAME
 		};
 
 		void Load ();
-		void Draw ( FONT_SIZE size, s3d::String str, double x, double y, s3d::ColorF clr ) const;
+		void Draw ( FONT_SIZE size, const s3d::String & str, double x, double y, s3d::ColorF clr ) const;
 		void Draw_30 ( s3d::String str, double x, double y, s3d::ColorF clr ) const;
 		void Draw_40 ( s3d::String str, double x, double y, s3d::ColorF clr ) const;
 
 		void DrawMenuStr ( s3d::String str, double x, double y );
+
+//		void DrawAsset ();
 	};
 
 #define	G_FONT_DRAW		G_Font::Inst()->Draw

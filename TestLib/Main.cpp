@@ -229,6 +229,11 @@ void Main()
 std::unique_ptr < s3d::VideoTexture > p_vtx;
 
 
+//std::unique_ptr < s3d::Font	>	pFont;
+
+
+
+
 //メイン
 void Main()
 {
@@ -276,6 +281,21 @@ void Main()
 	}
 #endif // 0
 
+#if 0
+
+	pFont = std::make_unique < s3d::Font > ( 48 );
+	const Font fontBitmap{ 48 };
+	FontAsset::Register ( U"fontBitmap", 48 );
+	FontAsset::LoadAsync ( U"fontBitmap" );
+	while ( ! FontAsset::IsReady ( U"fontBitmap" ) )
+	{
+		Console << U".";
+	}
+	Console << U"\n";
+
+#endif // 0
+
+
 	DBGOUT_WND_ON ();
 
 	//========================================
@@ -291,6 +311,13 @@ void Main()
 
 		//描画
 		Draw ();
+
+#if 0
+		(*pFont) ( U"test font" ).drawAt ( 400, 300, ColorF { 0.2 } );
+		fontBitmap(U"Hello, Siv3D!").draw(Vec2{ 40, 100 }, ColorF{ 1 });
+		FontAsset ( U"fontBitmap" )( U"FontAsset Bitmap Font!" ).draw ( Vec2 { 40, 200 }, ColorF { 1.f, 0.5f, 0.5f } );
+#endif // 0
+		
 	}
 	//========================================
 }
@@ -330,6 +357,7 @@ void Load ()
 	gameMain->Init ();
 
 	gameSystem.SetpGameMain ( std::move ( gameMain ) );
+
 }
 
 
