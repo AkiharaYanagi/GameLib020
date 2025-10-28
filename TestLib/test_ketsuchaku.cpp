@@ -28,7 +28,7 @@ namespace GAME
 		m_grp->AddTexture_FromArchive ( U"BG0.png" );
 		AddpTask ( m_grp );
 		GRPLST_INSERT ( m_grp );
-		//m_grp->SetValid ( F );
+		m_grp->SetValid ( F );
 
 
 		m_grpStr = std::make_shared < GrpStr >();
@@ -112,14 +112,22 @@ namespace GAME
 		s3d::Print << FONT_40 << FontAsset::IsReady ( FONT_40 );
 		s3d::Print << FONT_60 << FontAsset::IsReady ( FONT_60 );
 
+		G_Audio::Inst()->CheckAudio ();
+
 
 		if ( CFG_PUSH_KEY ( P1_BTN0 ) )
 		{
+			G_Audio::Inst()->HandLoad ();
+#if 0
+
+
 			m_grp_Ketsu->Start ();
 			m_grp_chaku->Start ();
 			m_grpLight0->Start ();
 			m_grpLight1->Start ();
+#endif // 0
 		}
+
 
 		TASK_VEC::Move ();
 

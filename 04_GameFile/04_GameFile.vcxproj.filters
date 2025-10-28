@@ -137,6 +137,7 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Atlas.cpp" />
     <ClCompile Include="Compress.cpp" />
+    <ClCompile Include="G_Audio.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -774,5 +775,6 @@
     <ClInclude Include="..\Include\Compress.h" />
     <ClInclude Include="..\Include\Tile.h" />
     <ClInclude Include="..\Include\Atlas.h" />
+    <ClInclude Include="..\Include\G_Audio.h" />
   </ItemGroup>
 </Project>

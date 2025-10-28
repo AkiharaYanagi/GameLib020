@@ -139,6 +139,10 @@ namespace GAME
 #endif // 0
 
 
+
+		//グローバルオーディオの初期化
+		G_Audio::Create();
+		G_Audio::Inst()->Load();
 	}
 
 
