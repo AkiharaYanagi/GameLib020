@@ -49,24 +49,34 @@ namespace GAME
 
 		void HandLoad ();
 		void CheckAudio ();
-
-		void StopAllBGM ();
+		void AllWait ();
 
 		void SetVolume ( double vol );
 
 		void PlayBGM ( LPCUSTR BGM_NAME );
+		void PlayBGM ( const s3d::String & filename ) { PlayBGM ( filename.c_str() ); }
 		void PlayLoopBGM ( LPCUSTR BGM_NAME );
+		void PlayLoopBGM ( const s3d::String & filename ) { PlayLoopBGM ( filename.c_str() ); }
 		void StopBGM ( LPCUSTR BGM_NAME );
+		void StopBGM ( const s3d::String & filename ) { StopBGM ( filename.c_str() ); }
 		void Stop_All_BGM ();
+		bool IsPlayBGM ( LPCUSTR BGM_NAME );
+		bool IsPlayBGM ( const s3d::String & filename ) { return IsPlayBGM ( filename.c_str() ); }
 
 		void PlaySE ( LPCUSTR SE_NAME );
+		void PlaySE ( const s3d::String & filename ) { PlaySE ( filename.c_str() ); }
 		void Play_OneShotSE ( LPCUSTR SE_NAME );
+		void Play_OneShotSE ( const s3d::String & filename ) { Play_OneShotSE ( filename.c_str() ); }
 		void StopSE ( LPCUSTR SE_NAME );
+		void StopSE ( const s3d::String & filename ) { StopSE ( filename.c_str() ); }
 		void Stop_All_SE ();
 		
 		void PlayVC ( LPCUSTR VC_NAME );
+		void PlayVC ( const s3d::String & filename ) { PlayVC ( filename.c_str() ); }
 		void Play_OneShotVC ( LPCUSTR VC_NAME );
+		void Play_OneShotVC ( const s3d::String & filename ) { Play_OneShotVC ( filename.c_str() ); }
 		void StopVC ( LPCUSTR VC_NAME );
+		void StopVC ( const s3d::String & filename ) { StopVC ( filename.c_str() ); }
 		void Stop_All_VC ();
 
 

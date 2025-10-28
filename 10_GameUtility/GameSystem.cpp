@@ -128,7 +128,6 @@ namespace GAME
 		int32 vlm = APP_STG()->GetSoundVolume ();
 		SND()->SetVolume ( (double)vlm / 100.0 );
 
-
 #if 0
 		//LONG vlm = AppSettingFile::Inst()->GetSoundVolume();	//0-100
 		LONG vlm = 50;	//0-100
@@ -143,6 +142,7 @@ namespace GAME
 		//グローバルオーディオの初期化
 		G_Audio::Create();
 		G_Audio::Inst()->Load();
+		G_Audio::Inst()->SetVolume((double)vlm / 100.0);
 	}
 
 

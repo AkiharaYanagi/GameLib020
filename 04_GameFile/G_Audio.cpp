@@ -69,13 +69,14 @@ namespace GAME
 			for (const auto& entry : fs::directory_iterator(dirPath))
 			{
 				fs::path path = entry.path();
+				fs::path name = entry.path().filename();
 				std::cout << path << std::endl;
 				//アセットに登録
-				const std::u32string str32 = path.u32string();
-				LPCUSTR str = str32.c_str();
-				s3d::AudioAsset::Register(str, str);
+				const std::u32string str32_path = path.u32string();
+				const std::u32string str32_name = name.u32string();
+				s3d::AudioAsset::Register( str32_name.c_str(), str32_path.c_str() );
 //				s3d::AudioAsset::LoadAsync(str);
-				list.push_back ( str32 );
+				list.push_back ( str32_name );
 			}
 		}
 		else
@@ -133,6 +134,24 @@ namespace GAME
 		s3d::Print ( U"VC: {}/{}"_fmt( count_vc, m_vc_list.size () ) );
 	}
 
+
+	void G_Audio::AllWait ()
+	{
+		for ( const s3d::String & bgm_name : m_bgm_list )
+		{
+			s3d::AudioAsset::Wait ( bgm_name );
+		}
+		for ( const s3d::String & se_name : m_se_list )
+		{
+			s3d::AudioAsset::Wait ( se_name );
+		}
+		for ( const s3d::String & vc_name : m_vc_list )
+		{
+			s3d::AudioAsset::Wait ( vc_name );
+		}
+	}
+
+
 	void G_Audio::SetVolume ( double vol )
 	{
 		m_bgmVolume = vol;
@@ -164,12 +183,18 @@ namespace GAME
 		aud.stop ();
 	}
 
-	void G_Audio::StopAllBGM ()
+	void G_Audio::Stop_All_BGM ()
 	{
 		for ( const s3d::String & bgm_name : m_bgm_list )
 		{
-			s3d::AudioAsset::Audio ( bgm_name ).stop ();
+			s3d::AudioAsset( bgm_name ).stop ();
 		}
+	}
+
+	bool G_Audio::IsPlayBGM ( LPCUSTR BGM_NAME )
+	{
+		const s3d::Audio & aud = s3d::AudioAsset ( BGM_NAME );
+		return aud.isPlaying ();
 	}
 
 	//------------------------------------------------------------
@@ -199,7 +224,7 @@ namespace GAME
 	{
 		for ( const s3d::String & se_name : m_vc_list )
 		{
-			s3d::AudioAsset::Audio ( se_name ).stop ();
+			s3d::AudioAsset ( se_name ).stop ();
 		}
 	}
 
@@ -230,7 +255,7 @@ namespace GAME
 	{
 		for ( const s3d::String & vc_name : m_vc_list )
 		{
-			s3d::AudioAsset::Audio ( vc_name ).stop ();
+			s3d::AudioAsset ( vc_name ).stop ();
 		}
 	}
 
