@@ -133,6 +133,109 @@ namespace GAME
 		s3d::Print ( U"VC: {}/{}"_fmt( count_vc, m_vc_list.size () ) );
 	}
 
+	void G_Audio::SetVolume ( double vol )
+	{
+		m_bgmVolume = vol;
+		m_seVolume =vol;
+		m_vcVolume = vol;
+	}
+
+
+	//------------------------------------------------------------
+	void G_Audio::PlayBGM ( LPCUSTR BGM_NAME )
+	{
+		const s3d::Audio & aud = s3d::AudioAsset ( BGM_NAME );
+		aud.setVolume ( m_bgmVolume );
+		aud.setLoop ( F );
+		aud.play ();
+	}
+
+	void G_Audio::PlayLoopBGM ( LPCUSTR BGM_NAME )
+	{
+		const s3d::Audio & aud = s3d::AudioAsset ( BGM_NAME );
+		aud.setVolume ( m_bgmVolume );
+		aud.setLoop ( T );
+		aud.play ();
+	}
+
+	void G_Audio::StopBGM ( LPCUSTR BGM_NAME )
+	{
+		const s3d::Audio & aud = s3d::AudioAsset ( BGM_NAME );
+		aud.stop ();
+	}
+
+	void G_Audio::StopAllBGM ()
+	{
+		for ( const s3d::String & bgm_name : m_bgm_list )
+		{
+			s3d::AudioAsset::Audio ( bgm_name ).stop ();
+		}
+	}
+
+	//------------------------------------------------------------
+	void G_Audio::PlaySE ( LPCUSTR SE_NAME )
+	{
+		const s3d::Audio & aud = s3d::AudioAsset ( SE_NAME );
+		aud.setVolume ( m_seVolume );
+		aud.setLoop ( F );
+		aud.play ();
+	}
+
+	void G_Audio::Play_OneShotSE ( LPCUSTR SE_NAME )
+	{
+		const s3d::Audio & aud = s3d::AudioAsset ( SE_NAME );
+		aud.setVolume ( m_seVolume );
+		aud.setLoop ( F );
+		aud.playOneShot ();
+	}
+
+	void G_Audio::StopSE ( LPCUSTR SE_NAME )
+	{
+		const s3d::Audio & aud = s3d::AudioAsset ( SE_NAME );
+		aud.stop ();
+	}
+
+	void G_Audio::Stop_All_SE ()
+	{
+		for ( const s3d::String & se_name : m_vc_list )
+		{
+			s3d::AudioAsset::Audio ( se_name ).stop ();
+		}
+	}
+
+	//------------------------------------------------------------
+	void G_Audio::PlayVC ( LPCUSTR VC_NAME )
+	{
+		const s3d::Audio & aud = s3d::AudioAsset ( VC_NAME );
+		aud.setVolume ( m_seVolume );
+		aud.setLoop ( F );
+		aud.play ();
+	}
+
+	void G_Audio::Play_OneShotVC ( LPCUSTR VC_NAME )
+	{
+		const s3d::Audio & aud = s3d::AudioAsset ( VC_NAME );
+		aud.setVolume ( m_seVolume );
+		aud.setLoop ( F );
+		aud.playOneShot ();
+	}
+
+	void G_Audio::StopVC ( LPCUSTR VC_NAME )
+	{
+		const s3d::Audio & aud = s3d::AudioAsset ( VC_NAME );
+		aud.stop ();
+	}
+
+	void G_Audio::Stop_All_VC ()
+	{
+		for ( const s3d::String & vc_name : m_vc_list )
+		{
+			s3d::AudioAsset::Audio ( vc_name ).stop ();
+		}
+	}
+
+	//------------------------------------------------------------
+
 
 }	//namespace GAME
 

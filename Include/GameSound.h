@@ -105,6 +105,7 @@ namespace GAME
 	};
 
 
+
 #define	SND			GameSound::Inst
 
 #define	SND_PLAY_BGM		GameSound::Inst()->PlayBGM
