@@ -141,8 +141,10 @@ namespace GAME
 
 		//グローバルオーディオの初期化
 		G_Audio::Create();
-		G_Audio::Inst()->Load();
+		G_Audio::Inst()->Asset();
 		G_Audio::Inst()->SetVolume((double)vlm / 100.0);
+		G_Audio::Inst()->HandLoadAsync ();
+
 	}
 
 

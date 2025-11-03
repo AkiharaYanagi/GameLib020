@@ -101,6 +101,8 @@ namespace GAME
 
 	void Test::Init ()
 	{
+		DebugOutPrint::OpenPrompt ();
+		PRINT_F_S ( U"Test Init()" );
 		TASK_VEC::Init ();
 	}
 
@@ -117,7 +119,7 @@ namespace GAME
 
 		if ( CFG_PUSH_KEY ( P1_BTN0 ) )
 		{
-			G_Audio::Inst()->HandLoad ();
+			G_Audio::Inst()->HandLoadAsync ();
 #if 0
 
 

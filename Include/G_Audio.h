@@ -45,9 +45,9 @@ namespace GAME
 
 	public:
 
-		void Load ();
+		void Asset ();
 
-		void HandLoad ();
+		void HandLoadAsync ();
 		void CheckAudio ();
 		void AllWait ();
 
@@ -81,7 +81,7 @@ namespace GAME
 
 
 	private:
-		void LoadDir ( const std::filesystem::path & dirPath, s3d::Array<s3d::String> & list );
+		void AssetDir ( const std::filesystem::path & dirPath, s3d::Array<s3d::String> & list );
 	};
 
 

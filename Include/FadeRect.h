@@ -54,6 +54,7 @@ namespace GAME
 		{
 			m_timer->SetTargetTime ( time );
 			m_timer->Start ();
+			PrmRect::SetColor ( m_color0 );
 			PrmRect::SetValid ( true );
 		}
 

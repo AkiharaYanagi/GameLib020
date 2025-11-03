@@ -118,6 +118,7 @@
     <ClCompile Include="AppSettingFile.cpp" />
     <ClCompile Include="DebugOutGameWindow.cpp" />
     <ClCompile Include="FadeRect.cpp" />
+    <ClCompile Include="GameInit.cpp" />
     <ClCompile Include="GameSystem.cpp" />
     <ClCompile Include="GrpBlink.cpp" />
     <ClCompile Include="GrpDemo.cpp" />
@@ -327,6 +328,7 @@
     <ClInclude Include="..\Include\AppSettingFile.h" />
     <ClInclude Include="..\Include\DebugOutGameWindow.h" />
     <ClInclude Include="..\Include\FadeRect.h" />
+    <ClInclude Include="..\Include\GameInit.h" />
     <ClInclude Include="..\Include\GameMainBase.h" />
     <ClInclude Include="..\Include\GameSystem.h" />
     <ClInclude Include="..\Include\GrpBlink.h" />

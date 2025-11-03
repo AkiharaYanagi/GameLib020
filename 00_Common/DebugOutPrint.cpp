@@ -17,24 +17,6 @@
 namespace GAME
 {
 #if 0
-	//--------------------------------------------------
-	//シングルトンパターン	static実体
-	P_DBG_PRNT	DBG_PRNT::m_inst = nullptr;
-	//--------------------------------------------------
-
-
-	//コンストラクタ
-	DebugOutPrint::DebugOutPrint ()
-	{
-	}
-
-
-	DebugOutPrint::~DebugOutPrint ()
-	{
-	}
-#endif // 0
-
-#if 0
 
 	//文字列フォーマットを表示
 	void DebugOutPrint::DebugOutf ( LPCTSTR format, ... )
@@ -109,10 +91,12 @@ namespace GAME
 	//新規コマンドプロンプト表示
 	void DebugOutPrint::OpenPrompt ()
 	{
+		std::ios::sync_with_stdio(true);	
 		if ( ::AllocConsole () )
 		{
 			FILE* stream;
 			::freopen_s ( &stream, "CONOUT$", "w", stdout );
+			::freopen_s ( &stream, "CONOUT$", "w", stderr );
 
 			//コンソールのコードページをUTF-8に設定
 			::SetConsoleOutputCP ( CP_UTF8 );
@@ -122,12 +106,12 @@ namespace GAME
 	//Siv3D対応デバッグ出力表示
 	void DebugOutPrint::DebugOutf_s3d ( s3d::String str )
 	{
-		std::cout << str.toUTF8();
+		std::cout << str.toUTF8() << std::endl;
 	}
 
 	void DebugOutPrint::DebugOutf_s3d ( s3d::Error err )
 	{
-		std::cout << err.what().toUTF8 ();
+		std::cout << err.what().toUTF8 () << std::endl;
 	}
 
 

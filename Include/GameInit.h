@@ -1,33 +1,36 @@
 //=================================================================================================
 //
-// ゲームユーティリティ
+// GameInit 
+//	Siv3Dを用いた初期設定
 //
 //=================================================================================================
 #pragma once
 
-
 //-------------------------------------------------------------------------------------------------
-//	ヘッダファイルのインクルード
+// ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-#include "DebugOutGameWindow.h"
-#include "GameSystem.h"
-#include "Timer.h"
-#include "GameMainBase.h"
-#include "GrpDemo.h"
-#include "GrpEf.h"
-#include "FadeRect.h"
-#include "GrpBlink.h"
-#include "Menu.h"
-#include "AppSettingFile.h"
-#include "GameInit.h"
+#include "Game.h"
 
 
 //-------------------------------------------------------------------------------------------------
-// ライブラリファイルのリンク
+// 宣言
 //-------------------------------------------------------------------------------------------------
-#if	_DEBUG
-#pragma comment ( lib, "10_GameUtility_debug.lib" )
-#else
-#pragma comment ( lib, "10_GameUtility.lib" )
-#endif	//_DEBUG
+namespace GAME
+{
+	class GameInit
+	{
+
+
+	public:
+		GameInit ();
+		GameInit ( const GameInit & rhs ) = delete;
+		~GameInit ();
+
+		//メインループ中の最初の１回のみの初期化
+		void Do ();
+	};
+
+
+}	//namespace GAME
+
 

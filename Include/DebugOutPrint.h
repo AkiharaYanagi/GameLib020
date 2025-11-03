@@ -16,33 +16,9 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-#if 0
-	//--------------------------------------------------
-	//シングルトンパターン
-	class DebugOutPrint;
-	using DBG_PRNT = DebugOutPrint;
-	using P_DBG_PRNT = std::unique_ptr < DBG_PRNT >;
-	//--------------------------------------------------
-#endif // 0
-
-
 	//IDEデバッグウィンドウ出力 [ PRINT () ]
 	class DebugOutPrint
 	{
-#if 0
-	//--------------------------------------------------
-	//シングルトンパターン
-	private:
-		static P_DBG_PRNT	m_inst;
-		DebugOutPrint ();
-		DebugOutPrint ( const P_DBG_PRNT & rhs ) = delete;
-	public:
-		~DebugOutPrint ();
-		static void Create() { if ( ! m_inst ) { m_inst = P_DBG_PRNT ( new DBG_PRNT () ); } }
-		static P_DBG_PRNT & Inst() { return m_inst; }
-	//--------------------------------------------------
-#endif // 0
-	
 		DebugOutPrint () = delete;	//staticクラスとしてコンストラクタを廃止し、実体化禁止
 
 	public:
@@ -70,8 +46,6 @@ namespace GAME
 	};
 
 //スタティッククラス アクセス用
-//#define PRINT_F		DebugOutPrint::DebugOutf
-//#define PRINT_CHF	DebugOutPrint::DebugOutchf
 #define PRINT_F_S	DebugOutPrint::DebugOutf_s3d
 
 

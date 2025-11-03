@@ -37,30 +37,24 @@ namespace GAME
 	{
 	}
 
-	void G_Audio::Load ()
+	void G_Audio::Asset ()
 	{
 		//指定ディレクトリ内のファイル列挙してアセット化
 		//ファイル名でアクセス
 
 		try
 		{
-			//BGM
-			LoadDir ( BGM_Dir, m_bgm_list );
-
-			//SE
-			LoadDir ( SE_Dir, m_se_list );
-
-			//VC
-			LoadDir ( VC_Dir, m_vc_list );
-
+			AssetDir ( BGM_Dir, m_bgm_list );	//BGM
+			AssetDir ( SE_Dir, m_se_list );		//SE
+			AssetDir ( VC_Dir, m_vc_list );		//VC
 		}
 		catch (const fs::filesystem_error& e)
 		{
-			std::cerr << "エラー: " << e.what() << std::endl;
+//			std::cerr << "エラー: " << e.what() << std::endl;
 		}
 	}
 
-	void G_Audio::LoadDir ( const std::filesystem::path & dirPath, s3d::Array<s3d::String> & list  )
+	void G_Audio::AssetDir ( const std::filesystem::path & dirPath, s3d::Array<s3d::String> & list  )
 	{
 		//指定ディレクトリ内のファイル列挙してアセット化
 		//ファイル名でアクセス
@@ -70,7 +64,7 @@ namespace GAME
 			{
 				fs::path path = entry.path();
 				fs::path name = entry.path().filename();
-				std::cout << path << std::endl;
+//				std::cout << path << std::endl;
 				//アセットに登録
 				const std::u32string str32_path = path.u32string();
 				const std::u32string str32_name = name.u32string();
@@ -81,12 +75,12 @@ namespace GAME
 		}
 		else
 		{
-			std::cerr << "指定されたパスは存在しないか、ディレクトリではありません。" << std::endl;
+//			std::cerr << "指定されたパスは存在しないか、ディレクトリではありません。" << std::endl;
 		}
 	}
 
 
-	void G_Audio::HandLoad ()
+	void G_Audio::HandLoadAsync ()
 	{
 		for ( const s3d::String & bgm_name : m_bgm_list )
 		{

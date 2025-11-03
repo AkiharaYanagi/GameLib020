@@ -140,6 +140,7 @@
     <ClCompile Include="GrpBlink.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="AppSettingFile.cpp" />
+    <ClCompile Include="GameInit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -781,5 +782,6 @@
     <ClInclude Include="..\Include\GrpBlink.h" />
     <ClInclude Include="..\Include\Menu.h" />
     <ClInclude Include="..\Include\AppSettingFile.h" />
+    <ClInclude Include="..\Include\GameInit.h" />
   </ItemGroup>
 </Project>
