@@ -47,6 +47,7 @@ namespace GAME
 		void Start ()
 		{
 			m_timer->Start ();
+			PrmRect::SetColor ( m_color0 );
 			PrmRect::SetValid ( true );
 		}
 
