@@ -19,7 +19,7 @@ namespace GAME
 {
 	class GameInit
 	{
-
+		bool  m_start_cursor_pos { T }
 
 	public:
 		GameInit ();
@@ -28,6 +28,8 @@ namespace GAME
 
 		//ƒƒCƒ“ƒ‹[ƒv’†‚ÌÅ‰‚Ì‚P‰ñ‚Ì‚İ‚Ì‰Šú‰»
 		void Do ();
+
+		void SetStartCursorPos ( bool b ) { m_start_cursor_pos = b; }
 	};
 
 

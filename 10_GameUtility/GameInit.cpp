@@ -45,6 +45,7 @@ namespace GAME
 	//	int32 w = s3d::Window::Get;
 	//	int32 h = s3d::Window::Get;
 
+#if 0
 
 		//ウィンドウ開始位置
 	#define CURSOR_POS_START 1
@@ -55,6 +56,20 @@ namespace GAME
 		s3d::Window::Centering ();	//モニタ中央
 	#endif // CURSOR_POS_START
 
+#endif // 0
+
+
+		//ウィンドウ開始位置
+		if ( m_start_cursor_pos )
+		{
+			//カーソル位置のモニタの中心
+			WND_UTL::MoveWindow_toCenter_onCursor ( wnd_w, wnd_h );
+		}
+		else
+		{
+			//モニタ中央
+			s3d::Window::Centering ();
+		}
 
 		//----------------------------------------
 		//カーソル位置を画面外にする
