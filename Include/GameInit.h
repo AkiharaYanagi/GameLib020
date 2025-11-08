@@ -19,7 +19,7 @@ namespace GAME
 {
 	class GameInit
 	{
-		bool  m_start_cursor_pos { T }
+		bool  m_start_cursor_pos { T };
 
 	public:
 		GameInit ();
