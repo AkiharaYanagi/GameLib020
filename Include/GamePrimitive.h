@@ -24,6 +24,8 @@ namespace GAME
 	{
 		s3d::Rect		m_rect { 100, 200, 300, 400 };
 		s3d::ColorF		m_color { 1.f, 1.f, 1.f, 1.f };
+
+		bool			m_frame { F };
 		
 	public:
 		GamePrimitiveRect ();
@@ -50,6 +52,8 @@ namespace GAME
 		void SetColor ( const _CLR color );
 
 		void SetZero () { m_rect.set( 0, 0, 0, 0 ); }
+
+		void SetFrame ( bool b ) { m_frame = b; }	
 	};
 
 	using PrmRect = GamePrimitiveRect;

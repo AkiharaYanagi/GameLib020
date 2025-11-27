@@ -50,6 +50,7 @@ namespace GAME
 		}
 		catch (const fs::filesystem_error& e)
 		{
+			( void ) e;
 //			std::cerr << "エラー: " << e.what() << std::endl;
 		}
 	}

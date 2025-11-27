@@ -35,7 +35,15 @@ namespace GAME
 
 		{
 			const s3d::ScopedRenderTarget2D target ( * upRndTx );
-			m_rect.draw ( m_color );
+
+			if ( m_frame )
+			{
+				m_rect.drawFrame ( 1.0, 0.0, m_color );
+			}
+			else
+			{
+				m_rect.draw ( m_color );
+			}
 		}
 
 		//unique_ptrを返す
