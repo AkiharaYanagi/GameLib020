@@ -91,9 +91,16 @@ namespace GAME
 			//初期値０(エリアなし)ならテクスチャ全体を描画
 			if ( ! rectf.hasArea () )
 			{
-				s3d::Size sz = ptx->size ();
-				s3d::Point pt = sz.xy ();
-				rectf.set ( 0, 0, sz );
+				if ( ptx == nullptr )
+				{
+					rectf.set ( 0, 0, 0, 0 );
+				}
+				else
+				{
+					s3d::Size sz = ptx->size ();
+					s3d::Point pt = sz.xy ();
+					rectf.set ( 0, 0, sz );
+				}
 			}
 
 			//テクスチャ中心位置
