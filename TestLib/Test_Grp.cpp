@@ -17,7 +17,6 @@ namespace GAME
 	//Test
 	Test::Test ()
 	{
-#if 0
 
 		m_bg = std::make_shared < GameGraphic > ();
 		m_bg->AddTexture_FromArchive ( U"BG0.png" );
@@ -26,6 +25,7 @@ namespace GAME
 		AddpTask ( m_bg );
 		GRPLST_INSERT ( m_bg );
 
+#if 0
 #endif // 0
 	}
 
