@@ -23,8 +23,9 @@ namespace GAME
 	//------------------------------------------------------------
 	class Fade
 	{
-		UINT	m_timer;	//現在時間
-		UINT	m_time;		//移行時間
+		UINT	m_count;	//現在時間
+		UINT	m_targetTime;		//移行時間
+		float	m_per { 0 };		//割合	
 
 		_CLR	m_color_present;//現在色
 
@@ -49,7 +50,7 @@ namespace GAME
 		void SetTime ( UINT time );
 
 		//現在時間（稼働状態）を取得
-		UINT GetTimer () const { return m_timer; }
+		UINT GetTimer () const { return m_count; }
 
 		//色設定
 		void SetFadeColor ( _CLR clr_start, _CLR clr_end )

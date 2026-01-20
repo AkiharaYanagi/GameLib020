@@ -12,7 +12,8 @@
 #include "Game.h"
 
 //ゲーム内容ヘッダファイルのインクルード
-#include "test_ketsuchaku.h"
+//#include "test_ketsuchaku.h"
+#include "test_Grp.h"
 
 //-------------------------------------------------------------------------------------------------
 // 宣言

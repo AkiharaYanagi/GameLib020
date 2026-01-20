@@ -146,9 +146,10 @@ namespace GAME
 
 			//色補正(アルファ値は透明, RGBは乗算)
 			_CLR clr = pob->GetColor ();
-			if ( _CLR ( 0xffffffff )!= clr )
+			if ( _CLR ( 0xffffffff ) == clr )
 			{
-				int i; (void)i;
+				//オブジェクト色指定がある場合はそちらを優先
+				clr = GetColor ();	//Core
 			}
 			s3d::ColorF clrf { clr.r, clr.g, clr.b, clr.a };
 
