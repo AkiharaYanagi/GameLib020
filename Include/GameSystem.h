@@ -65,7 +65,7 @@ namespace GAME
 		static bool m_bMakeArchive;		//アーカイブ作成フラグ
 
 		//フレーム制御
-		void Frame ();
+//		void Frame ();
 		void _Frame ();
 		void _Move ();
 

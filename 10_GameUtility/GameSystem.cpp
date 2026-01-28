@@ -164,6 +164,7 @@ namespace GAME
 		_Frame ();
 	}
 
+#if 0
 
 	void GameSystem::Frame ()
 	{
@@ -225,6 +226,8 @@ namespace GAME
 			}
 		}
 	}
+
+#endif // 0
 
 
 	void GameSystem::_Frame ()

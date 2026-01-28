@@ -22,7 +22,7 @@ namespace GAME
 		//関数の呼び出し時にキーが押されているかどうか、
 		//および GetAsyncKeyState の前回の呼び出し後にキーが押されたかどうかを判別します。
 		//
-		//-> 同一フレームで２回以上判定すると２回め移行 False
+		//-> 同一フレームで２回以上判定すると２回目以降 False
 
 		return ( ::GetAsyncKeyState ( vKey ) & 0x0001 );
 	}
