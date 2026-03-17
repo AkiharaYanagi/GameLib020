@@ -31,21 +31,29 @@ void Rele ( GameSystem & gameSystem );
 //メインループ
 void Main()
 {
+
 	//ゲームシステム
 	GameSystem gameSystem;
 
 	Load ( gameSystem );	//読込
+
+#if 0
+#endif // 0
 
 	//========================================
 	//メインループ
 	bool init = F;
 	while ( System::Update() )
 	{
+
 		//初期化
 		if ( ! init ) { Init ( gameSystem ); init = T; }
 
 		Move ( gameSystem );	//動作
 		Draw ( gameSystem );	//描画
+#if 0
+
+#endif // 0
 	}
 	//========================================
 

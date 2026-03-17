@@ -18,7 +18,7 @@ namespace GAME
 
 	class Test	: public TASK_VEC
 	{
-		//P_Grp		m_bg;
+		P_Grp		m_bg;
 
 
 	public:

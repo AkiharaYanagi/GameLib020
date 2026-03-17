@@ -114,6 +114,8 @@ namespace GAME
 		void NextIndexTexture ();
 		void PrevIndexTexture ();
 		
+		//CoreとのObのColor
+		_CLR GetColor () const { return mpap_Object->at ( 0 )->GetColor (); }	
 		void SetColor ( uint32 clr ) { mpap_Object->at(0)->SetColor ( clr ); }
 		void SetColor ( _CLR clr ) { mpap_Object->at(0)->SetColor ( clr ); }
 
