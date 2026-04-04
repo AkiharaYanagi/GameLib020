@@ -242,15 +242,28 @@ namespace GAME
 	//[0]の位置にテクスチャを再設定
 	void GameGraphicBase::SetpTexture ( P_Tx ptx )
 	{
-		//map_Texture->at ( 0 ) = ptx;
 		mpap_Texture->remove_at ( 0 );
-		mpap_Texture->push_back ( ptx );
+		mpap_Texture->push_front ( ptx );
 	}
 
 	//[0]の位置にテクスチャを再設定
 	void GameGraphicBase::AssignpTexture ( P_Tx ptx )
 	{
+		if ( mpap_Texture->size () <= 0 )
+		{
+			mpap_Texture->push_back ( ptx );
+			return;
+		}
 		(*mpap_Texture)[0] = ptx;
+	}
+
+	void GameGraphicBase::AssignpTexture ( P_Tx ptx, uint32 index )
+	{
+		if ( mpap_Texture->size () <= index )
+		{
+			return;
+		}
+		(*mpap_Texture)[index] = ptx;
 	}
 
 	VEC2 GameGraphicBase::GetCenterOfTexture ( uint32 index )

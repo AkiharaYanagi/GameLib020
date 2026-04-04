@@ -64,8 +64,9 @@ namespace GAME
 		void AddTexture_FromArchive ( s3d::String filename );
 		void AddTexture_FromArchive_mrr ( s3d::String filename );
 		void AddpTexture ( P_Tx ptx );
-		void SetpTexture ( P_Tx ptx );	//[0]の位置にテクスチャを再設定
-		void AssignpTexture ( P_Tx ptx );	//[0]の位置にテクスチャを設定
+		void SetpTexture ( P_Tx ptx );	//[0]の位置にテクスチャを再設定(撤去再取付)
+		void AssignpTexture ( P_Tx ptx );	//[0]の位置にテクスチャを設定(インデックス)
+		void AssignpTexture ( P_Tx ptx, uint32 index );
 		VEC2 GetCenterOfTexture ( uint32 index );
 
 		//---------------------------------------------------------------------
