@@ -156,6 +156,24 @@ namespace GAME
 		return 0;
 	}
 
+
+	void Menu::ForEachMenuItem_Do(std::function < void(P_MenuItem) > func)
+	{
+		for ( P_MenuItem p : mvp_MenuItem )
+		{
+			func ( p );
+		}
+	}
+
+	void Menu::SetpParam ( P_GameParam p )
+	{
+		MenuItem::SetpParam ( p );
+		for ( P_MenuItem mi : mvp_MenuItem )
+		{
+			mi->SetpParam ( p );
+		}
+	}
+
 	void Menu::Top ()
 	{
 		if ( mvp_MenuItem.size () == 0 ) { return; }
