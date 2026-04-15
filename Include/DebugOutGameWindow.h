@@ -73,6 +73,7 @@ namespace GAME
 	private:
 		P_GrpStr		m_frame;	//稼働時間
 		P_GrpStr		m_FPS;		//Frame Per Second
+		P_GrpStr		m_Build_Time;	//ビルド時刻
 
 	public:
 		//固定表示 : 稼働時間[F]
@@ -80,6 +81,9 @@ namespace GAME
 
 		//固定表示 : FPS
 		void DebugOutWnd_FPS ( double fps );
+
+		//固定表示 : ビルド時刻
+		void DebugOutWnd_Build_Time ( const char* DATE, const char* TIME );
 
 
 #if 0

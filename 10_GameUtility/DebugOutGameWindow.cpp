@@ -43,6 +43,12 @@ namespace GAME
 		m_FPS->SetZ ( Z_DEBUG );
 		m_FPS->SetColorF ( s3d::ColorF { 1.0, 0.0, 1.0 } );
 
+		//固定表示 : ビルド時刻
+		m_Build_Time = std::make_shared < GrpStr > ();
+		m_Build_Time->SetPos ( VEC2 ( 640, 0 ) );
+		m_Build_Time->SetZ ( Z_DEBUG );
+		m_Build_Time->SetColorF ( s3d::ColorF { 1.0, 0.0, 1.0 } );
+
 	}
 
 	DebugOutGameWindow::~DebugOutGameWindow ()
@@ -62,6 +68,7 @@ namespace GAME
 		}
 		m_frame->Draw ();
 		m_FPS->Draw ();
+		m_Build_Time->Draw ();
 	}
 
 	void DebugOutGameWindow::DebugOutf ( DBGOUT_LINE line, const s3d::String & str )
@@ -81,6 +88,7 @@ namespace GAME
 		}
 		m_frame->SetValid ( T );
 		m_FPS->SetValid ( T );
+		m_Build_Time->SetValid ( T );
 	}
 
 	void DebugOutGameWindow::Off ()
@@ -91,6 +99,7 @@ namespace GAME
 		}
 		m_frame->SetValid ( F );
 		m_FPS->SetValid ( F );
+		m_Build_Time->SetValid ( F );
 	}
 
 
@@ -111,6 +120,14 @@ namespace GAME
 			rr = mi.refreshRate;
 		}
 		m_FPS->SetStr ( U"{}Hz, FPS:{:.3f}"_fmt( rr.value(), fps ) );
+	}
+
+	//固定表示 : FPS
+	void DebugOutGameWindow::DebugOutWnd_Build_Time ( const char* DATE, const char* TIME )
+	{
+		std::ostringstream oss;
+		oss << "build time: " << DATE << " " << TIME;
+		m_Build_Time->SetStr ( s3d::Unicode::FromUTF8 ( oss.str ().c_str () ) );
 	}
 
 
