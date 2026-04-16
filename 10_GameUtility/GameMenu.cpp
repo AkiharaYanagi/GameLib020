@@ -1,13 +1,13 @@
 ﻿//=================================================================================================
 //
-//	Menu
+//	GameMenu
 //
 //=================================================================================================
 
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-#include "Menu.h"
+#include "GameMenu.h"
 
 //-------------------------------------------------------------------------------------------------
 // 定義
@@ -15,12 +15,9 @@
 namespace GAME
 {
 	//=================================================
-	//MenuItem
+	//GameMenuString
 
-	//=================================================
-	//MenuString
-
-	MenuString::MenuString ()
+	GameMenuString::GameMenuString ()
 	{
 #if 0
 		SetFontParam ( 100, 1, 2 );
@@ -33,35 +30,34 @@ namespace GAME
 		SetStr ( U"MenuStr" );
 	}
 
-	MenuString::~MenuString ()
+	GameMenuString::~GameMenuString ()
 	{
 	}
 
 	//=================================================
 
-	MenuItem::MenuItem ()
+
+	//=================================================
+	//MenuItem
+
+	GameMenuItem::GameMenuItem ()
 	{
-		m_str = std::make_shared < MenuString > ();
+		m_str = std::make_shared < GameMenuString > ();
 		m_str->SetPos ( 100, 20 );
-//		GRPLST_INSERT ( m_str );
 	}
 
-	MenuItem::~MenuItem ()
-	{
-	}
-
-	void MenuItem::UpdatePos ( VEC2 v )
+	void GameMenuItem::SetPos ( VEC2 v )
 	{
 		m_str->SetPos ( v + m_str->GetPos () );
 	}
 
 
 	//=================================================
-	Menu::Menu ()
+	GameMenu::GameMenu ()
 	{
 		m_itItem = mvp_MenuItem.begin ();
 
-		m_str = std::make_shared < MenuString > ();
+		m_str = std::make_shared < GameMenuString > ();
 
 		m_bg = std::make_shared < PrmRect > ();
 		m_bg->SetSize ( s3d::Point { 500, 300 } );
@@ -71,51 +67,47 @@ namespace GAME
 		GRPLST_INSERT ( m_bg );
 	}
 
-	Menu::~Menu ()
-	{
-	}
-
-	void Menu::Init ()
+	void GameMenu::Init ()
 	{
 		m_itItem = mvp_MenuItem.begin ();
 		
-		MenuItem::Init ();
+		GameMenuItem::Init ();
 	}
 	
-	void Menu::SetpMenuItem ( P_MenuItem mi )
+	void GameMenu::SetpMenuItem ( P_GameMenuItem mi )
 	{
-		mi->SetwpParent ( shared_from_this () );
+		mi->SetwpParentMenu ( shared_from_this () );
 		mvp_MenuItem.push_back ( mi );
 	}
 
-	void Menu::SetwpParent ( WP_Menu wp )
+	void GameMenu::SetwpParentMenu ( WP_GameMenu wp )
 	{
-		MenuItem::SetpParam ( p );
-		for ( P_MenuItem mi : mvp_MenuItem )
+		GameMenuItem::SetwpParentMenu ( wp );
+		for ( P_GameMenuItem mi : mvp_MenuItem )
+		{
+			mi->SetwpParentMenu ( wp );
+		}
+	}
+
+	void GameMenu::SetpParam ( P_GameParam p )
+	{
+		GameMenuItem::SetpParam ( p );
+		for ( P_GameMenuItem mi : mvp_MenuItem )
 		{
 			mi->SetpParam ( p );
 		}
 	}
 
-	void Menu::SetpParam ( P_GameParam p )
-	{
-		MenuItem::SetpParam ( p );
-		for ( P_MenuItem mi : mvp_MenuItem )
-		{
-			mi->SetpParam ( p );
-		}
-	}
 
-
-	void Menu::PushMenuItem ()
+	void GameMenu::PushMenuItem ()
 	{
-		P_MenuItem mi = std::make_shared < MenuItem > ();
-		mi->SetwpParent ( shared_from_this () );
+		P_GameMenuItem mi = std::make_shared < GameMenuItem > ();
+		mi->SetwpParentMenu ( shared_from_this () );
 		mvp_MenuItem.push_back ( mi );
 	}
 
 
-	void Menu::Next ()
+	void GameMenu::Next ()
 	{
 //		TRACE_F ( _T ( "Menu::Next()\n" ) );
 
@@ -133,7 +125,7 @@ namespace GAME
 		}
 	}
 
-	void Menu::Prev ()
+	void GameMenu::Prev ()
 	{
 		//個数が1,または0のとき何もしない
 		if ( mvp_MenuItem.size () < 2 ) { return; }
@@ -148,23 +140,23 @@ namespace GAME
 		}
 	}
 	
-	void Menu::Do ()
+	void GameMenu::Do ()
 	{
 		( * m_itItem )->Do ();
 	}
 
-	void Menu::Decide ()
+	void GameMenu::Decide ()
 	{
 		( * m_itItem )->Decide ();
 	}
 
-	DWORD Menu::GetIdItem () const
+	DWORD GameMenu::GetIdItem () const
 	{
 		size_t size = mvp_MenuItem.size ();
 		if ( 0 == size ) { return 0; }
 
 
-		VP_MenuItem::const_iterator	it = mvp_MenuItem.begin ();
+		VP_GameMenuItem::const_iterator	it = mvp_MenuItem.begin ();
 		for ( DWORD i = 0; i < size; ++ i )
 		{
 			if ( it == m_itItem ) { return i; }
@@ -175,28 +167,28 @@ namespace GAME
 	}
 
 
-	void Menu::ForEachMenuItem_Do(std::function < void(P_MenuItem) > func)
+	void GameMenu::ForEachMenuItem_Do(std::function < void(P_GameMenuItem) > func)
 	{
-		for ( P_MenuItem p : mvp_MenuItem )
+		for ( P_GameMenuItem p : mvp_MenuItem )
 		{
 			func ( p );
 		}
 	}
 
-	void Menu::Top ()
+	void GameMenu::SelectTop ()
 	{
 		if ( mvp_MenuItem.size () == 0 ) { return; }
 		m_itItem = mvp_MenuItem.begin ();
 	}
 
-	void Menu::Last ()
+	void GameMenu::SelectLast ()
 	{
 		if ( mvp_MenuItem.size () == 0 ) { return; }
 		m_itItem = mvp_MenuItem.end ();
 		-- m_itItem;
 	}
 
-	void Menu::Select ( UINT n )
+	void GameMenu::Select ( UINT n )
 	{
 		if ( mvp_MenuItem.size () < n ) { return; }
 
@@ -206,48 +198,48 @@ namespace GAME
 
 
 	//On/Off
-	void Menu::Off ()
+	void GameMenu::Off ()
 	{
 		m_bg->SetValid ( F );
-		MenuItem::Off ();
+		GameMenuItem::Off ();
 	}
 
-	void Menu::On ()
+	void GameMenu::On ()
 	{
 		m_bg->SetValid ( T );
-		MenuItem::On ();
+		GameMenuItem::On ();
 	}
 
-	void Menu::AllOff ()
+	void GameMenu::AllOff ()
 	{
-		for ( P_MenuItem p : mvp_MenuItem )
+		for ( P_GameMenuItem p : mvp_MenuItem )
 		{
 			p->Off ();
 		}
 		Off ();	//自身もOff();
 	}
 
-	void Menu::AllOn ()
+	void GameMenu::AllOn ()
 	{
-		for ( P_MenuItem p : mvp_MenuItem )
+		for ( P_GameMenuItem p : mvp_MenuItem )
 		{
 			p->On ();
 		}
 		On ();	//自身もOn();
 	}
 
-	void Menu::ItemOff ()
+	void GameMenu::ItemOff ()
 	{
-		for ( P_MenuItem p : mvp_MenuItem )
+		for ( P_GameMenuItem p : mvp_MenuItem )
 		{
 			p->Off ();
 		}
 		//		Off ();	//自身はOff();しない
 	}
 
-	void Menu::ItemOn ()
+	void GameMenu::ItemOn ()
 	{
-		for ( P_MenuItem p : mvp_MenuItem )
+		for ( P_GameMenuItem p : mvp_MenuItem )
 		{
 			p->On ();
 		}
@@ -255,25 +247,25 @@ namespace GAME
 	}
 
 
-	void Menu::UpdatePos ()
+	void GameMenu::UpdatePos ()
 	{
 		int32 x = m_bg->GetPos ().x;
 		int32 y = m_bg->GetPos ().y;
-		UpdatePos ( VEC2 ( (float)x, (float)y ) );
+		GameMenuItem::SetPos ( VEC2 ( (float)x, (float)y ) );
 	}
 
 
-	void Menu::UpdatePos ( VEC2 v )
+	void GameMenu::UpdatePos ( VEC2 v )
 	{
 		m_bg->SetPos ( (int32)v.x, (int32)v.y );
 
-		for ( P_MenuItem p : mvp_MenuItem )
+		for ( P_GameMenuItem p : mvp_MenuItem )
 		{
-			p->UpdatePos ( v );
+			p->SetPos ( v );
 		}
 	}
 
-	void Menu::SetBG_use ( bool b )
+	void GameMenu::SetBG_use ( bool b )
 	{
 		m_bg->SetValid ( b );
 		m_bBg = b;
@@ -286,7 +278,7 @@ namespace GAME
 		}
 	}
 
-	void Menu::SetBG_Z ( float z )
+	void GameMenu::SetBG_Z ( float z )
 	{
 		m_bg->SetZ ( z );
 

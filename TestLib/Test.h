@@ -29,7 +29,7 @@ namespace GAME
 
 		P_GrpStr	m_str;
 
-		P_Menu		m_menu;
+		//P_Menu		m_menu;
 
 		P_GrpBlink	m_blink;
 
