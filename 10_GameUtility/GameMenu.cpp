@@ -26,7 +26,7 @@ namespace GAME
 		SetFontColor ( 0xffffffff, 0xff202080 );
 #endif // 0
 		SetbMenu ( T );
-		SetZ ( Z_MENU );
+		SetZ ( Z_MENU - 0.002f );
 		SetStr ( U"MenuStr" );
 	}
 
@@ -43,7 +43,10 @@ namespace GAME
 	GameMenuItem::GameMenuItem ()
 	{
 		m_str = std::make_shared < GameMenuString > ();
-		m_str->SetPos ( 100, 20 );
+		AddpTask ( m_str );
+		GRPLST_INSERT ( m_str );
+
+		Off();
 	}
 
 	void GameMenuItem::SetPos ( VEC2 v )
@@ -51,13 +54,20 @@ namespace GAME
 		m_str->SetPos ( v + m_str->GetPos () );
 	}
 
+	void GameMenuItem::Off ()
+	{
+		m_str->SetValid ( F );
+	}
+
+	void GameMenuItem::On ()
+	{
+		m_str->SetValid ( T );
+	}
 
 	//=================================================
 	GameMenu::GameMenu ()
 	{
 		m_itItem = mvp_MenuItem.begin ();
-
-		m_str = std::make_shared < GameMenuString > ();
 
 		m_bg = std::make_shared < PrmRect > ();
 		m_bg->SetSize ( s3d::Point { 500, 300 } );
@@ -109,9 +119,6 @@ namespace GAME
 
 	void GameMenu::Next ()
 	{
-//		TRACE_F ( _T ( "Menu::Next()\n" ) );
-
-
 		//個数が1,または0のとき何もしない
 		if ( mvp_MenuItem.size () < 2 ) { return; }
 
