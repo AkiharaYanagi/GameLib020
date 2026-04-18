@@ -28,6 +28,7 @@ namespace GAME
 		SetbMenu ( T );
 		SetZ ( Z_MENU - 0.002f );
 		SetStr ( U"MenuStr" );
+		SetValid ( F );
 	}
 
 	GameMenuString::~GameMenuString ()
@@ -49,11 +50,6 @@ namespace GAME
 		Off();
 	}
 
-	void GameMenuItem::SetPos ( VEC2 v )
-	{
-		m_str->SetPos ( v + m_str->GetPos () );
-	}
-
 	void GameMenuItem::Off ()
 	{
 		m_str->SetValid ( F );
@@ -63,6 +59,17 @@ namespace GAME
 	{
 		m_str->SetValid ( T );
 	}
+
+	void GameMenuItem::SetPosStr ( VEC2 v )
+	{
+		m_str->SetPos ( v + m_str->GetPos () );
+	}
+
+	void GameMenuItem::SetStr ( const s3d::String & str )
+	{
+		m_str->SetStr ( str );
+	}
+
 
 	//=================================================
 	GameMenu::GameMenu ()
@@ -258,7 +265,7 @@ namespace GAME
 	{
 		int32 x = m_bg->GetPos ().x;
 		int32 y = m_bg->GetPos ().y;
-		GameMenuItem::SetPos ( VEC2 ( (float)x, (float)y ) );
+		GameMenuItem::SetPosStr ( VEC2 ( (float)x, (float)y ) );
 	}
 
 
@@ -268,7 +275,7 @@ namespace GAME
 
 		for ( P_GameMenuItem p : mvp_MenuItem )
 		{
-			p->SetPos ( v );
+			p->SetPosStr ( v );
 		}
 	}
 
