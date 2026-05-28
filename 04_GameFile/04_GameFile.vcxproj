@@ -121,8 +121,9 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Atlas.cpp" />
-    <ClCompile Include="Compress.cpp" />
+    <ClCompile Include="Atlas_legacy\Atlas_legacy.cpp" />
+    <ClCompile Include="Atlas_legacy\Compress_legacy.cpp" />
+    <ClCompile Include="Atlas_legacy\Tile_legacy.cpp" />
     <ClCompile Include="Document.cpp" />
     <ClCompile Include="GameSound.cpp" />
     <ClCompile Include="G_Audio.cpp" />
@@ -130,7 +131,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="_SoundArchver.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -328,12 +328,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\04_GameFile.h" />
-    <ClInclude Include="..\Include\Atlas.h" />
-    <ClInclude Include="..\Include\Compress.h" />
+    <ClInclude Include="..\Include\Atlas_legacy.h" />
+    <ClInclude Include="..\Include\Compress_legacy.h" />
     <ClInclude Include="..\Include\Document.h" />
     <ClInclude Include="..\Include\GameSound.h" />
     <ClInclude Include="..\Include\G_Audio.h" />
-    <ClInclude Include="..\Include\Tile.h" />
+    <ClInclude Include="..\Include\Tile_legacy.h" />
     <ClInclude Include="..\Include\_SoundArchiver.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

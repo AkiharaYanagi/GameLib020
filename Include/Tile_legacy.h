@@ -1,6 +1,6 @@
 ﻿//=================================================================================================
 //
-//	Atlas ヘッダファイル
+//	Tile ヘッダファイル
 //
 //=================================================================================================
 #pragma once
@@ -8,11 +8,7 @@
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-#include "Define.h"
 #include "Define_Siv3D.h"
-#include "Compress.h"
-
-
 
 
 //-------------------------------------------------------------------------------------------------
@@ -20,51 +16,56 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-	//Atlas
-	//Cmpressをまとめる
-	class Atlas
+
+	//旧Atlasをnamespace legacyで隔離
+	namespace legacy
 	{
-		//Atlas
-		//	┣[] Compress
-		//		┣[] Tile
-		//		  ┣ Tip :  Array < uint32 >;
-		s3d::Array < P_Compress >			m_aryCmprs;
+
+
+	//画像の切り出した部分
+	using Tip = s3d::Array < uint32 >;
+
+	//切り出しサイズ
+	const int32 TIP_W = 64;
+	const int32 TIP_H = 64;
+	const size_t TIP_N = TIP_W * TIP_H;
+
+
+
+	//Tipまとめ
+	class Tile
+	{
+		uint32	m_id { 0 };	//配置ID
+		Tip		m_tip { 0 };
 
 	public:
+		Tile ();
+		Tile ( const Tile & rhs );	//コピー可能
+		~Tile ();
 
-		Atlas ();
-		Atlas ( const Atlas & rhs );
-		~Atlas ();
+		void SetId ( uint32 id ) { m_id = id; }
+		uint32 GetId () const { return m_id; }
 
-		void Copy ( const Atlas & rhs );
+		//参照元イメージと開始位置
+		void ToTile ( const Image & img, int32 x, int32 y );
 
-		void Do ();
+		//test
+		void TestMakeImg ( Image & img );
 
-		//IO
-		void Make ( std::filesystem::path dir );
-		void Write ();
-		PAP_Tx Read ();
-	
-		//C#からバイナリで.png形式をまとめた.imgファイルから作成
-		void Conversion ( s3d::String filepath );
+		//値を取得
+		uint32 GetUint ( int32 x, int32 y ) const;
 
-		P_Tx GetpTx ();
-		PAP_Tx GetpapTx ();
+		bool Compare ( const Tile & rhs ) const;
 
-		bool Compare ( const Atlas & rhs ) const;
-
-
-		//取得
-		//Image Get ();
-
+		//-------------------------------------------
 		//シリアライズ可能にするためのテンプレート関数定義
 		template < class T >
 		void SIV3D_SERIALIZE ( T & t )
 		{
-			t ( m_aryCmprs );
+			t ( m_id, m_tip );
 		}
 
-
+		//-------------------------------------------
 		//MemoryStream上に展開
 		void WriteMemoryStream ( s3d::MemoryWriter & mw );
 
@@ -72,20 +73,12 @@ namespace GAME
 		void LoadMemoryStream ( s3d::MemoryReader & mr );
 	};
 
-	using P_Atlas = std::shared_ptr < Atlas >;
+	using P_Tile = std::shared_ptr < Tile >;
 
 
 
-	//シリアライズ用
-	class Srl_Atlas
-	{
-	public:
+	}	//namespace legacy
 
-		const s3d::String FILE_NAME { U"img.atls" };
-
-		void Save ( const Atlas & atls );
-		void Load ( Atlas & atls );
-	};
 
 
 }	//namespace GAME

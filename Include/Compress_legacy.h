@@ -9,7 +9,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Define_Siv3D.h"
-#include "Tile.h"
+#include "Tile_legacy.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -17,6 +17,11 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+	//旧Atlasをnamespace legacyで隔離
+	namespace legacy
+	{
+
+		
 	class Compress
 	{
 		s3d::Array < Tile >			m_tiles;
@@ -67,6 +72,12 @@ namespace GAME
 	};
 
 	using P_Compress = std::shared_ptr < Compress >;
+
+
+
+
+	}	//namespace legacy
+
 
 
 }	//namespace GAME

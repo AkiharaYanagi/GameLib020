@@ -120,11 +120,12 @@
   <ItemGroup>
     <ClCompile Include="DebugDisp.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Param.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Test_Grp.cpp" />
+    <ClCompile Include="Test_Atlas.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\engine\texture\box-shadow\128.png" />
@@ -323,8 +324,9 @@
     <ClInclude Include="..\Include\Game.h" />
     <ClInclude Include="DebugDisp.h" />
     <ClInclude Include="GameMain.h" />
+    <ClInclude Include="Param.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Test_Grp.h" />
+    <ClInclude Include="Test_Atlas.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App\example\obj\blacksmith.obj">

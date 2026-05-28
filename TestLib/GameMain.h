@@ -13,7 +13,7 @@
 
 //ゲーム内容ヘッダファイルのインクルード
 //#include "test_ketsuchaku.h"
-#include "test_Grp.h"
+#include "test_Atlas.h"
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
@@ -25,7 +25,7 @@ namespace GAME
 //	class GameMain	: public TASK_VEC
 	class GameMain	: public GameMainBase
 	{
-#define GAME_MAIN_ONLY_TEST		1
+#define GAME_MAIN_ONLY_TEST		0
 #if GAME_MAIN_ONLY_TEST
 		//ゲームメインのみのテスト
 		std::shared_ptr < GameTask > m_pTask;

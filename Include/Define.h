@@ -26,6 +26,7 @@
 #include <iomanip>	//std::setw(), std::setfill() ‚È‚Ç
 #include <regex>
 #include <filesystem>
+#include <unordered_map>
 
 #include <lz4.h>
 #pragma comment ( lib, "lz4.lib" )

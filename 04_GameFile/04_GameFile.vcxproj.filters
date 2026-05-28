@@ -128,16 +128,25 @@
     <Filter Include="Resource Files\engine\font\min">
       <UniqueIdentifier>{1b103960-f11a-4515-b4f1-f59333ce00d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Atlas_legacy">
+      <UniqueIdentifier>{d76dc03b-5213-456f-be91-a08d22d46b25}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Document.cpp" />
     <ClCompile Include="GameSound.cpp" />
     <ClCompile Include="_SoundArchver.cpp" />
-    <ClCompile Include="Tile.cpp" />
-    <ClCompile Include="Atlas.cpp" />
-    <ClCompile Include="Compress.cpp" />
     <ClCompile Include="G_Audio.cpp" />
+    <ClCompile Include="Atlas_legacy\Compress_legacy.cpp">
+      <Filter>Atlas_legacy</Filter>
+    </ClCompile>
+    <ClCompile Include="Atlas_legacy\Tile_legacy.cpp">
+      <Filter>Atlas_legacy</Filter>
+    </ClCompile>
+    <ClCompile Include="Atlas_legacy\Atlas_legacy.cpp">
+      <Filter>Atlas_legacy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -772,9 +781,15 @@
     <ClInclude Include="..\Include\04_GameFile.h" />
     <ClInclude Include="..\Include\GameSound.h" />
     <ClInclude Include="..\Include\_SoundArchiver.h" />
-    <ClInclude Include="..\Include\Compress.h" />
-    <ClInclude Include="..\Include\Tile.h" />
-    <ClInclude Include="..\Include\Atlas.h" />
     <ClInclude Include="..\Include\G_Audio.h" />
+    <ClInclude Include="..\Include\Atlas_legacy.h">
+      <Filter>Atlas_legacy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Tile_legacy.h">
+      <Filter>Atlas_legacy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Compress_legacy.h">
+      <Filter>Atlas_legacy</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

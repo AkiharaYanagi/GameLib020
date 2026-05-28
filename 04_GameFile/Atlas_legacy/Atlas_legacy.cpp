@@ -7,7 +7,7 @@
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-#include "Atlas.h"
+#include "Atlas_legacy.h"
 
 namespace FS = std::filesystem;
 
@@ -17,6 +17,13 @@ namespace FS = std::filesystem;
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+	//旧Atlasをnamespace legacyで隔離
+	namespace legacy
+	{
+
+
+
+
 	Atlas::Atlas ()
 	{
 	}
@@ -236,6 +243,7 @@ namespace GAME
 
 
 
+	}	//namespace legacy
 
 
 }	//namespace GAME

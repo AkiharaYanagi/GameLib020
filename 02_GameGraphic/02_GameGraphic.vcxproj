@@ -388,6 +388,50 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Atlas\Atlas.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="Atlas\Book.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="Atlas\Canvas.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="Atlas\Compress.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="Atlas\Page.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="Atlas\Tile.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="Atlas\Tip.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="Convert\ImgToAtlas.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="Convert\ImgToBook.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="Convert\ImgToTip.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="Convert\TipToImg.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="GameGraphic.cpp" />
     <ClCompile Include="GameGraphicCore.cpp" />
@@ -395,6 +439,7 @@
     <ClCompile Include="GameGrpStr.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GamePrimitive.cpp" />
+    <ClCompile Include="GrpAtlas.cpp" />
     <ClCompile Include="GrpMovie.cpp" />
     <ClCompile Include="G_Font.cpp" />
     <ClCompile Include="G_GrpTx.cpp" />
@@ -404,6 +449,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\02_GameGraphic.h" />
+    <ClInclude Include="..\Include\Atlas\Atlas.h" />
+    <ClInclude Include="..\Include\Atlas\Book.h" />
+    <ClInclude Include="..\Include\Atlas\Canvas.h" />
+    <ClInclude Include="..\Include\Atlas\Compress.h" />
+    <ClInclude Include="..\Include\Atlas\Define_Atlas.h" />
+    <ClInclude Include="..\Include\Atlas\Page.h" />
+    <ClInclude Include="..\Include\Atlas\Tile.h" />
+    <ClInclude Include="..\Include\Atlas\Tip.h" />
+    <ClInclude Include="..\Include\Convert\ImgToAtlas.h" />
+    <ClInclude Include="..\Include\Convert\ImgToBook.h" />
+    <ClInclude Include="..\Include\Convert\ImgToTip.h" />
+    <ClInclude Include="..\Include\Convert\TipToImg.h" />
     <ClInclude Include="..\Include\Fade.h" />
     <ClInclude Include="..\Include\GameGraphic.h" />
     <ClInclude Include="..\Include\GameGraphicConst.h" />
@@ -412,6 +469,7 @@
     <ClInclude Include="..\Include\GameGrpStr.h" />
     <ClInclude Include="..\Include\GameObject.h" />
     <ClInclude Include="..\Include\GamePrimitive.h" />
+    <ClInclude Include="..\Include\GrpAtlas.h" />
     <ClInclude Include="..\Include\GrpMovie.h" />
     <ClInclude Include="..\Include\G_Font.h" />
     <ClInclude Include="..\Include\G_GrpTx.h" />

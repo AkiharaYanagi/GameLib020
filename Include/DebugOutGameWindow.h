@@ -136,7 +136,7 @@ namespace GAME
 		//固定表示 : FPS
 		void DebugOutWnd_FPS ( UINT FPS );
 		//固定表示 : 休眠時間[ms]
-		void DebugOutWnd_SleepTime ( float sleepTile );
+		void DebugOutWnd_SleepTime ( float sleepTime );
 		//固定表示 : 動作時間[ms]
 		void DebugOutWnd_MoveTime ( float moveTime );
 		//固定表示 : 描画時間[ms]
