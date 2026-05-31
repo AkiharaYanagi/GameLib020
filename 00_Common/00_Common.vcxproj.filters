@@ -511,7 +511,6 @@
     <None Include="App\example\zip\zip_test.zip">
       <Filter>Resource Files\example\zip</Filter>
     </None>
-    <None Include=".editorconfig" />
     <None Include="App\example\obj\blacksmith.mtl">
       <Filter>Resource Files\example\obj</Filter>
     </None>
@@ -760,7 +759,6 @@
     <ClInclude Include="..\Include\Define.h" />
     <ClInclude Include="..\Include\Format.h" />
     <ClInclude Include="..\Include\HWnd.h" />
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\Include\STR_UTL.h" />
     <ClInclude Include="..\Include\WND_UTL.h" />
     <ClInclude Include="..\Include\00_Common.h" />
@@ -772,7 +770,6 @@
     <ClInclude Include="..\Include\DebugOutPrint.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Define.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="DebugOutTrace.cpp" />

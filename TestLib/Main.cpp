@@ -19,6 +19,7 @@
 using namespace GAME;
 
 
+
 //前方宣言
 void Load ( GameSystem & gameSystem );
 void Init ( GameSystem & gameSystem );
@@ -137,3 +138,5 @@ void Rele ( GameSystem & gameSystem )
 {
 	gameSystem.SystemRele ();
 }
+
+

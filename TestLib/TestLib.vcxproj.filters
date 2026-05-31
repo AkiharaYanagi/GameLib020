@@ -131,10 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="DebugDisp.cpp" />
-    <ClCompile Include="Test_Atlas.cpp" />
-    <ClCompile Include="Param.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -518,7 +515,6 @@
     <None Include="App\example\zip\zip_test.zip">
       <Filter>Resource Files\example\zip</Filter>
     </None>
-    <None Include=".editorconfig" />
     <None Include="App\example\obj\blacksmith.mtl">
       <Filter>Resource Files\example\obj</Filter>
     </None>
@@ -765,10 +761,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameMain.h" />
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\Include\Game.h" />
     <ClInclude Include="DebugDisp.h" />
-    <ClInclude Include="Test_Atlas.h" />
-    <ClInclude Include="Param.h" />
   </ItemGroup>
 </Project>

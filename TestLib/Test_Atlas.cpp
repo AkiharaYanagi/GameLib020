@@ -19,7 +19,7 @@ namespace GAME
 	{
 		Param p;
 
-		const Atlas & atls = p.GetAtlas ();
+		//const Atlas & atls = p.GetAtlas ();
 	}
 
 	Test::~Test ()

@@ -130,7 +130,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="SivGamePad.cpp" />
     <ClCompile Include="SivInput.cpp" />
     <ClCompile Include="SivKeyboard.cpp" />
@@ -725,9 +724,6 @@
     <None Include="App\engine\font\min\siv3d-min.woff">
       <Filter>Resource Files\engine\font\min</Filter>
     </None>
-    <None Include=".editorconfig">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Media Include="App\example\test.mp3">
@@ -769,7 +765,6 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\Include\03_GameInput.h" />
     <ClInclude Include="..\Include\SivInput.h" />
     <ClInclude Include="..\Include\SivKeyboard.h" />

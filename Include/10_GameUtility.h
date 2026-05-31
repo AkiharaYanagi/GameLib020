@@ -17,7 +17,6 @@
 #include "GrpEf.h"
 #include "FadeRect.h"
 #include "GrpBlink.h"
-//#include "Menu.h"
 #include "GameMenu.h"
 #include "AppSettingFile.h"
 #include "GameInit.h"

@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "Define_Siv3D.h"
 
 
 //エイリアス

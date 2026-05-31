@@ -517,7 +517,6 @@
     <None Include="App\example\zip\zip_test.zip">
       <Filter>Resource Files\example\zip</Filter>
     </None>
-    <None Include=".editorconfig" />
     <None Include="App\example\obj\blacksmith.mtl">
       <Filter>Resource Files\example\obj</Filter>
     </None>
@@ -763,7 +762,6 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameGraphic.cpp" />
@@ -810,7 +808,6 @@
     <ClCompile Include="GrpAtlas.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\Include\Fade.h" />
     <ClInclude Include="..\Include\02_GameGraphic.h" />
     <ClInclude Include="..\Include\GameObject.h" />

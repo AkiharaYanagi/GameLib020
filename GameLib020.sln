@@ -47,6 +47,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10_GameUtility", "10_GameUt
 		{E2FAB9F0-46ED-44AA-9479-2B9A0E5B3C96} = {E2FAB9F0-46ED-44AA-9479-2B9A0E5B3C96}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLib050", "TestLib050\TestLib050.vcxproj", "{52C04C8A-9F9D-4698-A3C8-F9C726464E52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -64,7 +66,6 @@ Global
 		{DDF85FB0-748A-470B-A2E6-89C012AEE398}.Release|x86.ActiveCfg = Release|x64
 		{DDF85FB0-748A-470B-A2E6-89C012AEE398}.Release|x86.Build.0 = Release|x64
 		{F93E78B1-6367-4042-92B0-4F52FFC6FD22}.Debug|x64.ActiveCfg = Debug|x64
-		{F93E78B1-6367-4042-92B0-4F52FFC6FD22}.Debug|x64.Build.0 = Debug|x64
 		{F93E78B1-6367-4042-92B0-4F52FFC6FD22}.Debug|x86.ActiveCfg = Debug|x64
 		{F93E78B1-6367-4042-92B0-4F52FFC6FD22}.Debug|x86.Build.0 = Debug|x64
 		{F93E78B1-6367-4042-92B0-4F52FFC6FD22}.Release|x64.ActiveCfg = Release|x64
@@ -109,6 +110,14 @@ Global
 		{E3738ADC-0332-427E-B553-95CBD31912A9}.Release|x64.Build.0 = Release|x64
 		{E3738ADC-0332-427E-B553-95CBD31912A9}.Release|x86.ActiveCfg = Release|x64
 		{E3738ADC-0332-427E-B553-95CBD31912A9}.Release|x86.Build.0 = Release|x64
+		{52C04C8A-9F9D-4698-A3C8-F9C726464E52}.Debug|x64.ActiveCfg = Debug|x64
+		{52C04C8A-9F9D-4698-A3C8-F9C726464E52}.Debug|x64.Build.0 = Debug|x64
+		{52C04C8A-9F9D-4698-A3C8-F9C726464E52}.Debug|x86.ActiveCfg = Debug|x64
+		{52C04C8A-9F9D-4698-A3C8-F9C726464E52}.Debug|x86.Build.0 = Debug|x64
+		{52C04C8A-9F9D-4698-A3C8-F9C726464E52}.Release|x64.ActiveCfg = Release|x64
+		{52C04C8A-9F9D-4698-A3C8-F9C726464E52}.Release|x64.Build.0 = Release|x64
+		{52C04C8A-9F9D-4698-A3C8-F9C726464E52}.Release|x86.ActiveCfg = Release|x64
+		{52C04C8A-9F9D-4698-A3C8-F9C726464E52}.Release|x86.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -133,7 +133,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Document.cpp" />
     <ClCompile Include="GameSound.cpp" />
     <ClCompile Include="_SoundArchver.cpp" />
@@ -530,7 +529,6 @@
     <None Include="App\example\zip\zip_test.zip">
       <Filter>Resource Files\example\zip</Filter>
     </None>
-    <None Include=".editorconfig" />
     <None Include="App\example\obj\blacksmith.mtl">
       <Filter>Resource Files\example\obj</Filter>
     </None>
@@ -776,7 +774,6 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\Include\Document.h" />
     <ClInclude Include="..\Include\04_GameFile.h" />
     <ClInclude Include="..\Include\GameSound.h" />
