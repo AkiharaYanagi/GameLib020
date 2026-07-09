@@ -8,6 +8,8 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "WND_UTL.h"
+#include "HWnd.h"
+
 
 //-------------------------------------------------------------------------------------------------
 // 定義
@@ -24,8 +26,19 @@ namespace GAME
 		//
 		//-> 同一フレームで２回以上判定すると２回目以降 False
 
-		return ( ::GetAsyncKeyState ( vKey ) & 0x0001 );
+		bool state = ( ::GetAsyncKeyState(vKey) & 0x0001 );
+
+
+		//ハンドルによる自ウィンドウがアクティブかどうかの判定
+		HWND myHWnd = HWnd::Get();
+		HWND _myHWnd = HWnd::_Get();
+		HWND s3d_myHWnd = static_cast < HWND > ( s3d::Platform::Windows::Window::GetHWND () );
+		HWND foreHWnd = ::GetForegroundWindow();
+		bool activeWnd = ( s3d_myHWnd == foreHWnd );
+
+		return ( state && activeWnd );
 	}
+
 
 	void WND_UTL::MoveWindow_toCursor ()
 	{

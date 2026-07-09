@@ -129,6 +129,7 @@
     <ClCompile Include="DebugOutTrace.cpp" />
     <ClCompile Include="Define.cpp" />
     <ClCompile Include="Format.cpp" />
+    <ClCompile Include="HWnd.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="STR_UTL.cpp" />
     <ClCompile Include="WND_UTL.cpp" />

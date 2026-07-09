@@ -778,5 +778,6 @@
     <ClCompile Include="WND_UTL.cpp" />
     <ClCompile Include="STR_UTL.cpp" />
     <ClCompile Include="DebugOutPrint.cpp" />
+    <ClCompile Include="HWnd.cpp" />
   </ItemGroup>
 </Project>

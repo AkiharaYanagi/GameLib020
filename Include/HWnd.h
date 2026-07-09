@@ -42,6 +42,7 @@ namespace GAME
 		{
 			HWND hWnd = nullptr;
 			EnumWindows ( EnumWindowsProc, reinterpret_cast<LPARAM>( &hWnd ) );
+			m_hWnd = hWnd;
 			return hWnd;
 		}
 	};
