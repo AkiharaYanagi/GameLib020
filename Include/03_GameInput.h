@@ -12,8 +12,8 @@
 #include "KeyDefine.h"
 #include "DeviceInput.h"
 #include "SivInput.h"
-#include "KeyConfig.h"
 #include "SivKeyboard_Name.h"
+#include "KeyConfig.h"
 #include "GameKey.h"
 
 

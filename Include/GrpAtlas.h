@@ -32,17 +32,24 @@ namespace GAME
 
 
 		void Load ();
+		void Draw () override;
+		void _Draw ();
 
 
 		bool IsLoaded () const { return atlas != nullptr; }
 
 		void SetpAtlas(const P_Atlas& p) { atlas = p; }
+		P_Atlas GetpAtlas () const { return atlas; }
+
+		void In ();
 
 
 		//描画：画像ID、位置x, y
-		void Draw ( uint32_t txid, float x, float y );
+		void DrawPos ( uint32_t txid, float x, float y );
 
 	};
+
+	using P_GrpAtlas = std::shared_ptr < GrpAtlas >;
 
 
 }	//namespace GAME

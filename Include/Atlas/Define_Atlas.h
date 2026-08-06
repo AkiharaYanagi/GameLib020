@@ -16,8 +16,10 @@ using PIXEL = uint32_t;
 
 //-------------------------------------------------------------------------------------------------
 //Tip サイズ
-constexpr uint32_t TIP_W = 64;
-constexpr uint32_t TIP_H = 64;
+//constexpr uint32_t TIP_W = 64;
+//constexpr uint32_t TIP_H = 64;
+constexpr uint32_t TIP_W = 32;
+constexpr uint32_t TIP_H = 32;
 constexpr size_t TIP_N = TIP_W * TIP_H;
 
 

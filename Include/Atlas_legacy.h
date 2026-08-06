@@ -54,6 +54,8 @@ namespace GAME
 		//C#からバイナリで.png形式をまとめた.imgファイルから作成
 		void Conversion ( s3d::String filepath );
 
+		void ToImg ( s3d::String dir );
+
 		P_Tx GetpTx ();
 		PAP_Tx GetpapTx ();
 

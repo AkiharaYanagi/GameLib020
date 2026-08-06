@@ -81,6 +81,10 @@ namespace GAME
 	//文字列　エイリアス
 	using Prp_Str = Property < s3d::String >;
 
+	//イメージ　エイリアス
+	using P_Image = std::shared_ptr < s3d::Image >;
+
+
 
 }	//namespace GAME
 

@@ -17,7 +17,7 @@ using namespace std;
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-	void Atlas::Draw ( uint32_t indexTexture, float x, float y )
+	void Atlas::DrawPos ( uint32_t indexTexture, float x, float y )
 	{
 		Canvas & cvs = m_id_canvas [ indexTexture ];
 
@@ -27,16 +27,58 @@ namespace GAME
 			s3d::Texture tx = m_txs [ tl.GetPage () ];
 			s3d::RectF rect = s3d::RectF{ tl.U(), tl.V(), TIP_W, TIP_H };
 
+			tx ( rect ).draw ( x + tl.X(), y + tl.Y() );
+
+#if 0
 			//hash test
-			double s = 0.25;
+			double s = 0.5;
 			if (tl.GetHash())
 			{
 				tx ( rect ).scaled ( s ).draw ( x + tl.X() * s, y + tl.Y() * s, ColorF{ 1.0, 0.3, 0.3 } );
+				//tx ( rect ).scaled ( s ).draw ( x + tl.X() * s, y + tl.Y() * s );
 			}
 			else
 			{
 				tx ( rect ).scaled ( s ).draw ( x + tl.X() * s, y + tl.Y() * s );
 			}
+#endif // 0
+
+		}
+	}
+
+	void Atlas::DrawPosScl ( uint32_t indexTexture, VEC2 pos, VEC2 scl )
+	{
+		Canvas & cvs = m_id_canvas [ indexTexture ];
+		double x = (double)pos.x;
+		double y = (double)pos.y;
+
+		//すべてのタイルを描画
+		for ( const Tile & tl : cvs.GetTiles () )
+		{
+			s3d::Texture tx = m_txs [ tl.GetPage () ];
+			s3d::RectF rect = s3d::RectF{ tl.U(), tl.V(), TIP_W, TIP_H };
+
+			s3d::Vec2 s { (double)scl.x, (double)scl.y };
+			s3d::Vec2 p { x + tl.X() * s.x, y + tl.Y() * s.y };
+
+			tx ( rect ).scaled ( s ).draw ( p );
+
+#if 0
+			double sc = 0.5;
+			s3d::Vec2 s { (double)sc, (double)sc };
+			s3d::Vec2 p { x + tl.X() * s.x, y + tl.Y() * s.y };
+
+			//hash test
+			if (tl.GetHash())
+			{
+				//tx ( rect ).scaled ( s ).draw ( p, ColorF{ 1.0, 0.3, 0.3 } );
+			}
+			else
+			{
+				tx ( rect ).scaled ( s ).draw ( p );
+			}
+#endif // 0
+
 		}
 	}
 
@@ -162,6 +204,14 @@ namespace GAME
 	}
 #endif // 0
 
+
+	size_t Atlas::GetMetaSize () const
+	{
+		size_t size = 0;
+		size += m_dic_pos.size() * sizeof ( Canvas );
+		size += sizeof ( m_id_canvas );
+		return size;
+	}
 
 
 

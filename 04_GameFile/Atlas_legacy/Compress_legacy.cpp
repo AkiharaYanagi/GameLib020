@@ -287,9 +287,17 @@ namespace GAME
 	//解凍して生成
 	P_Tx Compress::Tx_Thawing ()
 	{
+		//テクスチャを生成してポインタを返す
+		return std::make_shared < s3d::Texture > ( * Img() );
+	}
+
+
+	P_Image Compress::Img ()
+	{
 		//サイズ
 		//size_t sz = m_w * m_h;
-		s3d::Image img { (size_t)(m_w * TIP_W), (size_t)(m_h * TIP_H) };
+		//s3d::Image img { (size_t)(m_w * TIP_W), (size_t)(m_h * TIP_H) };
+		P_Image pImg = std::make_shared < s3d::Image > ( (size_t)(m_w * TIP_W), (size_t)(m_h * TIP_H) );
 
 		//Tip位置
 		int32 pos_x = 0;
@@ -317,7 +325,7 @@ namespace GAME
 				{
 					for ( int32 x = 0; x < TIP_W; ++ x )
 					{
-						img [ img_y + y ] [ img_x + x ] = Color::FromABGR ( 0 );
+						(*pImg) [ img_y + y ] [ img_x + x ] = Color::FromABGR ( 0 );
 					}
 				}
 				++ index;
@@ -344,7 +352,7 @@ namespace GAME
 					uint32 ui_tip = tile.GetUint ( x, y );
 
 					//※ Color.asUint32() で保存した値はABGR
-					img [ img_y + y ] [ img_x + x ] = Color::FromABGR ( ui_tip );
+					(*pImg) [ img_y + y ] [ img_x + x ] = Color::FromABGR ( ui_tip );
 				}
 			}
 
@@ -360,11 +368,18 @@ namespace GAME
 			}
 		}
 
-
-		//テクスチャを生成してポインタを返す
-		return std::make_shared < s3d::Texture > ( img );
+		return pImg;
 	}
 
+	void  Compress::WriteImg ( const s3d::String & filepath )
+	{
+		//イメージを生成
+		P_Image pImg = Img ();
+
+		//保存
+		pImg->save ( filepath, s3d::ImageFormat::PNG );
+
+	}
 
 	bool Compress::Compare ( const Compress & rhs ) const
 	{

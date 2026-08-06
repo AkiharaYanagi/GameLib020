@@ -32,7 +32,6 @@ void Rele ( GameSystem & gameSystem );
 //メインループ
 void Main()
 {
-
 	//ゲームシステム
 	GameSystem gameSystem;
 
@@ -67,6 +66,9 @@ void Main()
 //起動後１回のみの初期化
 void Load ( GameSystem & gameSystem )
 {
+	//ImgToAtlasFile ( U"Test/Sae_bhv.img" );
+
+
 	//-------------------------------------
 	//タイトル
 	Window::SetTitle ( U"剣撃クロスゾーン" );

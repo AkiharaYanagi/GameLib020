@@ -146,6 +146,9 @@
     <ClCompile Include="Atlas_legacy\Atlas_legacy.cpp">
       <Filter>Atlas_legacy</Filter>
     </ClCompile>
+    <ClCompile Include="Atlas_legacy\lz4ToImg.cpp">
+      <Filter>Atlas_legacy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -786,6 +789,9 @@
       <Filter>Atlas_legacy</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Compress_legacy.h">
+      <Filter>Atlas_legacy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\lz4ToImg.h">
       <Filter>Atlas_legacy</Filter>
     </ClInclude>
   </ItemGroup>

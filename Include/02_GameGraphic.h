@@ -21,6 +21,9 @@
 #include "GrpShader.h"
 
 #include "Atlas/Atlas.h"
+#include "Convert/ImgToAtlas.h"
+#include "Convert/ImgToBook.h"
+#include "GrpAtlas.h"
 
 
 //-------------------------------------------------------------------------------------------------

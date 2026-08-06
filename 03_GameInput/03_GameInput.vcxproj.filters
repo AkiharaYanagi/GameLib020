@@ -137,6 +137,7 @@
     <ClCompile Include="GameKeyCommand.cpp" />
     <ClCompile Include="GameKey.cpp" />
     <ClCompile Include="DeviceInput.cpp" />
+    <ClCompile Include="SDL_GamePad.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -776,5 +777,6 @@
     <ClInclude Include="..\Include\KeyConfig.h" />
     <ClInclude Include="..\Include\DeviceInput.h" />
     <ClInclude Include="..\Include\SivKeyboard_Name.h" />
+    <ClInclude Include="..\Include\SDL_GamePad.h" />
   </ItemGroup>
 </Project>

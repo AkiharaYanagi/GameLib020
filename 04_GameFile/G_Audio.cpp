@@ -22,8 +22,11 @@ namespace GAME
 	//--------------------------------------------------
 
     const fs::path BGM_Dir = "Audio\\BGM";
+	//const fs::path BGM_Dir = "Audio\\BGM_Ogg";
     const fs::path SE_Dir = "Audio\\SE";
-    const fs::path VC_Dir = "Audio\\VC";
+    //const fs::path SE_Dir = "Audio\\SE_Opus";
+	const fs::path VC_Dir = "Audio\\VC";
+	//const fs::path VC_Dir = "Audio\\VC_Opus";
 
 
 	//=======================================================================
@@ -44,7 +47,7 @@ namespace GAME
 
 		try
 		{
-			AssetDir ( BGM_Dir, m_bgm_list );	//BGM
+			AssetDirStream ( BGM_Dir, m_bgm_list );	//BGM
 			AssetDir ( SE_Dir, m_se_list );		//SE
 			AssetDir ( VC_Dir, m_vc_list );		//VC
 		}
@@ -80,6 +83,47 @@ namespace GAME
 		}
 	}
 
+	void G_Audio::AssetDirStream ( const std::filesystem::path & dirPath, s3d::Array<s3d::String> & list  )
+	{
+		//指定ディレクトリ内のファイル列挙してアセット化
+		//ファイル名でアクセス
+		if (fs::exists(dirPath) && fs::is_directory(dirPath))
+		{
+			for (const auto& entry : fs::directory_iterator(dirPath))
+			{
+				fs::path path = entry.path();
+				fs::path name = entry.path().filename();
+//				std::cout << path << std::endl;
+				//アセットに登録
+				const std::u32string str32_path = path.u32string();
+				const std::u32string str32_name = name.u32string();
+				s3d::AudioAsset::Register( str32_name.c_str(), s3d::Audio::Stream, str32_path.c_str() );
+//				s3d::AudioAsset::LoadAsync(str);
+				list.push_back ( str32_name );
+			}
+		}
+		else
+		{
+//			std::cerr << "指定されたパスは存在しないか、ディレクトリではありません。" << std::endl;
+		}
+	}
+
+
+	void G_Audio::HandLoad ()
+	{
+		for ( const s3d::String & bgm_name : m_bgm_list )
+		{
+			s3d::AudioAsset::Load ( bgm_name );
+		}
+		for ( const s3d::String & se_name : m_se_list )
+		{
+			s3d::AudioAsset::Load ( se_name );
+		}
+		for ( const s3d::String & vc_name : m_vc_list )
+		{
+			s3d::AudioAsset::Load ( vc_name );
+		}
+	}
 
 	void G_Audio::HandLoadAsync ()
 	{
@@ -190,6 +234,28 @@ namespace GAME
 	{
 		const s3d::Audio & aud = s3d::AudioAsset ( BGM_NAME );
 		return aud.isPlaying ();
+	}
+
+	bool G_Audio::IsStreamingBGM ( LPCUSTR BGM_NAME )
+	{
+		const s3d::Audio & aud = s3d::AudioAsset ( BGM_NAME );
+		return aud.isStreaming ();
+	}
+
+	void G_Audio::PlayStreamingBGM ( LPCUSTR BGM_NAME )
+	{
+		const s3d::Audio & aud = s3d::AudioAsset ( BGM_NAME );
+		aud.setVolume ( m_bgmVolume );
+		aud.setLoop ( F );
+		aud.play ();
+	}
+
+	void G_Audio::PlayStreamingLoopBGM ( LPCUSTR BGM_NAME )
+	{
+		const s3d::Audio & aud = s3d::AudioAsset ( BGM_NAME );
+		aud.setVolume ( m_bgmVolume );
+		aud.setLoop ( T );
+		aud.play ();
 	}
 
 	//------------------------------------------------------------

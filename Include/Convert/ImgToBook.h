@@ -58,9 +58,6 @@ namespace GAME
 	//C#からバイナリで.png形式をまとめた.imgファイルから作成
 	Book CreateBookImg ( const s3d::String & filepath );
 
-	//.Imgファイルを.atlsファイルに変換
-	void ImgToAtlasFile ( const s3d::String & filepath );
-
 
 }	//namespace GAME
 

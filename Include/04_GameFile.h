@@ -13,6 +13,7 @@
 #include "G_Audio.h"
 #include "GameSound.h"
 #include "Atlas_legacy.h"
+#include "lz4ToImg.h"
 
 
 //-------------------------------------------------------------------------------------------------

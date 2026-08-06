@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="Atlas_legacy\Atlas_legacy.cpp" />
     <ClCompile Include="Atlas_legacy\Compress_legacy.cpp" />
+    <ClCompile Include="Atlas_legacy\lz4ToImg.cpp" />
     <ClCompile Include="Atlas_legacy\Tile_legacy.cpp" />
     <ClCompile Include="Document.cpp" />
     <ClCompile Include="GameSound.cpp" />
@@ -330,6 +331,7 @@
     <ClInclude Include="..\Include\Document.h" />
     <ClInclude Include="..\Include\GameSound.h" />
     <ClInclude Include="..\Include\G_Audio.h" />
+    <ClInclude Include="..\Include\lz4ToImg.h" />
     <ClInclude Include="..\Include\Tile_legacy.h" />
     <ClInclude Include="..\Include\_SoundArchiver.h" />
   </ItemGroup>

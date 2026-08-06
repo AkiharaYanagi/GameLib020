@@ -25,8 +25,12 @@ namespace GAME
 
 		//保存元の記録
 		//タイル個数
-		int32	m_w { 0 };
-		int32	m_h { 0 };
+		int32_t		m_w { 0 };
+		int32_t		m_h { 0 };
+
+		//元テクスチャサイズ
+		int32_t		m_tx_w { 0 };
+		int32_t		m_tx_h { 0 };
 
 	public:
 		Canvas ();
@@ -41,12 +45,16 @@ namespace GAME
 		void SetTilePos(int32_t index, int32_t x, int32_t y) { m_tiles[index].SetPos(x, y); }
 		void SetTilePage ( int32_t nPage );
 		void SetTileWH(int32_t w, int32_t h) { m_w = w; m_h = h; }
+		void SetTxWH ( int32_t w, int32_t h ) { m_tx_w = w; m_tx_h = h; }
 
 		const s3d::Array < Tile > & GetTiles () const { return m_tiles; }
 		s3d::Array < Tile > & GetrTiles () { return m_tiles; }
 
-		int32 W() const { return m_w; }
-		int32 H() const { return m_h; }
+		int32_t W() const { return m_w; }
+		int32_t H() const { return m_h; }
+
+		int32_t TxW () const { return m_tx_w; }
+		int32_t TxH () const { return m_tx_h; }
 	};
 
 

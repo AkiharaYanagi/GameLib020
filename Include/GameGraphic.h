@@ -48,7 +48,7 @@ namespace GAME
 
 		//---------------------------------------------------------------------
 		void Move ();
-		void Draw ();
+		void Draw () override;
 		void _Draw ();
 
 		void SetShader ( bool b ) { m_shader = b; }

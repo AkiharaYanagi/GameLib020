@@ -295,7 +295,7 @@ namespace GAME
 			//名前は保存しない
 
 			//タイル数
-			bw.write ( static_cast < uint32 > ( tiles.size() ) );
+			bw.write ( static_cast < uint32_t > ( tiles.size() ) );
 
 			//タイルの保存
 			for ( const Tile & tile : tiles )
@@ -316,6 +316,10 @@ namespace GAME
 			//タイル縦横
 			bw.write ( canvas.W() );
 			bw.write ( canvas.H() );
+
+			//元テクスチャ縦横
+			bw.write ( canvas.TxW() );
+			bw.write ( canvas.TxH() );
 		}
 	}
 
@@ -397,12 +401,12 @@ namespace GAME
 			br.read ( namesize );
 
 			//名前
-			vector < byte > buf ( namesize );
+			vector < std::byte > buf ( namesize );
 			br.read ( buf.data(), buf.size() );
 			std::string name( reinterpret_cast < char* > ( buf.data() ), buf.size() );
 
 			s3d::String s3dStr = s3d::Unicode::FromUTF8 ( name );
-			s3d::Logger << s3dStr << U"\n";
+			//s3d::Logger << s3dStr << U"\n";
 
 			//1ファイルの記録
 			Canvas canvas;
@@ -417,7 +421,7 @@ namespace GAME
 			uint32 imgsize = 0;
 			br.read ( imgsize );
 
-			vector < byte > bufImg ( imgsize );
+			vector < std::byte > bufImg ( imgsize );
 			br.read ( bufImg.data(), bufImg.size() );
 
 			//メモリ上の.pngからImageに変換
@@ -441,16 +445,6 @@ namespace GAME
 		return book;
 	}
 
-
-	//.Imgファイルを.atlsファイルに変換
-	void ImgToAtlasFile ( const s3d::String & filepath )
-	{
-		Book book = CreateBookImg ( filepath );
-
-		String filename = FileSystem::FileName ( filepath );
-		String atlsPath = FileSystem::BaseName(filename) + U".atls";
-		SaveAtlasImg ( atlsPath, book );
-	}
 
 
 

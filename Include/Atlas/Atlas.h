@@ -52,13 +52,16 @@ namespace GAME
 		//--------------------------------------------------------
 
 
-		void Draw ( uint32_t indexTexture, float x, float y );
+		void DrawPos ( uint32_t indexTexture, float x, float y );
+		void DrawPosScl ( uint32_t indexTexture, VEC2 pos, VEC2 scl );
 
 		void Clear ();
 
 		void AddTexture ( const s3d::Texture & tx ) { m_txs.push_back ( tx ); }
 
 		void AddCanvas ( const Canvas & cvs ) { m_id_canvas.push_back ( cvs ); }
+		AryCanvas & GetIdCanvas () { return m_id_canvas; }
+		Canvas & GetIdCanvas ( size_t index ) { return m_id_canvas [ index ]; }
 
 		s3d::Texture Texture ();
 		s3d::Texture Texture ( size_t index );
@@ -94,6 +97,11 @@ namespace GAME
 		//ディープコピー
 		void DeepCopyFrom ( const MapNameCanvas & map ) { m_dic_pos = map; }
 		void SetIdCanvas ( const AryCanvas & map ) { m_id_canvas = map; }
+
+
+		//内部状態
+		size_t GetMetaSize () const;
+		size_t GetnPage () const { return m_txs.size (); }
 	};
 
 

@@ -75,6 +75,7 @@
       </ForcedIncludeFiles>
       <BuildStlModules>false</BuildStlModules>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>F:\Projects\GameLib020\03_GameInput\SDL3-3.4.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -84,6 +85,9 @@
     <PostBuildEvent>
       <Command>xcopy /I /D /Y "$(OutDir)$(TargetFileName)" "$(ProjectDir)App"</Command>
     </PostBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>F:\Projects\GameLib020\03_GameInput\SDL3-3.4.8\lib\x64</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -103,6 +107,7 @@
       </ForcedIncludeFiles>
       <BuildStlModules>false</BuildStlModules>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>F:\Projects\GameLib020\03_GameInput\SDL3-3.4.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -114,12 +119,16 @@
     <PostBuildEvent>
       <Command>xcopy /I /D /Y "$(OutDir)$(TargetFileName)" "$(ProjectDir)App"</Command>
     </PostBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>F:\Projects\GameLib020\03_GameInput\SDL3-3.4.8\lib\x64</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DeviceInput.cpp" />
     <ClCompile Include="GameKey.cpp" />
     <ClCompile Include="GameKeyCommand.cpp" />
     <ClCompile Include="KeyConfig.cpp" />
+    <ClCompile Include="SDL_GamePad.cpp" />
     <ClCompile Include="SivGamePad.cpp" />
     <ClCompile Include="SivInput.cpp" />
     <ClCompile Include="SivKeyboard.cpp" />
@@ -323,6 +332,7 @@
     <ClInclude Include="..\Include\GameKeyCommand.h" />
     <ClInclude Include="..\Include\KeyConfig.h" />
     <ClInclude Include="..\Include\KeyDefine.h" />
+    <ClInclude Include="..\Include\SDL_GamePad.h" />
     <ClInclude Include="..\Include\SivGamePad.h" />
     <ClInclude Include="..\Include\SivInput.h" />
     <ClInclude Include="..\Include\SivKeyboard.h" />

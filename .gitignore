@@ -1,3 +1,8 @@
+*.png
+*.wav
+*.atls
+*.img
+*.lz4
 *.lib
 *.idb
 *.exe

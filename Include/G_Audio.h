@@ -47,6 +47,7 @@ namespace GAME
 
 		void Asset ();
 
+		void HandLoad ();
 		void HandLoadAsync ();
 		void CheckAudio ();
 		void AllWait ();
@@ -62,6 +63,13 @@ namespace GAME
 		void Stop_All_BGM ();
 		bool IsPlayBGM ( LPCUSTR BGM_NAME );
 		bool IsPlayBGM ( const s3d::String & filename ) { return IsPlayBGM ( filename.c_str() ); }
+
+		bool IsStreamingBGM ( LPCUSTR BGM_NAME );
+		bool IsStreamingBGM ( const s3d::String & filename ) { return IsStreamingBGM ( filename.c_str() ); }
+		void PlayStreamingBGM ( LPCUSTR BGM_NAME );
+		void PlayStreamingBGM ( const s3d::String & filename ) { PlayStreamingBGM ( filename.c_str() ); }
+		void PlayStreamingLoopBGM ( LPCUSTR BGM_NAME );
+		void PlayStreamingLoopBGM ( const s3d::String & filename ) { PlayStreamingLoopBGM ( filename.c_str() ); }
 
 		void PlaySE ( LPCUSTR SE_NAME );
 		void PlaySE ( const s3d::String & filename ) { PlaySE ( filename.c_str() ); }
@@ -82,6 +90,7 @@ namespace GAME
 
 	private:
 		void AssetDir ( const std::filesystem::path & dirPath, s3d::Array<s3d::String> & list );
+		void AssetDirStream ( const std::filesystem::path & dirPath, s3d::Array<s3d::String> & list );
 	};
 
 

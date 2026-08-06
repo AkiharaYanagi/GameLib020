@@ -87,7 +87,7 @@ namespace GAME
 
 		for ( uint32 nf = 0; nf < filenum; ++ nf )
 		{
-			//名前
+			//名前(表示のみ)
 			byte namesize = 0;
 			br.read ( namesize );
 
@@ -120,6 +120,18 @@ namespace GAME
 		}
 
 	}
+
+
+	void Atlas::ToImg ( s3d::String dir )
+	{
+		uint32_t index = 0;
+		for ( P_Compress pCmprs : m_aryCmprs )
+		{
+			pCmprs->WriteImg ( dir + U"/Img/{}.png"_fmt( index ) );
+			++ index;
+		}
+	}
+
 
 
 	P_Tx Atlas::GetpTx ()

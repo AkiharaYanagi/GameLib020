@@ -28,12 +28,13 @@ namespace GAME
 		//Imageを受け取り、Tipに圧縮
 
 		//Tip個数を計算
-		int32 img_w = img.width ();
-		int32 img_h = img.height ();
+		int32_t img_w = img.width ();
+		int32_t img_h = img.height ();
+		cnvs.SetTxWH ( img_w, img_h );
 
 		//Tile個数
-		int32 m_w = 1 + ( ( img_w - 1 ) / TIP_W );
-		int32 m_h = 1 + ( ( img_h - 1 ) / TIP_H );
+		int32_t m_w = 1 + ( ( img_w - 1 ) / TIP_W );
+		int32_t m_h = 1 + ( ( img_h - 1 ) / TIP_H );
 		size_t tile_n = static_cast < size_t > ( m_w * m_h );
 
 		//空白フラグ

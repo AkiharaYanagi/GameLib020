@@ -8,8 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Atlas/Page.h"
-//#include "Utl/Utl.h"
-//#include "Utl/G_Log.h"
+#include "G_Log.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -50,7 +49,7 @@ namespace GAME
 		for ( const Tip & tip : Tips )
 		{
 
-#define SAME_TIP 0
+#define SAME_TIP 1
 #if SAME_TIP
 			//引数でハッシュチェック用mapを受け取る
 
@@ -82,68 +81,14 @@ namespace GAME
 				tiles [ index ].SetPage ( it->second.GetPage() );
 				tiles [ index ].SetHash ( T );
 
-				++ G::HASH_HIT;
-				G::ARY_TIP.push_back(tip);
+				++ G_HASH_HIT;
+				ARY_TIP.push_back(tip);
 
 				++ index;
 			}
-#if 0
-
-			auto it = map_hash_index.find ( hash );
-			//ない場合it.end();
-
-			if ( it == map_hash_index.end() )
-			{
-				//ハッシュがないときは追加
-				//Pageにおける位置
-				tiles [ index ].SetUV ( U ( m_nTip ), V ( m_nTip ) );
-				m_page [ m_nTip ] = tip;
-
-				//ハッシュ記録
-				map_hash_index[tip.HasFNV1a()] = m_nTip;
-				++ m_nTip;
-				++ index;
-			}
-			else
-			{
-				//ハッシュがあるときは位置のみ再利用して保存
-			}
-
-#endif // 0
-
-
-#if 0
-
-			//Page内で同じTipが既にあるとき、位置のみ保存
-			int32_t index_same = 0;
-			if ( SameTip ( tip, index_same ) )
-			{
-				//Pageにおける位置
-				float u = static_cast < float > ( TIP_W * ( index_same % ATLAS_X ) );
-				float v = static_cast < float > ( TIP_H * ( index_same / ATLAS_X ) );
-				tiles [ index ].SetUV ( u, v );
-				++ index;
-			}
-			else
-			{
-				//Pageにおける位置
-				float u = static_cast < float > ( TIP_W * ( m_nTip % ATLAS_X ) );
-				float v = static_cast < float > ( TIP_H * ( m_nTip / ATLAS_X ) );
-				tiles [ index ].SetUV ( u, v );
-
-				m_page [ m_nTip ] = tip;
-
-				//ハッシュ記録
-				map_hash_index[tip.HasFNV1a()] = m_nTip;
-
-				++ m_nTip;
-				++ index;
-			}
-
-#endif // 0
-
 
 #else 	//SAME_TIP
+
 
 			//通常時
 			(void)mht;
@@ -152,6 +97,9 @@ namespace GAME
 			float u = U ( m_nTip );
 			float v = V ( m_nTip );
 			tiles [ index ].SetUV ( u, v );
+
+			tiles [ index ].SetPage ( m_id );	//自ページIDを記録
+
 
 			m_page [ m_nTip ] = tip;
 

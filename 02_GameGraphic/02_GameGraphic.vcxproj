@@ -405,6 +405,7 @@
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </ForcedIncludeFiles>
     </ClCompile>
+    <ClCompile Include="Atlas\G_Log.cpp" />
     <ClCompile Include="Atlas\Page.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </ForcedIncludeFiles>
@@ -471,6 +472,7 @@
     <ClInclude Include="..\Include\GrpMovie.h" />
     <ClInclude Include="..\Include\G_Font.h" />
     <ClInclude Include="..\Include\G_GrpTx.h" />
+    <ClInclude Include="Atlas\G_Log.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

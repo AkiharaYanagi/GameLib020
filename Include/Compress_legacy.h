@@ -53,6 +53,11 @@ namespace GAME
 		P_Tx Tx ();
 		P_Tx Tx_Thawing ();	//解凍して生成
 
+		//イメージポインタ
+		P_Image Img ();
+		void WriteImg ( const s3d::String& filepath );
+
+
 		bool Compare ( const Compress & rhs ) const;
 
 		//-------------------------------------------

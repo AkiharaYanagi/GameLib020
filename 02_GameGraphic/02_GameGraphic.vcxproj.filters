@@ -806,6 +806,9 @@
       <Filter>Convert</Filter>
     </ClCompile>
     <ClCompile Include="GrpAtlas.cpp" />
+    <ClCompile Include="Atlas\G_Log.cpp">
+      <Filter>Atlas</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Fade.h" />
@@ -857,5 +860,8 @@
       <Filter>Convert</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\GrpAtlas.h" />
+    <ClInclude Include="Atlas\G_Log.h">
+      <Filter>Atlas</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

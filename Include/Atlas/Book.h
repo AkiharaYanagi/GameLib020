@@ -59,6 +59,7 @@ namespace GAME
 		int32_t N_Tip () const;
 
 		const s3d::Array < Page > & GetPages () const { return m_pages; }
+		s3d::Array < Page > & GetvPages () { return m_pages; }
 
 
 		Canvas GetCanvas ( const String & name ) const

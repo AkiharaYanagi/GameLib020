@@ -59,6 +59,23 @@ namespace GAME
 	P_Atlas CreateAtlasImgDir ( const s3d::String & dirpath );
 
 
+	//.Imgファイルを.atlsファイルに変換
+	void ImgToAtlasFile ( const s3d::String & filepath );
+
+	//.Imgファイルをpng形式.atlsファイルに変換
+	void ImgToAtlasFilePng ( const s3d::String & filepath );
+
+	//.atlasファイルからP_Atlasを読込
+	P_Atlas LoadAtlasFile ( const s3d::String & filepath );
+
+	//.atlasファイルからPng形式でP_Atlasを読込
+	P_Atlas LoadAtlasFilePng ( const s3d::String & filepath );
+
+
+	void ResetHashHit ();
+	int32_t GetHashHit ();
+
+
 }	//namespace GAME
 
 

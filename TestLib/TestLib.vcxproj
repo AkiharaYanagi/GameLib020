@@ -122,6 +122,7 @@
   <ItemGroup>
     <ClCompile Include="DebugDisp.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Test_SoundFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\engine\texture\box-shadow\128.png" />
@@ -319,6 +320,7 @@
     <ClInclude Include="..\Include\Game.h" />
     <ClInclude Include="DebugDisp.h" />
     <ClInclude Include="GameMain.h" />
+    <ClInclude Include="Test_SoundFile.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App\example\obj\blacksmith.obj">
