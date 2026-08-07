@@ -20,6 +20,7 @@
 #include "GameMenu.h"
 #include "AppSettingFile.h"
 #include "GameInit.h"
+#include "StopWatch.h"
 
 
 //-------------------------------------------------------------------------------------------------
