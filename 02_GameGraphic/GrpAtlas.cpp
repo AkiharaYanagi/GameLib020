@@ -38,6 +38,13 @@ namespace GAME
 
 	void GrpAtlas::Draw ()
 	{
+		//稼働フラグ
+		if ( ! GetValid () ) { return; }
+
+		//シェーダ利用は分岐
+		if ( GetShader () ) { GrpAtlas::ShaderDraw (); return; }
+
+
 		//最終描画テクスチャ unique_ptrを取得
 		UP_RndrTx upOutTx = G_GrpTx::Inst()->Handover_OutTx ();
 
@@ -56,8 +63,8 @@ namespace GAME
 		for ( P_Ob pob : * Getpap_ob() )
 		{
 			VEC2 pos = pob->GetPos();
-			float x = GetPos().x;
-			float y = GetPos().y;
+			//float x = GetPos().x;
+			//float y = GetPos().y;
 			uint32_t index = GetIndexTexture ();
 
 			VEC2 scaling = pob->GetScaling();
@@ -108,6 +115,64 @@ namespace GAME
 	void GrpAtlas::DrawPos ( uint32_t txid, float x, float y )
 	{
 		atlas->DrawPos ( txid, x, y );
+	}
+
+
+	void GrpAtlas::ShaderDraw ()
+	{
+		PAP_Ob papOb = Getpap_ob ();
+
+		//ピクセルシェーダ用テクスチャ unique_ptrを取得
+		UP_RndrTx upPSTx = G_GrpTx::Inst()->Handover_PSTx ();
+
+		//メインテクスチャ unique_ptrを取得
+		UP_RndrTx upRndTx = G_GrpTx::Inst()->Handover_RndrTx ();
+
+		//最終テクスチャ unique_ptrを取得
+		UP_RndrTx upOutTx = G_GrpTx::Inst()->Handover_OutTx ();
+
+
+		for ( P_Ob pob : * papOb )
+		{
+			//位置合わせ
+			//ピクセルシェーダ用レンダーテクスチャ
+			{
+				const ScopedRenderTarget2D target { * upPSTx };
+				upPSTx->clear ( Palette::Black );
+				GrpAtlas::_Draw ();
+			}
+
+			//一時領域に現在描画を書込
+			{
+				const ScopedRenderTarget2D target { * upRndTx };
+				upOutTx->draw();
+			}
+
+			//最終描画対象を指定
+			{
+				const ScopedRenderTarget2D target{ * upOutTx };
+				{
+					//シェーダを適用するテクスチャを指定
+					s3d::Graphics2D::SetPSTexture ( 1, * upPSTx );
+
+					//スクリーンオーバーレイのシェーダを適用
+					P_PxShd p_pxshd = G_GrpTx::Inst()->GetpPxShd ();
+					const s3d::ScopedCustomShader2D shader ( * p_pxshd );
+
+					//シェーダを適用したものを対象に描画
+					upRndTx->draw();
+				}
+			}
+		}
+
+		//最終テクスチャ unique_ptrを返す
+		G_GrpTx::Inst()->Refund_OutTx ( std::move ( upOutTx ) );
+
+		//メインテクスチャ unique_ptrを返す
+		G_GrpTx::Inst()->Refund_RndrTx ( std::move ( upRndTx ) );
+
+		//ピクセルシェーダ用テクスチャ unique_ptrを返す
+		G_GrpTx::Inst()->Refund_PSTx ( std::move ( upPSTx ) );
 	}
 
 

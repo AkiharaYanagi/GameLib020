@@ -352,7 +352,7 @@ namespace GAME
 	void GameGraphicBase::ShaderDraw ()
 	{
 		PAP_Ob papOb = Getpap_ob ();
-		PAP_Tx paptx = Getpap_tx ();
+		//PAP_Tx paptx = Getpap_tx ();
 
 		//ピクセルシェーダ用テクスチャ unique_ptrを取得
 		UP_RndrTx upPSTx = G_GrpTx::Inst()->Handover_PSTx ();
@@ -366,7 +366,7 @@ namespace GAME
 
 		for ( P_Ob pob : * papOb )
 		{
-			P_Tx ptx = paptx->at ( pob->GetIndexTexture () );
+			//P_Tx ptx = paptx->at ( pob->GetIndexTexture () );
 
 			//位置合わせ
 			//ピクセルシェーダ用レンダーテクスチャ

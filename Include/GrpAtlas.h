@@ -31,11 +31,15 @@ namespace GAME
 		~GrpAtlas ();
 
 
+		//---------------------------------------------------------------------
 		void Load ();
 		void Draw () override;
 		void _Draw ();
 
+		void ShaderDraw ();
 
+
+		//---------------------------------------------------------------------
 		bool IsLoaded () const { return atlas != nullptr; }
 
 		void SetpAtlas(const P_Atlas& p) { atlas = p; }

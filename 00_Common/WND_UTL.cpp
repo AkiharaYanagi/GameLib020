@@ -30,8 +30,8 @@ namespace GAME
 
 
 		//ハンドルによる自ウィンドウがアクティブかどうかの判定
-		HWND myHWnd = HWnd::Get();
-		HWND _myHWnd = HWnd::_Get();
+		//HWND myHWnd = HWnd::Get();
+		//HWND _myHWnd = HWnd::_Get();
 		HWND s3d_myHWnd = static_cast < HWND > ( s3d::Platform::Windows::Window::GetHWND () );
 		HWND foreHWnd = ::GetForegroundWindow();
 		bool activeWnd = ( s3d_myHWnd == foreHWnd );

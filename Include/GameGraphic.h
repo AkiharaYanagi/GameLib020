@@ -52,6 +52,7 @@ namespace GAME
 		void _Draw ();
 
 		void SetShader ( bool b ) { m_shader = b; }
+		bool GetShader () const { return m_shader; }
 		void ShaderDraw ();
 
 		//---------------------------------------------------------------------
