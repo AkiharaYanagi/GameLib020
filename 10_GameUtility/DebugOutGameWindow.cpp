@@ -8,6 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "DebugOutGameWindow.h"
+#include "StopWatch.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -43,12 +44,50 @@ namespace GAME
 		m_FPS->SetZ ( Z_DEBUG );
 		m_FPS->SetColorF ( s3d::ColorF { 1.0, 0.0, 1.0 } );
 
+
+		//BG
+		m_bg = std::make_shared < PrmRect > ();
+		m_bg->SetPos ( VEC2 ( 0, 0 ) );
+		m_bg->SetSize ( 300, 140 );
+		m_bg->SetZ ( Z_DEBUG + 0.005f );
+		m_bg->SetColor ( s3d::ColorF { 1.0, 1.0, 1.0, 0.5 } );
+
+		//固定表示 : Sleep
+		m_Sleep = std::make_shared < GrpStr > ();
+		m_Sleep->SetPos ( VEC2 ( 0, 40 ) );
+		m_Sleep->SetZ ( Z_DEBUG );
+		m_Sleep->SetColorF ( s3d::ColorF { 0.5, 0.0, 0.5 } );
+
+		//固定表示 : Move
+		m_Move = std::make_shared < GrpStr > ();
+		m_Move->SetPos ( VEC2 ( 0, 60 ) );
+		m_Move->SetZ ( Z_DEBUG );
+		m_Move->SetColorF ( s3d::ColorF { 0.5, 0.0, 0.5 } );
+
+		//固定表示 : Draw
+		m_Draw = std::make_shared < GrpStr > ();
+		m_Draw->SetPos ( VEC2 ( 0, 80 ) );
+		m_Draw->SetZ ( Z_DEBUG );
+		m_Draw->SetColorF ( s3d::ColorF { 0.5, 0.0, 0.5 } );
+
+		//固定表示 : Sum = Sleep + Move + Draw
+		m_Sum = std::make_shared < GrpStr > ();
+		m_Sum->SetPos ( VEC2 ( 0, 100 ) );
+		m_Sum->SetZ ( Z_DEBUG );
+		m_Sum->SetColorF ( s3d::ColorF { 0.5, 0.0, 0.5 } );
+
+
+
+
 		//固定表示 : ビルド時刻
 		m_Build_Time = std::make_shared < GrpStr > ();
 		m_Build_Time->SetPos ( VEC2 ( 640, 0 ) );
 		m_Build_Time->SetZ ( Z_DEBUG );
 		m_Build_Time->SetColorF ( s3d::ColorF { 1.0, 0.0, 1.0 } );
 
+
+		//m_sw = std::make_unique < StopWatch >();
+		//m_sw->Start ();
 	}
 
 	DebugOutGameWindow::~DebugOutGameWindow ()
@@ -62,13 +101,24 @@ namespace GAME
 
 	void DebugOutGameWindow::Draw ()
 	{
+		m_bg->Draw ();
+
 		for ( P_GrpStr str : ma_str )
 		{
 			str->Draw ();
 		}
 		m_frame->Draw ();
 		m_FPS->Draw ();
+
+		m_Sleep->Draw ();
+		m_Move->Draw ();
+		m_Draw->Draw ();
+		m_Sum->Draw ();
+
 		m_Build_Time->Draw ();
+
+
+		///m_sw->Count ();
 	}
 
 	void DebugOutGameWindow::DebugOutf ( DBGOUT_LINE line, const s3d::String & str )
@@ -88,6 +138,13 @@ namespace GAME
 		}
 		m_frame->SetValid ( T );
 		m_FPS->SetValid ( T );
+
+		m_bg->SetValid ( T );
+		m_Sleep->SetValid ( T );
+		m_Move->SetValid ( T );
+		m_Draw->SetValid ( T );
+		m_Sum->SetValid ( T );
+
 		m_Build_Time->SetValid ( T );
 	}
 
@@ -99,6 +156,13 @@ namespace GAME
 		}
 		m_frame->SetValid ( F );
 		m_FPS->SetValid ( F );
+
+		m_bg->SetValid ( F );
+		m_Sleep->SetValid ( F );
+		m_Move->SetValid ( F );
+		m_Draw->SetValid ( F );
+		m_Sum->SetValid ( F );
+
 		m_Build_Time->SetValid ( F );
 	}
 
@@ -110,16 +174,43 @@ namespace GAME
 	}
 
 	//固定表示 : FPS
-	void DebugOutGameWindow::DebugOutWnd_FPS ( double fps )
+	void DebugOutGameWindow::DebugOutWnd_FPS ( double refreshRate, double fps )
 	{
+#if 0
 		Optional < double > rr = 0;
-		const Array < s3d::MonitorInfo > mnt_info = s3d::System::EnumerateMonitors ();
+
+
+	//	m_sw->ReStart ();
+
+		//const Array < s3d::MonitorInfo > mnt_info = s3d::System::EnumerateMonitors ();
+
+	//	m_sw->Disp ( DBGOUT_5, U"DebugOutWnd_FPS" );
+
 		for ( MonitorInfo mi : mnt_info )
 		{
 			//Print << mi.refreshRate;
 			rr = mi.refreshRate;
 		}
-		m_FPS->SetStr ( U"{}Hz, FPS:{:.3f}"_fmt( rr.value(), fps ) );
+#endif // 0
+		m_FPS->SetStr ( U"{}Hz, FPS:{:.3f}"_fmt( refreshRate, fps ) );
+	}
+
+	//固定表示 : Sleep
+	void DebugOutGameWindow::DebugOutWnd_SleepMoveDraw ( double sleep, double move, double draw )
+	//void DebugOutGameWindow::DebugOutWnd_SleepMoveDraw ( int64_t sleep, int64_t move, int64_t draw )
+	{
+
+		m_Move->SetStr  ( U"Move  = {:07.3f}"_fmt( move ) );
+		m_Draw->SetStr  ( U"Draw  = {:07.3f}"_fmt( draw ) );
+		m_Sleep->SetStr ( U"Sleep = {:07.3f}"_fmt( sleep ) );
+		m_Sum->SetStr   ( U"Sum   = {:07.3f}"_fmt( move + draw + sleep ) );
+
+#if 0
+		m_Move->SetStr  ( U"Move  = {}"_fmt( move ) );
+		m_Draw->SetStr  ( U"Draw  = {}"_fmt( draw ) );
+		m_Sleep->SetStr ( U"Sleep = {}"_fmt( sleep ) );
+		m_Sum->SetStr   ( U"Sum   = {}"_fmt( move + draw + sleep ) );
+#endif // 0
 	}
 
 	//固定表示 : FPS

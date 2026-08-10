@@ -121,6 +121,29 @@ namespace GAME
 		G_Audio::Inst()->SetVolume((double)vlm / 100.0);
 		G_Audio::Inst()->HandLoadAsync ();
 
+		//-------------------------------
+
+
+		//ディスプレイ位置の取得
+		m_rectWindow = s3d::Window::GetState().bounds;
+		mnt_info = s3d::System::EnumerateMonitors ();
+
+		int32_t mnt_id = -1;
+
+		for ( const auto& info : mnt_info )
+		{
+			if ( info.displayRect.intersects(m_rectWindow) )
+			{
+				break;
+			}
+			++ mnt_id;
+		}
+
+		m_refreshRate = mnt_info[mnt_id].refreshRate;
+
+
+		//-------------------------------
+		m_sw.Start ();
 	}
 
 
@@ -135,6 +158,7 @@ namespace GAME
 	//フレーム毎動作
 	void GameSystem::Move ()
 	{
+		_WindowMove();	//ウィンドウ移動感知
 //		Frame ();
 //		_Move ();
 		_Frame ();
@@ -208,29 +232,44 @@ namespace GAME
 
 	void GameSystem::_Frame ()
 	{
+		m_sw.ReStart();
+
+
 		//フレーム制御
 		now_time = CLK::now ();
 		duration drtn = duration_cast < microseconds > ( now_time - start_time );
 		long long mcsec = drtn.count ();
 
-#if 0
-#endif // 0
-
 
 		//144Hz など規定時刻より早いとき
-		if ( 16666 > mcsec )
+		if ( 16666 - 700 > mcsec )
 		{
-			//早い時間だけスリープ
-			sleep = 16666 - mcsec - 700;
+			//早い時間だけスリープ	Draw()分700減算
+			sleep = 16666 - 700 - mcsec;
 			std::this_thread::sleep_for ( microseconds ( sleep ) );
-			aveSleep += sleep;
+			nSumSleep += sleep;
+			sumSleep += sleep;
 		}
 		//遅いときはそのまま実行
 
+
+
+		m_sw.Lap ( DBGOUT_4, U"Sleep" );
+
 		start_time = CLK::now ();
+
+
 
 		//動作
 		_Move ();
+
+		//m_sw.Lap ( DBGOUT_5, U"_Move" );
+
+
+		duration drtn_move = duration_cast <microseconds> ( CLK::now() - start_time );
+		nSumMove += static_cast < int64 > ( drtn_move.count() );
+		sumMove += static_cast < int64 > ( drtn_move.count() );
+
 
 		++ frame;
 		++ frame_ps;
@@ -245,21 +284,35 @@ namespace GAME
 			fps = frame_ps;
 			frame_ps = 1;
 
-			dispSleep = aveSleep / frame;
-			aveSleep = 0;
+			//累計をフレーム数で割って平均値を算出
+			aveSleep = sumSleep / frame;
+			disp_nSumSleep = nSumSleep;
+			nSumSleep = 0;
+			sumSleep = 0;
+			
+			aveMove = sumMove / frame;
+			disp_nSumMove = nSumMove;
+			nSumMove = 0;
+			sumMove = 0;
+			
+			aveDraw = sumDraw / frame;
+			disp_nSumDraw = nSumDraw;
+			nSumDraw = 0;
+			sumDraw = 0;
 
 			fps_time = CLK::now ();
+
 
 			//余剰分[mcsec]を次の60FPSのパーセンテージで減算
 			disp_fps = (double)fps - 60.0 * ( (double)mcsec_fps - 1000000 ) / 1000000;
 		}
 
-//		s3d::ClearPrint ();
-//		s3d::Print << U"Frame:" << frame;
-//		s3d::Print << U"FPS:" << fps;
-//		s3d::Print << U"sleep:" << dispSleep;
-//		s3d::Print << U"drtn_fps:" << disp_fps;
-		DBGOUT_WND()->DebugOutWnd_FPS ( disp_fps );
+
+		//デバッグ表示
+		double rr = ( m_refreshRate.has_value () ) ? m_refreshRate.value() : 60;
+		DBGOUT_WND()->DebugOutWnd_FPS ( rr, disp_fps );
+
+		m_sw.Lap ( DBGOUT_2, U"Move" );
 	}
 
 
@@ -267,8 +320,6 @@ namespace GAME
 	void GameSystem::_Move ()
 	{
 		//----------------------------------------------
-		//稼働フレーム数
-		static UINT frame_time = 0;
 
 		FlipToggle ();	//デバッグ表示切替トグル
 
@@ -312,6 +363,14 @@ namespace GAME
 	//描画
 	void GameSystem::Draw()
 	{
+		//--------------------------------------------
+		CLK::time_point s = CLK::now ();
+		//--------------------------------------------
+
+
+		m_sw.ReStart ();
+		//--------------------------------------------
+
 		//全体レンダーテクスチャのクリア
 		G_GrpTx::Inst()->Clear ();
 
@@ -323,6 +382,26 @@ namespace GAME
 
 		//全体レンダーテクスチャの描画
 		G_GrpTx::Inst()->Draw ();
+
+		//--------------------------------------------
+		CLK::time_point draw_time = CLK::now();
+		duration drtn_draw = duration_cast <microseconds> (draw_time - s);
+		nSumDraw += static_cast < int64 > ( drtn_draw.count() );
+		sumDraw += static_cast < int64 > ( drtn_draw.count() );
+		//--------------------------------------------
+		m_sw.Lap ( DBGOUT_3, U"Draw" );
+
+		double aveMove = m_sw.GetAve(DBGOUT_2);
+		double aveDraw = m_sw.GetAve(DBGOUT_3);
+		double aveSleep = m_sw.GetAve(DBGOUT_4);
+		double add = aveMove + aveDraw + aveSleep;
+		String str = U"{:2.4f}={:2.4f}+{:2.4f}+{:2.4f}[ms] {}"_fmt(add, aveMove, aveDraw, aveSleep, U"Sum");
+		//DBGOUT_WND_F ( DBGOUT_1, str );
+
+		DBGOUT_WND()->DebugOutWnd_SleepMoveDraw ( aveSleep, aveMove, aveDraw );
+		//DBGOUT_WND()->DebugOutWnd_SleepMoveDraw ( disp_nSumSleep, disp_nSumMove, disp_nSumDraw );
+
+		m_sw.Count ();
 	}
 
 
@@ -356,6 +435,41 @@ namespace GAME
 		}
 		//今回の保存
 		m_pre_bDispDebug = is_bDispDebug;
+
+	}
+
+
+	void GameSystem::_DisplayPos()
+	{
+		//ディスプレイ位置の取得
+		m_rectWindow = s3d::Window::GetState().bounds;
+	}
+
+
+	void GameSystem::_WindowMove()
+	{
+		//ウィンドウの移動を感知する
+		s3d::Rect window_rect = s3d::Window::GetState().bounds;
+		if ( window_rect != m_rectWindow )
+		{
+			m_rectWindow = window_rect;
+
+			//再取得
+			mnt_info = s3d::System::EnumerateMonitors ();
+			int32_t mnt_id = 0;
+
+			for ( const auto& info : mnt_info )
+			{
+				if ( info.displayRect.intersects(m_rectWindow) )
+				{
+					break;
+				}
+				++ mnt_id;
+			}
+
+			m_refreshRate = mnt_info[mnt_id].refreshRate;
+
+		}
 
 	}
 

@@ -29,31 +29,38 @@ void Rele ( GameSystem & gameSystem );
 
 
 
+//StopWatch g_sw;
+
+
+
 //メインループ
 void Main()
 {
+	//g_sw.Start ();	//時間計測開始
+
+
 	//ゲームシステム
 	GameSystem gameSystem;
 
 	Load ( gameSystem );	//読込
-
-#if 0
-#endif // 0
 
 	//========================================
 	//メインループ
 	bool init = F;
 	while ( System::Update() )
 	{
+		//g_sw.ReStart ();
+
 
 		//初期化
 		if ( ! init ) { Init ( gameSystem ); init = T; }
 
 		Move ( gameSystem );	//動作
 		Draw ( gameSystem );	//描画
-#if 0
 
-#endif // 0
+
+		//g_sw.Disp ( DBGOUT_0, U"メインループ (Move + Draw)" );
+		//g_sw.Count ();
 	}
 	//========================================
 
@@ -66,9 +73,6 @@ void Main()
 //起動後１回のみの初期化
 void Load ( GameSystem & gameSystem )
 {
-	//ImgToAtlasFile ( U"Test/Sae_bhv.img" );
-
-
 	//-------------------------------------
 	//タイトル
 	Window::SetTitle ( U"剣撃クロスゾーン" );

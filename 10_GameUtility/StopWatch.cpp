@@ -54,6 +54,26 @@ namespace GAME
 		m_sw.restart ();
 	}
 
+	void StopWatch::Lap ( DBGOUT_LINE index, LPCUSTR str )
+	{
+		//加算
+		m_time [ index ] += m_sw.msF ();
+
+		//平均
+		if ( m_count >= 60 )
+		{
+			m_ave [ index ] = m_time[index] / 60.0;
+		}
+
+		//表示しない
+		//DBGOUT_WND_F ( index , U"{:2.4f}[ms] {}"_fmt( m_ave [ index ], str ) );
+		(void)str;
+
+		//再スタート
+		m_sw.restart ();
+	}
+
+
 	void StopWatch::Count ()
 	{
 		//カウント

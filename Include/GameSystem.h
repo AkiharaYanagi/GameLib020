@@ -13,6 +13,8 @@
 #include "GameMainBase.h"
 using CLK = std::chrono::high_resolution_clock;
 
+#include "StopWatch.h"
+
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
@@ -38,12 +40,33 @@ namespace GAME
 		CLK::time_point fps_time;
 		uint32 fps { 60 };
 		double disp_fps { 0 };
+
 		int64 sleep { 0 };
+		int64 nSumSleep { 0 };
+		int64 disp_nSumSleep { 0 };
+		double sumSleep { 0 };
 		double aveSleep { 0 };
-		double dispSleep { 0 };
+
+		int64 move { 0 };
+		int64 nSumMove { 0 };
+		int64 disp_nSumMove { 0 };
+		double sumMove { 0 };
+		double aveMove { 0 };
+
+		int64 draw { 0 };
+		int64 nSumDraw { 0 };
+		int64 disp_nSumDraw { 0 };
+		double sumDraw { 0 };
+		double aveDraw { 0 };
+
+		StopWatch	m_sw;
+
 
 		//一時停止用
 		bool		m_bStop { F };
+
+		//稼働フレーム数
+		uint32_t	 frame_time { 0 };
 
 	public:
 		GameSystem () {}
@@ -77,6 +100,16 @@ namespace GAME
 		bool m_bDispDebug { T };
 		bool m_pre_bDispDebug { T };
 		void FlipToggle ();
+
+		//--------------------------------------
+		//ディスプレイ位置
+		void _DisplayPos ();
+		s3d::Rect	m_rectWindow { 0, 0, 0, 0 };
+		Array < s3d::MonitorInfo > mnt_info;
+		Optional<double> m_refreshRate;
+
+		//ウィンドウ移動感知
+		void _WindowMove ();
 
 	public:
 		//-----------------------------

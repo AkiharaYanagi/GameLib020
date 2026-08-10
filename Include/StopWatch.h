@@ -36,9 +36,14 @@ namespace GAME
 		void ReStart () { m_sw.restart (); }
 
 		void Disp ( DBGOUT_LINE index, LPCUSTR str );
+		void Lap ( DBGOUT_LINE index, LPCUSTR str );
 
 		void Count ();
+
+		double GetAve ( DBGOUT_LINE index ) const { return m_ave [ index ]; }
 	};
+
+	using P_StopWatch = std::unique_ptr < StopWatch >;
 
 
 }	//namespace GAME

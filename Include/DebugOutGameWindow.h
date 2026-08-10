@@ -19,6 +19,11 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME 
 {
+	//前方宣言
+	class StopWatch;
+	using P_StopWatch = std::unique_ptr < StopWatch >;
+
+
 
 	constexpr size_t DBGOUT_WND_N = 10;		//表示行数
 	enum DBGOUT_LINE			//位置指定
@@ -58,6 +63,9 @@ namespace GAME
 	private:
 		s3d::Array < P_GrpStr >		ma_str { DBGOUT_WND_N };
 
+
+		//P_StopWatch					m_sw;		//Siv3D時間計測
+
 	public:
 		void Load ();
 		void Draw ();
@@ -73,6 +81,14 @@ namespace GAME
 	private:
 		P_GrpStr		m_frame;	//稼働時間
 		P_GrpStr		m_FPS;		//Frame Per Second
+		
+
+		P_PrmRect		m_bg;		//背景
+		P_GrpStr		m_Sleep;	//Sleep
+		P_GrpStr		m_Move;		//Move()
+		P_GrpStr		m_Draw;		//Draw()
+		P_GrpStr		m_Sum;		//Sleep + Move + Draw
+		
 		P_GrpStr		m_Build_Time;	//ビルド時刻
 
 	public:
@@ -80,7 +96,11 @@ namespace GAME
 		void DebugOutWnd_Frame ( UINT frame );
 
 		//固定表示 : FPS
-		void DebugOutWnd_FPS ( double fps );
+		void DebugOutWnd_FPS ( double refreshRate, double fps );
+
+		//固定表示 : Sleep
+		void DebugOutWnd_SleepMoveDraw ( double sleep, double move, double draw );
+		//void DebugOutWnd_SleepMoveDraw ( int64_t sleep, int64_t move, int64_t draw );
 
 		//固定表示 : ビルド時刻
 		void DebugOutWnd_Build_Time ( const char* DATE, const char* TIME );
