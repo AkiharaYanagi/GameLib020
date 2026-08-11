@@ -133,18 +133,24 @@ namespace GAME
 		//１つでも該当すればその時点でreturn
 		for ( auto& [id, p] : m_pads )
 		{
+			//軸
+			for ( int i = 0; i < SDL_GAMEPAD_AXIS_COUNT; ++i )
+			{
+				if ( PushAxisLX_Plus ( id ) )
+				{
+					ret.SetAxis ( id, AXIS_VALUE::AXIS_X_P );
+					return ret;
+				}
+			}
+
 			//ボタン
 			for ( int i = 0; i < SDL_SCANCODE_COUNT; ++i )
 			{
-				if ( IsButton ( id, i ) )
+				if ( PushButton ( id, i ) )
 				{
 					ret.SetBtn ( id, i );
 					return ret;
 				}
-			}
-			//軸
-			for ( int i = 0; i < SDL_GAMEPAD_AXIS_COUNT; ++i )
-			{
 			}
 		}
 
@@ -217,137 +223,71 @@ namespace GAME
 	//軸
 	float SDL_GamePad::GetAxisLX ( int32_t id ) const
 	{
+#if 0
 		if ( NotExist ( id ) ) { return 0; }
-
 		uint32_t index = static_cast < uint32_t > ( SDL_GAMEPAD_AXIS_LEFTX );
 		return m_store.at ( mv_id[ id ] ).m_axis [ index ];
+#endif // 0
+		return GetAxis ( id, SDL_GAMEPAD_AXIS_LEFTX );
 	}
-	
-	float SDL_GamePad::GetAxisLY( int32_t id ) const
-	{
-		if ( NotExist ( id ) ) { return 0; }
-
-		uint32_t index = static_cast < uint32_t > ( SDL_GAMEPAD_AXIS_LEFTY );
-		return m_store.at ( mv_id[ id ] ).m_axis [ index ];
-	}
-	
-	float SDL_GamePad::GetAxisRX ( int32_t id ) const
-	{
-		if ( NotExist ( id ) ) { return 0; }
-
-		uint32_t index = static_cast < uint32_t > ( SDL_GAMEPAD_AXIS_RIGHTX );
-		return m_store.at ( mv_id[ id ] ).m_axis [ index ];
-	}
-	
-	float SDL_GamePad::GetAxisRY( int32_t id ) const
-	{
-		if ( NotExist ( id ) ) { return 0; }
-
-		uint32_t index = static_cast < uint32_t > ( SDL_GAMEPAD_AXIS_RIGHTY );
-		return m_store.at ( mv_id[ id ] ).m_axis [ index ];
-	}
-	
-	float SDL_GamePad::GetAxisLT ( int32_t id ) const
-	{
-		if ( NotExist ( id ) ) { return 0; }
-
-		uint32_t index = static_cast < uint32_t > ( SDL_GAMEPAD_AXIS_LEFT_TRIGGER );
-		return m_store.at ( mv_id[ id ] ).m_axis [ index ];
-	}
-	
-	float SDL_GamePad::GetAxisRT( int32_t id ) const
-	{
-		if ( NotExist ( id ) ) { return 0; }
-
-		uint32_t index = static_cast < uint32_t > ( SDL_GAMEPAD_AXIS_RIGHT_TRIGGER );
-		return m_store.at ( mv_id[ id ] ).m_axis [ index ];
-	}
+	float SDL_GamePad::GetAxisLY ( int32_t id ) const { return GetAxis ( id, SDL_GAMEPAD_AXIS_LEFTY ); }
+	float SDL_GamePad::GetAxisRX ( int32_t id ) const { return GetAxis ( id, SDL_GAMEPAD_AXIS_RIGHTX ); }
+	float SDL_GamePad::GetAxisRY ( int32_t id ) const { return GetAxis ( id, SDL_GAMEPAD_AXIS_RIGHTY ); }
+	float SDL_GamePad::GetAxisLT ( int32_t id ) const { return GetAxis ( id, SDL_GAMEPAD_AXIS_LEFT_TRIGGER ); }
+	float SDL_GamePad::GetAxisRT ( int32_t id ) const { return GetAxis ( id, SDL_GAMEPAD_AXIS_RIGHT_TRIGGER ); }
 
 
 	//--------------------------------------------------------------
 	//Axis:状態の判定  ( -32768 < SInt16 < 32768 )
-	bool SDL_GamePad::IsAxisLX_Plus( int32_t id ) const
-	{
-		if ( NotExist ( id ) ) { return F; }
+	bool SDL_GamePad::IsAxisLX_Plus( int32_t id ) const { return P_Ax ( id, SDL_GAMEPAD_AXIS_LEFTX ); }
+	bool SDL_GamePad::IsAxisLX_Minus( int32_t id ) const { return M_Ax ( id, SDL_GAMEPAD_AXIS_LEFTX ); }
+	bool SDL_GamePad::IsAxisLY_Plus( int32_t id ) const	{ return P_Ax ( id, SDL_GAMEPAD_AXIS_LEFTY ); }
+	bool SDL_GamePad::IsAxisLY_Minus( int32_t id ) const { return M_Ax ( id, SDL_GAMEPAD_AXIS_LEFTY ); }
+	bool SDL_GamePad::IsAxisRX_Plus( int32_t id ) const { return P_Ax ( id, SDL_GAMEPAD_AXIS_RIGHTX ); }
+	bool SDL_GamePad::IsAxisRX_Minus( int32_t id ) const { return M_Ax ( id, SDL_GAMEPAD_AXIS_RIGHTX ); }
+	bool SDL_GamePad::IsAxisRY_Plus( int32_t id ) const { return P_Ax ( id, SDL_GAMEPAD_AXIS_RIGHTY ); }
+	bool SDL_GamePad::IsAxisRY_Minus( int32_t id ) const { return M_Ax ( id, SDL_GAMEPAD_AXIS_RIGHTY ); }
+	bool SDL_GamePad::IsAxisLT( int32_t id ) const { return P_Ax ( id, SDL_GAMEPAD_AXIS_LEFT_TRIGGER ); }
+	bool SDL_GamePad::IsAxisRT( int32_t id ) const { return P_Ax ( id, SDL_GAMEPAD_AXIS_RIGHT_TRIGGER ); }
 
-		uint32_t index = static_cast < uint32_t > ( SDL_GAMEPAD_AXIS_LEFTX );
-		return ( m_store.at ( mv_id[ id ] ).m_axis [ index ] > 16384 );
-	}
+	//--------------------------------------------------------------
+	//Axis:前回の状態  ( -32768 < SInt16 < 32768 )
+	bool SDL_GamePad::WasAxisLX_Plus  ( int32_t id ) const { return P_PAx ( id, SDL_GAMEPAD_AXIS_LEFTX ); }
+	bool SDL_GamePad::WasAxisLX_Minus ( int32_t id ) const { return M_PAx ( id, SDL_GAMEPAD_AXIS_LEFTX ); }
+	bool SDL_GamePad::WasAxisLY_Plus  ( int32_t id ) const { return P_PAx ( id, SDL_GAMEPAD_AXIS_LEFTY ); }
+	bool SDL_GamePad::WasAxisLY_Minus ( int32_t id ) const { return M_PAx ( id, SDL_GAMEPAD_AXIS_LEFTY ); }
+	bool SDL_GamePad::WasAxisRX_Plus  ( int32_t id ) const { return P_PAx ( id, SDL_GAMEPAD_AXIS_RIGHTX ); }
+	bool SDL_GamePad::WasAxisRX_Minus ( int32_t id ) const { return M_PAx ( id, SDL_GAMEPAD_AXIS_RIGHTX ); }
+	bool SDL_GamePad::WasAxisRY_Plus  ( int32_t id ) const { return P_PAx ( id, SDL_GAMEPAD_AXIS_RIGHTY ); }
+	bool SDL_GamePad::WasAxisRY_Minus ( int32_t id ) const { return M_PAx ( id, SDL_GAMEPAD_AXIS_RIGHTY ); }
+	bool SDL_GamePad::WasAxisLT( int32_t id ) const { return P_PAx ( id, SDL_GAMEPAD_AXIS_LEFT_TRIGGER ); }
+	bool SDL_GamePad::WasAxisRT( int32_t id ) const { return P_PAx ( id, SDL_GAMEPAD_AXIS_RIGHT_TRIGGER ); }
 
-	bool SDL_GamePad::IsAxisLX_Minus( int32_t id ) const
-	{
-		if ( NotExist ( id ) ) { return F; }
+	//--------------------------------------------------------------
+	//Axis:押した瞬間 ( 今回:T, 前回:F )
+	bool SDL_GamePad::PushAxisLX_Plus  ( int32_t id ) const { return IsAxisLX_Plus  ( id ) && ! WasAxisLX_Plus  ( id ); }
+	bool SDL_GamePad::PushAxisLX_Minus ( int32_t id ) const { return IsAxisLX_Minus ( id ) && ! WasAxisLX_Minus ( id ); }
+	bool SDL_GamePad::PushAxisLY_Plus  ( int32_t id ) const { return IsAxisLY_Plus  ( id ) && ! WasAxisLY_Plus  ( id ); }
+	bool SDL_GamePad::PushAxisLY_Minus ( int32_t id ) const { return IsAxisLY_Minus ( id ) && ! WasAxisLY_Minus ( id ); }
+	bool SDL_GamePad::PushAxisRX_Plus  ( int32_t id ) const { return IsAxisRX_Plus  ( id ) && ! WasAxisRX_Plus  ( id ); }
+	bool SDL_GamePad::PushAxisRX_Minus ( int32_t id ) const { return IsAxisRX_Minus ( id ) && ! WasAxisRX_Minus ( id ); }
+	bool SDL_GamePad::PushAxisRY_Plus  ( int32_t id ) const { return IsAxisRY_Plus  ( id ) && ! WasAxisRY_Plus  ( id ); }
+	bool SDL_GamePad::PushAxisRY_Minus ( int32_t id ) const { return IsAxisRY_Minus ( id ) && ! WasAxisRY_Minus ( id ); }
+	bool SDL_GamePad::PushAxisLT  ( int32_t id ) const { return IsAxisLT ( id ) && ! WasAxisLT ( id ); }
+	bool SDL_GamePad::PushAxisRT  ( int32_t id ) const { return IsAxisRT ( id ) && ! WasAxisRT ( id ); }
 
-		uint32_t index = static_cast < uint32_t > ( SDL_GAMEPAD_AXIS_LEFTX );
-		return ( m_store.at ( mv_id[ id ] ).m_axis [ index ] < -16384 );
-	}
-
-	bool SDL_GamePad::IsAxisLY_Plus( int32_t id ) const
-	{
-		if ( NotExist ( id ) ) { return F; }
-
-		uint32_t index = static_cast < uint32_t > ( SDL_GAMEPAD_AXIS_LEFTY );
-		return ( m_store.at ( mv_id[ id ] ).m_axis [ index ] > 16384 );
-	}
-
-	bool SDL_GamePad::IsAxisLY_Minus( int32_t id ) const
-	{
-		if ( NotExist ( id ) ) { return F; }
-
-		uint32_t index = static_cast < uint32_t > ( SDL_GAMEPAD_AXIS_LEFTY );
-		return ( m_store.at ( mv_id[ id ] ).m_axis [ index ] < -16384 );
-	}
-
-
-	bool SDL_GamePad::IsAxisRX_Plus( int32_t id ) const
-	{
-		if ( NotExist ( id ) ) { return F; }
-
-		uint32_t index = static_cast < uint32_t > ( SDL_GAMEPAD_AXIS_RIGHTX );
-		return ( m_store.at ( mv_id[ id ] ).m_axis [ index ] > 16384 );
-	}
-
-	bool SDL_GamePad::IsAxisRX_Minus( int32_t id ) const
-	{
-		if ( NotExist ( id ) ) { return F; }
-
-		uint32_t index = static_cast < uint32_t > ( SDL_GAMEPAD_AXIS_RIGHTX );
-		return ( m_store.at ( mv_id[ id ] ).m_axis [ index ] < -16384 );
-	}
-
-	bool SDL_GamePad::IsAxisRY_Plus( int32_t id ) const
-	{
-		if ( NotExist ( id ) ) { return F; }
-
-		uint32_t index = static_cast < uint32_t > ( SDL_GAMEPAD_AXIS_RIGHTY );
-		return ( m_store.at ( mv_id[ id ] ).m_axis [ index ] > 16384 );
-	}
-
-	bool SDL_GamePad::IsAxisRY_Minus( int32_t id ) const
-	{
-		if ( NotExist ( id ) ) { return F; }
-
-		uint32_t index = static_cast < uint32_t > ( SDL_GAMEPAD_AXIS_RIGHTY );
-		return ( m_store.at ( mv_id[ id ] ).m_axis [ index ] < -16384 );
-	}
-
-
-
-	bool SDL_GamePad::IsAxisLT( int32_t id ) const
-	{
-		if ( NotExist ( id ) ) { return F; }
-
-		uint32_t index = static_cast < uint32_t > ( SDL_GAMEPAD_AXIS_LEFT_TRIGGER );
-		return ( m_store.at ( mv_id[ id ] ).m_axis [ index ] > 16384 );
-	}
-
-	bool SDL_GamePad::IsAxisRT( int32_t id ) const
-	{
-		if ( NotExist ( id ) ) { return F; }
-
-		uint32_t index = static_cast < uint32_t > ( SDL_GAMEPAD_AXIS_RIGHT_TRIGGER );
-		return ( m_store.at ( mv_id[ id ] ).m_axis [ index ] > 16384 );
-	}
+	//--------------------------------------------------------------
+	//Axis:離した瞬間 ( 今回:F, 前回:T )
+	bool SDL_GamePad::ReleAxisLX_Plus	( int32_t id ) const { return ! IsAxisLX_Plus  ( id ) && WasAxisLX_Plus  ( id ); }
+	bool SDL_GamePad::ReleAxisLX_Minus	( int32_t id ) const { return ! IsAxisLX_Minus ( id ) && WasAxisLX_Minus ( id ); }
+	bool SDL_GamePad::ReleAxisLY_Plus	( int32_t id ) const { return ! IsAxisLY_Plus  ( id ) && WasAxisLY_Plus  ( id ); }
+	bool SDL_GamePad::ReleAxisLY_Minus	( int32_t id ) const { return ! IsAxisLY_Minus ( id ) && WasAxisLY_Minus ( id ); }
+	bool SDL_GamePad::ReleAxisRX_Plus	( int32_t id ) const { return ! IsAxisRX_Plus  ( id ) && WasAxisRX_Plus  ( id ); }
+	bool SDL_GamePad::ReleAxisRX_Minus	( int32_t id ) const { return ! IsAxisRX_Minus ( id ) && WasAxisRX_Minus ( id ); }
+	bool SDL_GamePad::ReleAxisRY_Plus	( int32_t id ) const { return ! IsAxisRY_Plus  ( id ) && WasAxisRY_Plus  ( id ); }
+	bool SDL_GamePad::ReleAxisRY_Minus	( int32_t id ) const { return ! IsAxisRY_Minus ( id ) && WasAxisRY_Minus ( id ); }
+	bool SDL_GamePad::ReleAxisLT		( int32_t id ) const { return ! IsAxisLT ( id ) && WasAxisLT ( id ); }
+	bool SDL_GamePad::ReleAxisRT		( int32_t id ) const { return ! IsAxisRT ( id ) && WasAxisRT ( id ); }
 
 
 	//--------------------------------------------------------------
@@ -383,11 +323,54 @@ namespace GAME
 	void SDL_GamePad::SetAxis ( int32_t id, SDL_GamepadAxis axis, Sint16 value )
 	{
 		//接続されているか
+#if 0
 		SDL_JoystickID jid = static_cast<SDL_JoystickID>(id);
 		auto it = m_pads.find ( jid );
 		if ( it == m_pads.end() ) { return; }
+#endif // 0
+		if ( NotExist ( id ) ) { return; }
 		m_store[id].SetAxis ( axis, value );
 	}
+
+	//軸の取得
+	float SDL_GamePad::GetAxis ( int32_t id, SDL_GamepadAxis axis ) const
+	{
+		//接続されているか
+		if ( NotExist ( id ) ) { return 0.f; }
+
+		uint32_t index = static_cast < uint32_t > ( axis );
+		return m_store.at ( mv_id[ id ] ).m_axis [ index ];
+	}
+
+	bool SDL_GamePad::P_Ax ( int32_t id, SDL_GamepadAxis axis ) const
+	{
+		return ( GetAxis ( id, SDL_GAMEPAD_AXIS_LEFTY ) > 16384 );
+	}
+
+	bool SDL_GamePad::M_Ax ( int32_t id, SDL_GamepadAxis axis ) const
+	{
+		return ( GetAxis ( id, SDL_GAMEPAD_AXIS_LEFTY ) < -16384 );
+	}
+
+	float SDL_GamePad::GetPreAxis ( int32_t id, SDL_GamepadAxis axis ) const
+	{
+		//接続されているか
+		if ( NotExist ( id ) ) { return 0.f; }
+
+		uint32_t index = static_cast < uint32_t > ( axis );
+		return m_prev.at ( mv_id[ id ] ).m_axis [ index ];
+	}
+
+	bool SDL_GamePad::P_PAx ( int32_t id, SDL_GamepadAxis axis ) const
+	{
+		return ( GetPreAxis ( id, axis ) > 16384 );
+	}
+
+	bool SDL_GamePad::M_PAx ( int32_t id, SDL_GamepadAxis axis ) const
+	{
+		return ( GetPreAxis ( id, axis ) < -16384 );
+	}
+
 
 
 }	//namespace GAME

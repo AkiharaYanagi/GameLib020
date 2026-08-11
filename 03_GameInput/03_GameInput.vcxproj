@@ -75,7 +75,6 @@
       </ForcedIncludeFiles>
       <BuildStlModules>false</BuildStlModules>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>F:\Projects\GameLib020\03_GameInput\SDL3-3.4.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -86,7 +85,8 @@
       <Command>xcopy /I /D /Y "$(OutDir)$(TargetFileName)" "$(ProjectDir)App"</Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalLibraryDirectories>F:\Projects\GameLib020\03_GameInput\SDL3-3.4.8\lib\x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -107,7 +107,6 @@
       </ForcedIncludeFiles>
       <BuildStlModules>false</BuildStlModules>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>F:\Projects\GameLib020\03_GameInput\SDL3-3.4.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -120,7 +119,8 @@
       <Command>xcopy /I /D /Y "$(OutDir)$(TargetFileName)" "$(ProjectDir)App"</Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalLibraryDirectories>F:\Projects\GameLib020\03_GameInput\SDL3-3.4.8\lib\x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>

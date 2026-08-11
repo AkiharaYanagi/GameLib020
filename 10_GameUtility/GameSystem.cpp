@@ -391,14 +391,14 @@ namespace GAME
 		//--------------------------------------------
 		m_sw.Lap ( DBGOUT_3, U"Draw" );
 
-		double aveMove = m_sw.GetAve(DBGOUT_2);
-		double aveDraw = m_sw.GetAve(DBGOUT_3);
-		double aveSleep = m_sw.GetAve(DBGOUT_4);
-		double add = aveMove + aveDraw + aveSleep;
-		String str = U"{:2.4f}={:2.4f}+{:2.4f}+{:2.4f}[ms] {}"_fmt(add, aveMove, aveDraw, aveSleep, U"Sum");
+		double sw_aveMove = m_sw.GetAve(DBGOUT_2);
+		double sw_aveDraw = m_sw.GetAve(DBGOUT_3);
+		double sw_aveSleep = m_sw.GetAve(DBGOUT_4);
+		double add = sw_aveMove + sw_aveDraw + sw_aveSleep;
+		String str = U"{:2.4f}={:2.4f}+{:2.4f}+{:2.4f}[ms] {}"_fmt(add, sw_aveMove, sw_aveDraw, sw_aveSleep, U"Sum");
 		//DBGOUT_WND_F ( DBGOUT_1, str );
 
-		DBGOUT_WND()->DebugOutWnd_SleepMoveDraw ( aveSleep, aveMove, aveDraw );
+		DBGOUT_WND()->DebugOutWnd_SleepMoveDraw ( sw_aveMove, sw_aveMove, sw_aveDraw );
 		//DBGOUT_WND()->DebugOutWnd_SleepMoveDraw ( disp_nSumSleep, disp_nSumMove, disp_nSumDraw );
 
 		m_sw.Count ();

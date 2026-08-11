@@ -45,7 +45,8 @@ namespace GAME
 		INPUT_DEVICE_TYPE type = di.GetType ();
 		switch ( type )
 		{
-		case GAMEPAD: ret = Is_Joy ( di.GetPad () ); break;
+		//case GAMEPAD: ret = Is_Joy ( di.GetPad () ); break;
+		case GAMEPAD: ret = Is_Pad ( di.GetPad () ); break;
 		case KEYBOARD: ret = Is_Keyboard ( di.GetKey () ); break;
 		}
 		return ret;
@@ -64,7 +65,8 @@ namespace GAME
 		INPUT_DEVICE_TYPE type = di.GetType ();
 		switch ( type )
 		{
-		case GAMEPAD: ret = Push_Joy ( di.GetPad () ); break;
+		//case GAMEPAD: ret = Push_Joy ( di.GetPad () ); break;
+		case GAMEPAD: ret = Push_Pad ( di.GetPad () ); break;
 		case KEYBOARD: ret = Push_Keyboard ( di.GetKey () ); break;
 		}
 		return ret;
@@ -77,7 +79,8 @@ namespace GAME
 		INPUT_DEVICE_TYPE type = di.GetType ();
 		switch ( type )
 		{
-		case GAMEPAD: ret = Rele_Joy ( di.GetPad () ); break;
+		//case GAMEPAD: ret = Rele_Joy ( di.GetPad () ); break;
+		case GAMEPAD: ret = Rele_Pad ( di.GetPad () ); break;
 		case KEYBOARD: ret = Rele_Keyboard ( di.GetKey () ); break;
 		}
 		return ret;
@@ -369,6 +372,8 @@ namespace GAME
 
 	//----------------------------------------------------------------------------------
 	//押された状態かどうか
+#if 0
+
 	bool KeyConfig::Is_Joy ( GamePadInput gpi ) const
 	{
 		DWORD id = gpi.GetID ();
@@ -381,6 +386,22 @@ namespace GAME
 		}
 		return false;
 	}
+
+#endif // 0
+	bool KeyConfig::Is_Pad ( GamePadInput gpi ) const
+	{
+		DWORD id = gpi.GetID ();
+		PAD_INPUT_TYPE type = gpi.GetInputType ();
+		switch ( type )
+		{
+		case PIT_AXIS: return Is_Axis_Vl ( id, gpi.GetSDLAxis () ); break;
+		//case PIT_POINT_OF_VIEW: return Is_POV_Vl ( id, gpi.GetPov () ); break;
+		case PIT_BUTTON: return SVINP->IsJoyButton ( id, gpi.GetButtonID () ); break;
+		}
+		return false;
+	}
+
+#if 0
 
 	bool KeyConfig::Is_Axis_Vl ( uint32 ID, AXIS_VALUE vl ) const
 	{
@@ -396,7 +417,31 @@ namespace GAME
 		}
 		return ret;
 	}
+
+#endif // 0
 	
+	
+	bool KeyConfig::Is_Axis_Vl ( uint32 ID, SDL_AXIS_VALUE vl ) const
+	{
+		bool ret = false;
+		switch ( vl )
+		{
+		case SDL_AXIS_VALUE::AXIS_LX_P:	ret = SVINP->IsAxisLX_Plus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_LX_M:	ret = SVINP->IsAxisLX_Minus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_LY_P:	ret = SVINP->IsAxisLY_Plus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_LY_M:	ret = SVINP->IsAxisLY_Minus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RX_P:	ret = SVINP->IsAxisLX_Plus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RX_M:	ret = SVINP->IsAxisLX_Minus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RY_P:	ret = SVINP->IsAxisLY_Plus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RY_M:	ret = SVINP->IsAxisLY_Minus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_LT_P:	ret = SVINP->IsAxisLT ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RT_P:	ret = SVINP->IsAxisRT( ID );	break;
+		}
+		return ret;
+	}
+
+#if 0
+
 	bool KeyConfig::Is_POV_Vl ( uint32 ID, POV_VALUE vl ) const
 	{
 		bool ret = false;
@@ -410,6 +455,8 @@ namespace GAME
 		return ret;
 	}
 
+#endif // 0
+
 	bool KeyConfig::Is_Keyboard ( KEY_NAME key ) const
 	{
 //		return DxInput::instance ()->IsOneKeyboard ( key );
@@ -418,6 +465,8 @@ namespace GAME
 
 	//----------------------------------------------------------------------------------
 	//押された瞬間かどうか
+#if 0
+
 	bool KeyConfig::Push_Joy ( GamePadInput gpi ) const
 	{
 		DWORD id = gpi.GetID ();
@@ -430,6 +479,23 @@ namespace GAME
 		}
 		return false;
 	}
+
+#endif // 0
+
+	bool KeyConfig::Push_Pad ( GamePadInput gpi ) const
+	{
+		DWORD id = gpi.GetID ();
+		PAD_INPUT_TYPE type = gpi.GetInputType ();
+		switch ( type )
+		{
+		case PIT_AXIS: return Push_Axis_Vl ( id, gpi.GetSDLAxis () ); break;
+		//case PIT_POINT_OF_VIEW: return Push_POV_Vl ( id, gpi.GetPov () ); break;
+		case PIT_BUTTON: return SVINP->PushJoyButton ( id, gpi.GetButtonID () ); break;
+		}
+		return false;
+	}
+
+#if 0
 
 	bool KeyConfig::Push_Axis_Vl ( uint32 ID, AXIS_VALUE vl ) const
 	{
@@ -446,6 +512,29 @@ namespace GAME
 		return ret;
 	}
 
+#endif // 0
+
+	bool KeyConfig::Push_Axis_Vl ( uint32 ID, SDL_AXIS_VALUE vl ) const
+	{
+		bool ret = false;
+		switch ( vl )
+		{
+		case SDL_AXIS_VALUE::AXIS_LX_P:	ret = SVINP->PushAxisLX_Plus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_LX_M:	ret = SVINP->PushAxisLX_Minus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_LY_P:	ret = SVINP->PushAxisLY_Plus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_LY_M:	ret = SVINP->PushAxisLY_Minus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RX_P:	ret = SVINP->PushAxisLX_Plus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RX_M:	ret = SVINP->PushAxisLX_Minus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RY_P:	ret = SVINP->PushAxisLY_Plus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RY_M:	ret = SVINP->PushAxisLY_Minus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_LT_P:	ret = SVINP->PushAxisLT ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RT_P:	ret = SVINP->PushAxisRT( ID );	break;
+		}
+		return ret;
+	}
+
+#if 0
+
 	bool KeyConfig::Push_POV_Vl ( uint32 ID, POV_VALUE vl ) const
 	{
 		bool ret = false;
@@ -459,6 +548,8 @@ namespace GAME
 		return ret;
 	}
 
+#endif // 0
+
 	bool KeyConfig::Push_Keyboard ( KEY_NAME key ) const
 	{
 		return SVINP->Push_Keyboard ( key );
@@ -466,6 +557,9 @@ namespace GAME
 
 	//----------------------------------------------------------------------------------
 	//離された瞬間かどうか
+
+#if 0
+
 	bool KeyConfig::Rele_Joy ( GamePadInput gpi ) const
 	{
 		DWORD id = gpi.GetID ();
@@ -478,6 +572,22 @@ namespace GAME
 		}
 		return false;
 	}
+
+#endif // 0
+
+	bool KeyConfig::Rele_Pad ( GamePadInput gpi ) const
+	{
+		DWORD id = gpi.GetID ();
+		PAD_INPUT_TYPE type = gpi.GetInputType ();
+		switch ( type )
+		{
+		case PIT_AXIS: return Rele_Axis_Vl ( id, gpi.GetSDLAxis () ); break;
+		//case PIT_POINT_OF_VIEW: return Rele_POV_Lvr ( id, gpi.GetPov () ); break;
+		case PIT_BUTTON: return SVINP->ReleJoyButton ( id, gpi.GetButtonID () ); break;
+		}
+		return false;
+	}
+#if 0
 
 	bool KeyConfig::Rele_Axis_Vl ( uint32 ID, AXIS_VALUE vl ) const
 	{
@@ -494,6 +604,26 @@ namespace GAME
 		return ret;
 	}
 
+#endif // 0
+	bool KeyConfig::Rele_Axis_Vl ( uint32 ID, SDL_AXIS_VALUE vl ) const
+	{
+		bool ret = false;
+		switch ( vl )
+		{
+		case SDL_AXIS_VALUE::AXIS_LX_P:	ret = SVINP->ReleAxisLX_Plus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_LX_M:	ret = SVINP->ReleAxisLX_Minus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_LY_P:	ret = SVINP->ReleAxisLY_Plus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_LY_M:	ret = SVINP->ReleAxisLY_Minus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RX_P:	ret = SVINP->ReleAxisRX_Plus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RX_M:	ret = SVINP->ReleAxisRX_Minus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RY_P:	ret = SVINP->ReleAxisRY_Plus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RY_M:	ret = SVINP->ReleAxisRY_Minus ( ID );	break;
+		}
+		return ret;
+	}
+
+#if 0
+
 	bool KeyConfig::Rele_POV_Lvr ( uint32 ID, POV_VALUE vl ) const
 	{
 		bool ret = false;
@@ -506,6 +636,8 @@ namespace GAME
 		}
 		return ret;
 	}
+
+#endif // 0
 
 	bool KeyConfig::Rele_Keyboard ( KEY_NAME key ) const
 	{

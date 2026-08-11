@@ -11,7 +11,8 @@
 # include <Siv3D.hpp> // Siv3D v0.6.16
 #include <SDL3/SDL.h>
 #include "00_Common.h"
-#include "03_GameInput.h"
+#include "KeyDefine.h"
+#include "DeviceInput.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -109,14 +110,48 @@ namespace GAME
 		bool IsAxisLX_Minus	( int32_t id ) const;
 		bool IsAxisLY_Plus	( int32_t id ) const;
 		bool IsAxisLY_Minus	( int32_t id ) const;
-
 		bool IsAxisRX_Plus	( int32_t id ) const;
 		bool IsAxisRX_Minus	( int32_t id ) const;
 		bool IsAxisRY_Plus	( int32_t id ) const;
 		bool IsAxisRY_Minus	( int32_t id ) const;
-
 		bool IsAxisLT	( int32_t id ) const;
 		bool IsAxisRT	( int32_t id ) const;
+
+		//Axis:前回の状態  ( -32768 < SInt16 < 32768 )
+		bool WasAxisLX_Plus		( int32_t id ) const;
+		bool WasAxisLX_Minus	( int32_t id ) const;
+		bool WasAxisLY_Plus		( int32_t id ) const;
+		bool WasAxisLY_Minus	( int32_t id ) const;
+		bool WasAxisRX_Plus		( int32_t id ) const;
+		bool WasAxisRX_Minus	( int32_t id ) const;
+		bool WasAxisRY_Plus		( int32_t id ) const;
+		bool WasAxisRY_Minus	( int32_t id ) const;
+		bool WasAxisLT			( int32_t id ) const;
+		bool WasAxisRT			( int32_t id ) const;
+
+		//Axis:押した瞬間 ( 今回:T, 前回:F )
+		bool PushAxisLX_Plus	( int32_t id ) const;
+		bool PushAxisLX_Minus	( int32_t id ) const;
+		bool PushAxisLY_Plus	( int32_t id ) const;
+		bool PushAxisLY_Minus	( int32_t id ) const;
+		bool PushAxisRX_Plus	( int32_t id ) const;
+		bool PushAxisRX_Minus	( int32_t id ) const;
+		bool PushAxisRY_Plus	( int32_t id ) const;
+		bool PushAxisRY_Minus	( int32_t id ) const;
+		bool PushAxisLT			( int32_t id ) const;
+		bool PushAxisRT			( int32_t id ) const;
+
+		//Axis:離した瞬間 ( 今回:F, 前回:T )
+		bool ReleAxisLX_Plus	( int32_t id ) const;
+		bool ReleAxisLX_Minus	( int32_t id ) const;
+		bool ReleAxisLY_Plus	( int32_t id ) const;
+		bool ReleAxisLY_Minus	( int32_t id ) const;
+		bool ReleAxisRX_Plus	( int32_t id ) const;
+		bool ReleAxisRX_Minus	( int32_t id ) const;
+		bool ReleAxisRY_Plus	( int32_t id ) const;
+		bool ReleAxisRY_Minus	( int32_t id ) const;
+		bool ReleAxisLT			( int32_t id ) const;
+		bool ReleAxisRT			( int32_t id ) const;
 
 
 	private:
@@ -127,6 +162,14 @@ namespace GAME
 
 
 		void SetAxis(int32_t id, SDL_GamepadAxis axis, Sint16 value);
+		
+		float GetAxis ( int32_t id, SDL_GamepadAxis axis ) const;
+		bool P_Ax ( int32_t id, SDL_GamepadAxis axis ) const;
+		bool M_Ax ( int32_t id, SDL_GamepadAxis axis ) const;
+
+		float GetPreAxis ( int32_t id, SDL_GamepadAxis axis ) const;
+		bool P_PAx ( int32_t id, SDL_GamepadAxis axis ) const;
+		bool M_PAx ( int32_t id, SDL_GamepadAxis axis ) const;
 	};
 
 	using P_SDL_GamePad = std::shared_ptr < SDL_GamePad >;

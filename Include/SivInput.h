@@ -14,6 +14,8 @@
 #include "SivGamePad.h"
 #include "DeviceInput.h"
 
+#include "SDL_GamePad.h"
+
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
@@ -37,8 +39,15 @@ namespace GAME
 		//キーボード
 		SivKeyboard		m_keyboard;
 
+#if 0
 		//ゲームパッド
 		SivGamePad		m_gamepad;
+#endif // 0
+
+		//SDLゲームパッド
+		SDL_GamePad		m_sdl_gamepad;
+
+
 
 	public:
 
@@ -49,8 +58,11 @@ namespace GAME
 		//状態の記録
 		void Store();
 
+#if 0
 		const GMPD & GetPadState () const { return m_gamepad.GetState (); }
 		const GamePadInputStore & GetStore () const { return m_gamepad.GetStore (); }
+#endif // 0
+
 
 		//---------------------------------------------------------------------------
 		//キーコンフィグ用
@@ -71,12 +83,55 @@ namespace GAME
 		//	引数：num デバイス番号, btn キー番号
 		bool IsJoyButton ( int id, int btn ) const;
 
+		//	ジョイスティックで押された瞬間かどうかを取得する
+		//	引数：num デバイス番号, btn キー番号
+		bool PushJoyButton(int num, int btn) const;
+
+		//	ジョイスティックで離された瞬間かどうかを取得する
+		//	引数：num デバイス番号, btn キー番号
+		bool ReleJoyButton(int num, int btn) const;
+
+
+		//軸の状態を返す
+		bool IsAxisLX_Plus ( int id ) const;
+		bool IsAxisLX_Minus ( int id ) const;
+		bool IsAxisLY_Plus ( int id ) const;
+		bool IsAxisLY_Minus ( int id ) const;
+		bool IsAxisRX_Plus ( int id ) const;
+		bool IsAxisRX_Minus ( int id ) const;
+		bool IsAxisRY_Plus ( int id ) const;
+		bool IsAxisRY_Minus ( int id ) const;
+		bool IsAxisLT	( int id ) const;
+		bool IsAxisRT	( int id ) const;
+
+		bool PushAxisLX_Plus ( int id ) const;
+		bool PushAxisLX_Minus ( int id ) const;
+		bool PushAxisLY_Plus ( int id ) const;
+		bool PushAxisLY_Minus ( int id ) const;
+		bool PushAxisRX_Plus ( int id ) const;
+		bool PushAxisRX_Minus ( int id ) const;
+		bool PushAxisRY_Plus ( int id ) const;
+		bool PushAxisRY_Minus ( int id ) const;
+		bool PushAxisLT	( int id ) const;
+		bool PushAxisRT	( int id ) const;
+
+		bool ReleAxisLX_Plus ( int id ) const;
+		bool ReleAxisLX_Minus ( int id ) const;
+		bool ReleAxisLY_Plus ( int id ) const;
+		bool ReleAxisLY_Minus ( int id ) const;
+		bool ReleAxisRX_Plus ( int id ) const;
+		bool ReleAxisRX_Minus ( int id ) const;
+		bool ReleAxisRY_Plus ( int id ) const;
+		bool ReleAxisRY_Minus ( int id ) const;
+		bool ReleAxisLT	( int id ) const;
+		bool ReleAxisRT	( int id ) const;
+
 #if 0
 		bool IsAxisUp(int id) const;
 		bool IsAxisDown(int id) const;
 		bool IsAxisLeft(int id) const;
 		bool IsAxisRight(int id) const;
-#endif // 0
+
 		bool IsAxisX_Plus ( int id ) const;
 		bool IsAxisX_Minus ( int id ) const;
 		bool IsAxisY_Plus ( int id ) const;
@@ -89,17 +144,13 @@ namespace GAME
 		bool IsPovRight(int id) const;
 		bool IsPovDown(int id) const;
 		bool IsPovLeft(int id) const;
-
-		//	ジョイスティックで押された瞬間かどうかを取得する
-		//	引数：num デバイス番号, btn キー番号
-		bool PushJoyButton(int num, int btn) const;
+#endif // 0
 
 #if 0
 		bool PushAxisUp(int id) const;
 		bool PushAxisDown(int id) const;
 		bool PushAxisLeft(int id) const;
 		bool PushAxisRight(int id) const;
-#endif // 0
 		bool PushAxisX_Plus ( int id ) const;
 		bool PushAxisX_Minus ( int id ) const;
 		bool PushAxisY_Plus ( int id ) const;
@@ -111,17 +162,13 @@ namespace GAME
 		bool PushPovRight(int id) const;
 		bool PushPovDown(int id) const;
 		bool PushPovLeft(int id) const;
-
-		//	ジョイスティックで離された瞬間かどうかを取得する
-		//	引数：num デバイス番号, btn キー番号
-		bool ReleJoyButton(int num, int btn) const;
+#endif // 0
 
 #if 0
 		bool ReleAxisUp(int id) const;
 		bool ReleAxisDown(int id) const;
 		bool ReleAxisLeft(int id) const;
 		bool ReleAxisRight(int id) const;
-#endif // 0
 
 		bool ReleAxisX_Plus ( int id ) const;
 		bool ReleAxisX_Minus ( int id ) const;
@@ -142,6 +189,7 @@ namespace GAME
 
 		//POVの状態を返す
 		Optional < int32 > GetPov(int id) const;
+#endif // 0
 
 
 #if 0
