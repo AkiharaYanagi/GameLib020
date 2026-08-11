@@ -344,12 +344,12 @@ namespace GAME
 
 	bool SDL_GamePad::P_Ax ( int32_t id, SDL_GamepadAxis axis ) const
 	{
-		return ( GetAxis ( id, SDL_GAMEPAD_AXIS_LEFTY ) > 16384 );
+		return ( GetAxis ( id, axis ) > 16384 );
 	}
 
 	bool SDL_GamePad::M_Ax ( int32_t id, SDL_GamepadAxis axis ) const
 	{
-		return ( GetAxis ( id, SDL_GAMEPAD_AXIS_LEFTY ) < -16384 );
+		return ( GetAxis ( id, axis ) < -16384 );
 	}
 
 	float SDL_GamePad::GetPreAxis ( int32_t id, SDL_GamepadAxis axis ) const
