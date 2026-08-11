@@ -76,6 +76,8 @@ namespace GAME
 			}
 			else
 			{
+				//完全同一チェック
+
 				//ハッシュがあるときは指定位置とページを再利用して保存
 				tiles [ index ].SetUV ( it->second.U(), it->second.V() );
 				tiles [ index ].SetPage ( it->second.GetPage() );
