@@ -49,7 +49,7 @@ namespace GAME
 		for ( const Tip & tip : Tips )
 		{
 
-#define SAME_TIP 1
+#define SAME_TIP 0
 #if SAME_TIP
 			//引数でハッシュチェック用mapを受け取る
 

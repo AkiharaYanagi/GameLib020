@@ -133,15 +133,18 @@ namespace GAME
 		//１つでも該当すればその時点でreturn
 		for ( auto& [id, p] : m_pads )
 		{
-			//軸
-			for ( int i = 0; i < SDL_GAMEPAD_AXIS_COUNT; ++i )
-			{
-				if ( PushAxisLX_Plus ( id ) )
-				{
-					ret.SetAxis ( id, AXIS_VALUE::AXIS_X_P );
-					return ret;
-				}
-			}
+			//いずれかの軸
+			if ( PS_LX_P ( ret, id ) ) { return ret; }
+			if ( PS_LX_M ( ret, id ) ) { return ret; }
+			if ( PS_LY_P ( ret, id ) ) { return ret; }
+			if ( PS_LY_M ( ret, id ) ) { return ret; }
+			if ( PS_RX_P ( ret, id ) ) { return ret; }
+			if ( PS_RX_M ( ret, id ) ) { return ret; }
+			if ( PS_RY_P ( ret, id ) ) { return ret; }
+			if ( PS_RY_M ( ret, id ) ) { return ret; }
+			if ( PS_LT   ( ret, id ) ) { return ret; }
+			if ( PS_RT   ( ret, id ) ) { return ret; }
+
 
 			//ボタン
 			for ( int i = 0; i < SDL_SCANCODE_COUNT; ++i )
@@ -167,8 +170,13 @@ namespace GAME
 		//IDとボタンのチェック
 		if ( Check_Id_and_Btn ( id, nBtn ) ) { return F; }
 
+		//idは1台目から1、配列添字は-1する
+		if ( id <= 0 ) { return F; }
+		int32_t index_id = id - 1;
+		if ( index_id >= mv_id.size() ) { return F; }
+
 		//指定したボタンが押されている状態は T
-		return m_store.at ( mv_id[ id ] ).m_button[ nBtn ];
+		return m_store.at ( mv_id[ index_id ] ).m_button[ nBtn ];
 	}
 
 	//指定したボタンが離されている状態か
@@ -177,8 +185,13 @@ namespace GAME
 		//IDとボタンのチェック
 		if ( Check_Id_and_Btn ( id, nBtn ) ) { return F; }
 
+		//idは1台目から1、配列添字は-1する
+		if ( id <= 0 ) { return F; }
+		int32_t index_id = id - 1;
+		if ( index_id >= mv_id.size() ) { return F; }
+
 		//指定したボタンが離されている状態は T
-		return ! m_store.at ( mv_id[ id ] ).m_button[ nBtn ];
+		return ! m_store.at ( mv_id[ index_id ] ).m_button[ nBtn ];
 	}
 
 
@@ -188,8 +201,13 @@ namespace GAME
 		//IDとボタンのチェック
 		if ( Check_Id_and_Btn ( id, nBtn ) ) { return F; }
 
+		//idは1台目から1、配列添字は-1する
+		if ( id <= 0 ) { return F; }
+		int32_t index_id = id - 1;
+		if ( index_id >= mv_id.size() ) { return F; }
+
 		//指定したボタンが押されている状態は T
-		return m_prev.at( mv_id[ id ] ).m_button [ nBtn ];
+		return m_prev.at( mv_id[ index_id ] ).m_button [ nBtn ];
 	}
 
 	//指定したボタンの１つ前が離されている状態か
@@ -198,8 +216,13 @@ namespace GAME
 		//IDとボタンのチェック
 		if ( Check_Id_and_Btn ( id, nBtn ) ) { return F; }
 
+		//idは1台目から1、配列添字は-1する
+		if ( id <= 0 ) { return F; }
+		int32_t index_id = id - 1;
+		if ( index_id >= mv_id.size() ) { return F; }
+
 		//指定したボタンが離されている状態は T
-		return ! m_prev.at( mv_id[ id ] ).m_button [ nBtn ];
+		return ! m_prev.at( mv_id[ index_id ] ).m_button [ nBtn ];
 	}
 
 
@@ -296,9 +319,15 @@ namespace GAME
 	//パッドが存在しているか
 	bool SDL_GamePad::Exist ( int32_t id ) const
 	{
+		//IDは１台目から1、配列添字は-1する
+		if ( id <= 0 ) { return F; }
+		int32_t index = id - 1;
+
 		//接続されているか
-		if (id >= mv_id.size()) { return F; }
-		SDL_JoystickID jid = mv_id[id];
+		if (index >= mv_id.size()) { return F; }
+
+
+		SDL_JoystickID jid = mv_id[index];
 
 		auto it = m_pads.find ( jid );
 		if ( it == m_pads.end() ) { return F; }
@@ -338,8 +367,14 @@ namespace GAME
 		//接続されているか
 		if ( NotExist ( id ) ) { return 0.f; }
 
-		uint32_t index = static_cast < uint32_t > ( axis );
-		return m_store.at ( mv_id[ id ] ).m_axis [ index ];
+		uint32_t index_axis = static_cast < uint32_t > ( axis );
+
+		//idは1台目から1、配列添字は-1する
+		if ( id <= 0 ) { return 0.f; }
+		int32_t index_id = id - 1;
+		if (index_id >= mv_id.size()) { return 0.f; }
+
+		return m_store.at ( mv_id[ index_id ] ).m_axis [ index_axis ];
 	}
 
 	bool SDL_GamePad::P_Ax ( int32_t id, SDL_GamepadAxis axis ) const
@@ -357,8 +392,14 @@ namespace GAME
 		//接続されているか
 		if ( NotExist ( id ) ) { return 0.f; }
 
-		uint32_t index = static_cast < uint32_t > ( axis );
-		return m_prev.at ( mv_id[ id ] ).m_axis [ index ];
+		uint32_t index_axis = static_cast < uint32_t > ( axis );
+
+		//idは1台目から1、配列添字は-1する
+		if ( id <= 0 ) { return 0.f; }
+		int32_t index_id = id - 1;
+		if (index_id >= mv_id.size()) { return 0.f; }
+
+		return m_prev.at ( mv_id[ index_id ] ).m_axis [ index_axis ];
 	}
 
 	bool SDL_GamePad::P_PAx ( int32_t id, SDL_GamepadAxis axis ) const
@@ -371,6 +412,109 @@ namespace GAME
 		return ( GetPreAxis ( id, axis ) < -16384 );
 	}
 
+	//----------------------------------------------------------------
+	//Push判定　Axis
+	bool SDL_GamePad::PS_LX_P ( GamePadInput& gpi, SDL_JoystickID id ) const
+	{
+		if ( PushAxisLX_Plus ( id ) )
+		{
+			gpi.SetSDLAxis ( id, SDL_AXIS_VALUE::AXIS_LX_P );
+			return T;
+		}
+		return F;
+	}
+
+	bool SDL_GamePad::PS_LX_M ( GamePadInput& gpi, SDL_JoystickID id ) const
+	{
+		if ( PushAxisLX_Minus ( id ) )
+		{
+			gpi.SetSDLAxis ( id, SDL_AXIS_VALUE::AXIS_LX_M );
+			return T;
+		}
+		return F;
+	}
+
+	bool SDL_GamePad::PS_LY_P ( GamePadInput& gpi, SDL_JoystickID id ) const
+	{
+		if ( PushAxisLY_Plus ( id ) )
+		{
+			gpi.SetSDLAxis ( id, SDL_AXIS_VALUE::AXIS_LY_P );
+			return T;
+		}
+		return F;
+	}
+
+	bool SDL_GamePad::PS_LY_M ( GamePadInput& gpi, SDL_JoystickID id ) const
+	{
+		if ( PushAxisLY_Minus ( id ) )
+		{
+			gpi.SetSDLAxis ( id, SDL_AXIS_VALUE::AXIS_LY_M );
+			return T;
+		}
+		return F;
+	}
+
+	//R
+	bool SDL_GamePad::PS_RX_P ( GamePadInput& gpi, SDL_JoystickID id ) const
+	{
+		if ( PushAxisRX_Plus ( id ) )
+		{
+			gpi.SetSDLAxis ( id, SDL_AXIS_VALUE::AXIS_RX_P );
+			return T;
+		}
+		return F;
+	}
+
+	bool SDL_GamePad::PS_RX_M ( GamePadInput& gpi, SDL_JoystickID id ) const
+	{
+		if ( PushAxisRX_Minus ( id ) )
+		{
+			gpi.SetSDLAxis ( id, SDL_AXIS_VALUE::AXIS_RX_M );
+			return T;
+		}
+		return F;
+	}
+
+	bool SDL_GamePad::PS_RY_P ( GamePadInput& gpi, SDL_JoystickID id ) const
+	{
+		if ( PushAxisRY_Plus ( id ) )
+		{
+			gpi.SetSDLAxis ( id, SDL_AXIS_VALUE::AXIS_RY_P );
+			return T;
+		}
+		return F;
+	}
+
+	bool SDL_GamePad::PS_RY_M ( GamePadInput& gpi, SDL_JoystickID id ) const
+	{
+		if ( PushAxisRY_Minus ( id ) )
+		{
+			gpi.SetSDLAxis ( id, SDL_AXIS_VALUE::AXIS_RY_M );
+			return T;
+		}
+		return F;
+	}
+
+	//T
+	bool SDL_GamePad::PS_LT ( GamePadInput& gpi, SDL_JoystickID id ) const
+	{
+		if ( PushAxisLT ( id ) )
+		{
+			gpi.SetSDLAxis ( id, SDL_AXIS_VALUE::AXIS_LT_P );
+			return T;
+		}
+		return F;
+	}
+
+	bool SDL_GamePad::PS_RT ( GamePadInput& gpi, SDL_JoystickID id ) const
+	{
+		if ( PushAxisRT ( id ) )
+		{
+			gpi.SetSDLAxis ( id, SDL_AXIS_VALUE::AXIS_RT_P );
+			return T;
+		}
+		return F;
+	}
 
 
 }	//namespace GAME

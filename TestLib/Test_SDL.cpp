@@ -30,6 +30,16 @@ namespace GAME
 
 	void Test::Move ()
 	{
+		//入力の取得
+		DeviceInput di = SivInput::Inst()->PushInput ();
+		INPUT_DEVICE_TYPE idt = di.GetType();
+
+		//入力が有効な場合
+		if ( idt != NODEVICE )
+		{
+			DeviceInput _di = SivInput::Inst()->PushInput ();
+		}
+
 		TASK_VEC::Move ();
 	}
 

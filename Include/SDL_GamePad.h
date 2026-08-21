@@ -169,6 +169,18 @@ namespace GAME
 		float GetPreAxis ( int32_t id, SDL_GamepadAxis axis ) const;
 		bool P_PAx ( int32_t id, SDL_GamepadAxis axis ) const;
 		bool M_PAx ( int32_t id, SDL_GamepadAxis axis ) const;
+
+		//内部用
+		bool PS_LX_P ( GamePadInput& gpi, SDL_JoystickID id ) const;
+		bool PS_LX_M ( GamePadInput& gpi, SDL_JoystickID id ) const;
+		bool PS_LY_P ( GamePadInput& gpi, SDL_JoystickID id ) const;
+		bool PS_LY_M ( GamePadInput& gpi, SDL_JoystickID id ) const;
+		bool PS_RX_P ( GamePadInput& gpi, SDL_JoystickID id ) const;
+		bool PS_RX_M ( GamePadInput& gpi, SDL_JoystickID id ) const;
+		bool PS_RY_P ( GamePadInput& gpi, SDL_JoystickID id ) const;
+		bool PS_RY_M ( GamePadInput& gpi, SDL_JoystickID id ) const;
+		bool PS_LT   ( GamePadInput& gpi, SDL_JoystickID id ) const;
+		bool PS_RT   ( GamePadInput& gpi, SDL_JoystickID id ) const;
 	};
 
 	using P_SDL_GamePad = std::shared_ptr < SDL_GamePad >;

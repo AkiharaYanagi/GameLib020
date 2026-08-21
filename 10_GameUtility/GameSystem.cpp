@@ -45,6 +45,7 @@ namespace GAME
 
 		//入力
 		SivInput::Create ();
+		SivInput::Inst()->Load ();
 
 		//キーコンフィグ
 		KeyConfig::Create ();

@@ -26,6 +26,12 @@ namespace GAME
 	//-------------------------------------------------------------------------------------------------
 	//	フレーム毎の更新
 	//-------------------------------------------------------------------------------------------------
+	//初期化
+	void SivInput::Load ()
+	{
+		m_sdl_gamepad.Load();		//SDLゲームパッド
+	}
+
 	//毎回の更新
 	void SivInput::Update ()
 	{
@@ -55,8 +61,8 @@ namespace GAME
 
 
 		//GamePadInput gpi = m_gamepad.PushInput ();
-
 		GamePadInput gpi = m_sdl_gamepad.PushInput();
+
 
 		if ( gpi.GetInputType () != PIT_NO_DATA )
 		{

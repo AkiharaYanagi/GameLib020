@@ -59,6 +59,13 @@ namespace GAME
 		m_pov = pov;
 	}
 
+	void GamePadInput::SetSDLAxis ( uint32 pad_id, SDL_AXIS_VALUE sdl_axis )
+	{
+		m_gamepadID = pad_id;
+		m_type = PIT_SDL_AXIS;
+		m_sdl_axis = sdl_axis;
+	}
+
 
 	s3d::String GamePadInput::ToString () const
 	{
@@ -82,10 +89,6 @@ namespace GAME
 		return str;
 	}
 
-	s3d::String GamePadInput::GetStrAxis () const
-	{
-		return GetStrAxis ( m_axis );
-	}
 
 	s3d::String GamePadInput::GetStrAxis ( AXIS_VALUE axis ) const
 	{
@@ -99,6 +102,29 @@ namespace GAME
 		case AXIS_Y_M:	str += U"Y:-";		break;
 		case AXIS_Z_P:	str += U"Z:+";		break;
 		case AXIS_Z_M:	str += U"Z:-";		break;
+		}
+
+		return str;
+	}
+
+	s3d::String GamePadInput::GetStrSDLAxis ( SDL_AXIS_VALUE sdl_axis ) const
+	{
+		s3d::String str = U"AXIS_";
+
+		switch ( sdl_axis )
+		{
+		case AXIS_LX_P:	str += U"LX:+";		break;
+		case AXIS_LX_M:	str += U"LX:-";		break;
+		case AXIS_LY_P:	str += U"LY:+";		break;
+		case AXIS_LY_M:	str += U"LY:-";		break;
+
+		case AXIS_RX_P:	str += U"RX:+";		break;
+		case AXIS_RX_M:	str += U"RX:-";		break;
+		case AXIS_RY_P:	str += U"RY:+";		break;
+		case AXIS_RY_M:	str += U"RY:-";		break;
+
+		case AXIS_LT_P:	str += U"LT:+";		break;
+		case AXIS_RT_P:	str += U"RT:+";		break;
 		}
 
 		return str;
