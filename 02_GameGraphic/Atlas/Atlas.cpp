@@ -82,6 +82,26 @@ namespace GAME
 		}
 	}
 
+	void Atlas::Draw ( uint32_t indexTexture, VEC2 pos, VEC2 scl, s3d::ColorF clrf )
+	{
+		Canvas & cvs = m_id_canvas [ indexTexture ];
+		double x = (double)pos.x;
+		double y = (double)pos.y;
+
+		//すべてのタイルを描画
+		for ( const Tile & tl : cvs.GetTiles () )
+		{
+			s3d::Texture tx = m_txs [ tl.GetPage () ];
+			s3d::RectF rect = s3d::RectF{ tl.U(), tl.V(), TIP_W, TIP_H };
+
+			s3d::Vec2 s { (double)scl.x, (double)scl.y };
+			s3d::Vec2 p { x + tl.X() * s.x, y + tl.Y() * s.y };
+
+			tx ( rect ).scaled ( s ).draw ( p, clrf );
+		}
+	}
+
+
 	void Atlas::Clear ()
 	{
 		m_dic_pos.clear ();

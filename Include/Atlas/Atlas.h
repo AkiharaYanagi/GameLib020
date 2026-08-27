@@ -54,6 +54,7 @@ namespace GAME
 
 		void DrawPos ( uint32_t indexTexture, float x, float y );
 		void DrawPosScl ( uint32_t indexTexture, VEC2 pos, VEC2 scl );
+		void Draw ( uint32_t indexTexture, VEC2 pos, VEC2 scl, s3d::ColorF clrf );
 
 		void Clear ();
 

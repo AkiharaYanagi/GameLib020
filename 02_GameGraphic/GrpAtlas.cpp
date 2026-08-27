@@ -101,8 +101,19 @@ namespace GAME
 
 #endif // 0
 
+			//色補正(アルファ値は透明, RGBは乗算)
+			_CLR clr = pob->GetColor ();
+			if ( _CLR ( 0xffffffff ) == clr )
+			{
+				//オブジェクト色指定がある場合はそちらを優先
+				clr = GetColor ();	//Core
+			}
+			s3d::ColorF clrf { clr.r, clr.g, clr.b, clr.a };
+
+
 			//最終描画
-			if ( atlas ) { atlas->DrawPosScl ( index, pos, scaling ); }
+//			if ( atlas ) { atlas->DrawPosScl ( index, pos, scaling ); }
+			if ( atlas ) { atlas->Draw ( index, pos, scaling, clrf ); }
 
 		}
 	}
