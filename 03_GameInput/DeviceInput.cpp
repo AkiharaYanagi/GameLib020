@@ -20,12 +20,13 @@ namespace GAME
 	{
 	}
 
-	void GamePadInput::Set ( uint32 pad_id, PAD_INPUT_TYPE type, uint32 btn, LEVER_DIR lvr, AXIS_VALUE axis, POV_VALUE pov )
+	void GamePadInput::Set ( uint32 pad_id, PAD_INPUT_TYPE type, uint32 btn, LEVER_DIR lvr, AXIS_VALUE axis, SDL_AXIS_VALUE sdl_axis, POV_VALUE pov )
 	{
 		m_gamepadID = pad_id;
 		m_type = type;
 		m_buttonID = btn;
 		m_lever = lvr;
+		m_sdl_axis = sdl_axis;
 		m_axis = axis;
 		m_pov = pov;
 	}
@@ -213,6 +214,7 @@ namespace GAME
 		bw.write ( (uint8)ji.GetButtonID () );
 		bw.write ( (uint8)ji.GetLever () );
 		bw.write ( (uint8)ji.GetAxis () );
+		bw.write ( (uint8)ji.GetSDLAxis () );
 		bw.write ( (uint8)ji.GetPov () );
 
 		bw.write ( (uint8)GetKey() );
@@ -227,6 +229,7 @@ namespace GAME
 		uint32 btn = s3d_UTL::ReadUInt8 ( br );
 		LEVER_DIR lvr = (LEVER_DIR)s3d_UTL::ReadUInt8 ( br );
 		AXIS_VALUE axis = (AXIS_VALUE)s3d_UTL::ReadUInt8 ( br );
+		SDL_AXIS_VALUE sdl_axis = (SDL_AXIS_VALUE)s3d_UTL::ReadUInt8 ( br );
 		POV_VALUE pov = (POV_VALUE)s3d_UTL::ReadUInt8 ( br );
 		KEY_NAME key = (KEY_NAME)s3d_UTL::ReadUInt8 ( br );
 
@@ -241,7 +244,7 @@ namespace GAME
 			break;
 
 		case GAMEPAD:
-			gpi.Set ( pad_id, input_type, btn, lvr, axis, pov );
+			gpi.Set ( pad_id, input_type, btn, lvr, axis, sdl_axis, pov );
 			SetPad ( gpi );
 			break;
 

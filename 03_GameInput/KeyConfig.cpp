@@ -431,10 +431,10 @@ namespace GAME
 		case SDL_AXIS_VALUE::AXIS_LX_M:	ret = SVINP->IsAxisLX_Minus ( ID );	break;
 		case SDL_AXIS_VALUE::AXIS_LY_P:	ret = SVINP->IsAxisLY_Plus ( ID );	break;
 		case SDL_AXIS_VALUE::AXIS_LY_M:	ret = SVINP->IsAxisLY_Minus ( ID );	break;
-		case SDL_AXIS_VALUE::AXIS_RX_P:	ret = SVINP->IsAxisLX_Plus ( ID );	break;
-		case SDL_AXIS_VALUE::AXIS_RX_M:	ret = SVINP->IsAxisLX_Minus ( ID );	break;
-		case SDL_AXIS_VALUE::AXIS_RY_P:	ret = SVINP->IsAxisLY_Plus ( ID );	break;
-		case SDL_AXIS_VALUE::AXIS_RY_M:	ret = SVINP->IsAxisLY_Minus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RX_P:	ret = SVINP->IsAxisRX_Plus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RX_M:	ret = SVINP->IsAxisRX_Minus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RY_P:	ret = SVINP->IsAxisRY_Plus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RY_M:	ret = SVINP->IsAxisRY_Minus ( ID );	break;
 		case SDL_AXIS_VALUE::AXIS_LT_P:	ret = SVINP->IsAxisLT ( ID );	break;
 		case SDL_AXIS_VALUE::AXIS_RT_P:	ret = SVINP->IsAxisRT( ID );	break;
 		}
@@ -524,10 +524,10 @@ namespace GAME
 		case SDL_AXIS_VALUE::AXIS_LX_M:	ret = SVINP->PushAxisLX_Minus ( ID );	break;
 		case SDL_AXIS_VALUE::AXIS_LY_P:	ret = SVINP->PushAxisLY_Plus ( ID );	break;
 		case SDL_AXIS_VALUE::AXIS_LY_M:	ret = SVINP->PushAxisLY_Minus ( ID );	break;
-		case SDL_AXIS_VALUE::AXIS_RX_P:	ret = SVINP->PushAxisLX_Plus ( ID );	break;
-		case SDL_AXIS_VALUE::AXIS_RX_M:	ret = SVINP->PushAxisLX_Minus ( ID );	break;
-		case SDL_AXIS_VALUE::AXIS_RY_P:	ret = SVINP->PushAxisLY_Plus ( ID );	break;
-		case SDL_AXIS_VALUE::AXIS_RY_M:	ret = SVINP->PushAxisLY_Minus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RX_P:	ret = SVINP->PushAxisRX_Plus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RX_M:	ret = SVINP->PushAxisRX_Minus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RY_P:	ret = SVINP->PushAxisRY_Plus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RY_M:	ret = SVINP->PushAxisRY_Minus ( ID );	break;
 		case SDL_AXIS_VALUE::AXIS_LT_P:	ret = SVINP->PushAxisLT ( ID );	break;
 		case SDL_AXIS_VALUE::AXIS_RT_P:	ret = SVINP->PushAxisRT( ID );	break;
 		}
@@ -619,6 +619,8 @@ namespace GAME
 		case SDL_AXIS_VALUE::AXIS_RX_M:	ret = SVINP->ReleAxisRX_Minus ( ID );	break;
 		case SDL_AXIS_VALUE::AXIS_RY_P:	ret = SVINP->ReleAxisRY_Plus ( ID );	break;
 		case SDL_AXIS_VALUE::AXIS_RY_M:	ret = SVINP->ReleAxisRY_Minus ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_LT_P:	ret = SVINP->ReleAxisLT ( ID );	break;
+		case SDL_AXIS_VALUE::AXIS_RT_P:	ret = SVINP->ReleAxisRT( ID );	break;
 		}
 		return ret;
 	}
