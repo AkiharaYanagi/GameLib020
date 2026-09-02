@@ -132,7 +132,7 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="DebugDisp.cpp" />
-    <ClCompile Include="Test_SDL.cpp" />
+    <ClCompile Include="Test_Atlas2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -764,6 +764,6 @@
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="..\Include\Game.h" />
     <ClInclude Include="DebugDisp.h" />
-    <ClInclude Include="Test_SDL.h" />
+    <ClInclude Include="Test_Atlas2.h" />
   </ItemGroup>
 </Project>

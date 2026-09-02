@@ -489,7 +489,8 @@ namespace GAME
 		PAD_INPUT_TYPE type = gpi.GetInputType ();
 		switch ( type )
 		{
-		case PIT_AXIS: return Push_Axis_Vl ( id, gpi.GetSDLAxis () ); break;
+		//case PIT_AXIS: return Push_Axis_Vl ( id, gpi.GetSDLAxis () ); break;
+		case PIT_SDL_AXIS: return Push_SDL_Axis_Vl ( id, gpi.GetSDLAxis () ); break;
 		//case PIT_POINT_OF_VIEW: return Push_POV_Vl ( id, gpi.GetPov () ); break;
 		case PIT_BUTTON: return SVINP->PushJoyButton ( id, gpi.GetButtonID () ); break;
 		}
@@ -515,7 +516,7 @@ namespace GAME
 
 #endif // 0
 
-	bool KeyConfig::Push_Axis_Vl ( uint32 ID, SDL_AXIS_VALUE vl ) const
+	bool KeyConfig::Push_SDL_Axis_Vl ( uint32 ID, SDL_AXIS_VALUE vl ) const
 	{
 		bool ret = false;
 		switch ( vl )
@@ -582,7 +583,8 @@ namespace GAME
 		PAD_INPUT_TYPE type = gpi.GetInputType ();
 		switch ( type )
 		{
-		case PIT_AXIS: return Rele_Axis_Vl ( id, gpi.GetSDLAxis () ); break;
+		//case PIT_AXIS: return Rele_Axis_Vl ( id, gpi.GetSDLAxis () ); break;
+		case PIT_SDL_AXIS: return Rele_SDL_Axis_Vl ( id, gpi.GetSDLAxis () ); break;
 		//case PIT_POINT_OF_VIEW: return Rele_POV_Lvr ( id, gpi.GetPov () ); break;
 		case PIT_BUTTON: return SVINP->ReleJoyButton ( id, gpi.GetButtonID () ); break;
 		}
@@ -606,7 +608,7 @@ namespace GAME
 	}
 
 #endif // 0
-	bool KeyConfig::Rele_Axis_Vl ( uint32 ID, SDL_AXIS_VALUE vl ) const
+	bool KeyConfig::Rele_SDL_Axis_Vl ( uint32 ID, SDL_AXIS_VALUE vl ) const
 	{
 		bool ret = false;
 		switch ( vl )

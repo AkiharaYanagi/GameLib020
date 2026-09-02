@@ -12,6 +12,8 @@
 //#include "CharaData.h"
 #include "DebugDisp.h"
 
+#include "Test_Atlas2.h"
+
 
 //-------------------------------------------------------------------------------------------------
 //	実装
@@ -38,6 +40,10 @@ void Main()
 {
 	//g_sw.Start ();	//時間計測開始
 
+	Test test_atlas2;
+
+	test_atlas2.Init ();
+
 
 	//ゲームシステム
 	GameSystem gameSystem;
@@ -57,6 +63,11 @@ void Main()
 
 		Move ( gameSystem );	//動作
 		Draw ( gameSystem );	//描画
+
+
+
+		test_atlas2.Move ();
+
 
 
 		//g_sw.Disp ( DBGOUT_0, U"メインループ (Move + Draw)" );
