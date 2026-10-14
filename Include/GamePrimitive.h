@@ -60,6 +60,27 @@ namespace GAME
 	using P_PrmRect = std::shared_ptr < PrmRect >;
 
 
+	//=======================================================================
+	//	Circle 
+	//=======================================================================
+	class GamePrimitiveCircle : public GameGraphicCore
+	{
+		s3d::Circle		m_circle { 400, 600, 300 };
+		s3d::ColorF		m_color { 1.f, 1.f, 1.f, 0.5f };
+		
+	public:
+		GamePrimitiveCircle ();
+		GamePrimitiveCircle ( const GamePrimitiveCircle & rhs ) = delete;
+		~GamePrimitiveCircle ();
+
+		//---------------------------------------------------------------------
+		void Draw ();
+	};
+
+	using PrmCircle = GamePrimitiveCircle;
+	using P_PrmCircle = std::shared_ptr < PrmCircle >;
+
+
 
 }	//namespace GAME
 

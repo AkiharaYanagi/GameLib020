@@ -12,7 +12,7 @@
 #include "Game.h"
 
 //ゲーム内容ヘッダファイルのインクルード
-#include "Test_Atlas2.h"
+#include "TestDrawArc.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ namespace GAME
 //	class GameMain	: public TASK_VEC
 	class GameMain	: public GameMainBase
 	{
-#define GAME_MAIN_ONLY_TEST		1
+#define GAME_MAIN_ONLY_TEST		0
 #if GAME_MAIN_ONLY_TEST
 		//ゲームメインのみのテスト
 		std::shared_ptr < GameTask > m_pTask;

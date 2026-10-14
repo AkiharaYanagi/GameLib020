@@ -78,5 +78,37 @@ namespace GAME
 		GameGraphicCore::SetColor ( color );
 	}
 
+
+
+
+	//=======================================================================
+	//	Circle 
+	//=======================================================================
+	GamePrimitiveCircle::GamePrimitiveCircle ()
+	{
+	}
+
+	GamePrimitiveCircle::~GamePrimitiveCircle ()
+	{
+	}
+
+	void GamePrimitiveCircle::Draw ()
+	{
+		if ( ! m_valid ) { return; }
+
+		//全体描画用レンダテクスチャのunique_ptrを取得
+		UP_RndrTx upRndTx = G_GrpTx::Inst()->Handover_OutTx ();
+
+		{
+			const s3d::ScopedRenderTarget2D target ( * upRndTx );
+
+			m_circle.drawArc ( 0_deg, 120_deg, 10.0, 0.0, m_color );
+		}
+
+		//unique_ptrを返す
+		G_GrpTx::Inst()->Refund_OutTx ( std::move ( upRndTx ) );
+	}
+
+
 }	//namespace GAME
 

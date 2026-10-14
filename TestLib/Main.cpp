@@ -12,7 +12,7 @@
 //#include "CharaData.h"
 #include "DebugDisp.h"
 
-#include "Test_Atlas2.h"
+#include "TestDrawArc.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -40,9 +40,10 @@ void Main()
 {
 	//g_sw.Start ();	//時間計測開始
 
-	Test test_atlas2;
 
-	test_atlas2.Init ();
+
+	Test test;
+
 
 
 	//ゲームシステム
@@ -65,8 +66,7 @@ void Main()
 		Draw ( gameSystem );	//描画
 
 
-
-		test_atlas2.Move ();
+		test.Draw ();
 
 
 
